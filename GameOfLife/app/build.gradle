@@ -29,19 +29,17 @@ android {
     }
     testOptions {
         unitTests.all {
-            useJunitPlatform()
+            useJUnitPlatform()
             finalizedBy jacocoTestReport
 
         }
     }
 }
 
-
 task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     reports {
-        xml.enabled true
-        xml.destination file("S{project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport. xml")
+        xml.destination file("S{project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     }
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug", excludes: fileFilter)
