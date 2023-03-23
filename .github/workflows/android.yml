@@ -20,9 +20,9 @@ jobs:
           cache: gradle
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./GameOfLife/gradlew
+        run: chmod +x ./gradlew
       - name: Build with Gradle
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./GameOfLife/gradlew build sonarqube --info # we don't need to run jacocoTestReport on its own, because we finalize test goal with the jacoco report task
+        run: ./gradlew build sonarqube --info # we don't need to run jacocoTestReport on its own, because we finalize test goal with the jacoco report task
