@@ -33,7 +33,7 @@ jobs:
       - name: Set Execution Flag on gradle file
         run: chmod +x ./GameOfLife/gradlew
       - name: Test
-        run: ll
+        run: ls
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
