@@ -32,10 +32,8 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Set Execution Flag on gradle file
         run: chmod +x ./GameOfLife/gradlew
-      - name: Test
-        run: ls
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./GameOfLife/gradlew build sonarqube --info
+        run: ./GameOfLife/gradlew build sonarqube --info --debug --stacktrace
