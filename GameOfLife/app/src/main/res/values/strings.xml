@@ -2,4 +2,15 @@
     <string name="app_name">GameOfLife</string>
     <string name="join_game">Join Game</string>
     <string name="host_game">Host Game</string>
+    <string name="title_activity_join_game">JoinGameActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="join">Join</string>
+    <string name="back">Back</string>
+    <string name="username">username</string>
+    <string name="backButton">Back</string>
+    <string name="continueButton">Continue</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="server_address">Server address</string>
+    <string name="host_username">Host username</string>
 </resources>

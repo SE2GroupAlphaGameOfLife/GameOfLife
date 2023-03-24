@@ -15,6 +15,18 @@
         android:theme="@style/Theme.GameOfLife"
         tools:targetApi="31">
         <activity
+            android:name=".WaitingForUsersActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".CreateUserProfileActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".JoinGameActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape">

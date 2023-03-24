@@ -6,32 +6,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".WaitingForUsersActivity">
+
 
         <LinearLayout
-            android:layout_width="412dp"
-            android:layout_height="177dp"
+            android:layout_width="538dp"
+            android:layout_height="273dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/joinGameButton"
+            <TextView
+                android:id="@+id/titleWaitingForPlayers"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:text="@string/join_game" />
+                android:layout_height="41dp"
+                android:text="Wait for other players to join"
+                android:textSize="24sp" />
 
-            <Space
+            <ListView
+                android:id="@+id/listViewWaitingForPlayers"
                 android:layout_width="match_parent"
-                android:layout_height="39dp" />
-
-            <Button
-                android:id="@+id/hostGameButton"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:text="@string/host_game" />
+                android:layout_height="242dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+
