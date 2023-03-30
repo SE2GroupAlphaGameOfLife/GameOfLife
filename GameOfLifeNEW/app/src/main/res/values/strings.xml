@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GameOfLife</string>
+    <string name="Button_NewGame">New Game</string>
+    <string name="Button_JoinGame">Join Game</string>
 </resources>
