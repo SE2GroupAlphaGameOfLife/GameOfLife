@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.lblHelloWorld.setText("Hello Alphas");
+        //binding.lblHelloWorld.setText("Hello Alphas");
     }
 }
