@@ -1,6 +1,11 @@
 package com.example.gameoflife.gamecards;
 
 public class Event {
+    public Event(int lp, int cash, String text) {
+        this.lp = lp;
+        this.cash = cash;
+        this.text = text;
+    }
 
     private int lp;
     private int cash;

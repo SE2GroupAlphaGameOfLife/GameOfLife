@@ -20,11 +20,22 @@ public class Card {
        }
     }
 
+    public void fillEvents(){
+        for (int i = 0; i < 4; i++) {
+            events.add(new Event(0,0,""));
+        }
+    }
+/*
     public void addEvents(List<Event> newEvents){
-        //TODO EVENT ZU KARTE HINZUFÜGEN
         for (int i = 0; i < events.size(); i++) {
             events.set(i, newEvents.get(i));
         }
+    }
+
+ */
+
+    public void addEvent(int index, Event e){
+        events.set(index, e);
     }
 
 }
