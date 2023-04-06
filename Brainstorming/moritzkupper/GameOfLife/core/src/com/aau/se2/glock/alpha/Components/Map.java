@@ -8,12 +8,6 @@ public class Map {
     private List<Field> fields;
     private Model model;
 
-    public void draw(SpriteBatch batch){
-        batch.begin();
-        batch.draw(model.getTexture(), model.getX(), model.getY(), model.getWidth(), model.getHeight());
-        batch.end();
-    }
-
     public List<Field> getFields() {
         return fields;
     }

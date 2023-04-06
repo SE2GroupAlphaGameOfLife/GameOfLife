@@ -1,6 +1,7 @@
 package com.aau.se2.glock.alpha.Components;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Model {
     private float width;
@@ -15,6 +16,12 @@ public class Model {
         this.x = x;
         this.y = y;
         this.texture = texture;
+    }
+
+    public void draw(SpriteBatch batch){
+        batch.begin();
+        batch.draw(texture, x, y, width, height);
+        batch.end();
     }
 
     public float getWidth() {
