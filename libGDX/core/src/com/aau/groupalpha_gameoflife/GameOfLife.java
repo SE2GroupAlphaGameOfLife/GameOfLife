@@ -1,31 +1,32 @@
 package com.aau.groupalpha_gameoflife;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class GameOfLife extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+public final class GameOfLife extends Game {
+	//Making a Singleton, so that we can access it from the screens
+	public static GameOfLife INSTANCE;
+
+	private GameOfLife(){
 	}
 
-	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public static GameOfLife getInstance(){
+		if(INSTANCE == null){
+			INSTANCE = new GameOfLife();
+		}
+
+		return INSTANCE;
 	}
-	
+
+
 	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+	public void create () {
+		setScreen(new MainMenuScreen());
 	}
+
 }
