@@ -65,12 +65,11 @@ public class Player {
         this.model = model;
     }
 
-    public void moveToField(Field fieldToMove, SpriteBatch batch) {
+    public void moveToField(Field fieldToMove) {
         // ToDo: check if fields in between are fields where you must stop!
         this.model.setX(fieldToMove.getModel().getX());
         this.model.setY(fieldToMove.getModel().getY());
         currentField = fieldToMove;
         setPlayerSlot();
-        model.draw(batch);
     }
 }

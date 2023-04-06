@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="TS1.tsx"/>
  <layer id="1" name="Kachelebene 1" width="1" height="1">
   <data encoding="csv">
-112
+154
 </data>
  </layer>
 </map>

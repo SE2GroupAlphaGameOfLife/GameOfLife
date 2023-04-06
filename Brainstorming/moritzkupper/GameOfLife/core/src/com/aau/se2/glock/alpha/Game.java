@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends ApplicationAdapter {
-    private static final int NUMBER_TOTAL_FIELDS = 10;
+    private static final int NUMBER_TOTAL_FIELDS = 13;
     private static final String STRING_FIELD_TEXTURE = "fieldTexture.png";
     private static final String STRING_MAP_TEXTURE = "mapTexture.png";
     private static final String STRING_PLAYER_HARRYPOTTER_TEXTURE = "harryPotter.png";
@@ -80,14 +80,11 @@ public class Game extends ApplicationAdapter {
         lb_currentPlayer.setFontScale(fontSize);
         lb_currentPlayer.setX(screenWidth - screenWidth / 5 - spaceToScreenEnding);
         lb_currentPlayer.setY(screenHeight - lb_currentPlayer.getHeight() - spaceToScreenEnding);
-
         stage.addActor(lb_currentPlayer);
-        stage.draw();
     }
 
     private void updateCurrentPlayerLabel() {
         lb_currentPlayer.setText(currentPlayer.getUsername());
-        stage.draw();
     }
 
     private void createDice() {
@@ -108,7 +105,7 @@ public class Game extends ApplicationAdapter {
         // ToDo: if(player who clicked == currentPlayer)
         // ToDo: roll random number
         int num = 1;
-        currentPlayer.moveToField(map.getFields().get(currentPlayer.getCurrentField().getNumber() + num), batch);
+        currentPlayer.moveToField(map.getFields().get(currentPlayer.getCurrentField().getNumber() + num));
 
         // ToDo: Do Action if required
 
@@ -138,10 +135,6 @@ public class Game extends ApplicationAdapter {
         for (int i = 0; i < 3; i++) {
             players.add(new Player(STRING_PLAYER_NAME_PREFIX + (i + 1), models.get(i), map.getFields().get(0)));
         }
-
-        for (Player p : players) {
-            p.getModel().draw(batch);
-        }
     }
 
     private void createFields() {
@@ -152,21 +145,29 @@ public class Game extends ApplicationAdapter {
             Field f = new Field(i, STRING_FIELD_NAME_PREFIX + i, model);
             fields.add(f);
         }
-
         map.setFields(fields);
-
-        for (Field f : map.getFields()) {
-            f.getModel().draw(batch);
-        }
     }
 
     private void createMap() {
         map = new Map();
         map.setModel(new Model(screenWidth, screenHeight, 0, 0, new Texture(STRING_MAP_TEXTURE)));
-        map.getModel().draw(batch);
     }
 
+    @Override
+    public void render() {
+        batch.begin();
+        map.getModel().draw(batch);
+        for (Field f : map.getFields()) {
+            f.getModel().draw(batch);
+        }
+        for (Player p : players) {
+            p.getModel().draw(batch);
+        }
+        stage.draw();
+        batch.end();
 
+        updateCurrentPlayerLabel();
+    }
 
     @Override
     public void dispose() {

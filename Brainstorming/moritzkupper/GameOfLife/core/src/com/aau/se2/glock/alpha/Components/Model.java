@@ -19,9 +19,7 @@ public class Model {
     }
 
     public void draw(SpriteBatch batch){
-        batch.begin();
         batch.draw(texture, x, y, width, height);
-        batch.end();
     }
 
     public float getWidth() {
