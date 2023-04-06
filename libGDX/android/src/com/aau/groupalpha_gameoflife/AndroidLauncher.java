@@ -11,6 +11,7 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new GameOfLife(), config);
+		//We use GameOfLife.getInstance() instead of a Constructor because it is a Singleton
+		initialize(GameOfLife.getInstance(), config);
 	}
 }
