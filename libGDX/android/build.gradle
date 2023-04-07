@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.aau.groupalpha_gameoflife"
+        applicationId "com.mygdx.game"
         minSdkVersion 14
         targetSdkVersion 33
         versionCode 1
@@ -82,7 +82,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.aau.groupalpha_gameoflife/com.aau.groupalpha_gameoflife.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.mygdx.game/com.mygdx.game.AndroidLauncher'
 }
 
 eclipse.project.name = appName + "-android"
