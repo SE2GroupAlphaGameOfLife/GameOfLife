@@ -1,6 +1,7 @@
 package com.mygdx.gameoflife;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 
 public class GameOfLife extends Game {
 	private static GameOfLife INSTANCE;
@@ -14,6 +15,10 @@ public class GameOfLife extends Game {
 		}
 
 		return INSTANCE;
+	}
+
+	public static void changeScreen(Screen screen){
+		INSTANCE.setScreen(screen);
 	}
 
 	@Override
