@@ -1,0 +1,83 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+	package
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:4:5-38
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+	xmlns:tools
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:1-29:12
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:2:11-69
+uses-feature#0x00020000
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:6:5-78
+	android:glEsVersion
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:6:19-51
+	android:required
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:6:52-75
+application
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:8:5-27:19
+	android:label
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:14:9-41
+	android:fullBackupContent
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:10:9-41
+	android:appCategory
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:13:9-35
+	tools:ignore
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:15:9-39
+	android:icon
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:11:9-45
+	android:allowBackup
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:9:9-35
+	android:isGame
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:12:9-30
+activity#com.aau.se2.glock.alpha.AndroidLauncher
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:16:9-26:20
+	android:screenOrientation
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:19:13-50
+	android:label
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:18:13-45
+	android:exported
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:21:13-36
+	android:configChanges
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:20:13-107
+	android:name
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:17:13-67
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:22:13-25:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:23:17-69
+	android:name
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:23:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:24:17-77
+	android:name
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml:24:27-74
+uses-sdk
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		ADDED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
+		INJECTED from C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\AndroidManifest.xml
