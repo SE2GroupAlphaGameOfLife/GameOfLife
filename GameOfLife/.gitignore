@@ -1,91 +1,114 @@
-# Temporary Files
-*~
-.*.swp
-.DS_STORE
-desktop.ini
-robovm-build/
-project.xcworkspace/
-xcuserdata/
-xcode/native/
-.gradle/
-build/
-bin/
-target/
-obj/
-out/
-classes/
+## Java
+
+*.class
+*.war
+*.ear
+hs_err_pid*
+
+## Robovm
+/ios/robovm-build/
+
+## GWT
+/html/war/
+/html/gwt-unitCache/
+.apt_generated/
 .gwt/
 gwt-unitCache/
-war/
-gen/
-gen-external-apklibs/
-armeabi-v7a/
-arm64-v8a/
-linux32/
-linux64/
-windows32/
-windows64/
-macosx32/
-ios32/
-Debug/
-Release/
-x64/
-x86/
-x86_64/
-ipch/
-/dist
+www-test/
+.gwt-tmp/
 
-*.a
-*.a.tvos
-*.dll
-*.dll.mdb
-*.userprefs
-*.sdf
-*.class
-hs_err_pid*
-Thumbs.db
-
-libgdx-*.zip
-libgdx-*.zip.MD5
-
+## Android Studio and Intellij and Android in general
+/android/libs/armeabi-v7a/
+/android/libs/arm64-v8a/
+/android/libs/x86/
+/android/libs/x86_64/
+/android/gen/
+.idea/
+*.ipr
+*.iws
 *.iml
-/.idea/
+/android/out/
+com_crashlytics_export_strings.xml
 
-#core & extension libs/ folders that have no 3rd party dependencies in them
-/gdx/libs
-/backends/gdx-backend-jglfw/libs/
-/backends/gdx-backend-robovm/libs/
-/extensions/gdx-audio/libs/
-/extensions/gdx-box2d/gdx-box2d/libs/
-/extensions/gdx-bullet/libs/
-/extensions/gdx-freetype/libs/
-/extensions/gdx-image/libs/
-/extensions/gdx-lwjgl3-angle/res
-/extensions/gdx-lwjgl3-glfw-awt-macos/res/
-/extensions/gdx-setup/gdx-setup.jar
-/extensions/gdx-setup/test/
+## Eclipse
 
-#the LWJGL3 libs are pulled via fetch.xml
-/backends/gdx-backend-lwjgl3/libs/lwjgl*.jar
-/backends/gdx-backend-robovm-metalangle/res/META-INF/robovm/ios/libs
-
-#ensure gdx-setup.jar works properly
-!/extensions/gdx-setup/src/com/badlogic/gdx/setup/resources/gwt/war
-
-#assets generated in tests
-tests/gdx-tests-android/assets/bitmapWrittenFont.fnt
-tests/gdx-tests-android/assets/bitmapWrittenFont.png
-
-#directories created by fetch.xml
-/tests/gdx-tests-android/libs
-/tmp/
-
-#gradle wrapper
-/local.properties
-natives.zip
-
-#Eclipse metadata
-.metadata
 .classpath
 .project
-.settings
+.metadata/
+/android/bin/
+/core/bin/
+/desktop/bin/
+/html/bin/
+/ios/bin/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+
+## NetBeans
+
+/nbproject/private/
+/android/nbproject/private/
+/core/nbproject/private/
+/desktop/nbproject/private/
+/html/nbproject/private/
+/ios/nbproject/private/
+
+/build/
+/android/build/
+/core/build/
+/desktop/build/
+/html/build/
+/ios/build/
+
+/nbbuild/
+/android/nbbuild/
+/core/nbbuild/
+/desktop/nbbuild/
+/html/nbbuild/
+/ios/nbbuild/
+
+/dist/
+/android/dist/
+/core/dist/
+/desktop/dist/
+/html/dist/
+/ios/dist/
+
+/nbdist/
+/android/nbdist/
+/core/nbdist/
+/desktop/nbdist/
+/html/nbdist/
+/ios/nbdist/
+
+nbactions.xml
+nb-configuration.xml
+
+## Gradle
+
+/local.properties
+.gradle/
+gradle-app.setting
+/build/
+/android/build/
+/core/build/
+/desktop/build/
+/html/build/
+/ios/build/
+
+## OS Specific
+.DS_Store
+Thumbs.db
+
+## iOS
+/ios/xcode/*.xcodeproj/*
+!/ios/xcode/*.xcodeproj/xcshareddata
+!/ios/xcode/*.xcodeproj/project.pbxproj
+/ios/xcode/native/
+/ios/IOSLauncher.app
+/ios/IOSLauncher.app.dSYM
