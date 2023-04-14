@@ -1,17 +1,17 @@
 [
   {
     "position": {
-      "x": 15,
-      "y": 35
+      "x": 55,
+      "y": -8
     },
     "nextPositions": [
-      1
+      1,43
     ]
   },
   {
     "position": {
-      "x": 15,
-      "y": 55
+      "x": 43,
+      "y": -30
     },
     "nextPositions": [
       2
@@ -20,7 +20,7 @@
   {
     "position": {
       "x": 15,
-      "y": 75
+      "y": -40
     },
     "nextPositions": [
       3
@@ -28,18 +28,17 @@
   },
   {
     "position": {
-      "x": 35,
-      "y": 90
+      "x": -15,
+      "y": -30
     },
     "nextPositions": [
-      4,
-      12
+      4,75
     ]
   },
   {
     "position": {
-      "x": 62,
-      "y": 93
+      "x": -45,
+      "y": -20
     },
     "nextPositions": [
       5
@@ -47,8 +46,8 @@
   },
   {
     "position": {
-      "x": 85,
-      "y": 80
+      "x": -55,
+      "y": 0
     },
     "nextPositions": [
       6
@@ -56,17 +55,17 @@
   },
   {
     "position": {
-      "x": 98,
-      "y": 60
+      "x": -45,
+      "y": 25
     },
     "nextPositions": [
-      7
+      7,107
     ]
   },
   {
     "position": {
-      "x": 110,
-      "y": 40
+      "x": -28,
+      "y": 42
     },
     "nextPositions": [
       8
@@ -74,8 +73,8 @@
   },
   {
     "position": {
-      "x": 115,
-      "y": 22
+      "x": -8,
+      "y": 45
     },
     "nextPositions": [
       9
@@ -83,17 +82,17 @@
   },
   {
     "position": {
-      "x": 95,
-      "y": 5
+      "x": 15,
+      "y": 45
     },
     "nextPositions": [
-      10
+      10,12
     ]
   },
   {
     "position": {
-      "x": 60,
-      "y": 2
+      "x": 50,
+      "y": 32
     },
     "nextPositions": [
       11
@@ -101,8 +100,8 @@
   },
   {
     "position": {
-      "x": 50,
-      "y": 22
+      "x": 60,
+      "y": 12
     },
     "nextPositions": [
       0
@@ -110,8 +109,8 @@
   },
   {
     "position": {
-      "x": 35,
-      "y": 115
+      "x": 15,
+      "y": 65
     },
     "nextPositions": [
       13
@@ -119,8 +118,8 @@
   },
   {
     "position": {
-      "x": 40,
-      "y": 140
+      "x": 15,
+      "y": 85
     },
     "nextPositions": [
       14
@@ -128,17 +127,18 @@
   },
   {
     "position": {
-      "x": 55,
-      "y": 155
+      "x": 35,
+      "y": 100
     },
     "nextPositions": [
-      15
+      15,
+      21
     ]
   },
   {
     "position": {
-      "x": 85,
-      "y": 165
+      "x": 62,
+      "y": 103
     },
     "nextPositions": [
       16
@@ -146,8 +146,8 @@
   },
   {
     "position": {
-      "x": 115,
-      "y": 160
+      "x": 85,
+      "y": 90
     },
     "nextPositions": [
       17
@@ -155,8 +155,8 @@
   },
   {
     "position": {
-      "x": 140,
-      "y": 135
+      "x": 98,
+      "y": 70
     },
     "nextPositions": [
       18
@@ -164,17 +164,17 @@
   },
   {
     "position": {
-      "x": 155,
-      "y": 110
+      "x": 110,
+      "y": 50
     },
     "nextPositions": [
-      19, 25
+      19
     ]
   },
   {
     "position": {
-      "x": 180,
-      "y": 95
+      "x": 115,
+      "y": 32
     },
     "nextPositions": [
       20
@@ -182,17 +182,17 @@
   },
   {
     "position": {
-      "x": 197,
-      "y": 72
+      "x": 95,
+      "y": 15
     },
     "nextPositions": [
-      21
+      11
     ]
   },
   {
     "position": {
-      "x": 197,
-      "y": 55
+      "x": 35,
+      "y": 125
     },
     "nextPositions": [
       22
@@ -200,8 +200,8 @@
   },
   {
     "position": {
-      "x": 185,
-      "y": 40
+      "x": 40,
+      "y": 150
     },
     "nextPositions": [
       23
@@ -209,8 +209,8 @@
   },
   {
     "position": {
-      "x": 165,
-      "y": 32
+      "x": 55,
+      "y": 165
     },
     "nextPositions": [
       24
@@ -218,17 +218,17 @@
   },
   {
     "position": {
-      "x": 143,
-      "y": 25
+      "x": 85,
+      "y": 175
     },
     "nextPositions": [
-      8
+      25
     ]
   },
   {
     "position": {
-      "x": 165,
-      "y": 127
+      "x": 115,
+      "y": 170
     },
     "nextPositions": [
       26
@@ -236,8 +236,8 @@
   },
   {
     "position": {
-      "x": 180,
-      "y": 143
+      "x": 140,
+      "y": 145
     },
     "nextPositions": [
       27
@@ -245,17 +245,17 @@
   },
   {
     "position": {
-      "x": 213,
-      "y": 137
+      "x": 155,
+      "y": 120
     },
     "nextPositions": [
-      28
+      28, 34
     ]
   },
   {
     "position": {
-      "x": 235,
-      "y": 118
+      "x": 180,
+      "y": 105
     },
     "nextPositions": [
       29
@@ -263,8 +263,8 @@
   },
   {
     "position": {
-      "x": 240,
-      "y": 100
+      "x": 197,
+      "y": 82
     },
     "nextPositions": [
       30
@@ -272,8 +272,8 @@
   },
   {
     "position": {
-      "x": 247,
-      "y": 83
+      "x": 197,
+      "y": 65
     },
     "nextPositions": [
       31
@@ -281,8 +281,8 @@
   },
   {
     "position": {
-      "x": 250,
-      "y": 65
+      "x": 185,
+      "y": 50
     },
     "nextPositions": [
       32
@@ -290,8 +290,8 @@
   },
   {
     "position": {
-      "x": 235,
-      "y": 50
+      "x": 165,
+      "y": 42
     },
     "nextPositions": [
       33
@@ -299,11 +299,1048 @@
   },
   {
     "position": {
-      "x": 215,
-      "y": 48
+      "x": 143,
+      "y": 35
     },
     "nextPositions": [
-      21
+      19
     ]
+  },
+  {
+    "position": {
+      "x": 165,
+      "y": 137
+    },
+    "nextPositions": [
+      35
+    ]
+  },
+  {
+    "position": {
+      "x": 180,
+      "y": 153
+    },
+    "nextPositions": [
+      36
+    ]
+  },
+  {
+    "position": {
+      "x": 213,
+      "y": 147
+    },
+    "nextPositions": [
+      37
+    ]
+  },
+  {
+    "position": {
+      "x": 235,
+      "y": 128
+    },
+    "nextPositions": [
+      38
+    ]
+  },
+  {
+    "position": {
+      "x": 240,
+      "y": 110
+    },
+    "nextPositions": [
+      39
+    ]
+  },
+  {
+    "position": {
+      "x": 247,
+      "y": 93
+    },
+    "nextPositions": [
+      40
+    ]
+  },
+  {
+    "position": {
+      "x": 250,
+      "y": 75
+    },
+    "nextPositions": [
+      41
+    ]
+  },
+  {
+    "position": {
+      "x": 235,
+      "y": 60
+    },
+    "nextPositions": [
+      42
+    ]
+  },
+  {
+    "position": {
+      "x": 215,
+      "y": 58
+    },
+    "nextPositions": [
+      30
+    ]
+  },
+  {
+    "position": {
+      "x": 77,
+      "y": -15
+    },
+    "nextPositions": [
+      44
+    ]
+  },
+  {
+    "position": {
+      "x": 100,
+      "y": -30
+    },
+    "nextPositions": [
+      45
+    ]
+  },
+  {
+    "position": {
+      "x": 130,
+      "y": -35
+    },
+    "nextPositions": [
+      46
+    ]
+  },
+  {
+    "position": {
+      "x": 147,
+      "y": -45
+    },
+    "nextPositions": [
+      47,53
+    ]
+  },
+  {
+    "position": {
+      "x": 143,
+      "y": -65
+    },
+    "nextPositions": [
+      48
+    ]
+  },
+  {
+    "position": {
+      "x": 118,
+      "y": -85
+    },
+    "nextPositions": [
+      49
+    ]
+  },
+  {
+    "position": {
+      "x": 83,
+      "y": -77
+    },
+    "nextPositions": [
+      50
+    ]
+  },
+  {
+    "position": {
+      "x": 53,
+      "y": -67
+    },
+    "nextPositions": [
+      51
+    ]
+  },
+  {
+    "position": {
+      "x": 30,
+      "y": -65
+    },
+    "nextPositions": [
+      52
+    ]
+  },
+  {
+    "position": {
+      "x": 15,
+      "y": -50
+    },
+    "nextPositions": [
+      2
+    ]
+  },
+  {
+    "position": {
+      "x": 180,
+      "y": -40
+    },
+    "nextPositions": [
+      54
+    ]
+  },
+  {
+    "position": {
+      "x": 225,
+      "y": -50
+    },
+    "nextPositions": [
+      55
+    ]
+  },
+  {
+    "position": {
+      "x": 245,
+      "y": -77
+    },
+    "nextPositions": [
+      56
+    ]
+  },
+  {
+    "position": {
+      "x": 250,
+      "y": -100
+    },
+    "nextPositions": [
+      57
+    ]
+  },
+  {
+    "position": {
+      "x": 245,
+      "y": -128
+    },
+    "nextPositions": [
+      58
+    ],
+    "type" : "lottery"
+  },
+  {
+    "position": {
+      "x": 232,
+      "y": -148
+    },
+    "nextPositions": [
+      59
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 210,
+      "y": -160
+    },
+    "nextPositions": [
+      60
+    ],
+    "type" : "car"
+  },
+  {
+    "position": {
+      "x": 175,
+      "y": -160
+    },
+    "nextPositions": [
+      61
+    ],
+    "type" : "diploma"
+  },
+  {
+    "position": {
+      "x": 145,
+      "y": -140
+    },
+    "nextPositions": [
+      62, 66
+    ],
+    "type" : "intersection"
+  },
+  {
+    "position": {
+      "x": 110,
+      "y": -125
+    },
+    "nextPositions": [
+      63
+    ],
+    "type" : "house"
+  },
+  {
+    "position": {
+      "x": 80,
+      "y": -120
+    },
+    "nextPositions": [
+      64
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 50,
+      "y": -108
+    },
+    "nextPositions": [
+      65
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 45,
+      "y": -85
+    },
+    "nextPositions": [
+      50
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 140,
+      "y": -165
+    },
+    "nextPositions": [
+      67
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 120,
+      "y": -175
+    },
+    "nextPositions": [
+      68
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 92,
+      "y": -170
+    },
+    "nextPositions": [
+      69
+    ],
+    "type" : "car"
+  },
+  {
+    "position": {
+      "x": 62,
+      "y": -175
+    },
+    "nextPositions": [
+      70
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 35,
+      "y": -177
+    },
+    "nextPositions": [
+      71
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 17,
+      "y": -168
+    },
+    "nextPositions": [
+      72
+    ],
+    "type" : "lottery"
+  },
+  {
+    "position": {
+      "x": 10,
+      "y": -155
+    },
+    "nextPositions": [
+      73
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 10,
+      "y": -140
+    },
+    "nextPositions": [
+      74
+    ],
+    "type" : "empty"
+  },
+  {
+    "position": {
+      "x": 25,
+      "y": -120
+    },
+    "nextPositions": [
+      64
+    ],
+    "type" : "doctor"
+  },
+  {
+    "position": {
+      "x": -18,
+      "y": -52
+    },
+    "nextPositions": [
+      76
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -33,
+      "y": -62
+    },
+    "nextPositions": [
+      77, 86
+    ],
+    "type": "intersection"
+  },
+  {
+    "position": {
+      "x": -55,
+      "y": -70
+    },
+    "nextPositions": [
+      78
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -75,
+      "y": -73
+    },
+    "nextPositions": [
+      79
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -98,
+      "y": -75
+    },
+    "nextPositions": [
+      80
+    ],
+    "type": "lottery"
+  },
+  {
+    "position": {
+      "x": -125,
+      "y": -67
+    },
+    "nextPositions": [
+      81
+    ],
+    "type": "promotion"
+  },
+  {
+    "position": {
+      "x": -135,
+      "y": -45
+    },
+    "nextPositions": [
+      82
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -130,
+      "y": -30
+    },
+    "nextPositions": [
+      83
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -110,
+      "y": -20
+    },
+    "nextPositions": [
+      84
+    ],
+    "type": "car"
+  },
+  {
+    "position": {
+      "x": -92,
+      "y": -13
+    },
+    "nextPositions": [
+      85
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -75,
+      "y": -5
+    },
+    "nextPositions": [
+      5
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -20,
+      "y": -82
+    },
+    "nextPositions": [
+      87
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -12,
+      "y": -115
+    },
+    "nextPositions": [
+      88
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -27,
+      "y": -140
+    },
+    "nextPositions": [
+      89
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -50,
+      "y": -155
+    },
+    "nextPositions": [
+      90
+    ],
+    "type": "lottery"
+  },
+  {
+    "position": {
+      "x": -83,
+      "y": -160
+    },
+    "nextPositions": [
+      91
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -113,
+      "y": -155
+    },
+    "nextPositions": [
+      92
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -145,
+      "y": -150
+    },
+    "nextPositions": [
+      93
+    ],
+    "type": "car"
+  },
+  {
+    "position": {
+      "x": -175,
+      "y": -140
+    },
+    "nextPositions": [
+      94, 99
+    ],
+    "type": "intersection"
+  },
+  {
+    "position": {
+      "x": -180,
+      "y": -120
+    },
+    "nextPositions": [
+      95
+    ],
+    "type": "newcompany"
+  },
+  {
+    "position": {
+      "x": -183,
+      "y": -100
+    },
+    "nextPositions": [
+      96
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -190,
+      "y": -80
+    },
+    "nextPositions": [
+      97
+    ],
+    "type": "intersection"
+  },
+  {
+    "position": {
+      "x": -188,
+      "y": -57
+    },
+    "nextPositions": [
+      98
+    ],
+    "type": "car"
+  },
+  {
+    "position": {
+      "x": -165,
+      "y": -47
+    },
+    "nextPositions": [
+      81
+    ],
+    "type": "promotion"
+  },
+  {
+    "position": {
+      "x": -185,
+      "y": -155
+    },
+    "nextPositions": [
+      100
+    ],
+    "type": "newcompany"
+  },
+  {
+    "position": {
+      "x": -203,
+      "y": -175
+    },
+    "nextPositions": [
+      101
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -230,
+      "y": -175
+    },
+    "nextPositions": [
+      102
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -235,
+      "y": -150
+    },
+    "nextPositions": [
+      103
+    ],
+    "type": "promotion1"
+  },
+  {
+    "position": {
+      "x": -240,
+      "y": -130
+    },
+    "nextPositions": [
+      104
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -245,
+      "y": -110
+    },
+    "nextPositions": [
+      105
+    ],
+    "type": "shares100"
+  },
+  {
+    "position": {
+      "x": -235,
+      "y": -92
+    },
+    "nextPositions": [
+      106
+    ],
+    "type": "newcompany"
+  },
+  {
+    "position": {
+      "x": -215,
+      "y": -80
+    },
+    "nextPositions": [
+      96
+    ],
+    "type": "promotion1"
+  },
+  {
+    "position": {
+      "x": -75,
+      "y": 25
+    },
+    "nextPositions": [
+      108
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -110,
+      "y": 17
+    },
+    "nextPositions": [
+      109
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -137,
+      "y": 27
+    },
+    "nextPositions": [
+      110, 117
+    ],
+    "type": "intersection"
+  },
+  {
+    "position": {
+      "x": -140,
+      "y": 45
+    },
+    "nextPositions": [
+      111
+    ],
+    "type": "car"
+  },
+  {
+    "position": {
+      "x": -127,
+      "y": 62
+    },
+    "nextPositions": [
+      112
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -108,
+      "y": 70
+    },
+    "nextPositions": [
+      113
+    ],
+    "type": "lottery"
+  },
+  {
+    "position": {
+      "x": -87,
+      "y": 68
+    },
+    "nextPositions": [
+      114
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -63,
+      "y": 62
+    },
+    "nextPositions": [
+      115
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -35,
+      "y": 75
+    },
+    "nextPositions": [
+      116
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -10,
+      "y": 63
+    },
+    "nextPositions": [
+      8
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -170,
+      "y": 28
+    },
+    "nextPositions": [
+      118
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -205,
+      "y": 43
+    },
+    "nextPositions": [
+      119
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -225,
+      "y": 72
+    },
+    "nextPositions": [
+      120
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -215,
+      "y": 103
+    },
+    "nextPositions": [
+      121
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -225,
+      "y": 130
+    },
+    "nextPositions": [
+      122
+    ],
+    "type": "car"
+  },
+  {
+    "position": {
+      "x": -230,
+      "y": 160
+    },
+    "nextPositions": [
+      123
+    ],
+    "type": "lottery"
+  },
+  {
+    "position": {
+      "x": -200,
+      "y": 173
+    },
+    "nextPositions": [
+      124
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -160,
+      "y": 168
+    },
+    "nextPositions": [
+      125
+    ],
+    "type": "stopwedding"
+  },
+  {
+    "position": {
+      "x": -127,
+      "y": 153
+    },
+    "nextPositions": [
+      126, 130
+    ],
+    "type": "intersection"
+  },
+  {
+    "position": {
+      "x": -107,
+      "y": 138
+    },
+    "nextPositions": [
+      127
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -97,
+      "y": 122
+    },
+    "nextPositions": [
+      128
+    ],
+    "type": "twins"
+  },
+  {
+    "position": {
+      "x": -90,
+      "y": 103
+    },
+    "nextPositions": [
+      129
+    ],
+    "type": "twins"
+  },
+  {
+    "position": {
+      "x": -85,
+      "y": 85
+    },
+    "nextPositions": [
+      113
+    ],
+    "type": "twins"
+  },
+  {
+    "position": {
+      "x": -123,
+      "y": 172
+    },
+    "nextPositions": [
+      131
+    ],
+    "type": "son"
+  },
+  {
+    "position": {
+      "x": -105,
+      "y": 187
+    },
+    "nextPositions": [
+      132
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -77,
+      "y": 180
+    },
+    "nextPositions": [
+      133
+    ],
+    "type": "daughter"
+  },
+  {
+    "position": {
+      "x": -70,
+      "y": 160
+    },
+    "nextPositions": [
+      134
+    ],
+    "type": "twins"
+  },
+  {
+    "position": {
+      "x": -73,
+      "y": 140
+    },
+    "nextPositions": [
+      135
+    ],
+    "type": "house"
+  },
+  {
+    "position": {
+      "x": -50,
+      "y": 143
+    },
+    "nextPositions": [
+      136
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -27,
+      "y": 143
+    },
+    "nextPositions": [
+      137
+    ],
+    "type": "son"
+  },
+  {
+    "position": {
+      "x": -15,
+      "y": 125
+    },
+    "nextPositions": [
+      138
+    ],
+    "type": "empty"
+  },
+  {
+    "position": {
+      "x": -28,
+      "y": 108
+    },
+    "nextPositions": [
+      139
+    ],
+    "type": "daughter"
+  },
+  {
+    "position": {
+      "x": -53,
+      "y": 102
+    },
+    "nextPositions": [
+      128
+    ],
+    "type": "stopoffspring"
   }
 ]
