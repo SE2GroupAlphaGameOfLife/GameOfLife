@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.gameoflife.core.AvailableServerDetails;
 import com.mygdx.gameoflife.core.Player;
 import com.mygdx.gameoflife.screens.GameScreen;
 import com.mygdx.gameoflife.screens.MainMenuScreen;
@@ -28,6 +29,7 @@ public class GameOfLife extends Game {
 	//This is the Player-Entity of the current device
 	public static Player self;
 	public static List<Player> players;
+	public static List<AvailableServerDetails> availableServerDetails;
 
 	public GameOfLife(){
 	}
