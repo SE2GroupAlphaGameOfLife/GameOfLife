@@ -1,5 +1,6 @@
 package com.mygdx.gameoflife.mock;
 
+
 import com.mygdx.gameoflife.core.Board;
 
 public class TestBoard extends Board {

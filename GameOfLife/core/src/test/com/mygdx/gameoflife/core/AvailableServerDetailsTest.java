@@ -3,7 +3,6 @@ package com.mygdx.gameoflife.core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.mygdx.gameoflife.core.AvailableServerDetails;
 
 import org.junit.Test;
 
