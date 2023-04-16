@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.core;
+package com.mygdx.gameoflife.src.core;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -44,13 +44,13 @@ public class Player {
     }
 
     public void chooseDirection(int index) {
-        GameField currentField = Board.getGameFields().get(this.position);
+        GameField currentField = Board.getInstance().getGameFields().get(this.position);
         this.moveCount--;
         this.position = currentField.getIndexOfNextGameFields().get(index);
     }
 
     public boolean makeMove(){
-        GameField currentField = Board.getGameFields().get(this.position);
+        GameField currentField = Board.getInstance().getGameFields().get(this.position);
 
         while (this.moveCount > 0){
             this.moveCount--;
@@ -60,7 +60,7 @@ public class Player {
                 return false;
             } else {
                 this.position = currentField.getIndexOfNextGameFields().get(0);
-                currentField = Board.getGameFields().get(this.position);
+                currentField = Board.getInstance().getGameFields().get(this.position);
             }
         }
 

@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.core;
+package com.mygdx.gameoflife.src.core;
 
 import com.badlogic.gdx.math.Vector2;
 
