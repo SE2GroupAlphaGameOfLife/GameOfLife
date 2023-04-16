@@ -19,6 +19,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.gameoflife.GameOfLife;
 import com.mygdx.gameoflife.core.Player;
+import com.mygdx.gameoflife.networking.client.ClientClass;
+import com.mygdx.gameoflife.networking.server.ServerClass;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,8 @@ public class MainMenuScreen implements Screen {
     private Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
     private int buttonWidth, buttonHeight;
+    private ServerClass server;
+    private ClientClass client;
 
     public Vector2 buttonPosition;
 
@@ -55,6 +59,9 @@ public class MainMenuScreen implements Screen {
         createGameOfLifeTitle();
         createUsernameInput();
         createMainMenuButtons();
+
+        client = new ClientClass();
+        server = new ServerClass();
     }
 
     @Override

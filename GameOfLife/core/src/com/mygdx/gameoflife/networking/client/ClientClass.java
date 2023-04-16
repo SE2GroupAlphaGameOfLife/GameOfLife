@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.gameoflife.networking.packages.JoinedPlayers;
 import com.mygdx.gameoflife.networking.packages.PingRequest;
 import com.mygdx.gameoflife.networking.packages.PingResponse;
 import com.mygdx.gameoflife.networking.packages.ServerInformation;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class ClientClass extends Listener {
 
-    private Client client;
+    private final Client client;
 
     public ClientClass() {
         this.client = new Client();
@@ -27,6 +28,7 @@ public class ClientClass extends Listener {
         kryo.register(PingRequest.class);
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
+        kryo.register(JoinedPlayers.class);
     }
 
     public void connect(InetAddress address, int tcpPort, int udpPort) {
