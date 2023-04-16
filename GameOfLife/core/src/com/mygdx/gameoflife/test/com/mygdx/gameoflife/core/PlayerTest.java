@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.test.core;
+package com.mygdx.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mygdx.gameoflife.test.mock.TestPlayer;
+import com.mygdx.gameoflife.mock.TestPlayer;
 
 public class PlayerTest {
     private TestPlayer player;

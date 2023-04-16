@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.test.core;
+package com.mygdx.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.gameoflife.src.core.GameField;
+import com.mygdx.gameoflife.core.GameField;
 
 import java.util.ArrayList;
 import java.util.Arrays;

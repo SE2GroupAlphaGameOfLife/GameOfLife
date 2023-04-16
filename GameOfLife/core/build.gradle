@@ -1,11 +1,27 @@
+plugins {
+    id 'jacoco'
+    id 'org.sonarqube' version '3.5.0.2730'
+}
+
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "SE2GroupAlphaGameOfLife_GameOfLife"
+        property "sonar.organization", "se2groupalphagameoflife"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+    }
+}
 
 dependencies {
     implementation 'junit:junit:4.13.2'
     implementation 'com.badlogicgames.gdx:gdx-backend-android:1.11.0'
 }
 
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.java.srcDirs = [ "src/com/mygdx/gameoflife/main" ]
+sourceSets.test.java.srcDirs = [ "src/com/mygdx/gameoflife/test" ]
 
 eclipse.project.name = appName + "-core"

@@ -1,7 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'jacoco'
-    id 'org.sonarqube' version '3.5.0.2730'
 }
 
 android {
@@ -67,16 +65,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     sourceDirectories.from = files([mainSrc])
     classDirectories.from = files([debugTree])
     executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "SE2GroupAlphaGameOfLife_GameOfLife"
-        property "sonar.organization", "se2groupalphagameoflife"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
-    }
 }
 
 dependencies {

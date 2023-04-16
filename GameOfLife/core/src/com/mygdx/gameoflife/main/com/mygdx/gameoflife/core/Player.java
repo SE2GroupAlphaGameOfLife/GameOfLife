@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.src.core;
+package com.mygdx.gameoflife.core;
 
 import com.badlogic.gdx.graphics.Color;
 

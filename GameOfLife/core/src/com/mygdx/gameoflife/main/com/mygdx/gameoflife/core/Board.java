@@ -1,11 +1,10 @@
-package com.mygdx.gameoflife.src.core;
+package com.mygdx.gameoflife.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.gameoflife.src.GameOfLife;
 
 import java.util.ArrayList;
 import java.util.List;

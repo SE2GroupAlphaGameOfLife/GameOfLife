@@ -1,7 +1,7 @@
-package com.mygdx.gameoflife.test.mock;
+package com.mygdx.gameoflife.mock;
 
-import com.mygdx.gameoflife.src.core.GameField;
-import com.mygdx.gameoflife.src.core.Player;
+import com.mygdx.gameoflife.core.GameField;
+import com.mygdx.gameoflife.core.Player;
 
 public class TestPlayer extends Player {
 
