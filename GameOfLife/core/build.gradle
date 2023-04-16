@@ -1,6 +1,11 @@
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+dependencies {
+    implementation 'junit:junit:4.13.2'
+    implementation 'com.badlogicgames.gdx:gdx-backend-android:1.11.0'
+}
+
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project.name = appName + "-core"
