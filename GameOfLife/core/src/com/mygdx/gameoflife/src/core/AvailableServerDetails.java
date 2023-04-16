@@ -1,4 +1,8 @@
+<<<<<<< HEAD:GameOfLife/core/src/com/mygdx/gameoflife/src/core/AvailableServerDetails.java
 package com.mygdx.gameoflife.src.core;
+=======
+package com.mygdx.gameoflife.core;
+>>>>>>> origin/dev:GameOfLife/core/src/com/mygdx/gameoflife/core/AvailableServerDetails.java
 
 
 public class AvailableServerDetails {

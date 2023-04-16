@@ -251,6 +251,18 @@ public class MainMenuScreen implements Screen {
                 }
             }
         });
+
+        btnJoinGame.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (validateInput(usernameInput.getText())) {
+                    GameOfLife.self = new Player(usernameInput.getText(), true);
+                    GameOfLife.players = new ArrayList<>();
+                    GameOfLife.players.add(GameOfLife.self);
+                    GameOfLife.changeScreen(new JoinGameScreen());
+                }
+            }
+        });
     }
 
     /**
