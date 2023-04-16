@@ -1,10 +1,10 @@
-package com.mygdx.gameoflife;
+package com.mygdx.gameoflife.src;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.mygdx.gameoflife.screens.MainMenuScreen;
 import com.mygdx.gameoflife.src.core.AvailableServerDetails;
 import com.mygdx.gameoflife.src.core.Player;
+import com.mygdx.gameoflife.src.screens.MainMenuScreen;
 
 import java.util.ArrayList;
 import java.util.List;

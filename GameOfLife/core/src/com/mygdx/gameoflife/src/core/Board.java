@@ -1,10 +1,11 @@
-package com.mygdx.gameoflife.core;
+package com.mygdx.gameoflife.src.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.gameoflife.src.GameOfLife;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,11 @@ import java.util.List;
  * Represents a game board with a list of gameFields.
  */
 public class Board {
-    private static List<GameField> gameFields; // The list of gameFields on the board
+    private static Board INSTANCE;
+    private List<GameField> gameFields; // The list of gameFields on the board
 
-    // Static block that initializes the gameFields
-    static {
-        // We read the json file
-        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
-        String jsonString = fileHandle.readString();
+    public Board(){
+        String jsonString = loadJsonFile();
 
         // Parsing the json so we can use it
         JsonReader jsonReader = new JsonReader();
@@ -41,15 +40,28 @@ public class Board {
             gameFields.add(gameField);
         }
 
-        Board.gameFields = gameFields;
+        this.gameFields = gameFields;
     }
+
+    protected String loadJsonFile() {
+        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
+        return fileHandle.readString();
+    }
+
+    public static Board getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new Board();
+        }
+        return INSTANCE;
+    }
+
 
     /**
      * Returns the list of gameFields on the board.
      *
      * @return The list of gameFields on the board.
      */
-    public static List<GameField> getGameFields() {
+    public List<GameField> getGameFields() {
         return gameFields;
     }
 }
