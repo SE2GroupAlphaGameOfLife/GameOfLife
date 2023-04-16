@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.src.core;
+package com.mygdx.gameoflife.core;
 
 public class AvailableServerDetails {
     private String host;

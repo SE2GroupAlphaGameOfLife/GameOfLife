@@ -1,9 +1,8 @@
-package com.mygdx.gameoflife.test.core;
+package com.mygdx.gameoflife.core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.mygdx.gameoflife.src.core.GameField;
-import com.mygdx.gameoflife.test.mock.TestBoard;
+import com.mygdx.gameoflife.mock.TestBoard;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.src.screens;
+package com.mygdx.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -22,10 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.gameoflife.src.GameOfLife;
-import com.mygdx.gameoflife.src.core.Board;
-import com.mygdx.gameoflife.src.core.GameField;
-import com.mygdx.gameoflife.src.core.Player;
+import com.mygdx.gameoflife.core.Board;
+import com.mygdx.gameoflife.core.GameField;
+import com.mygdx.gameoflife.core.Player;
+import com.mygdx.gameoflife.GameOfLife;
 
 public class GameScreen implements Screen {
 
