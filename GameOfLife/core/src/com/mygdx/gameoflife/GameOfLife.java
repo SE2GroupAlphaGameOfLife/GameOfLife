@@ -1,24 +1,10 @@
 package com.mygdx.gameoflife;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.gameoflife.core.AvailableServerDetails;
-import com.mygdx.gameoflife.core.Player;
-import com.mygdx.gameoflife.screens.GameScreen;
 import com.mygdx.gameoflife.screens.MainMenuScreen;
-import com.mygdx.gameoflife.screens.StartGameScreen;
+import com.mygdx.gameoflife.src.core.AvailableServerDetails;
+import com.mygdx.gameoflife.src.core.Player;
 
 import java.util.ArrayList;
 import java.util.List;

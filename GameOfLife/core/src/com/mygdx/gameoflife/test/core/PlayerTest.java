@@ -6,15 +6,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.graphics.Color;
-import com.mygdx.gameoflife.src.core.Player;
+import com.mygdx.gameoflife.test.mock.TestPlayer;
 
 public class PlayerTest {
-    private Player player;
+    private TestPlayer player;
 
     @Before
     public void setUp() {
-        player = new Player("testUser", true);
+        player = new TestPlayer("testUser", true);
     }
 
     @Test

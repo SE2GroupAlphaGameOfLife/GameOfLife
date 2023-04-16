@@ -7,10 +7,10 @@ import java.util.Random;
 public class Player {
     private String username, gender;
     private int age, money;
-    private int position;
+    protected int position;
     private Color color;
     private boolean isHost;
-    private int moveCount;
+    protected int moveCount;
 
     public Player(String username, boolean isHost){
         this.position = 0;

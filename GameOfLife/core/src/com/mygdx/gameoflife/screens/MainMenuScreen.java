@@ -18,7 +18,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.gameoflife.GameOfLife;
-import com.mygdx.gameoflife.core.Player;
+import com.mygdx.gameoflife.src.core.Player;
+import com.mygdx.gameoflife.src.screens.StartGameScreen;
 
 import java.util.ArrayList;
 

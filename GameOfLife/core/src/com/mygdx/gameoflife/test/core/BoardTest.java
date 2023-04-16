@@ -2,31 +2,31 @@ package com.mygdx.gameoflife.test.core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.mygdx.gameoflife.src.core.Board;
 import com.mygdx.gameoflife.src.core.GameField;
+import com.mygdx.gameoflife.test.mock.TestBoard;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-public class BoardTest {
-    private Board board;
+public class BoardTest{
+    private TestBoard testBoard;
 
     @Before
     public void setUp() {
-        board = Board.getInstance();
+        testBoard = new TestBoard();
     }
 
     @Test
     public void testGetInstance() {
-        assertNotNull(board);
+        assertNotNull(testBoard);
     }
 
     @Test
     public void testGetGameFields() {
-        List<GameField> gameFields = board.getGameFields();
+        List<GameField> gameFields = testBoard.getGameFields();
         assertNotNull(gameFields);
-        assertEquals(16, gameFields.size());
+        assertEquals(34, gameFields.size());
     }
 }

@@ -18,21 +18,7 @@ public class Board {
     private List<GameField> gameFields; // The list of gameFields on the board
 
     public Board(){
-        // We read the json file
-        FileHandle fh = Gdx.files.internal("gameboard.json");
-        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
-        if (fileHandle != null) {
-            String jsonString = fileHandle.readString();
-            // Parsing the json so we can use it
-            JsonReader jsonReader = new JsonReader();
-            JsonValue jsonValue = jsonReader.parse(jsonString);
-            // rest of the code
-        }
-        else {
-            // Handle the case where the file cannot be found
-            Gdx.app.error("Board", "gameboard.json file not found");
-        }
-        String jsonString = fileHandle.readString();
+        String jsonString = loadJsonFile();
 
         // Parsing the json so we can use it
         JsonReader jsonReader = new JsonReader();
@@ -55,6 +41,11 @@ public class Board {
         }
 
         this.gameFields = gameFields;
+    }
+
+    protected String loadJsonFile() {
+        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
+        return fileHandle.readString();
     }
 
     public static Board getInstance(){
