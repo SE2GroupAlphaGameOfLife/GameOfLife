@@ -69,7 +69,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
 }
 
-sonar {
+sonarqube {
     properties {
         property "sonar.projectKey", "SE2GroupAlphaGameOfLife_GameOfLife"
         property "sonar.organization", "se2groupalphagameoflife"
