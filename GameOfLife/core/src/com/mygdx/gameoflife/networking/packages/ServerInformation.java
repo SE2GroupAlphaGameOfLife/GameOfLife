@@ -3,14 +3,19 @@ package com.mygdx.gameoflife.networking.packages;
 import java.net.InetAddress;
 
 public class ServerInformation {
-    private int tcpPort, udpPort;
-    private InetAddress address;
+    private int tcpPort;
+    private String hostname;
 
-    public ServerInformation(int tcpPort){
+    public ServerInformation(String hostname, int tcpPort){
+        this.hostname = hostname;
         this.tcpPort = tcpPort;
     }
 
     public int getTcpPort() {
-        return tcpPort;
+        return this.tcpPort;
+    }
+
+    public String getHostname() {
+        return this.hostname;
     }
 }
