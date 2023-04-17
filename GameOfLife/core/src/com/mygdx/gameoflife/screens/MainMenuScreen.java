@@ -29,8 +29,6 @@ public class MainMenuScreen implements Screen {
     private Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
     private int buttonWidth, buttonHeight;
-    private ServerClass server;
-    private ClientClass client;
 
     public Vector2 buttonPosition;
 
@@ -59,9 +57,6 @@ public class MainMenuScreen implements Screen {
         createGameOfLifeTitle();
         createUsernameInput();
         createMainMenuButtons();
-
-        client = new ClientClass();
-        server = new ServerClass();
     }
 
     @Override
@@ -254,6 +249,14 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.self = new Player(usernameInput.getText(), true);
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameOfLife.server.start(GameOfLife.self.getUsername());
+                        }
+                    }).start();
+
                     GameOfLife.changeScreen(new StartGameScreen());
                 }
             }
