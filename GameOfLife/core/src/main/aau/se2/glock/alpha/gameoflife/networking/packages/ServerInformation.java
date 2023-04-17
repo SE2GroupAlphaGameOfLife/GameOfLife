@@ -14,15 +14,15 @@ public class ServerInformation {
         this.address = null;
     }
 
+    public ServerInformation() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServerInformation that = (ServerInformation) o;
         return Objects.equals(address, that.address);
-    }
-
-    public ServerInformation() {
     }
 
     public InetAddress getAddress() {
