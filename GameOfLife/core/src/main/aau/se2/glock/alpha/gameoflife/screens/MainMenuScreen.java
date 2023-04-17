@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
-
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -17,10 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class MainMenuScreen implements Screen {
     private OrthographicCamera gameCamera;
@@ -238,6 +240,27 @@ public class MainMenuScreen implements Screen {
         stage.addActor(btnStartGame); // Add the button to the stage
         stage.addActor(btnJoinGame);
 
+        btnJoinGame.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (validateInput(usernameInput.getText())) {
+                    GameOfLife.self = new Player(usernameInput.getText(), false);
+                    GameOfLife.players = new ArrayList<>();
+                    GameOfLife.players.add(GameOfLife.self);
+
+                    GameOfLife.changeScreen(new JoinGameScreen());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
+                            System.out.println(GameOfLife.availableServers);
+                            GameOfLife.getInstance().render();
+                        }
+                    }).start();
+                }
+            }
+        });
+
         //Create a ClickListener
         //When there is no input in the usernameInput then we show an error
         btnStartGame.addListener(new ClickListener() {
@@ -247,6 +270,19 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.self = new Player(usernameInput.getText(), true);
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameOfLife.server.start(GameOfLife.self.getUsername());
+                            try {
+                                GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                            } catch (UnknownHostException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }).start();
+
                     GameOfLife.changeScreen(new StartGameScreen());
                 }
             }
