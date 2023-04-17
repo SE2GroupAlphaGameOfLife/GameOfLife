@@ -8,7 +8,7 @@ public class Player {
     private String username, gender;
     private int age, money, position, moveCount, id;
     private Color color;
-    private boolean isHost, hasTurn, isJoning;
+    private boolean isHost, hasTurn, isJoning, isOnline;
 
     public Player(String username, boolean isHost){
         this.position = 0;
@@ -20,7 +20,16 @@ public class Player {
         this.hasTurn = isHost;
         this.username = username;
         this.moveCount = 0;
+        this.isOnline = true;
         this.id = -1;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
     }
 
     public int getId(){
