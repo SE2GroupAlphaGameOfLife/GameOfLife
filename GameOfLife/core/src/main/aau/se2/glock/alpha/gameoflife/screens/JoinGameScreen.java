@@ -25,11 +25,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import aau.se2.glock.alpha.gameoflife.core.AvailableServerDetails;
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
+
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
 public class JoinGameScreen implements Screen {
 
@@ -65,14 +67,14 @@ public class JoinGameScreen implements Screen {
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
 
         //create mock data
-        List<AvailableServerDetails> serverDetails = new ArrayList<>();
-        serverDetails.add(new AvailableServerDetails("Host1", "0.0.0.1"));
-        serverDetails.add(new AvailableServerDetails("Host2", "0.0.0.2"));
-        serverDetails.add(new AvailableServerDetails("Host3", "0.0.0.3"));
-        serverDetails.add(new AvailableServerDetails("Host4", "0.0.0.4"));
-        serverDetails.add(new AvailableServerDetails("Host5", "0.0.0.5"));
-        serverDetails.add(new AvailableServerDetails("Host6", "0.0.0.6"));
-        GameOfLife.availableServerDetails = serverDetails;
+        /*List<ServerInformation> serverDetails = new ArrayList<>();
+        serverDetails.add(new ServerInformation("Host1", 1));
+        serverDetails.add(new ServerInformation("Host2", 2));
+        serverDetails.add(new ServerInformation("Host3", 3));
+        serverDetails.add(new ServerInformation("Host4", 4));
+        serverDetails.add(new ServerInformation("Host5", 5));
+        serverDetails.add(new ServerInformation("Host6", 6));
+        GameOfLife.availableServers = serverDetails;*/
         // ----
 
         createServerTextField();
@@ -156,13 +158,13 @@ public class JoinGameScreen implements Screen {
         stage.addActor(labelServers); // Add the label to the stage
 
         int count = 0;
-        for (final AvailableServerDetails serverDetails : GameOfLife.availableServerDetails) {
-            Label serverLable = new Label(serverDetails.getHost() + ": " + serverDetails.getIp(), labelServerDetailStyle); // Create the label with the text and style
+        for (final ServerInformation serverDetails : GameOfLife.availableServers) {
+            Label serverLable = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
             serverLable.setPosition(screenWidth/20, labelServers.getY()-screenHeight/25 - count*45); // Set the position of the label
             serverLable.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    onIpClicked(serverDetails.getIp());
+                    onIpClicked(serverDetails.getAddress());
                 }
             });
             stage.addActor(serverLable); // Add the label to the stage
@@ -170,8 +172,8 @@ public class JoinGameScreen implements Screen {
         }
     }
 
-    private void onIpClicked(String ipAddress) {
-        ipInput.setText(ipAddress);
+    private void onIpClicked(InetAddress ipAddress) {
+        ipInput.setText(ipAddress.getHostAddress());
     }
 
     private void initTextures() {
