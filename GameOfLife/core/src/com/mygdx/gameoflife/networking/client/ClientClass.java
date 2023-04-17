@@ -4,6 +4,8 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.gameoflife.GameOfLife;
+import com.mygdx.gameoflife.core.Player;
 import com.mygdx.gameoflife.networking.packages.JoinedPlayers;
 import com.mygdx.gameoflife.networking.packages.PingRequest;
 import com.mygdx.gameoflife.networking.packages.PingResponse;
@@ -29,6 +31,7 @@ public class ClientClass extends Listener {
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
+        kryo.register(Player.class);
     }
 
     public void connect(InetAddress address, int tcpPort, int udpPort) {
@@ -88,13 +91,15 @@ public class ClientClass extends Listener {
         if (object instanceof PingResponse) {
 
             PingResponse pingResponse = (PingResponse) object;
-
+            return;
         }else if(object instanceof ServerInformation){
             ServerInformation serverInformation = (ServerInformation) object;
 
             System.out.println("[Client] "+connection.getRemoteAddressUDP().getAddress()+":"+serverInformation.getTcpPort());
+            return;
         }else if(object instanceof JoinedPlayers){
-
+            GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
+            return;
         }
     }
 }

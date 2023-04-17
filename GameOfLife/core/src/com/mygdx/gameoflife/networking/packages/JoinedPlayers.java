@@ -34,4 +34,17 @@ public class JoinedPlayers {
     public HashMap<InetAddress, Player> getPlayers(){
         return this.players;
     }
+
+    public int getPlayerCount(){
+        return this.players.size();
+    }
+
+    public void setPlayersTurn(int playerId){
+        playerId = playerId > this.players.size() ? 1 : playerId;
+        for(Player player : this.players.values()){
+            if(player.getId() == playerId){
+                player.setHasTurn(true);
+            }
+        }
+    }
 }

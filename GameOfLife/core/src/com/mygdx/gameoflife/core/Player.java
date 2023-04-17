@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Player {
     private String username, gender;
-    private int age, money, position, moveCount;
+    private int age, money, position, moveCount, id;
     private Color color;
     private boolean isHost, hasTurn, isJoning;
 
@@ -20,6 +20,15 @@ public class Player {
         this.hasTurn = isHost;
         this.username = username;
         this.moveCount = 0;
+        this.id = -1;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public boolean isHost() {

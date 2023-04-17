@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.mygdx.gameoflife.core.Player;
 import com.mygdx.gameoflife.networking.packages.JoinedPlayers;
 import com.mygdx.gameoflife.networking.packages.PingRequest;
 import com.mygdx.gameoflife.networking.packages.PingResponse;
@@ -32,8 +33,9 @@ public class ServerClass extends Listener {
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
+        kryo.register(Player.class);
 
-
+        players = new JoinedPlayers();
 
         this.serverStarted = false;
     }
@@ -45,7 +47,7 @@ public class ServerClass extends Listener {
                 this.TCPPORT = s.getLocalPort();
                 s.close();*/
 
-                this.server.bind(this.TCPPORT, UDPPORT);
+                this.server.bind(this.TCPPORT, this.UDPPORT);
 
                 this.serverStarted = true;
 
@@ -56,9 +58,13 @@ public class ServerClass extends Listener {
         }
     }
 
-    public void close(){
+    public void close() {
         this.server.close();
         this.serverStarted = false;
+    }
+
+    private void sendPlayersObjectToAll() {
+        this.server.sendToAllTCP(this.players);
     }
 
     public int getTCPport() {
@@ -71,16 +77,12 @@ public class ServerClass extends Listener {
 
     @Override
     public void connected(Connection connection) {
-
         System.out.println("[Server] Client verbunden!");
-
     }
 
     @Override
     public void disconnected(Connection connection) {
-
         System.out.println("[Server] Client hat Verbindung getrennt!");
-
     }
 
     @Override
@@ -98,6 +100,20 @@ public class ServerClass extends Listener {
 
             connection.sendTCP(pingResponse);
 
+        } else if (object instanceof Player) {
+            Player player = (Player) object;
+            if (player.isJoning()) {
+                player.setJoning(false);
+                player.setId(this.players.getPlayerCount() + 1);
+                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+                return;
+            } else if (player.isHasTurn()) {
+                player.setHasTurn(false);
+                this.players.setPlayersTurn(player.getId() + 1);
+                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+                return;
+            }
+            sendPlayersObjectToAll();
         }
     }
 }
