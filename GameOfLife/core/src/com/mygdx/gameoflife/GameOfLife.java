@@ -1,24 +1,13 @@
 package com.mygdx.gameoflife;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.gameoflife.core.Player;
-import com.mygdx.gameoflife.screens.GameScreen;
+import com.mygdx.gameoflife.networking.client.ClientClass;
+import com.mygdx.gameoflife.networking.server.ServerClass;
 import com.mygdx.gameoflife.screens.MainMenuScreen;
-import com.mygdx.gameoflife.screens.StartGameScreen;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +16,26 @@ public class GameOfLife extends Game {
 
 	//This is the Player-Entity of the current device
 	public static Player self;
-	public static List<Player> players;
 
-	public GameOfLife(){
-	}
+	public static boolean gameStarted;
+
+	public static ServerClass server;
+	public static ClientClass client;
+	public static List<Player> players;
+	public static List<InetAddress> availableServers;
+	public static final int TCPPORT = 54333;
+	public static final int UDPPORT = 54777;
 
 	public static GameOfLife getInstance(){
 		if(INSTANCE == null){
 			INSTANCE = new GameOfLife();
 
 			players = new ArrayList<>();
+			server = new ServerClass(TCPPORT, UDPPORT);
+			client = new ClientClass();
+
+			gameStarted = false;
+			availableServers = new ArrayList<>();
 		}
 
 		return INSTANCE;
