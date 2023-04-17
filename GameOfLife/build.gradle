@@ -1,6 +1,4 @@
 buildscript {
-
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -13,12 +11,17 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "4.0.0.2929"
+    id 'jacoco'
+}
+
 allprojects {
     apply plugin: "eclipse"
 
     version = '1.0'
     ext {
-        appName = "My GDX Game"
+        appName = "GameOfLife"
         gdxVersion = '1.11.0'
         roboVMVersion = '2.3.19'
         box2DLightsVersion = '1.5'
@@ -36,6 +39,8 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         maven { url "https://jitpack.io" }
     }
+
+
 }
 
 project(":android") {
@@ -45,7 +50,6 @@ project(":android") {
 
     dependencies {
         implementation project(":core")
-        implementation 'com.android.support:multidex:1.0.3'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
@@ -67,9 +71,33 @@ project(":android") {
     }
 }
 
+
+task jacocoTestReport(type: JacocoReport) {
+
+    reports {
+        xml.enabled true
+        xml.destination file("${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.from = files([mainSrc])
+    classDirectories.from = files([debugTree])
+    executionData.from = files("${buildDir}/jacoco/test.exec")
+}
+
 project(":core") {
     apply plugin: "java-library"
+    apply plugin: "jacoco"
 
+    sourceSets.test.java.srcDirs = ["../core/test"]
+    sourceSets {
+        main {
+            resources.srcDirs += ["../assets"]
+        }
+    }
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -79,5 +107,56 @@ project(":core") {
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api "com.kotcrab.vis:vis-ui:1.4.11"
 
+        testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.2"
+        testImplementation "org.junit.jupiter:junit-jupiter-engine:5.9.2"
+        testImplementation "org.junit.platform:junit-platform-runner:1.9.2"
+        testImplementation 'org.mockito:mockito-core:3.12.4'
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testImplementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+
+        testImplementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        testImplementation "com.badlogicgames.ashley:ashley:$ashleyVersion"
+        testImplementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        testImplementation "com.kotcrab.vis:vis-ui:1.4.11"
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            //html.destination "${buildDir}\\jacocoHtml"
+        }
+    }
+
+    test {
+        finalizedBy jacocoTestReport
+
+        // specify the tests to run using the --tests option
+        // multiple tests can be specified by separating them with a comma
+        // example: --tests com.example.test.TestClass,test.package.AnotherTestClass
+        //--tests com.mygdx.gameoflife.coreBoardTest
+
+        systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+        useJUnitPlatform()
+
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
     }
 }
+
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "SE2GroupAlphaGameOfLife_GameOfLife"
+        property "sonar.organization", "se2groupalphagameoflife"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+    }
+}
+
