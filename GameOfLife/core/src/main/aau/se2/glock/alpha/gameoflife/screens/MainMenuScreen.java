@@ -248,6 +248,7 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
+                    GameOfLife.changeScreen(new JoinGameScreen());
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -256,8 +257,6 @@ public class MainMenuScreen implements Screen {
                             GameOfLife.getInstance().render();
                         }
                     }).start();
-
-                    GameOfLife.changeScreen(new JoinGameScreen());
                 }
             }
         });
