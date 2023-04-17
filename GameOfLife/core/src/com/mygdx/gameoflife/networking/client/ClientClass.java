@@ -10,6 +10,7 @@ import com.mygdx.gameoflife.networking.packages.JoinedPlayers;
 import com.mygdx.gameoflife.networking.packages.PingRequest;
 import com.mygdx.gameoflife.networking.packages.PingResponse;
 import com.mygdx.gameoflife.networking.packages.ServerInformation;
+import com.mygdx.gameoflife.screens.JoinGameScreen;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -54,7 +55,7 @@ public class ClientClass extends Listener {
         }
     }
 
-    public void disconnect(){
+    public void disconnect() {
         this.client.close();
     }
 
@@ -92,13 +93,22 @@ public class ClientClass extends Listener {
 
             PingResponse pingResponse = (PingResponse) object;
             return;
-        }else if(object instanceof ServerInformation){
+        } else if (object instanceof ServerInformation) {
             ServerInformation serverInformation = (ServerInformation) object;
 
-            System.out.println("[Client] "+connection.getRemoteAddressUDP().getAddress()+":"+serverInformation.getTcpPort());
+            if (!GameOfLife.availableServers.contains(connection.getRemoteAddressUDP().getAddress())) {
+                GameOfLife.availableServers.add(connection.getRemoteAddressUDP().getAddress());
+                System.out.println("[Client] " + connection.getRemoteAddressUDP().getAddress() + ":" + serverInformation.getTcpPort());
+                if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+                    GameOfLife.getInstance().render();
+                }
+            }
+
             return;
-        }else if(object instanceof JoinedPlayers){
+        } else if (object instanceof JoinedPlayers) {
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
+            GameOfLife.getInstance().render();
+
             return;
         }
     }
