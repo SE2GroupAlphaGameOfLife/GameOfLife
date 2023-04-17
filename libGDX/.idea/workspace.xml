@@ -9,13 +9,138 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdf1c4c2-08c0-482b-88fd-755cc159f00f" name="Changes" comment="Added GameScreen which represents the screen we play the game on. Plus implemented basic single player movement" />
+    <list default="true" id="cdf1c4c2-08c0-482b-88fd-755cc159f00f" name="Changes" comment="Added GameScreen which represents the screen we play the game on. Plus implemented basic single player movement">
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/androidTest/java/com/example/gameoflife/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/java/com/example/gameoflife/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/app/src/test/java/com/example/gameoflife/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLife/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../GameOfLife/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/androidTest/java/com/example/gameoflife/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/java/com/example/gameoflife/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/app/src/test/java/com/example/gameoflife/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GameOfLifeNEW/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/ic_launcher-web.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/project.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-anydpi-v26/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/drawable-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/values/color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/com/mygdx/gameoflife/AndroidLauncher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Accuratist.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/arrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/badlogic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/board.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/gameboard.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/skateboard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/uiskin.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/GameOfLife.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/core/Board.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/core/GameField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/core/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/screens/GameScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/screens/MainMenuScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/gameoflife/screens/StartGameScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Luka\.android\avd\Bling_Bling.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Nico\.android\avd\Nexus_S_API_28.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -49,7 +174,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/Luka/OneDrive_AAU/Dokumente/Programming/GameOfLife/GameOfLife"
+    "last_opened_file_path": "C:/Users/Nico/source/uni/GameOfLife/GameOfLife"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -115,7 +240,9 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
-      <method v="2" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
