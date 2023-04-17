@@ -10,6 +10,8 @@ public class Player {
     private Color color;
     private boolean isHost, hasTurn, isJoning, isOnline;
 
+    public Player(){}
+
     public Player(String username, boolean isHost){
         this.position = 0;
         this.age = 18;

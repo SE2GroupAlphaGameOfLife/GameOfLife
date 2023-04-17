@@ -5,6 +5,9 @@ public class PingResponse {
     //private long time = System.currentTimeMillis();
     private int tcpPort = 0;
 
+    public PingResponse() {
+    }
+
     public int getTcpPort() {
         return tcpPort;
     }

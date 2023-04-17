@@ -1,5 +1,6 @@
 package com.mygdx.gameoflife.networking.server;
 
+import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -22,6 +23,7 @@ public class ServerClass extends Listener {
     private final Server server;
     private boolean serverStarted;
     private JoinedPlayers players;
+    private String hostname;
 
     public ServerClass(int TCPPORT, int UDPPORT) {
         this.server = new Server();
@@ -37,6 +39,7 @@ public class ServerClass extends Listener {
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
         kryo.register(Player.class);
 
         players = new JoinedPlayers();
@@ -55,15 +58,16 @@ public class ServerClass extends Listener {
 
                 this.serverStarted = true;
 
-                sendServerInfoToAllUDP(hostname);
+                this.hostname = hostname;
+                sendServerInfoToAllTCP();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void sendServerInfoToAllUDP(String hostname) {
-        this.server.sendToAllUDP(new ServerInformation(hostname, this.TCPPORT));
+    private void sendServerInfoToAllTCP() {
+        this.server.sendToAllTCP(new ServerInformation(this.hostname, this.TCPPORT));
     }
 
     public void close() {
@@ -82,6 +86,7 @@ public class ServerClass extends Listener {
     public int getUDPport() {
         return this.UDPPORT;
     }
+
 
     @Override
     public void connected(Connection connection) {
@@ -103,7 +108,6 @@ public class ServerClass extends Listener {
 
     @Override
     public void disconnected(Connection connection) {
-        System.out.println("[Server] Client hat Verbindung getrennt!");
         if(GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())){
             Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
             player.setOnline(false);
@@ -111,6 +115,7 @@ public class ServerClass extends Listener {
             this.players.setPlayersTurn(player.getId()+1);
             sendPlayersObjectToAll();
         }
+        System.out.println("[Server] Client hat Verbindung getrennt!");
     }
 
     @Override
@@ -118,7 +123,7 @@ public class ServerClass extends Listener {
 
         if (object instanceof PingRequest) {
 
-            PingResponse pingResponse = new PingResponse();
+            /*PingResponse pingResponse = new PingResponse();
 
             if (((PingRequest) object).isUpdRequest() && ((PingRequest) object).isTcpPortRequest()) {
                 ((PingRequest) object).setTcpPortRequest(false);
@@ -126,9 +131,11 @@ public class ServerClass extends Listener {
                 pingResponse.setTcpPort(this.TCPPORT);
             }
 
-            connection.sendTCP(pingResponse);
+            connection.sendTCP(pingResponse);*/
 
-        } else if (object instanceof Player) {
+        }else if(object instanceof ServerInformation){
+            this.server.sendToTCP(connection.getID(), new ServerInformation(this.hostname, this.TCPPORT));
+        }else if (object instanceof Player) {
             Player player = (Player) object;
             if (!GameOfLife.gameStarted && player.isJoning()) {
                     player.setJoning(false);

@@ -1,5 +1,7 @@
 package com.mygdx.gameoflife.networking.client;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -32,6 +34,7 @@ public class ClientClass extends Listener {
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
         kryo.register(Player.class);
     }
 
@@ -59,7 +62,7 @@ public class ClientClass extends Listener {
         this.client.close();
     }
 
-    public List<InetAddress> discoverServers(int udpPort) {
+    public void discoverServers(int udpPort) {
         List<InetAddress> servers = new ArrayList<InetAddress>();
 
         for (InetAddress a : this.client.discoverHosts(udpPort, 5000)) {
@@ -67,7 +70,14 @@ public class ClientClass extends Listener {
                 servers.add(a);
         }
 
-        return servers;
+        this.client.close();
+        for(InetAddress a : servers){
+            this.client.start();
+            this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+            this.client.sendTCP(new ServerInformation());
+            this.client.close();
+        }
+        this.client.start();
     }
 
     public void sendTCP(PingRequest pingRequest) {
@@ -78,6 +88,8 @@ public class ClientClass extends Listener {
     public void connected(Connection connection) {
 
         System.out.println("[Client] Verbunden!");
+
+        this.client.sendTCP(GameOfLife.self);
 
     }
 
@@ -95,11 +107,12 @@ public class ClientClass extends Listener {
             return;
         } else if (object instanceof ServerInformation) {
             ServerInformation serverInformation = (ServerInformation) object;
+            if (!GameOfLife.gameStarted && GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+                serverInformation.setAddress(connection.getRemoteAddressTCP().getAddress());
 
-            if (!GameOfLife.availableServers.contains(connection.getRemoteAddressUDP().getAddress())) {
-                GameOfLife.availableServers.add(connection.getRemoteAddressUDP().getAddress());
-                System.out.println("[Client] " + connection.getRemoteAddressUDP().getAddress() + ":" + serverInformation.getTcpPort());
-                if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+                if (!GameOfLife.availableServers.contains(serverInformation)) {
+                    GameOfLife.availableServers.add(serverInformation);
+                    System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
                     GameOfLife.getInstance().render();
                 }
             }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.mygdx.gameoflife.core.Player;
 import com.mygdx.gameoflife.networking.client.ClientClass;
+import com.mygdx.gameoflife.networking.packages.ServerInformation;
 import com.mygdx.gameoflife.networking.server.ServerClass;
 import com.mygdx.gameoflife.screens.MainMenuScreen;
 
@@ -22,7 +23,7 @@ public class GameOfLife extends Game {
 	public static ServerClass server;
 	public static ClientClass client;
 	public static List<Player> players;
-	public static List<InetAddress> availableServers;
+	public static List<ServerInformation> availableServers;
 	public static final int TCPPORT = 54333;
 	public static final int UDPPORT = 54777;
 
