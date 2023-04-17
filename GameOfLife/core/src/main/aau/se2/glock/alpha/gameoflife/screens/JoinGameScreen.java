@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.screens;
+package main.aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -25,8 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import aau.se2.glock.alpha.gameoflife.core.AvailableServerDetails;
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import main.aau.se2.glock.alpha.gameoflife.GameOfLife;
 
 import java.util.ArrayList;
 import java.util.List;

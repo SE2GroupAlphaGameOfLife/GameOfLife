@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package main.aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

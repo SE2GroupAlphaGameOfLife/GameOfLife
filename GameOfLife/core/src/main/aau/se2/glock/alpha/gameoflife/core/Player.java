@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package main.aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class Player {
     private String username, gender;
-    private int age, money;
+    private int age, money, id;
     protected int position;
     private Color color;
-    private boolean isHost;
+    private boolean isHost, hasTurn, isJoning, isOnline;
     protected int moveCount;
 
     public Player(String username, boolean isHost){
@@ -18,8 +18,48 @@ public class Player {
         this.money = 10000;
         this.color = new Color(Color.rgb888(255,0,0));
         this.isHost = isHost;
+        this.isJoning = true;
+        this.hasTurn = isHost;
         this.username = username;
         this.moveCount = 0;
+        this.isOnline = true;
+        this.id = -1;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public boolean isHost() {
+        return isHost;
+    }
+
+    public boolean isHasTurn() {
+        return hasTurn;
+    }
+
+    public void setHasTurn(boolean hasTurn) {
+        this.hasTurn = hasTurn;
+    }
+
+    public boolean isJoning() {
+        return isJoning;
+    }
+
+    public void setJoning(boolean joning) {
+        isJoning = joning;
     }
 
     public String getUsername() {
