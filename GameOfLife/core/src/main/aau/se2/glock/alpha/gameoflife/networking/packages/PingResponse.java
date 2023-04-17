@@ -1,4 +1,4 @@
-package main.aau.se2.glock.alpha.gameoflife.networking.packages;
+package aau.se2.glock.alpha.gameoflife.networking.packages;
 
 public class PingResponse {
 

@@ -1,5 +1,4 @@
-package main.aau.se2.glock.alpha.gameoflife.screens;
-
+package aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
@@ -17,12 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import main.aau.se2.glock.alpha.gameoflife.core.Player;
-import main.aau.se2.glock.alpha.gameoflife.GameOfLife;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class MainMenuScreen implements Screen {
     private OrthographicCamera gameCamera;

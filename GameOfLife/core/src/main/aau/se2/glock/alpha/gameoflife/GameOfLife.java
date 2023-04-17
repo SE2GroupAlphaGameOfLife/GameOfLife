@@ -1,4 +1,4 @@
-package main.aau.se2.glock.alpha.gameoflife;
+package aau.se2.glock.alpha.gameoflife;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
@@ -6,11 +6,11 @@ import com.badlogic.gdx.Screen;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.aau.se2.glock.alpha.gameoflife.core.Player;
-import main.aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
-import main.aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-import main.aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
-import main.aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
+import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 
 public class GameOfLife extends Game {
 	private static GameOfLife INSTANCE;
