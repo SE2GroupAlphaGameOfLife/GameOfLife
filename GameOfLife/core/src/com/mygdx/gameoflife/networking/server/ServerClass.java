@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.mygdx.gameoflife.GameOfLife;
 import com.mygdx.gameoflife.core.Player;
 import com.mygdx.gameoflife.networking.packages.JoinedPlayers;
 import com.mygdx.gameoflife.networking.packages.PingRequest;
@@ -16,15 +17,18 @@ import java.util.ArrayList;
 
 public class ServerClass extends Listener {
 
-    private final int UDPPORT = 54777;
-    private final int TCPPORT = 54333;
+    private final int UDPPORT;
+    private final int TCPPORT;
     private final Server server;
     private boolean serverStarted;
     private JoinedPlayers players;
 
-    public ServerClass() {
+    public ServerClass(int TCPPORT, int UDPPORT) {
         this.server = new Server();
         this.server.start();
+
+        this.TCPPORT = TCPPORT;
+        this.UDPPORT = UDPPORT;
 
         this.server.addListener(this);
 
@@ -40,7 +44,7 @@ public class ServerClass extends Listener {
         this.serverStarted = false;
     }
 
-    public void start() {
+    public void start(String hostname) {
         if (!this.serverStarted) {
             try {
                 /*ServerSocket s = new ServerSocket(0);
@@ -51,11 +55,15 @@ public class ServerClass extends Listener {
 
                 this.serverStarted = true;
 
-                //this.server.sendToAllUDP(new ServerInformation(this.TCPPORT));
+                sendServerInfoToAllUDP(hostname);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void sendServerInfoToAllUDP(String hostname) {
+        this.server.sendToAllUDP(new ServerInformation(hostname, this.TCPPORT));
     }
 
     public void close() {
@@ -77,12 +85,32 @@ public class ServerClass extends Listener {
 
     @Override
     public void connected(Connection connection) {
-        System.out.println("[Server] Client verbunden!");
+        if(GameOfLife.gameStarted){
+            if(this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
+                Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
+                player.setOnline(true);
+                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+                System.out.println("[Server] Client wiederverbunden!");
+                sendPlayersObjectToAll();
+            }else {
+                System.out.println("[Server] Client Verbindung abgelehnt da Spiel bereits läuft!");
+                connection.close();
+            }
+        }else{
+            System.out.println("[Server] Client verbunden!");
+        }
     }
 
     @Override
     public void disconnected(Connection connection) {
         System.out.println("[Server] Client hat Verbindung getrennt!");
+        if(GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())){
+            Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
+            player.setOnline(false);
+            this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+            this.players.setPlayersTurn(player.getId()+1);
+            sendPlayersObjectToAll();
+        }
     }
 
     @Override
@@ -102,12 +130,13 @@ public class ServerClass extends Listener {
 
         } else if (object instanceof Player) {
             Player player = (Player) object;
-            if (player.isJoning()) {
-                player.setJoning(false);
-                player.setId(this.players.getPlayerCount() + 1);
-                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
-                return;
-            } else if (player.isHasTurn()) {
+            if (!GameOfLife.gameStarted && player.isJoning()) {
+                    player.setJoning(false);
+                    player.setId(this.players.getPlayerCount() + 1);
+                    this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+                    return;
+            }
+            if (GameOfLife.gameStarted && player.isHasTurn()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
                 player.setHasTurn(false);
                 this.players.setPlayersTurn(player.getId() + 1);
                 this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
