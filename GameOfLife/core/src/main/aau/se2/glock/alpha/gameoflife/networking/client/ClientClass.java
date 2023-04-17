@@ -115,14 +115,14 @@ public class ClientClass extends Listener {
                 if (!GameOfLife.availableServers.contains(serverInformation)) {
                     GameOfLife.availableServers.add(serverInformation);
                     System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
-                    GameOfLife.getInstance().render();
+                    //GameOfLife.getInstance().render();
                 }
             }
 
             return;
         } else if (object instanceof JoinedPlayers) {
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
-            GameOfLife.getInstance().render();
+            //GameOfLife.getInstance().render();
 
             return;
         }

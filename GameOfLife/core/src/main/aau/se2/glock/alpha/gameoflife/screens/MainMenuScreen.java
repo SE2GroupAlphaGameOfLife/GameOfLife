@@ -254,7 +254,7 @@ public class MainMenuScreen implements Screen {
                         public void run() {
                             GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                             System.out.println(GameOfLife.availableServers);
-                            GameOfLife.getInstance().render();
+                            //GameOfLife.getInstance().render();
                         }
                     }).start();
                 }
@@ -284,18 +284,6 @@ public class MainMenuScreen implements Screen {
                     }).start();
 
                     GameOfLife.changeScreen(new StartGameScreen());
-                }
-            }
-        });
-
-        btnJoinGame.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (validateInput(usernameInput.getText())) {
-                    GameOfLife.self = new Player(usernameInput.getText(), true);
-                    GameOfLife.players = new ArrayList<>();
-                    GameOfLife.players.add(GameOfLife.self);
-                    GameOfLife.changeScreen(new JoinGameScreen());
                 }
             }
         });
