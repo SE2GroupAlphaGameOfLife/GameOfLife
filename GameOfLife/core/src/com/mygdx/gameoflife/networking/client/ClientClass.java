@@ -93,6 +93,8 @@ public class ClientClass extends Listener {
             ServerInformation serverInformation = (ServerInformation) object;
 
             System.out.println("[Client] "+connection.getRemoteAddressUDP().getAddress()+":"+serverInformation.getTcpPort());
+        }else if(object instanceof JoinedPlayers){
+
         }
     }
 }

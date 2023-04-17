@@ -11,6 +11,7 @@ import com.mygdx.gameoflife.networking.packages.ServerInformation;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 
 public class ServerClass extends Listener {
 
@@ -18,6 +19,7 @@ public class ServerClass extends Listener {
     private final int TCPPORT = 54333;
     private final Server server;
     private boolean serverStarted;
+    private JoinedPlayers players;
 
     public ServerClass() {
         this.server = new Server();
@@ -30,6 +32,8 @@ public class ServerClass extends Listener {
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
+
+
 
         this.serverStarted = false;
     }

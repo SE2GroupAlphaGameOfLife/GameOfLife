@@ -2,33 +2,36 @@ package com.mygdx.gameoflife.networking.packages;
 
 import com.mygdx.gameoflife.core.Player;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JoinedPlayers {
-    private ArrayList<Player> players;
+    private HashMap<InetAddress, Player> players;
 
     public JoinedPlayers(){
-        players = new ArrayList<Player>();
+        players = new HashMap<InetAddress, Player>();
     }
-    public JoinedPlayers(ArrayList<Player> players){
+    public JoinedPlayers(HashMap<InetAddress, Player> players){
         this.players = players;
     }
 
-    public boolean addPlayer(Player player){
-        if(this.players.contains(player))
+    public boolean addPlayer(Player player, InetAddress ipaddress){
+        if(this.players.containsKey(ipaddress))
             return false;
-        return this.players.add(player);
+        this.players.put(ipaddress, player);
+        return true;
     }
 
-    public boolean removePlayer(Player player){
-        return this.players.remove(player);
+    public void removePlayerWithIP(InetAddress ipaddress){
+        this.players.remove(ipaddress);
     }
 
-    public void setPlayers(ArrayList<Player> players){
+    public void setPlayers(HashMap<InetAddress, Player> players){
         this.players = players;
     }
 
-    public ArrayList<Player> getPlayers(){
+    public HashMap<InetAddress, Player> getPlayers(){
         return this.players;
     }
 }
