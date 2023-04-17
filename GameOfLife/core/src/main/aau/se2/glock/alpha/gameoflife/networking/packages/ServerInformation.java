@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.networking.packages;
+package aau.se2.glock.alpha.gameoflife.networking.packages;
 
 import java.net.InetAddress;
 import java.util.Objects;

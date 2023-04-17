@@ -1,10 +1,10 @@
-package com.mygdx.gameoflife.networking.packages;
+package aau.se2.glock.alpha.gameoflife.networking.packages;
 
-import com.mygdx.gameoflife.core.Player;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import main.aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class JoinedPlayers {
     private HashMap<InetAddress, Player> players;

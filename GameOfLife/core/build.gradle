@@ -4,10 +4,6 @@ plugins {
 }
 
 sourceCompatibility = 1.7
-dependencies {
-    implementation 'com.esotericsoftware.kryo:kryo:2.24.0'
-    implementation 'com.esotericsoftware:kryonet:2.22.0-RC1'
-}
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sonarqube {

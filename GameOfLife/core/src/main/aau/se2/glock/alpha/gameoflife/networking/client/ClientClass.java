@@ -1,22 +1,27 @@
-package com.example.gameoflife.networking.client;
+package aau.se2.glock.alpha.gameoflife.networking.client;
 
-
+import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.example.gameoflife.networking.packages.PingRequest;
-import com.example.gameoflife.networking.packages.PingResponse;
-import com.example.gameoflife.networking.packages.ServerInformation;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.aau.se2.glock.alpha.gameoflife.GameOfLife;
+import main.aau.se2.glock.alpha.gameoflife.core.Player;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.PingRequest;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.PingResponse;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import main.aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
+
 public class ClientClass extends Listener {
 
-    private Client client;
+    private final Client client;
 
     public ClientClass() {
         this.client = new Client();
@@ -28,6 +33,9 @@ public class ClientClass extends Listener {
         kryo.register(PingRequest.class);
         kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
+        kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
+        kryo.register(Player.class);
     }
 
     public void connect(InetAddress address, int tcpPort, int udpPort) {
@@ -50,11 +58,11 @@ public class ClientClass extends Listener {
         }
     }
 
-    public void disconnect(){
+    public void disconnect() {
         this.client.close();
     }
 
-    public List<InetAddress> discoverServers(int udpPort) {
+    public void discoverServers(int udpPort) {
         List<InetAddress> servers = new ArrayList<InetAddress>();
 
         for (InetAddress a : this.client.discoverHosts(udpPort, 5000)) {
@@ -62,7 +70,14 @@ public class ClientClass extends Listener {
                 servers.add(a);
         }
 
-        return servers;
+        this.client.close();
+        for(InetAddress a : servers){
+            this.client.start();
+            this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+            this.client.sendTCP(new ServerInformation());
+            this.client.close();
+        }
+        this.client.start();
     }
 
     public void sendTCP(PingRequest pingRequest) {
@@ -74,13 +89,13 @@ public class ClientClass extends Listener {
 
         System.out.println("[Client] Verbunden!");
 
+        this.client.sendTCP(GameOfLife.self);
+
     }
 
     @Override
     public void disconnected(Connection connection) {
-
         System.out.println("[Client] Verbindung getrennt!");
-
     }
 
     @Override
@@ -89,11 +104,25 @@ public class ClientClass extends Listener {
         if (object instanceof PingResponse) {
 
             PingResponse pingResponse = (PingResponse) object;
-
-        }else if(object instanceof ServerInformation){
+            return;
+        } else if (object instanceof ServerInformation) {
             ServerInformation serverInformation = (ServerInformation) object;
+            if (!GameOfLife.gameStarted && GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+                serverInformation.setAddress(connection.getRemoteAddressTCP().getAddress());
 
-            System.out.println("[Client] "+connection.getRemoteAddressUDP().getAddress()+":"+serverInformation.getTcpPort());
+                if (!GameOfLife.availableServers.contains(serverInformation)) {
+                    GameOfLife.availableServers.add(serverInformation);
+                    System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
+                    GameOfLife.getInstance().render();
+                }
+            }
+
+            return;
+        } else if (object instanceof JoinedPlayers) {
+            GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
+            GameOfLife.getInstance().render();
+
+            return;
         }
     }
 }

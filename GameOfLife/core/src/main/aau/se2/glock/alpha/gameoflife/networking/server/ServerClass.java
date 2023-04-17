@@ -1,20 +1,19 @@
-package com.mygdx.gameoflife.networking.server;
+package aau.se2.glock.alpha.gameoflife.networking.server;
 
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.mygdx.gameoflife.GameOfLife;
-import com.mygdx.gameoflife.core.Player;
-import com.mygdx.gameoflife.networking.packages.JoinedPlayers;
-import com.mygdx.gameoflife.networking.packages.PingRequest;
-import com.mygdx.gameoflife.networking.packages.PingResponse;
-import com.mygdx.gameoflife.networking.packages.ServerInformation;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.util.ArrayList;
+
+import main.aau.se2.glock.alpha.gameoflife.GameOfLife;
+import main.aau.se2.glock.alpha.gameoflife.core.Player;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.PingRequest;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.PingResponse;
+import main.aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
 public class ServerClass extends Listener {
 

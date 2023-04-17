@@ -1,8 +1,11 @@
-package com.example.gameoflife.networking.packages;
+package aau.se2.glock.alpha.gameoflife.networking.packages;
 
 public class PingRequest {
     private boolean updRequest = false;
     private boolean tcpPortRequest = false;
+
+    public PingRequest() {
+    }
 
     public boolean isUpdRequest() {
         return updRequest;
