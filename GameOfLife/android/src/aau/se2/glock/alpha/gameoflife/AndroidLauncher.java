@@ -1,7 +1,6 @@
-package com.mygdx.gameoflife;
+package aau.se2.glock.alpha.gameoflife;
 
 import android.os.Bundle;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 

@@ -1,4 +1,4 @@
-package com.mygdx.gameoflife.screens;
+package aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -22,10 +22,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.gameoflife.GameOfLife;
-import com.mygdx.gameoflife.core.Board;
-import com.mygdx.gameoflife.core.GameField;
-import com.mygdx.gameoflife.core.Player;
+
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.Board;
+import aau.se2.glock.alpha.gameoflife.core.GameField;
+import aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class GameScreen implements Screen {
 
@@ -77,7 +78,7 @@ public class GameScreen implements Screen {
 
         stage.getBatch().draw(background, -gameCamera.viewportWidth / 3, -gameCamera.viewportHeight / 2, gameCamera.viewportWidth / 3 * 2, gameCamera.viewportHeight);
         for (Player player : GameOfLife.players) {
-            GameField currentField = Board.getGameFields().get(player.getPosition());
+            GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
             stage.getBatch().draw(skateboard, currentField.getPosition().x - 20, currentField.getPosition().y - 20, 40, 40);
         }
 
@@ -197,9 +198,9 @@ public class GameScreen implements Screen {
                 int moveCount = player.rollTheDice();
                 Gdx.app.log("Rolled", "" + moveCount);
 
-                GameField gameField = Board.getGameFields().get(player.getPosition());
+                GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
                 if (player.makeMove() == false) {
-                    gameField = Board.getGameFields().get(player.getPosition());
+                    gameField = Board.getInstance().getGameFields().get(player.getPosition());
 
                     GameOfLife.players.set(0, player);
                     chooseNextStep(gameField);
@@ -275,9 +276,9 @@ public class GameScreen implements Screen {
         nextFieldButtonGroup.clearChildren();
 
         //Check if player can still move
-        GameField gameField = Board.getGameFields().get(player.getPosition());
+        GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
         if (!player.makeMove()) {
-            gameField = Board.getGameFields().get(player.getPosition());
+            gameField = Board.getInstance().getGameFields().get(player.getPosition());
             GameOfLife.players.set(0, player);
             chooseNextStep(gameField);
         }

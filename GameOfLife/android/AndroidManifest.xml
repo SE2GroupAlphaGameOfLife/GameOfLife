@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.mygdx.gameoflife">
+    package="aau.se2.glock.alpha.gameoflife">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         tools:ignore="UnusedAttribute">
         <activity
-            android:name="com.mygdx.gameoflife.AndroidLauncher"
+            android:name="aau.se2.glock.alpha.gameoflife.AndroidLauncher"
             android:label="@string/app_name" 
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
