@@ -23,7 +23,6 @@ public class Stack {
     }
 
     public void addCards(List<Card> newCards){
-        //TODO KARTE AUF STACK LEGEN
         for (int i = 0; i < newCards.size(); i++) {
             cardList.add(newCards.get(i));
         }
