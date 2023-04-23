@@ -1,8 +1,0 @@
-com.aau.se2.glock.alpha.android-pngs-0 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\build\generated\res\pngs\debug
-com.aau.se2.glock.alpha.android-resValues-1 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\build\generated\res\resValues\debug
-com.aau.se2.glock.alpha.android-rs-2 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\build\generated\res\rs\debug
-com.aau.se2.glock.alpha.android-mergeDebugResources-3 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.aau.se2.glock.alpha.android-mergeDebugResources-4 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.aau.se2.glock.alpha.android-merged_res-5 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\build\intermediates\merged_res\debug
-com.aau.se2.glock.alpha.android-android-6 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\res
-com.aau.se2.glock.alpha.android-debug-7 C:\Users\Nico\source\uni\GameOfLife\Brainstorming\moritzkupper\GameOfLife\android\src\debug\res
