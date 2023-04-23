@@ -21,11 +21,12 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.mygdx.game"
+        applicationId "aau.se2.glock.alpha.gameoflife"
         minSdkVersion 20
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -49,6 +50,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'aau.se2.glock.alpha.gameoflife'
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
