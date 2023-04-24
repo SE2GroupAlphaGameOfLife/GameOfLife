@@ -26,7 +26,6 @@ public class ServerClass extends Listener {
 
     public ServerClass(int TCPPORT, int UDPPORT) {
         this.server = new Server();
-        this.server.start();
 
         this.TCPPORT = TCPPORT;
         this.UDPPORT = UDPPORT;
@@ -52,7 +51,7 @@ public class ServerClass extends Listener {
                 /*ServerSocket s = new ServerSocket(0);
                 this.TCPPORT = s.getLocalPort();
                 s.close();*/
-
+                this.server.start();
                 this.server.bind(this.TCPPORT, this.UDPPORT);
 
                 this.serverStarted = true;
