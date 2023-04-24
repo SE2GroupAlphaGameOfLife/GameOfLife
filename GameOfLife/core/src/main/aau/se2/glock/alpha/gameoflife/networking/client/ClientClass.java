@@ -71,14 +71,12 @@ public class ClientClass extends Listener {
             if (!servers.contains(a))
                 servers.add(a);
         }
-        //hdf
 
         this.client.close();
         for(InetAddress a : servers){
             this.client.start();
             this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
             this.client.sendTCP(new ServerInformation());
-            this.client.close();
         }
         this.client.start();
         if(servers.isEmpty()){
@@ -125,7 +123,9 @@ public class ClientClass extends Listener {
 
                 if (!GameOfLife.availableServers.contains(serverInformation)) {
                     GameOfLife.availableServers.add(serverInformation);
-                    System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
+                    //System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
+                    //System.out.println("INOOOOFOOFFO "+serverInformation);
+                    this.client.close();
                     //GameOfLife.getInstance().render();
                 }
             }
