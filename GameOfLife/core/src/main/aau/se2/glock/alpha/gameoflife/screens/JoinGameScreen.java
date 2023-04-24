@@ -158,17 +158,26 @@ public class JoinGameScreen implements Screen {
         stage.addActor(labelServers); // Add the label to the stage
 
         int count = 0;
-        for (final ServerInformation serverDetails : GameOfLife.availableServers) {
-            Label serverLable = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
-            serverLable.setPosition(screenWidth/20, labelServers.getY()-screenHeight/25 - count*45); // Set the position of the label
-            serverLable.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    onIpClicked(serverDetails.getAddress());
-                }
-            });
+
+        if (GameOfLife.availableServers.isEmpty()) {
+            Label serverLable = new Label("Searching for servers...", labelServerDetailStyle); // Create the label with the text and style
+            serverLable.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
+
             stage.addActor(serverLable); // Add the label to the stage
             count++;
+        } else {
+            for (final ServerInformation serverDetails : GameOfLife.availableServers) {
+                Label serverLable = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
+                serverLable.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
+                serverLable.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        onIpClicked(serverDetails.getAddress());
+                    }
+                });
+                stage.addActor(serverLable); // Add the label to the stage
+                count++;
+            }
         }
     }
 

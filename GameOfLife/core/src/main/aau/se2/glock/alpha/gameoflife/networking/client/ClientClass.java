@@ -71,6 +71,7 @@ public class ClientClass extends Listener {
             if (!servers.contains(a))
                 servers.add(a);
         }
+        //hdf
 
         this.client.close();
         for(InetAddress a : servers){
@@ -80,6 +81,16 @@ public class ClientClass extends Listener {
             this.client.close();
         }
         this.client.start();
+        if(servers.isEmpty()){
+            List<ServerInformation> serverDetails = new ArrayList<>();
+            serverDetails.add(new ServerInformation("Host1", 1));
+            serverDetails.add(new ServerInformation("Host2", 2));
+            serverDetails.add(new ServerInformation("Host3", 3));
+            serverDetails.add(new ServerInformation("Host4", 4));
+            serverDetails.add(new ServerInformation("Host5", 5));
+            serverDetails.add(new ServerInformation("Host6", 6));
+            GameOfLife.availableServers = serverDetails;
+        }
     }
 
     public void sendTCP(PingRequest pingRequest) {
