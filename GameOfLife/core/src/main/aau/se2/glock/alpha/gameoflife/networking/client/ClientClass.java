@@ -77,9 +77,18 @@ public class ClientClass extends Listener {
             this.client.start();
             this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
             this.client.sendTCP(new ServerInformation());
-            this.client.close();
         }
         this.client.start();
+        if(servers.isEmpty()){
+            List<ServerInformation> serverDetails = new ArrayList<>();
+            serverDetails.add(new ServerInformation("Host1", 1));
+            serverDetails.add(new ServerInformation("Host2", 2));
+            serverDetails.add(new ServerInformation("Host3", 3));
+            serverDetails.add(new ServerInformation("Host4", 4));
+            serverDetails.add(new ServerInformation("Host5", 5));
+            serverDetails.add(new ServerInformation("Host6", 6));
+            GameOfLife.availableServers = serverDetails;
+        }
     }
 
     public void sendTCP(PingRequest pingRequest) {
@@ -114,7 +123,9 @@ public class ClientClass extends Listener {
 
                 if (!GameOfLife.availableServers.contains(serverInformation)) {
                     GameOfLife.availableServers.add(serverInformation);
-                    System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
+                    //System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
+                    //System.out.println("INOOOOFOOFFO "+serverInformation);
+                    this.client.close();
                     //GameOfLife.getInstance().render();
                 }
             }

@@ -248,6 +248,8 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
+                    //GameOfLife.server.start(GameOfLife.self.getUsername());
+
                     GameOfLife.changeScreen(new JoinGameScreen());
                     new Thread(new Runnable() {
                         @Override
