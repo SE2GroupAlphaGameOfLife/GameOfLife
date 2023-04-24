@@ -6,7 +6,8 @@
     },
     "nextPositions": [
       1,43
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -15,7 +16,8 @@
     },
     "nextPositions": [
       2
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -24,7 +26,8 @@
     },
     "nextPositions": [
       3
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -33,7 +36,8 @@
     },
     "nextPositions": [
       4,75
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -42,7 +46,8 @@
     },
     "nextPositions": [
       5
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -51,7 +56,8 @@
     },
     "nextPositions": [
       6
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -60,7 +66,8 @@
     },
     "nextPositions": [
       7,107
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -69,7 +76,8 @@
     },
     "nextPositions": [
       8
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -78,7 +86,8 @@
     },
     "nextPositions": [
       9
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -87,7 +96,8 @@
     },
     "nextPositions": [
       10,12
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -96,7 +106,8 @@
     },
     "nextPositions": [
       11
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -105,7 +116,8 @@
     },
     "nextPositions": [
       0
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -114,7 +126,8 @@
     },
     "nextPositions": [
       13
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -123,7 +136,8 @@
     },
     "nextPositions": [
       14
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -133,7 +147,8 @@
     "nextPositions": [
       15,
       21
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -142,7 +157,8 @@
     },
     "nextPositions": [
       16
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -151,7 +167,8 @@
     },
     "nextPositions": [
       17
-    ]
+    ],
+    "type" : "car"
   },
   {
     "position": {
@@ -160,7 +177,8 @@
     },
     "nextPositions": [
       18
-    ]
+    ],
+    "type" : "get15tLP"
   },
   {
     "position": {
@@ -169,7 +187,8 @@
     },
     "nextPositions": [
       19
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -178,7 +197,8 @@
     },
     "nextPositions": [
       20
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -187,7 +207,8 @@
     },
     "nextPositions": [
       11
-    ]
+    ],
+    "type" : "house"
   },
   {
     "position": {
@@ -196,7 +217,8 @@
     },
     "nextPositions": [
       22
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -205,7 +227,8 @@
     },
     "nextPositions": [
       23
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -214,7 +237,8 @@
     },
     "nextPositions": [
       24
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -223,7 +247,8 @@
     },
     "nextPositions": [
       25
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -232,7 +257,8 @@
     },
     "nextPositions": [
       26
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -241,7 +267,8 @@
     },
     "nextPositions": [
       27
-    ]
+    ],
+    "type" : "lottery"
   },
   {
     "position": {
@@ -250,7 +277,8 @@
     },
     "nextPositions": [
       28, 34
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -259,7 +287,8 @@
     },
     "nextPositions": [
       29
-    ]
+    ],
+    "type" : "casino"
   },
   {
     "position": {
@@ -268,7 +297,8 @@
     },
     "nextPositions": [
       30
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -277,7 +307,8 @@
     },
     "nextPositions": [
       31
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -286,7 +317,8 @@
     },
     "nextPositions": [
       32
-    ]
+    ],
+    "type" : "car"
   },
   {
     "position": {
@@ -295,7 +327,8 @@
     },
     "nextPositions": [
       33
-    ]
+    ],
+    "type" : "house"
   },
   {
     "position": {
@@ -304,7 +337,8 @@
     },
     "nextPositions": [
       19
-    ]
+    ],
+    "type" : "get3tLP"
   },
   {
     "position": {
@@ -313,7 +347,8 @@
     },
     "nextPositions": [
       35
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -322,7 +357,8 @@
     },
     "nextPositions": [
       36
-    ]
+    ],
+    "type" : "casino"
   },
   {
     "position": {
@@ -331,7 +367,8 @@
     },
     "nextPositions": [
       37
-    ]
+    ],
+    "type" : "get3.5tLP"
   },
   {
     "position": {
@@ -340,7 +377,8 @@
     },
     "nextPositions": [
       38
-    ]
+    ],
+    "type" : "casino"
   },
   {
     "position": {
@@ -349,7 +387,8 @@
     },
     "nextPositions": [
       39
-    ]
+    ],
+    "type" : "pay10tEUR"
   },
   {
     "position": {
@@ -358,7 +397,8 @@
     },
     "nextPositions": [
       40
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -367,7 +407,8 @@
     },
     "nextPositions": [
       41
-    ]
+    ],
+    "type" : "get200tEUR"
   },
   {
     "position": {
@@ -376,7 +417,8 @@
     },
     "nextPositions": [
       42
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -385,7 +427,8 @@
     },
     "nextPositions": [
       30
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -394,7 +437,8 @@
     },
     "nextPositions": [
       44
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -403,7 +447,8 @@
     },
     "nextPositions": [
       45
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -412,7 +457,8 @@
     },
     "nextPositions": [
       46
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -421,7 +467,8 @@
     },
     "nextPositions": [
       47,53
-    ]
+    ],
+    "type" : "intersection"
   },
   {
     "position": {
@@ -430,7 +477,8 @@
     },
     "nextPositions": [
       48
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -439,7 +487,8 @@
     },
     "nextPositions": [
       49
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -448,7 +497,8 @@
     },
     "nextPositions": [
       50
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -457,7 +507,8 @@
     },
     "nextPositions": [
       51
-    ]
+    ],
+    "type" : "changecareer"
   },
   {
     "position": {
@@ -466,7 +517,8 @@
     },
     "nextPositions": [
       52
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -475,7 +527,8 @@
     },
     "nextPositions": [
       2
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -484,7 +537,8 @@
     },
     "nextPositions": [
       54
-    ]
+    ],
+    "type" : "pay20t"
   },
   {
     "position": {
@@ -493,7 +547,8 @@
     },
     "nextPositions": [
       55
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -502,7 +557,8 @@
     },
     "nextPositions": [
       56
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -511,7 +567,8 @@
     },
     "nextPositions": [
       57
-    ]
+    ],
+    "type" : "empty"
   },
   {
     "position": {
@@ -931,7 +988,7 @@
     "nextPositions": [
       81
     ],
-    "type": "promotion"
+    "type": "promotion2x"
   },
   {
     "position": {
@@ -971,7 +1028,7 @@
     "nextPositions": [
       103
     ],
-    "type": "promotion1"
+    "type": "promotion1x"
   },
   {
     "position": {
@@ -991,7 +1048,7 @@
     "nextPositions": [
       105
     ],
-    "type": "shares100"
+    "type": "shares100tEUR"
   },
   {
     "position": {
@@ -1011,7 +1068,7 @@
     "nextPositions": [
       96
     ],
-    "type": "promotion1"
+    "type": "promotion1x"
   },
   {
     "position": {
@@ -1111,7 +1168,7 @@
     "nextPositions": [
       8
     ],
-    "type": "house"
+    "type": "empty"
   },
   {
     "position": {
@@ -1231,7 +1288,7 @@
     "nextPositions": [
       129
     ],
-    "type": "twins"
+    "type": "empty"
   },
   {
     "position": {
@@ -1241,7 +1298,7 @@
     "nextPositions": [
       113
     ],
-    "type": "twins"
+    "type": "car"
   },
   {
     "position": {
