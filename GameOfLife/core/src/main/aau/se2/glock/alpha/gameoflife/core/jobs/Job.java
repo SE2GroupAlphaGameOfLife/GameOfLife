@@ -1,6 +1,7 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Job {
     public Job(String bezeichnung, ArrayList<Integer> gehaltsListe) {
@@ -9,7 +10,7 @@ public class Job {
     }
 
     String Bezeichnung;
-    ArrayList<Integer> gehaltsListe = new ArrayList<Integer>();
+    ArrayList<Integer> gehaltsListe;
     int gehaltsStufe = 0;
 
     public String getBezeichnung() {
@@ -21,10 +22,12 @@ public class Job {
     }
 
     public void befoerderung(){
-        if(gehaltsStufe < gehaltsListe.size()-1){
+        if (gehaltsStufe < gehaltsListe.size() - 1) {
             gehaltsStufe++;
-        }else{
-            //TODO Exception werfen
-        }
+        } //else {
+           // Exception e;
+            //System.out.println(e);
+       // }
     }
+
 }
