@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -46,7 +47,23 @@ public class GameScreen implements Screen {
     Button nextFieldButton1, nextFieldButton2;
     Group nextFieldButtonGroup; // Create a Group to hold actors
     Texture lightGrayTexture, grayTextrue;
+    Texture wheelTexture;
+    Texture arrowTexture;
 
+    //Wheel
+    int wheelSize = 100;
+    boolean isSpinning = false;
+    float arrowX = -25f;
+    float arrowY = -25f;
+    float arrowWidth = 50f;
+    float arrowHeight = 50f;
+    float arrowRotation = 216f; //216 is starting point
+    float spinSpeed = 360f;
+    float maxSpinDuration = 2f;
+    float spinDuration = 0f;
+    float spinAngle = 0f;
+    int selectedSection = 0;
+    boolean spinningEnded = true;
 
     public GameScreen() {
         gameCamera = new OrthographicCamera();
@@ -80,6 +97,15 @@ public class GameScreen implements Screen {
         for (Player player : GameOfLife.players) {
             GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
             stage.getBatch().draw(skateboard, currentField.getPosition().x - 20, currentField.getPosition().y - 20, 40, 40);
+        }
+
+        if (GameOfLife.self.isHasTurn()) {
+            stage.getBatch().draw(wheelTexture, -(wheelSize / 2), -(wheelSize / 2), (wheelSize), (wheelSize));
+            stage.getBatch().draw(arrowTexture, arrowX, arrowY, arrowWidth / 2f, arrowHeight / 2f, arrowWidth, arrowHeight, 1f, 1f, spinAngle + arrowRotation, 0, 0, arrowTexture.getWidth(), arrowTexture.getHeight(), false, false);
+
+            if (isSpinning) {
+                spinTheWheel(delta);
+            }
         }
 
         stage.getBatch().end();
@@ -168,6 +194,9 @@ public class GameScreen implements Screen {
 
         background = new Texture(Gdx.files.internal("board.png"));
         skateboard = new Texture(Gdx.files.internal("skateboard.png"));
+
+        wheelTexture = new Texture("wheel.png");
+        arrowTexture = new Texture("arrow.png");
     }
 
     /**
@@ -194,19 +223,18 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 boolean isInTurn = true;
+
                 Player player = GameOfLife.players.get(0);
                 int moveCount = player.rollTheDice();
-                Gdx.app.log("Rolled", "" + moveCount);
+                Gdx.app.log("moveCount", moveCount + "");
 
-                GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
-                if (player.makeMove() == false) {
-                    gameField = Board.getInstance().getGameFields().get(player.getPosition());
+                //calculating the angle that the arrow has to spin, so that it stops at the correct number
+                float maxSpingAngle = (moveCount * 36) - 18;
+                System.out.println(spinAngle);
+                spinSpeed = ((maxSpingAngle) + 720) / maxSpinDuration;
+                spinAngle = 0;
 
-                    GameOfLife.players.set(0, player);
-                    chooseNextStep(gameField);
-                }
-
-                GameOfLife.players.set(0, player);
+                isSpinning = true;
             }
 
         };
@@ -268,7 +296,7 @@ public class GameScreen implements Screen {
      *
      * @param index
      */
-    private void stepChoosen(int index){
+    private void stepChoosen(int index) {
         // Update player's choice and position
         Player player = GameOfLife.players.get(0);
         player.chooseDirection(index);
@@ -284,5 +312,30 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+    }
+
+    private void spinTheWheel(float delta){
+        // increase spin duration and angle
+        spinDuration += delta;
+        spinAngle -= spinSpeed * delta;
+
+        // select a random section once spin duration exceeds maximum duration
+        if (spinDuration > maxSpinDuration) {
+            spinDuration = 0f;
+            spinSpeed = 0f;
+            selectedSection = MathUtils.random(10);
+            isSpinning = false;
+
+            Player player = GameOfLife.players.get(0);
+            GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
+            if (player.makeMove() == false) {
+                gameField = Board.getInstance().getGameFields().get(player.getPosition());
+
+                GameOfLife.players.set(0, player);
+                chooseNextStep(gameField);
+            }
+
+            GameOfLife.players.set(0, player);
+        }
     }
 }
