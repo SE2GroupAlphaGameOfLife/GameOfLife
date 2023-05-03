@@ -38,10 +38,12 @@ public class JoinGameScreen implements Screen {
     private OrthographicCamera gameCamera;
     private Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
-    private int btnJoinWidth, btnJoinHeight;
+    private int btnWidth, btnHeight;
     public Vector2 btnJoinPosition;
     private Stage stage;
     private TextButton btnJoinGame;
+    private TextButton btnBack;
+
     private TextButton.TextButtonStyle textButtonStyle;
     private Skin skin;
     private Texture lightGrayTexture, grayTextrue;
@@ -80,6 +82,7 @@ public class JoinGameScreen implements Screen {
         createServerTextField();
         createJoinGameButton();
         createServerOverview();
+        createBackButton();
     }
 
     private void createServerTextField() {
@@ -92,7 +95,7 @@ public class JoinGameScreen implements Screen {
 
         // Create the text field using the registered style
         ipInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        ipInput.setSize(screenWidth - btnJoinWidth - screenWidth / 25 * 2 - screenWidth / 70, btnJoinHeight); // Set the size of the text field
+        ipInput.setSize(screenWidth - btnWidth - screenWidth / 25 * 2 - screenWidth / 70, btnHeight); // Set the size of the text field
         ipInput.setPosition(screenWidth / 25, screenHeight - screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
         // Set the placeholder text
         ipInput.setMessageText("Enter IP-Address"); // Set the placeholder text
@@ -133,7 +136,7 @@ public class JoinGameScreen implements Screen {
 
         //Create a Join Game Button
         btnJoinGame = new TextButton("Join", textButtonStyle); // Create the text button with the text and style
-        btnJoinGame.setSize(btnJoinWidth, btnJoinHeight);
+        btnJoinGame.setSize(btnWidth, btnHeight);
         btnJoinGame.setPosition(ipInput.getX() + ipInput.getWidth() + screenWidth / 70, ipInput.getY());
 
         stage.addActor(btnJoinGame);
@@ -221,10 +224,10 @@ public class JoinGameScreen implements Screen {
         screenHeight = Gdx.graphics.getHeight();
         centerHeight = screenHeight / 2;
 
-        btnJoinWidth = screenWidth / 5;
-        btnJoinHeight = screenHeight / 13;
+        btnWidth = screenWidth / 5;
+        btnHeight = screenHeight / 13;
 
-        btnJoinPosition = new Vector2(centerWidth - (btnJoinWidth / 2), centerHeight - btnJoinHeight);
+        btnJoinPosition = new Vector2(centerWidth - (btnWidth / 2), centerHeight - btnHeight);
     }
 
     private NinePatch createBorderPatch() {
@@ -242,6 +245,26 @@ public class JoinGameScreen implements Screen {
         pixmap.dispose();
 
         return patch;
+    }
+
+    private void createBackButton() {
+        //Create a Back Button
+        btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
+        btnBack.setSize(btnWidth, btnHeight); // Set the size of the button
+        btnBack.setPosition(30, 30); // Set the position of the button
+
+        stage.addActor(btnBack); // Add the button to the stage
+
+        // Create a ClickListener
+        ClickListener btnBackListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // This method will be called when the TextButton is clicked
+                GameOfLife.changeScreen(new MainMenuScreen());
+            }
+        };
+
+        btnBack.addListener(btnBackListener);
     }
 
     @Override
