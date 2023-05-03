@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
@@ -15,8 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -39,6 +42,7 @@ public class GameScreen implements Screen {
 
     Stage stage;
     TextButton btnRollDice;
+    TextButton btnQuit;
     TextButton.TextButtonStyle textButtonStyle;
     BitmapFont standardFont, bigFont;
     Skin skin;
@@ -61,6 +65,7 @@ public class GameScreen implements Screen {
         initTextures();
 
         createButton();
+        createQuitkButton();
     }
 
     @Override
@@ -268,7 +273,7 @@ public class GameScreen implements Screen {
      *
      * @param index
      */
-    private void stepChoosen(int index){
+    private void stepChoosen(int index) {
         // Update player's choice and position
         Player player = GameOfLife.players.get(0);
         player.chooseDirection(index);
@@ -284,5 +289,24 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+    }
+
+    private void createQuitkButton() {
+        //Create a Back Button
+        btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
+        btnQuit.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        btnQuit.setPosition(30, 30); // Set the position of the button
+
+        stage.addActor(btnQuit); // Add the button to the stage
+
+        // Create a ClickListener
+        ClickListener btnQuitListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameOfLife.changeScreen(new MainMenuScreen());
+            }
+        };
+
+        btnQuit.addListener(btnQuitListener);
     }
 }
