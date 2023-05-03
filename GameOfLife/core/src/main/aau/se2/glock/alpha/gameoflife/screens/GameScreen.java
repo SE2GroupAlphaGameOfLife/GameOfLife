@@ -27,6 +27,7 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.logic.Game;
 
 public class GameScreen implements Screen {
 
@@ -46,6 +47,7 @@ public class GameScreen implements Screen {
     Button nextFieldButton1, nextFieldButton2;
     Group nextFieldButtonGroup; // Create a Group to hold actors
     Texture lightGrayTexture, grayTextrue;
+    Game game;
 
 
     public GameScreen() {
@@ -61,6 +63,8 @@ public class GameScreen implements Screen {
         initTextures();
 
         createButton();
+
+        initGame();
     }
 
     @Override
@@ -193,6 +197,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
+                game.rollDice();
                 boolean isInTurn = true;
                 Player player = GameOfLife.players.get(0);
                 int moveCount = player.rollTheDice();
@@ -285,4 +290,15 @@ public class GameScreen implements Screen {
 
         GameOfLife.players.set(0, player);
     }
+    private void initGame(){
+        game = Game.getInstance(GameOfLife.self,GameOfLife.players);
+        if(game.getCurrentPlayer().isHost()){
+            game.startGame();
+        }
+        else{
+            //TODO: Waiting for host
+        }
+
+    }
 }
+
