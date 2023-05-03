@@ -8,8 +8,16 @@ public class Card {
 
     private List<Event> events = new ArrayList<>(4);
 
-    //Index der Liste: 0 = Blau, 1 = Lila, 2 = Grün, 3 = Orange
 
+
+    /**
+     * Returns the event at index n.
+     *
+     * Index of the list: 0 = blue, 1 = purple, 2 = green, 3 = orange.
+     *
+     * @param n describes the index
+     * @return  event at n
+     */
     public Event getEvent(int n){
        try {
            return events.get(n);
@@ -19,6 +27,9 @@ public class Card {
        }
     }
 
+    /**
+     * Fills up events.
+     */
     public void fillEvents(){
         for (int i = 0; i < 4; i++) {
             events.add(new Event(0,0,""));
@@ -33,6 +44,12 @@ public class Card {
 
  */
 
+    /**
+     * Adds event at index
+     *
+     * @param index index
+     * @param e     event
+     */
     public void addEvent(int index, Event e){
         events.set(index, e);
     }

@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core.jobs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class JobData {
 
@@ -25,9 +26,12 @@ public class JobData {
     Job j18 = new Job("Kostümbildner", new ArrayList<>(Arrays.asList(5000, 30000, 80000, 140000, 200000, 300000, 400000)));
     Job j19 = new Job("Kommissar", new ArrayList<>(Arrays.asList(5000, 20000, 60000, 400000, 800000, 1000000, 1600000)));
     Job j20 = new Job("Schriftsteller", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 500000)));
-
     ArrayList<Job> jobList = new ArrayList<>();
+    int countCard = 0;
 
+    /**
+     * Fills jobList with 20 Jobs.
+     */
     public void fillJobList() {
         jobList.add(j1);
         jobList.add(j2);
@@ -50,5 +54,22 @@ public class JobData {
         jobList.add(j19);
         jobList.add(j20);
     }
+
+    /**
+     * Returns two different Jobs and increments the countCard.
+     *
+     * @return two different Jobs and increments tho countCard.
+     */
+    public Job get2JobsToSelect(){
+        return jobList.get(countCard++ & countCard++);
+    }
+
+    /**
+     * Mixes jobList.
+     */
+    public void mixCards() {
+        Collections.shuffle(jobList);
+    }
+
 
 }

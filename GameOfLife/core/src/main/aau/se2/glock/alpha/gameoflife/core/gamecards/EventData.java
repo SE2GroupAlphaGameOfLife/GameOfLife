@@ -3,7 +3,7 @@ package aau.se2.glock.alpha.gameoflife.core.gamecards;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FillData {
+public class EventData {
     Event e1 = new Event(200, 0, "Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhältst du 200 LP.");
     Event e2 = new Event(200, 0, "Du malst nach einem Foto ein Familienporträt. Es ist kein Meisterwerk, aber allen gefällt's. Du erhältst 200 LP.");
     Event e3 = new Event(0, 20000, "Du übernachtest in enem skandinvischen Eishotel. Für deine Frostbeueln erhälst du € 20.000. Schmerzensgeld.");
@@ -106,126 +106,136 @@ public class FillData {
     Event e100 = new Event(0,17000,"Einer deiner Schnappschüsse von einer Reise nach Peru gewinnt einen Fotowettbewerb. du erhältst € 17.000.");
 
 
-    public List<Event> addData = new ArrayList<>();
+    public List<Event> eventList = new ArrayList<>();
     public List<Card> cardList = new ArrayList<>();
 
+    /**
+     * Adds events to event list.
+     */
     public void fillEventList() {
-        addData.add(e1);
-        addData.add(e2);
-        addData.add(e3);
-        addData.add(e4);
-        addData.add(e5);
-        addData.add(e6);
-        addData.add(e7);
-        addData.add(e8);
-        addData.add(e9);
-        addData.add(e10);
-        addData.add(e11);
-        addData.add(e12);
-        addData.add(e13);
-        addData.add(e14);
-        addData.add(e15);
-        addData.add(e16);
-        addData.add(e17);
-        addData.add(e18);
-        addData.add(e19);
-        addData.add(e20);
-        addData.add(e21);
-        addData.add(e22);
-        addData.add(e23);
-        addData.add(e24);
-        addData.add(e25);
-        addData.add(e26);
-        addData.add(e27);
-        addData.add(e28);
-        addData.add(e29);
-        addData.add(e30);
-        addData.add(e31);
-        addData.add(e32);
-        addData.add(e33);
-        addData.add(e34);
-        addData.add(e35);
-        addData.add(e36);
-        addData.add(e37);
-        addData.add(e38);
-        addData.add(e39);
-        addData.add(e40);
-        addData.add(e41);
-        addData.add(e42);
-        addData.add(e43);
-        addData.add(e44);
-        addData.add(e45);
-        addData.add(e46);
-        addData.add(e47);
-        addData.add(e48);
-        addData.add(e49);
-        addData.add(e50);
-        addData.add(e51);
-        addData.add(e52);
-        addData.add(e53);
-        addData.add(e54);
-        addData.add(e55);
-        addData.add(e56);
-        addData.add(e57);
-        addData.add(e58);
-        addData.add(e59);
-        addData.add(e60);
-        addData.add(e61);
-        addData.add(e62);
-        addData.add(e63);
-        addData.add(e64);
-        addData.add(e65);
-        addData.add(e66);
-        addData.add(e67);
-        addData.add(e68);
-        addData.add(e69);
-        addData.add(e70);
-        addData.add(e71);
-        addData.add(e72);
-        addData.add(e73);
-        addData.add(e74);
-        addData.add(e75);
-        addData.add(e76);
-        addData.add(e77);
-        addData.add(e78);
-        addData.add(e79);
-        addData.add(e80);
-        addData.add(e81);
-        addData.add(e82);
-        addData.add(e83);
-        addData.add(e84);
-        addData.add(e85);
-        addData.add(e86);
-        addData.add(e87);
-        addData.add(e88);
-        addData.add(e89);
-        addData.add(e90);
-        addData.add(e91);
-        addData.add(e92);
-        addData.add(e93);
-        addData.add(e94);
-        addData.add(e95);
-        addData.add(e96);
-        addData.add(e97);
-        addData.add(e98);
-        addData.add(e99);
-        addData.add(e100);
+        eventList.add(e1);
+        eventList.add(e2);
+        eventList.add(e3);
+        eventList.add(e4);
+        eventList.add(e5);
+        eventList.add(e6);
+        eventList.add(e7);
+        eventList.add(e8);
+        eventList.add(e9);
+        eventList.add(e10);
+        eventList.add(e11);
+        eventList.add(e12);
+        eventList.add(e13);
+        eventList.add(e14);
+        eventList.add(e15);
+        eventList.add(e16);
+        eventList.add(e17);
+        eventList.add(e18);
+        eventList.add(e19);
+        eventList.add(e20);
+        eventList.add(e21);
+        eventList.add(e22);
+        eventList.add(e23);
+        eventList.add(e24);
+        eventList.add(e25);
+        eventList.add(e26);
+        eventList.add(e27);
+        eventList.add(e28);
+        eventList.add(e29);
+        eventList.add(e30);
+        eventList.add(e31);
+        eventList.add(e32);
+        eventList.add(e33);
+        eventList.add(e34);
+        eventList.add(e35);
+        eventList.add(e36);
+        eventList.add(e37);
+        eventList.add(e38);
+        eventList.add(e39);
+        eventList.add(e40);
+        eventList.add(e41);
+        eventList.add(e42);
+        eventList.add(e43);
+        eventList.add(e44);
+        eventList.add(e45);
+        eventList.add(e46);
+        eventList.add(e47);
+        eventList.add(e48);
+        eventList.add(e49);
+        eventList.add(e50);
+        eventList.add(e51);
+        eventList.add(e52);
+        eventList.add(e53);
+        eventList.add(e54);
+        eventList.add(e55);
+        eventList.add(e56);
+        eventList.add(e57);
+        eventList.add(e58);
+        eventList.add(e59);
+        eventList.add(e60);
+        eventList.add(e61);
+        eventList.add(e62);
+        eventList.add(e63);
+        eventList.add(e64);
+        eventList.add(e65);
+        eventList.add(e66);
+        eventList.add(e67);
+        eventList.add(e68);
+        eventList.add(e69);
+        eventList.add(e70);
+        eventList.add(e71);
+        eventList.add(e72);
+        eventList.add(e73);
+        eventList.add(e74);
+        eventList.add(e75);
+        eventList.add(e76);
+        eventList.add(e77);
+        eventList.add(e78);
+        eventList.add(e79);
+        eventList.add(e80);
+        eventList.add(e81);
+        eventList.add(e82);
+        eventList.add(e83);
+        eventList.add(e84);
+        eventList.add(e85);
+        eventList.add(e86);
+        eventList.add(e87);
+        eventList.add(e88);
+        eventList.add(e89);
+        eventList.add(e90);
+        eventList.add(e91);
+        eventList.add(e92);
+        eventList.add(e93);
+        eventList.add(e94);
+        eventList.add(e95);
+        eventList.add(e96);
+        eventList.add(e97);
+        eventList.add(e98);
+        eventList.add(e99);
+        eventList.add(e100);
     }
 
+    /**
+     * not relevant for others.
+     * fills up card list for further implementations.
+     */
     private void fillPseudoCard(){
-        for (int i = 0; i < addData.size()/4; i++) {
+        for (int i = 0; i < eventList.size()/4; i++) {
             cardList.add(new Card());
             cardList.get(i).fillEvents();
         }
     }
 
+    /**
+     * Calls fillPseudoCard to fill up Array.
+     */
     public void fillCardList() {
         fillPseudoCard();
 
         int index = 0;
         for (int i = 0; i < cardList.size(); i++) {
             for (int j = 0; j < 4; j++) {
-                cardList.get(i).addEvent(j, addData.get(index + j));
+                cardList.get(i).addEvent(j, eventList.get(index + j));
             }
             index = index + 4;
         }
