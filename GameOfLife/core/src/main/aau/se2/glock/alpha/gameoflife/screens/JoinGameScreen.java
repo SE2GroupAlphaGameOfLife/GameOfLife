@@ -82,6 +82,8 @@ public class JoinGameScreen implements Screen {
         createServerTextField();
         createJoinGameButton();
         createServerOverview();
+
+        // GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
         createBackButton();
     }
 
