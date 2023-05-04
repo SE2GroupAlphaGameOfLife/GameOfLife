@@ -25,7 +25,7 @@ public class Player {
         this.username = username;
         this.moveCount = 0;
         this.isOnline = true;
-        this.id = -1;
+        this.id = 0;
     }
 
     public boolean isOnline() {

@@ -31,6 +31,8 @@ import aau.se2.glock.alpha.gameoflife.core.logic.Game;
 
 public class GameScreen implements Screen {
 
+    public static GameScreen INSTANCE;
+
     private OrthographicCamera gameCamera;
     private Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
@@ -49,8 +51,14 @@ public class GameScreen implements Screen {
     Texture lightGrayTexture, grayTextrue;
     Game game;
 
+    public static  GameScreen getINSTANCE(){
+        if(INSTANCE==null){
+            return new GameScreen();
+        }
+        else return INSTANCE;
+    }
 
-    public GameScreen() {
+    private GameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
@@ -62,9 +70,11 @@ public class GameScreen implements Screen {
 
         initTextures();
 
+        initGame();
+
         createButton();
 
-        initGame();
+
     }
 
     @Override
@@ -198,7 +208,7 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 game.rollDice();
-                boolean isInTurn = true;
+                /*boolean isInTurn = true;
                 Player player = GameOfLife.players.get(0);
                 int moveCount = player.rollTheDice();
                 Gdx.app.log("Rolled", "" + moveCount);
@@ -211,7 +221,7 @@ public class GameScreen implements Screen {
                     chooseNextStep(gameField);
                 }
 
-                GameOfLife.players.set(0, player);
+                GameOfLife.players.set(0, player);*/
             }
 
         };
@@ -223,7 +233,7 @@ public class GameScreen implements Screen {
      *
      * @param gameField The current game field.
      */
-    private void chooseNextStep(GameField gameField) {
+    public void chooseNextStep(GameField gameField) {
         //Get the next game field based on player choice (1 or 2)
         GameField nextGameField1 = new Board().getGameFields().get(gameField.getIndexOfNextGameFields().get(0));
 
@@ -275,20 +285,17 @@ public class GameScreen implements Screen {
      */
     private void stepChoosen(int index){
         // Update player's choice and position
-        Player player = GameOfLife.players.get(0);
+        Player player = Game.getInstance().getCurrentPlayer();
         player.chooseDirection(index);
-        GameOfLife.players.set(0, player);
         nextFieldButtonGroup.clearChildren();
 
         //Check if player can still move
         GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
         if (!player.makeMove()) {
             gameField = Board.getInstance().getGameFields().get(player.getPosition());
-            GameOfLife.players.set(0, player);
             chooseNextStep(gameField);
         }
 
-        GameOfLife.players.set(0, player);
     }
     private void initGame(){
         game = Game.getInstance(GameOfLife.self,GameOfLife.players);

@@ -198,7 +198,7 @@ public class StartGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
-                GameOfLife.changeScreen(new GameScreen());
+                GameOfLife.changeScreen(GameScreen.getINSTANCE());
             }
         };
 
