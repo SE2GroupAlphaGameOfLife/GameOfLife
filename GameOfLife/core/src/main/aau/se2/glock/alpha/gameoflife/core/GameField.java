@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
+import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
+
 /**
  * Represents a game field with a position and a list of possible next gameFields.
  */
@@ -11,13 +13,15 @@ public class GameField {
     private Vector2 position; // The position of the game field
     private List<Integer> indexOfNextGameFields; // The list of next gameFields for the game field
 
+    private LogicalField logicalField;  //Logical field which has Information on events
+
     /**
      * Constructs a new GameField object with the specified position and next gameFields.
      *
      * @param position              The position of the gameField.
      * @param indexOfNextGameFields The list of next possible gameFields for the gameField.
      */
-    public GameField(Vector2 position, List<Integer> indexOfNextGameFields) {
+    public GameField(Vector2 position, List<Integer> indexOfNextGameFields,int index) {
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
     }

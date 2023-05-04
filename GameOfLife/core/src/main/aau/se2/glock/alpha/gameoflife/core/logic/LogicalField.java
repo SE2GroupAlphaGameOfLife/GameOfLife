@@ -7,6 +7,7 @@ public class LogicalField {
     boolean isSpecial;
 
     SpecialEvent specialEvent; //is null if field NOT special
+
     boolean hasPlayer;
 
     int position;

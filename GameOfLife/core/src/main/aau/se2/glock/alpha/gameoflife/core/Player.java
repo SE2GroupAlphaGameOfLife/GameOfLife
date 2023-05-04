@@ -12,6 +12,8 @@ public class Player {
     private boolean isHost, hasTurn, isJoning, isOnline;
     protected int moveCount;
 
+
+
     public Player(){}
 
     public Player(String username, boolean isHost){
@@ -26,6 +28,7 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = 0;
+
     }
 
     public boolean isOnline() {

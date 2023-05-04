@@ -207,8 +207,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
-                game.rollDice();
-                /*boolean isInTurn = true;
+                //game.rollDice();
+                boolean isInTurn = true;
                 Player player = GameOfLife.players.get(0);
                 int moveCount = player.rollTheDice();
                 Gdx.app.log("Rolled", "" + moveCount);
@@ -221,7 +221,7 @@ public class GameScreen implements Screen {
                     chooseNextStep(gameField);
                 }
 
-                GameOfLife.players.set(0, player);*/
+                GameOfLife.players.set(0, player);
             }
 
         };

@@ -33,14 +33,16 @@ public class Game {
     public void startGame(){
         board = Board.getInstance();
         //sendInfoToOtherPlayers();
+
+
     }
 
 
-    public int rollDice(){
+    public void rollDice(){
         int rolledNumber = 0;
         if(currentplayer.isHasTurn()){
             rolledNumber = currentplayer.rollTheDice();
-        }else return -1;
+        }else return;
         Gdx.app.log(currentplayer.getUsername()+ " rolled ",""+rolledNumber);
         if(!currentplayer.makeMove()){
             //player has to choose a path
@@ -55,8 +57,20 @@ public class Game {
             endTurn();
         }
 
-        return rolledNumber;
+        return;
     }
+
+    public void getFieldEvent(){
+        if(!currentplayer.isHasTurn()){
+            return;
+        }else{
+            currentplayer.getPosition();
+
+
+        }
+
+    }
+
 
     /**
      * called when the current player presses end turn
