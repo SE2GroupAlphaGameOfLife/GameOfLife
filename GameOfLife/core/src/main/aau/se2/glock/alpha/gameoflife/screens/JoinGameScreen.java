@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -23,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -50,7 +53,10 @@ public class JoinGameScreen implements Screen {
     private BitmapFont standardFont, bigFont;
     private TextField.TextFieldStyle textFieldStyle;
     private TextField ipInput;
-    private NinePatch borderPatch;
+    private TextureRegion refreshIcon;
+    private TextureRegion transparentImage;
+    private boolean showRefreshIcon;
+
 
     public JoinGameScreen() {
         gameCamera = new OrthographicCamera();
@@ -68,23 +74,26 @@ public class JoinGameScreen implements Screen {
         textButtonStyle.font = standardFont; // Set the font
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
 
-        //create mock data
-        /*List<ServerInformation> serverDetails = new ArrayList<>();
-        serverDetails.add(new ServerInformation("Host1", 1));
-        serverDetails.add(new ServerInformation("Host2", 2));
-        serverDetails.add(new ServerInformation("Host3", 3));
-        serverDetails.add(new ServerInformation("Host4", 4));
-        serverDetails.add(new ServerInformation("Host5", 5));
-        serverDetails.add(new ServerInformation("Host6", 6));
-        GameOfLife.availableServers = serverDetails;*/
-        // ----
-
         createServerTextField();
         createJoinGameButton();
         createServerOverview();
-
-        // GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
         createBackButton();
+
+        Texture refreshIconTexture = new Texture("refresh.png");
+        refreshIcon = new TextureRegion(refreshIconTexture);
+
+        createTransparentImage();
+        showRefreshIcon = false;
+
+        refreshImageInterval();
+    }
+
+    private void createTransparentImage() {
+        Pixmap pixmap = new Pixmap(refreshIcon.getRegionWidth(), refreshIcon.getRegionHeight(), Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0); // set the color to transparent
+        pixmap.fill();
+        Texture transparentTexture = new Texture(pixmap);
+        transparentImage = new TextureRegion(transparentTexture);
     }
 
     private void createServerTextField() {
@@ -269,6 +278,30 @@ public class JoinGameScreen implements Screen {
         btnBack.addListener(btnBackListener);
     }
 
+    public void refreshImageInterval() {
+        final float showTime = 1f; // in seconds
+        final float hideTime = 5f; // in seconds
+        final Timer timer = new Timer();
+
+        timer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                showRefreshIcon = true;
+                // refreshServerList(); -> refreshServerList is called, but icon is not hiding anymore...
+                timer.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        showRefreshIcon = false;
+                    }
+                }, showTime);
+            }
+        }, 0, showTime + hideTime); // schedule the task to repeat after showTime + hideTime seconds
+    }
+
+    private void refreshServerList() {
+        GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
+    }
+
     @Override
     public void show() {
 
@@ -280,7 +313,17 @@ public class JoinGameScreen implements Screen {
 
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
         stage.act(Gdx.graphics.getDeltaTime()); // Update the stage
-        stage.draw(); // Draw the stage
+        stage.draw();
+
+        if (showRefreshIcon) {
+            stage.getBatch().begin();
+            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2));
+            stage.getBatch().end();
+        } else {
+            stage.getBatch().begin();
+            stage.getBatch().draw(transparentImage, screenWidth - transparentImage.getRegionWidth() - 10, 10);
+            stage.getBatch().end();
+        }
     }
 
     @Override
@@ -305,6 +348,5 @@ public class JoinGameScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }
