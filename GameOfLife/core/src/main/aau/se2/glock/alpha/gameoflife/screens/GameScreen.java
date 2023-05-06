@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
     Button nextFieldButton1, nextFieldButton2;
     Group nextFieldButtonGroup; // Create a Group to hold actors
     Texture lightGrayTexture, grayTextrue;
-    Label lbUsername, lbAge, lbMoney, lbLifepoints;
+    Label lbUsernameAge, lbMoney, lbLifepoints;
 
 
     public GameScreen() {
@@ -318,18 +318,15 @@ public class GameScreen implements Screen {
         labelStyle.font = standardFont;
         labelStyle.fontColor = Color.WHITE;
 
-        lbUsername = new Label("Username", labelStyle);
-        lbAge = new Label("Age", labelStyle);
+        lbUsernameAge = new Label("Username, Age", labelStyle);
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
 
-        lbUsername.setPosition(10, screenHeight - lbUsername.getHeight() - 10);
-        lbAge.setPosition(10, screenHeight - lbUsername.getHeight() - lbAge.getHeight() - 20);
-        lbMoney.setPosition(10, screenHeight - lbUsername.getHeight() - lbAge.getHeight() - lbMoney.getHeight() - 30);
-        lbLifepoints.setPosition(10, screenHeight - lbUsername.getHeight() - lbAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - 40);
+        lbUsernameAge.setPosition(10, screenHeight - lbUsernameAge.getHeight() - 10);
+        lbMoney.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - 20);
+        lbLifepoints.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - 30);
 
-        stage.addActor(lbUsername);
-        stage.addActor(lbAge);
+        stage.addActor(lbUsernameAge);
         stage.addActor(lbMoney);
         stage.addActor(lbLifepoints);
     }
@@ -340,8 +337,8 @@ public class GameScreen implements Screen {
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                for(Player p : GameOfLife.players){
-                    if(p.isHasTurn()){
+                for (Player p : GameOfLife.players) {
+                    if (p.isHasTurn()) {
                         fillPlayerHUD(p);
                         break;
                     }
@@ -351,10 +348,9 @@ public class GameScreen implements Screen {
     }
 
     private void fillPlayerHUD(Player p) {
-        lbUsername.setText(p.getUsername());
-        lbAge.setText(p.getAge());
-        lbMoney.setText(p.getMoney());
-        lbLifepoints.setText(p.getLifepoints());
+        lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
+        lbMoney.setText("Money: " + p.getMoney());
+        lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
     }
 
 }
