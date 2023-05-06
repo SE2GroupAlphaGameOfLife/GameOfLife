@@ -6,13 +6,11 @@ import java.util.Random;
 
 public class Player {
     private String username, gender;
-    private int age, money, id;
+    private int age, money, id, lifepoints;
     protected int position;
     private Color color;
     private boolean isHost, hasTurn, isJoning, isOnline;
     protected int moveCount;
-
-    public Player(){}
 
     public Player(String username, boolean isHost){
         this.position = 0;
@@ -26,6 +24,62 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = -1;
+    }
+
+    public int getLifepoints() {
+        return lifepoints;
+    }
+
+    public void setLifepoints(int lifepoints) {
+        this.lifepoints = lifepoints;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setHost(boolean host) {
+        isHost = host;
+    }
+
+    public int getMoveCount() {
+        return moveCount;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public boolean isOnline() {

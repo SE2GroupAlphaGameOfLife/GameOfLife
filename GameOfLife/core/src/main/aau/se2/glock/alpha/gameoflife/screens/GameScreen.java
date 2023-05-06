@@ -17,12 +17,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -50,6 +54,7 @@ public class GameScreen implements Screen {
     Button nextFieldButton1, nextFieldButton2;
     Group nextFieldButtonGroup; // Create a Group to hold actors
     Texture lightGrayTexture, grayTextrue;
+    Label lbUsername, lbAge, lbMoney, lbLifepoints;
 
 
     public GameScreen() {
@@ -57,15 +62,13 @@ public class GameScreen implements Screen {
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
         initScreenDimensions();
-
         initFonts();
-
         initStage();
-
         initTextures();
-
         createButton();
-        createQuitkButton();
+        createQuitButton();
+        createPlayerHUD();
+        refreshPlayerHUD();
     }
 
     @Override
@@ -291,7 +294,7 @@ public class GameScreen implements Screen {
         GameOfLife.players.set(0, player);
     }
 
-    private void createQuitkButton() {
+    private void createQuitButton() {
         //Create a Back Button
         btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
         btnQuit.setSize(buttonWidth, buttonHeight); // Set the size of the button
@@ -309,4 +312,49 @@ public class GameScreen implements Screen {
 
         btnQuit.addListener(btnQuitListener);
     }
+
+    private void createPlayerHUD() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+
+        lbUsername = new Label("Username", labelStyle);
+        lbAge = new Label("Age", labelStyle);
+        lbMoney = new Label("Money", labelStyle);
+        lbLifepoints = new Label("Lifepoints", labelStyle);
+
+        lbUsername.setPosition(10, screenHeight - lbUsername.getHeight() - 10);
+        lbAge.setPosition(10, screenHeight - lbUsername.getHeight() - lbAge.getHeight() - 20);
+        lbMoney.setPosition(10, screenHeight - lbUsername.getHeight() - lbAge.getHeight() - lbMoney.getHeight() - 30);
+        lbLifepoints.setPosition(10, screenHeight - lbUsername.getHeight() - lbAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - 40);
+
+        stage.addActor(lbUsername);
+        stage.addActor(lbAge);
+        stage.addActor(lbMoney);
+        stage.addActor(lbLifepoints);
+    }
+
+    private void refreshPlayerHUD() {
+        final float time = 0.5f; // in seconds
+        final Timer timer = new Timer();
+        timer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                for(Player p : GameOfLife.players){
+                    if(p.isHasTurn()){
+                        fillPlayerHUD(p);
+                        break;
+                    }
+                }
+            }
+        }, 0, time);
+    }
+
+    private void fillPlayerHUD(Player p) {
+        lbUsername.setText(p.getUsername());
+        lbAge.setText(p.getAge());
+        lbMoney.setText(p.getMoney());
+        lbLifepoints.setText(p.getLifepoints());
+    }
+
 }
