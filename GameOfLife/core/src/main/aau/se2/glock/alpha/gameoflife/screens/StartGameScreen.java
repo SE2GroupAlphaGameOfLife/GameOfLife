@@ -61,6 +61,7 @@ public class StartGameScreen implements Screen {
         createPlayersOverview();
         createStartGameButton();
         createBackButton();
+        createInfoLabel();
     }
 
     @Override
@@ -188,22 +189,24 @@ public class StartGameScreen implements Screen {
 
     private void createStartGameButton() {
         //Create a Start Game Button
-        btnStartGame = new TextButton("Start Game", textButtonStyle); // Create the text button with the text and style
-        btnStartGame.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25))); // Set the position of the button
-        btnStartGame.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        if (GameOfLife.self.isHost()) {
+            btnStartGame = new TextButton("Start Game", textButtonStyle); // Create the text button with the text and style
+            btnStartGame.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25))); // Set the position of the button
+            btnStartGame.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
-        stage.addActor(btnStartGame); // Add the button to the stage
+            stage.addActor(btnStartGame); // Add the button to the stage
 
-        // Create a ClickListener
-        ClickListener btnStartGameListener = new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // This method will be called when the TextButton is clicked
-                GameOfLife.changeScreen(new GameScreen());
-            }
-        };
+            // Create a ClickListener
+            ClickListener btnStartGameListener = new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    // This method will be called when the TextButton is clicked
+                    GameOfLife.changeScreen(new GameScreen());
+                }
+            };
 
-        btnStartGame.addListener(btnStartGameListener);
+            btnStartGame.addListener(btnStartGameListener);
+        }
     }
 
     private void createBackButton() {
@@ -224,5 +227,16 @@ public class StartGameScreen implements Screen {
         };
 
         btnBack.addListener(btnBackListener);
+    }
+
+    private void createInfoLabel() {
+        if (!GameOfLife.self.isHost()) {
+            Label.LabelStyle labelStyle = new Label.LabelStyle();
+            labelStyle.font = standardFont; // Set the font for the label
+            labelStyle.fontColor = Color.WHITE; // Set the font color for the label
+            label = new Label("Waiting for host to start the game...", labelStyle); // Create the label with the text and style
+            label.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25)));
+            stage.addActor(label); // Add the label to the stage]
+        }
     }
 }
