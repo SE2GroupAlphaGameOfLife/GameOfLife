@@ -11,8 +11,6 @@ import java.io.IOException;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
-import aau.se2.glock.alpha.gameoflife.networking.packages.PingRequest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.PingResponse;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
 public class ServerClass extends Listener {
@@ -33,8 +31,6 @@ public class ServerClass extends Listener {
         this.server.addListener(this);
 
         Kryo kryo = this.server.getKryo();
-        kryo.register(PingRequest.class);
-        kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
@@ -119,19 +115,7 @@ public class ServerClass extends Listener {
     @Override
     public void received(Connection connection, Object object) {
 
-        if (object instanceof PingRequest) {
-
-            /*PingResponse pingResponse = new PingResponse();
-
-            if (((PingRequest) object).isUpdRequest() && ((PingRequest) object).isTcpPortRequest()) {
-                ((PingRequest) object).setTcpPortRequest(false);
-                ((PingRequest) object).setUpdRequest(false);
-                pingResponse.setTcpPort(this.TCPPORT);
-            }
-
-            connection.sendTCP(pingResponse);*/
-
-        }else if(object instanceof ServerInformation){
+        if(object instanceof ServerInformation){
             this.server.sendToTCP(connection.getID(), new ServerInformation(this.hostname, this.TCPPORT));
         }else if (object instanceof Player) {
             Player player = (Player) object;

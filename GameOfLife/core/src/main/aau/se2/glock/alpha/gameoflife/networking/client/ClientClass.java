@@ -14,8 +14,6 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
-import aau.se2.glock.alpha.gameoflife.networking.packages.PingRequest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.PingResponse;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 
@@ -30,8 +28,6 @@ public class ClientClass extends Listener {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        kryo.register(PingRequest.class);
-        kryo.register(PingResponse.class);
         kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
@@ -91,10 +87,6 @@ public class ClientClass extends Listener {
         }
     }
 
-    public void sendTCP(PingRequest pingRequest) {
-        this.client.sendTCP(pingRequest);
-    }
-
     @Override
     public void connected(Connection connection) {
 
@@ -112,11 +104,7 @@ public class ClientClass extends Listener {
     @Override
     public void received(Connection connection, Object object) {
 
-        if (object instanceof PingResponse) {
-
-            PingResponse pingResponse = (PingResponse) object;
-            return;
-        } else if (object instanceof ServerInformation) {
+        if (object instanceof ServerInformation) {
             ServerInformation serverInformation = (ServerInformation) object;
             if (!GameOfLife.gameStarted && GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
                 serverInformation.setAddress(connection.getRemoteAddressTCP().getAddress());
