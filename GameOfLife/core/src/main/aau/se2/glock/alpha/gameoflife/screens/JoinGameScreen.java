@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -23,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -38,17 +41,27 @@ public class JoinGameScreen implements Screen {
     private OrthographicCamera gameCamera;
     private Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
-    private int btnJoinWidth, btnJoinHeight;
+    private int btnWidth, btnHeight;
     public Vector2 btnJoinPosition;
     private Stage stage;
     private TextButton btnJoinGame;
+    private TextButton btnBack;
+
     private TextButton.TextButtonStyle textButtonStyle;
     private Skin skin;
     private Texture lightGrayTexture, grayTextrue;
     private BitmapFont standardFont, bigFont;
     private TextField.TextFieldStyle textFieldStyle;
     private TextField ipInput;
-    private NinePatch borderPatch;
+    private TextureRegion refreshIcon;
+    private TextureRegion transparentImage;
+    private boolean showRefreshIcon;
+    private float rotationSpeed = 180; // degrees per second
+    private float currentRotation = 0f;
+    private float originXRefreshIcon=0f;
+    private float originYRefreshIcon=0f;
+
+
 
     public JoinGameScreen() {
         gameCamera = new OrthographicCamera();
@@ -66,20 +79,26 @@ public class JoinGameScreen implements Screen {
         textButtonStyle.font = standardFont; // Set the font
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
 
-        //create mock data
-        /*List<ServerInformation> serverDetails = new ArrayList<>();
-        serverDetails.add(new ServerInformation("Host1", 1));
-        serverDetails.add(new ServerInformation("Host2", 2));
-        serverDetails.add(new ServerInformation("Host3", 3));
-        serverDetails.add(new ServerInformation("Host4", 4));
-        serverDetails.add(new ServerInformation("Host5", 5));
-        serverDetails.add(new ServerInformation("Host6", 6));
-        GameOfLife.availableServers = serverDetails;*/
-        // ----
-
         createServerTextField();
         createJoinGameButton();
         createServerOverview();
+        createBackButton();
+
+        Texture refreshIconTexture = new Texture("refresh.png");
+        refreshIcon = new TextureRegion(refreshIconTexture);
+
+        createTransparentImage();
+        showRefreshIcon = false;
+
+        refreshImageInterval();
+    }
+
+    private void createTransparentImage() {
+        Pixmap pixmap = new Pixmap(refreshIcon.getRegionWidth(), refreshIcon.getRegionHeight(), Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0); // set the color to transparent
+        pixmap.fill();
+        Texture transparentTexture = new Texture(pixmap);
+        transparentImage = new TextureRegion(transparentTexture);
     }
 
     private void createServerTextField() {
@@ -92,7 +111,7 @@ public class JoinGameScreen implements Screen {
 
         // Create the text field using the registered style
         ipInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        ipInput.setSize(screenWidth - btnJoinWidth - screenWidth / 25 * 2 - screenWidth / 70, btnJoinHeight); // Set the size of the text field
+        ipInput.setSize(screenWidth - btnWidth - screenWidth / 25 * 2 - screenWidth / 70, btnHeight); // Set the size of the text field
         ipInput.setPosition(screenWidth / 25, screenHeight - screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
         // Set the placeholder text
         ipInput.setMessageText("Enter IP-Address"); // Set the placeholder text
@@ -133,7 +152,7 @@ public class JoinGameScreen implements Screen {
 
         //Create a Join Game Button
         btnJoinGame = new TextButton("Join", textButtonStyle); // Create the text button with the text and style
-        btnJoinGame.setSize(btnJoinWidth, btnJoinHeight);
+        btnJoinGame.setSize(btnWidth, btnHeight);
         btnJoinGame.setPosition(ipInput.getX() + ipInput.getWidth() + screenWidth / 70, ipInput.getY());
 
         stage.addActor(btnJoinGame);
@@ -143,7 +162,7 @@ public class JoinGameScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.changeScreen(new GameScreen());
+                GameOfLife.changeScreen(new StartGameScreen());
             }
         });
     }
@@ -221,10 +240,10 @@ public class JoinGameScreen implements Screen {
         screenHeight = Gdx.graphics.getHeight();
         centerHeight = screenHeight / 2;
 
-        btnJoinWidth = screenWidth / 5;
-        btnJoinHeight = screenHeight / 13;
+        btnWidth = screenWidth / 5;
+        btnHeight = screenHeight / 13;
 
-        btnJoinPosition = new Vector2(centerWidth - (btnJoinWidth / 2), centerHeight - btnJoinHeight);
+        btnJoinPosition = new Vector2(centerWidth - (btnWidth / 2), centerHeight - btnHeight);
     }
 
     private NinePatch createBorderPatch() {
@@ -244,6 +263,65 @@ public class JoinGameScreen implements Screen {
         return patch;
     }
 
+    private void createBackButton() {
+        //Create a Back Button
+        btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
+        btnBack.setSize(btnWidth, btnHeight); // Set the size of the button
+        btnBack.setPosition(30, 30); // Set the position of the button
+
+        stage.addActor(btnBack); // Add the button to the stage
+
+        // Create a ClickListener
+        ClickListener btnBackListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // This method will be called when the TextButton is clicked
+                GameOfLife.changeScreen(new MainMenuScreen());
+            }
+        };
+
+        btnBack.addListener(btnBackListener);
+    }
+
+    public void refreshImageInterval() {
+        createRotation();
+        
+        final float showTime = 1f; // in seconds
+        final float hideTime = 5f; // in seconds
+        final Timer timer = new Timer();
+
+        timer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                showRefreshIcon = true;
+                // refreshServerList(); -> refreshServerList is called, but icon is not hiding anymore...
+                timer.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        showRefreshIcon = false;
+                    }
+                }, showTime);
+            }
+        }, 0, showTime + hideTime); // schedule the task to repeat after showTime + hideTime seconds
+    }
+
+    private void createRotation() {
+
+        originXRefreshIcon = refreshIcon.getRegionWidth() * 0.2f / 2;
+        originYRefreshIcon = refreshIcon.getRegionHeight() * 0.2f / 2;
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                currentRotation += rotationSpeed * Gdx.graphics.getDeltaTime();
+                currentRotation %= 360; // keep the angle between 0 and 360 degrees
+            }
+        }, 0, 0.01f); // schedule the task to run every 0.01 seconds
+    }
+
+    private void refreshServerList() {
+        GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
+    }
+
     @Override
     public void show() {
 
@@ -255,7 +333,17 @@ public class JoinGameScreen implements Screen {
 
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
         stage.act(Gdx.graphics.getDeltaTime()); // Update the stage
-        stage.draw(); // Draw the stage
+        stage.draw();
+
+        if (showRefreshIcon) {
+            stage.getBatch().begin();
+            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F,originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
+            stage.getBatch().end();
+        } else {
+            stage.getBatch().begin();
+            stage.getBatch().draw(transparentImage, screenWidth - transparentImage.getRegionWidth() - 10, 10);
+            stage.getBatch().end();
+        }
     }
 
     @Override
@@ -280,6 +368,5 @@ public class JoinGameScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }
