@@ -10,6 +10,12 @@ public class Stack {
 
     private int countCard = 0;
 
+
+    /**
+     * Loops card list and returns top card.
+     *
+     * @return top card
+     */
     public Card getTopCard(){
         if(countCard>=cardList.size()){
             countCard = 0;
@@ -18,12 +24,19 @@ public class Stack {
         return cardList.get(countCard++);
     }
 
+    /**
+     * Mixes card stack.
+     */
     public void mixCards(){
         Collections.shuffle(cardList);
     }
 
+    /**
+     * Add new cards to stack.
+     *
+     * @param newCards  new cards which will be added
+     */
     public void addCards(List<Card> newCards){
-        //TODO KARTE AUF STACK LEGEN
         for (int i = 0; i < newCards.size(); i++) {
             cardList.add(newCards.get(i));
         }
