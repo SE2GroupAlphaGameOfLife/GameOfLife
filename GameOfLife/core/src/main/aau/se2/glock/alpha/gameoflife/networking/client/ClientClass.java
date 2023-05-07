@@ -65,7 +65,7 @@ public class ClientClass extends Listener {
     public void discoverServers(int udpPort) {
         List<InetAddress> servers = new ArrayList<InetAddress>();
 
-        GameOfLife.availableServers = new ArrayList<ServerInformation>();
+        GameOfLife.availableServers = new ArrayList<>();
 
         for (InetAddress a : this.client.discoverHosts(udpPort, 5000)) {
             if (!servers.contains(a))
