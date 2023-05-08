@@ -173,7 +173,10 @@ public class JoinGameScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.changeScreen(new StartGameScreen());
+                if(validateInput(ipInput.getText())){
+                    GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    GameOfLife.changeScreen(new StartGameScreen());
+                }
             }
         });
     }

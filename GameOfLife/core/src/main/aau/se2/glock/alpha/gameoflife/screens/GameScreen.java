@@ -359,6 +359,7 @@ public class GameScreen implements Screen {
         ClickListener btnQuitListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameOfLife.server.close();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
