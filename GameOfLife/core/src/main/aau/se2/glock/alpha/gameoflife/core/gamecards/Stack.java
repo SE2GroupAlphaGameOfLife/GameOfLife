@@ -22,7 +22,6 @@ public class Stack {
     private Stack(){
         cardList = new ArrayList<>();
         EventData eventData = new EventData();
-        eventData.fillCardList();
         addCards(eventData.getCardList());
 
     }

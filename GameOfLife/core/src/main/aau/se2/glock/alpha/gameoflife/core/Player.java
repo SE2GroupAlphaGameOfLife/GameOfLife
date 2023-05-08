@@ -12,6 +12,8 @@ public class Player {
     private Job currentJob;
     private int age, money, id, lifepoints;
 
+    private Event currentEvent;
+
     protected int position;
     private Color color;
     private boolean isHost, hasTurn, isJoning, isOnline;
@@ -162,8 +164,13 @@ public class Player {
         System.out.println("Event triggered:"+event.getText());
         this.money = this.money+ event.getCash();
         this.lifepoints = this.lifepoints+event.getLp();
+        this.currentEvent = event;
         return event;
 
+    }
+
+    public Event getCurrentEvent() {
+        return currentEvent;
     }
 
     public boolean makeMove(){

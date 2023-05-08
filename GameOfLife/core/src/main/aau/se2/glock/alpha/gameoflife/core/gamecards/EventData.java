@@ -113,6 +113,7 @@ public class EventData {
         eventList = new ArrayList<>();
         cardList = new ArrayList<>();
         fillEventList();
+        fillCardList();
     }
 
     /**

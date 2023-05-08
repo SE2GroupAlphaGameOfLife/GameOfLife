@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -57,7 +58,8 @@ public class GameScreen implements Screen {
     Texture lightGrayTexture, grayTextrue;
     Texture wheelTexture;
     Texture arrowTexture;
-    Label lbUsernameAge, lbMoney, lbLifepoints;
+    Label lbUsernameAge, lbMoney, lbLifepoints, lbEventText;
+    TextArea textarea;
 
     //Wheel
     int wheelSize = 100;
@@ -345,6 +347,7 @@ public class GameScreen implements Screen {
             }
 
             GameOfLife.players.set(0, player);
+
         }
     }
 
@@ -375,14 +378,22 @@ public class GameScreen implements Screen {
         lbUsernameAge = new Label("Username, Age", labelStyle);
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
+        lbEventText = new Label("Current Event:",labelStyle);
+
+
 
         lbUsernameAge.setPosition(10, screenHeight - lbUsernameAge.getHeight() - 10);
         lbMoney.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - 20);
         lbLifepoints.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - 30);
+        lbEventText.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - lbEventText.getHeight()-40);
+
+
+
 
         stage.addActor(lbUsernameAge);
         stage.addActor(lbMoney);
         stage.addActor(lbLifepoints);
+        stage.addActor(lbEventText);
     }
 
     private void refreshPlayerHUD() {
@@ -405,6 +416,9 @@ public class GameScreen implements Screen {
         lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
         lbMoney.setText("Money: " + p.getMoney());
         lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
+        if(p.getCurrentEvent()!=null) {
+            lbEventText.setText("Current Event:\n" + p.getCurrentEvent().getText());
+        }
     }
 
 }
