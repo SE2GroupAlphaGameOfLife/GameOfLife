@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'jacoco'
     id 'org.sonarqube' version '3.5.0.2730'
 }
@@ -24,6 +25,17 @@ dependencies {
     implementation 'com.esotericsoftware.kryo:kryo:2.24.0'
 
     testImplementation 'org.mockito:mockito-core:4.2.0'
+}
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+test {
+    useJUnitPlatform()
 }
 
 sourceSets.main.java.srcDirs = [ "src/main" ]
