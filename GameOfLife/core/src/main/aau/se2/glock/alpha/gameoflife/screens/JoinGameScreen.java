@@ -182,7 +182,7 @@ public class JoinGameScreen implements Screen {
         });
     }
 
-    private void createServerOverview() {
+    public void createServerOverview() {
         // Remove old server labels from the stage
         for (Label oldServerLabel : serverLabels) {
             oldServerLabel.remove();
@@ -351,7 +351,6 @@ public class JoinGameScreen implements Screen {
 
     private void refreshServerList() {
         GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
-        this.createServerOverview();
     }
 
     @Override
