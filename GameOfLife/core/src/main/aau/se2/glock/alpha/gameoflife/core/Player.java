@@ -25,7 +25,7 @@ public class Player {
         this.position = 0;
         this.age = 18;
         this.money = 10000;
-        this.lifePoints = 0;
+        this.lifepoints = 0;
         this.color = new Color(Color.rgb888(255,0,0));
         this.isHost = isHost;
         this.isJoning = true;
@@ -161,7 +161,7 @@ public class Player {
         Event event = field.getLogicalField().getEvent();
         System.out.println("Event triggered:"+event.getText());
         this.money = this.money+ event.getCash();
-        this.lifePoints = this.lifePoints+event.getLp();
+        this.lifepoints = this.lifepoints+event.getLp();
         return event;
 
 

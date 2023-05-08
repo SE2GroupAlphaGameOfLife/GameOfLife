@@ -2,7 +2,6 @@ package aau.se2.glock.alpha.gameoflife.core.logic;
 
 import com.badlogic.gdx.Gdx;
 
-import org.graalvm.compiler.java.GraphBuilderPhase;
 
 import java.util.List;
 
@@ -38,27 +37,7 @@ public class Game {
     }
 
 
-    public void rollDice(){// outdated
-        int rolledNumber = 0;
-        if(currentplayer.isHasTurn()){
-            rolledNumber = currentplayer.rollTheDice();
-        }else return;
-        Gdx.app.log(currentplayer.getUsername()+ " rolled ",""+rolledNumber);
-        if(!currentplayer.makeMove()){
-            //player has to choose a path
-            int currentPosition = currentplayer.getPosition();
-            GameField currentField = board.getGameFields().get(currentPosition);
-            GameOfLife.players.set(currentplayer.getId(),currentplayer);
-            GameScreen.getINSTANCE().chooseNextStep(currentField);
-        } else{
-            //triggerEventOnField();
-            //set status of currentplayer
-            GameOfLife.players.set(currentplayer.getId(),currentplayer);
-            endTurn();
-        }
 
-        return;
-    }
 
     public void getFieldEvent(){
         if(!currentplayer.isHasTurn()){
