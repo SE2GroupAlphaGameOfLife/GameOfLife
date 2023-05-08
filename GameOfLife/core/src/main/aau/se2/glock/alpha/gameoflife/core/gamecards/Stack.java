@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Stack {
 
-    private List<Card> cardList = new ArrayList<>();
+    private List<Card> cardList;
 
     private int countCard = 0;
 
@@ -20,9 +20,11 @@ public class Stack {
     }
 
     private Stack(){
+        cardList = new ArrayList<>();
         EventData eventData = new EventData();
         eventData.fillCardList();
         addCards(eventData.getCardList());
+
     }
 
 
@@ -54,8 +56,6 @@ public class Stack {
      * @param newCards  new cards which will be added
      */
     public void addCards(List<Card> newCards){
-        for (int i = 0; i < newCards.size(); i++) {
-            cardList.add(newCards.get(i));
-        }
+        cardList.addAll(newCards);
     }
 }

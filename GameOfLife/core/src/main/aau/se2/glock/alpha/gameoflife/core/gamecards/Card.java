@@ -8,6 +8,10 @@ public class Card {
 
     private List<Event> events = new ArrayList<>(4);
 
+    public Card(){
+
+    }
+
 
 
     /**

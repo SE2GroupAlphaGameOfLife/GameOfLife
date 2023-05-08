@@ -106,11 +106,13 @@ public class EventData {
     Event e100 = new Event(0,17000,"Einer deiner Schnappschüsse von einer Reise nach Peru gewinnt einen Fotowettbewerb. du erhältst € 17.000.");
 
 
-    public List<Event> eventList = new ArrayList<>();
-    public List<Card> cardList = new ArrayList<>();
+    public List<Event> eventList;
+    public List<Card> cardList;
 
     public EventData(){
-
+        eventList = new ArrayList<>();
+        cardList = new ArrayList<>();
+        fillEventList();
     }
 
     /**
@@ -236,6 +238,7 @@ public class EventData {
     public void fillCardList() {
         fillPseudoCard();
 
+
         int index = 0;
         for (int i = 0; i < cardList.size(); i++) {
             for (int j = 0; j < 4; j++) {
@@ -243,9 +246,8 @@ public class EventData {
             }
             index = index + 4;
         }
-
-
     }
+
 
     public void cardToStack() {
         //s1.addCards(cardList);

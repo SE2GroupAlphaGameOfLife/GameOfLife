@@ -11,7 +11,6 @@ import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 
-//Should later be refactored to be a singleton
 public class Game {
 
     public static Game INSTANCE;

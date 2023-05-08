@@ -164,8 +164,6 @@ public class Player {
         this.lifepoints = this.lifepoints+event.getLp();
         return event;
 
-
-
     }
 
     public boolean makeMove(){

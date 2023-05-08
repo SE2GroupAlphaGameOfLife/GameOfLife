@@ -320,6 +320,7 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+        player.getEvent();
     }
 
     private void spinTheWheel(float delta){

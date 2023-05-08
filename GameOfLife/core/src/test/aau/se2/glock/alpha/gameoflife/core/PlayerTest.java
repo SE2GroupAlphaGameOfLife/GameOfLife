@@ -5,11 +5,17 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
 import aau.se2.glock.alpha.gameoflife.mock.TestPlayer;
 
 public class PlayerTest {
     private TestPlayer player;
+
+    @Mock
+    private Stack mockStack;
 
     @Before
     public void setUp() {
@@ -40,5 +46,12 @@ public class PlayerTest {
     public void testGetters() {
         assertEquals("testUser", player.getUsername());
         assertEquals(0, player.getPosition());
+    }
+    @Test
+    public void testGetEvent(){
+       Event event = player.getEvent();
+       assertEquals(0,event.getLp());
+       assertEquals(0,event.getCash());
+       assertEquals("",event.getText());
     }
 }
