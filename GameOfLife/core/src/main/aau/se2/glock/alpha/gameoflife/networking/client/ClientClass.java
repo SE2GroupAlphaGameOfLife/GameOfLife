@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking.client;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
@@ -16,6 +17,7 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
+import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
 public class ClientClass extends Listener {
@@ -82,8 +84,8 @@ public class ClientClass extends Listener {
             if (!servers.contains(a))
                 servers.add(a);
         }
-        for(ServerInformation s : GameOfLife.availableServers){
-            if(servers.contains(s.getAddress())){
+        for (ServerInformation s : GameOfLife.availableServers) {
+            if (servers.contains(s.getAddress())) {
                 servers.remove(s.getAddress());
                 toKeep.add(s);
             }
@@ -91,10 +93,9 @@ public class ClientClass extends Listener {
         GameOfLife.availableServers = toKeep;
 
         this.client.close();
-        for(InetAddress a : servers){
+        for (InetAddress a : servers) {
             this.client.start();
             this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-            this.client.sendTCP(new ServerInformation());
         }
         this.client.start();
         /*if(GameOfLife.availableServers.isEmpty()){
@@ -114,10 +115,14 @@ public class ClientClass extends Listener {
 
         System.out.println("[Client] Verbunden!");
 
-        this.sendPlayerTCP(GameOfLife.self);
+        if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
+            this.sendPlayerTCP(GameOfLife.self);
+        }else if(GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class) || GameOfLife.getInstance().getScreen().getClass().equals(MainMenuScreen.class)){
+            this.client.sendTCP(new ServerInformation());
+        }
     }
 
-    public void sendPlayerTCP(Player player){
+    public void sendPlayerTCP(Player player) {
         this.client.sendTCP(player);
     }
 
@@ -131,7 +136,7 @@ public class ClientClass extends Listener {
 
         if (object instanceof ServerInformation) {
             ServerInformation serverInformation = (ServerInformation) object;
-            if (!GameOfLife.gameStarted && GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+            if (!GameOfLife.gameStarted && (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class) || GameOfLife.getInstance().getScreen().getClass().equals(MainMenuScreen.class))) {
                 serverInformation.setAddress(connection.getRemoteAddressTCP().getAddress());
 
                 if (!GameOfLife.availableServers.contains(serverInformation)) {
@@ -139,14 +144,15 @@ public class ClientClass extends Listener {
                     //System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
                     //System.out.println("INOOOOFOOFFO "+serverInformation);
                     this.client.close();
+                    ((JoinGameScreen)GameOfLife.getInstance().getScreen()).createServerOverview();
                     //GameOfLife.getInstance().render();
                 }
             }
 
             return;
         } else if (object instanceof JoinedPlayers) {
-            if(GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)){
-                ((StartGameScreen)GameOfLife.getInstance().getScreen()).createPlayersOverview();
+            if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
+                ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
             }
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
             //GameOfLife.getInstance().render();
