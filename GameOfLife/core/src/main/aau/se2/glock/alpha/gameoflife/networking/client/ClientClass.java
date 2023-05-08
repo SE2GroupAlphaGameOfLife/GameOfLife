@@ -17,6 +17,7 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
+import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
 public class ClientClass extends Listener {
 
@@ -138,6 +139,9 @@ public class ClientClass extends Listener {
 
             return;
         } else if (object instanceof JoinedPlayers) {
+            if(GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)){
+                ((StartGameScreen)GameOfLife.getInstance().getScreen()).createPlayersOverview();
+            }
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
             //GameOfLife.getInstance().render();
 

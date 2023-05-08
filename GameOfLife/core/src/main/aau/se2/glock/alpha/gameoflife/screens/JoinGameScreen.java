@@ -60,8 +60,8 @@ public class JoinGameScreen implements Screen {
     private boolean showRefreshIcon;
     private float rotationSpeed = 180; // degrees per second
     private float currentRotation = 0f;
-    private float originXRefreshIcon = 0f;
-    private float originYRefreshIcon = 0f;
+    private float originXRefreshIcon=0f;
+    private float originYRefreshIcon=0f;
 
     private List<Label> serverLabels = new ArrayList<>();
 
@@ -173,10 +173,10 @@ public class JoinGameScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-
-                GameOfLife.changeScreen(new StartGameScreen());
-
+                if(validateInput(ipInput.getText())){
+                    GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    GameOfLife.changeScreen(new StartGameScreen());
+                }
             }
         });
     }
@@ -226,9 +226,7 @@ public class JoinGameScreen implements Screen {
     }
 
     private void onIpClicked(InetAddress ipAddress) {
-        if (ipAddress.getHostAddress() != null) {
-            ipInput.setText(ipAddress.getHostAddress());
-        }
+        ipInput.setText(ipAddress.getHostAddress());
     }
 
     private void initTextures() {
@@ -313,7 +311,7 @@ public class JoinGameScreen implements Screen {
 
     public void refreshImageInterval() {
         createRotation();
-
+        
         final float showTime = 1f; // in seconds
         final float hideTime = 5f; // in seconds
 
@@ -370,7 +368,7 @@ public class JoinGameScreen implements Screen {
 
         if (showRefreshIcon) {
             stage.getBatch().begin();
-            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F, originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
+            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F,originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
             stage.getBatch().end();
         } else {
             stage.getBatch().begin();
