@@ -17,6 +17,7 @@ sonarqube {
     }
 }
 
+
 dependencies {
     implementation 'junit:junit:4.13.2'
     implementation 'com.badlogicgames.gdx:gdx-backend-android:1.11.0'
