@@ -7,19 +7,27 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -39,6 +47,7 @@ public class GameScreen implements Screen {
 
     Stage stage;
     TextButton btnRollDice;
+    TextButton btnQuit;
     TextButton.TextButtonStyle textButtonStyle;
     BitmapFont standardFont, bigFont;
     Skin skin;
@@ -46,21 +55,37 @@ public class GameScreen implements Screen {
     Button nextFieldButton1, nextFieldButton2;
     Group nextFieldButtonGroup; // Create a Group to hold actors
     Texture lightGrayTexture, grayTextrue;
+    Texture wheelTexture;
+    Texture arrowTexture;
+    Label lbUsernameAge, lbMoney, lbLifepoints;
 
+    //Wheel
+    int wheelSize = 100;
+    boolean isSpinning = false;
+    float arrowX = -25f;
+    float arrowY = -25f;
+    float arrowWidth = 50f;
+    float arrowHeight = 50f;
+    float arrowRotation = 216f; //216 is starting point
+    float spinSpeed = 360f;
+    float maxSpinDuration = 2f;
+    float spinDuration = 0f;
+    float spinAngle = 0f;
+    int selectedSection = 0;
+    boolean spinningEnded = true;
 
     public GameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
         initScreenDimensions();
-
         initFonts();
-
         initStage();
-
         initTextures();
-
         createButton();
+        createQuitButton();
+        createPlayerHUD();
+        refreshPlayerHUD();
     }
 
     @Override
@@ -80,6 +105,15 @@ public class GameScreen implements Screen {
         for (Player player : GameOfLife.players) {
             GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
             stage.getBatch().draw(skateboard, currentField.getPosition().x - 20, currentField.getPosition().y - 20, 40, 40);
+        }
+
+        if (GameOfLife.self.isHasTurn()) {
+            stage.getBatch().draw(wheelTexture, -(wheelSize / 2), -(wheelSize / 2), (wheelSize), (wheelSize));
+            stage.getBatch().draw(arrowTexture, arrowX, arrowY, arrowWidth / 2f, arrowHeight / 2f, arrowWidth, arrowHeight, 1f, 1f, spinAngle + arrowRotation, 0, 0, arrowTexture.getWidth(), arrowTexture.getHeight(), false, false);
+
+            if (isSpinning) {
+                spinTheWheel(delta);
+            }
         }
 
         stage.getBatch().end();
@@ -168,6 +202,9 @@ public class GameScreen implements Screen {
 
         background = new Texture(Gdx.files.internal("board.png"));
         skateboard = new Texture(Gdx.files.internal("skateboard.png"));
+
+        wheelTexture = new Texture("wheel.png");
+        arrowTexture = new Texture("arrow.png");
     }
 
     /**
@@ -194,19 +231,18 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 boolean isInTurn = true;
+
                 Player player = GameOfLife.players.get(0);
                 int moveCount = player.rollTheDice();
-                Gdx.app.log("Rolled", "" + moveCount);
+                Gdx.app.log("moveCount", moveCount + "");
 
-                GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
-                if (player.makeMove() == false) {
-                    gameField = Board.getInstance().getGameFields().get(player.getPosition());
+                //calculating the angle that the arrow has to spin, so that it stops at the correct number
+                float maxSpingAngle = (moveCount * 36) - 18;
+                System.out.println(spinAngle);
+                spinSpeed = ((maxSpingAngle) + 720) / maxSpinDuration;
+                spinAngle = 0;
 
-                    GameOfLife.players.set(0, player);
-                    chooseNextStep(gameField);
-                }
-
-                GameOfLife.players.set(0, player);
+                isSpinning = true;
             }
 
         };
@@ -268,7 +304,7 @@ public class GameScreen implements Screen {
      *
      * @param index
      */
-    private void stepChoosen(int index){
+    private void stepChoosen(int index) {
         // Update player's choice and position
         Player player = GameOfLife.players.get(0);
         player.chooseDirection(index);
@@ -285,4 +321,89 @@ public class GameScreen implements Screen {
 
         GameOfLife.players.set(0, player);
     }
+
+    private void spinTheWheel(float delta){
+        // increase spin duration and angle
+        spinDuration += delta;
+        spinAngle -= spinSpeed * delta;
+
+        // select a random section once spin duration exceeds maximum duration
+        if (spinDuration > maxSpinDuration) {
+            spinDuration = 0f;
+            spinSpeed = 0f;
+            selectedSection = MathUtils.random(10);
+            isSpinning = false;
+
+            Player player = GameOfLife.players.get(0);
+            GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
+            if (player.makeMove() == false) {
+                gameField = Board.getInstance().getGameFields().get(player.getPosition());
+
+                GameOfLife.players.set(0, player);
+                chooseNextStep(gameField);
+            }
+
+            GameOfLife.players.set(0, player);
+        }
+    }
+
+    private void createQuitButton() {
+        //Create a Back Button
+        btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
+        btnQuit.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        btnQuit.setPosition(30, 30); // Set the position of the button
+
+        stage.addActor(btnQuit); // Add the button to the stage
+
+        // Create a ClickListener
+        ClickListener btnQuitListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameOfLife.changeScreen(new MainMenuScreen());
+            }
+        };
+
+        btnQuit.addListener(btnQuitListener);
+    }
+
+    private void createPlayerHUD() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+
+        lbUsernameAge = new Label("Username, Age", labelStyle);
+        lbMoney = new Label("Money", labelStyle);
+        lbLifepoints = new Label("Lifepoints", labelStyle);
+
+        lbUsernameAge.setPosition(10, screenHeight - lbUsernameAge.getHeight() - 10);
+        lbMoney.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - 20);
+        lbLifepoints.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - 30);
+
+        stage.addActor(lbUsernameAge);
+        stage.addActor(lbMoney);
+        stage.addActor(lbLifepoints);
+    }
+
+    private void refreshPlayerHUD() {
+        final float time = 0.5f; // in seconds
+        final Timer timer = new Timer();
+        timer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                for (Player p : GameOfLife.players) {
+                    if (p.isHasTurn()) {
+                        fillPlayerHUD(p);
+                        break;
+                    }
+                }
+            }
+        }, 0, time);
+    }
+
+    private void fillPlayerHUD(Player p) {
+        lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
+        lbMoney.setText("Money: " + p.getMoney());
+        lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
+    }
+
 }

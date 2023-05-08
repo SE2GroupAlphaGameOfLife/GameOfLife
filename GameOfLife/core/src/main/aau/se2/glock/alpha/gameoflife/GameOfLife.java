@@ -46,6 +46,16 @@ public class GameOfLife extends Game {
 		INSTANCE.setScreen(screen);
 	}
 
+	//For Testing only
+	public static void changeInstance(GameOfLife gu){
+		INSTANCE = gu;
+	}
+
+	//For testing only
+	public static boolean isGameStarted() {
+		return gameStarted;
+	}
+
 	@Override
 	public void create() {
 		setScreen(new MainMenuScreen());
