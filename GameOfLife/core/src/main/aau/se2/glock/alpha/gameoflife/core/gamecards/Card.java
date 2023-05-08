@@ -9,7 +9,6 @@ public class Card {
     private List<Event> events = new ArrayList<>(4);
 
 
-
     /**
      * Returns the event at index n.
      *
