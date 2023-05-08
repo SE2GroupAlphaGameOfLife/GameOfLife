@@ -17,7 +17,7 @@ public class ServerClass extends Listener {
 
     private final int UDPPORT;
     private final int TCPPORT;
-    private final Server server;
+    private Server server;
     private boolean serverStarted;
     private JoinedPlayers players;
     private String hostname;
@@ -84,29 +84,29 @@ public class ServerClass extends Listener {
 
     @Override
     public void connected(Connection connection) {
-        if(GameOfLife.gameStarted){
-            if(this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
+        if (GameOfLife.gameStarted) {
+            if (this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
                 Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
                 player.setOnline(true);
                 this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
                 System.out.println("[Server] Client wiederverbunden!");
                 sendPlayersObjectToAll();
-            }else {
+            } else {
                 System.out.println("[Server] Client Verbindung abgelehnt da Spiel bereits läuft!");
                 connection.close();
             }
-        }else{
+        } else {
             System.out.println("[Server] Client verbunden!");
         }
     }
 
     @Override
     public void disconnected(Connection connection) {
-        if(GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())){
+        if (GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
             Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
             player.setOnline(false);
             this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
-            this.players.setPlayersTurn(player.getId()+1);
+            this.players.setPlayersTurn(player.getId() + 1);
             sendPlayersObjectToAll();
         }
         System.out.println("[Server] Client hat Verbindung getrennt!");
@@ -115,15 +115,15 @@ public class ServerClass extends Listener {
     @Override
     public void received(Connection connection, Object object) {
 
-        if(object instanceof ServerInformation){
+        if (object instanceof ServerInformation) {
             this.server.sendToTCP(connection.getID(), new ServerInformation(this.hostname, this.TCPPORT));
-        }else if (object instanceof Player) {
+        } else if (object instanceof Player) {
             Player player = (Player) object;
             if (!GameOfLife.gameStarted && player.isJoning()) {
-                    player.setJoning(false);
-                    player.setId(this.players.getPlayerCount() + 1);
-                    this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
-                    return;
+                player.setJoning(false);
+                player.setId(this.players.getPlayerCount() + 1);
+                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+                return;
             }
             if (GameOfLife.gameStarted && player.isHasTurn()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
                 player.setHasTurn(false);
@@ -133,5 +133,46 @@ public class ServerClass extends Listener {
             }
             sendPlayersObjectToAll();
         }
+    }
+
+    //For testing only
+    public void setPlayers(JoinedPlayers joinedPlayers) {
+        this.players = joinedPlayers;
+    }
+
+    public int getUDPPORT() {
+        return UDPPORT;
+    }
+
+    public int getTCPPORT() {
+        return TCPPORT;
+    }
+
+    //For testing only
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    //For testing only
+    public boolean isServerStarted() {
+        return serverStarted;
+    }
+
+    //For testing only
+    public JoinedPlayers getPlayers() {
+        return players;
+    }
+
+    //For testing only
+    public void setServer(Server server) {
+        this.server = server;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public Server getServer() {
+        return server;
     }
 }
