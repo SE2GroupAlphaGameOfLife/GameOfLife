@@ -15,7 +15,6 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
@@ -77,12 +76,19 @@ public class ClientClass extends Listener {
     public void discoverServers(int udpPort) {
         List<InetAddress> servers = new ArrayList<InetAddress>();
 
-        GameOfLife.availableServers = new ArrayList<>();
+        ArrayList<ServerInformation> toKeep = new ArrayList<ServerInformation>();
 
         for (InetAddress a : this.client.discoverHosts(udpPort, 5000)) {
             if (!servers.contains(a))
                 servers.add(a);
         }
+        for(ServerInformation s : GameOfLife.availableServers){
+            if(servers.contains(s.getAddress())){
+                servers.remove(s.getAddress());
+                toKeep.add(s);
+            }
+        }
+        GameOfLife.availableServers = toKeep;
 
         this.client.close();
         for(InetAddress a : servers){
@@ -91,7 +97,7 @@ public class ClientClass extends Listener {
             this.client.sendTCP(new ServerInformation());
         }
         this.client.start();
-        if(servers.isEmpty()){
+        /*if(GameOfLife.availableServers.isEmpty()){
             List<ServerInformation> serverDetails = new ArrayList<>();
             serverDetails.add(new ServerInformation("Host1", 1));
             serverDetails.add(new ServerInformation("Host2", 2));
@@ -100,7 +106,7 @@ public class ClientClass extends Listener {
             serverDetails.add(new ServerInformation("Host5", 5));
             serverDetails.add(new ServerInformation("Host6", 6));
             GameOfLife.availableServers = serverDetails;
-        }
+        }*/
     }
 
     @Override
