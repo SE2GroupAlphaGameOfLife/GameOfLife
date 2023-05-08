@@ -175,6 +175,7 @@ public class JoinGameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 if(validateInput(ipInput.getText())){
                     GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    timer.clear();
                     GameOfLife.changeScreen(new StartGameScreen());
                 }
             }

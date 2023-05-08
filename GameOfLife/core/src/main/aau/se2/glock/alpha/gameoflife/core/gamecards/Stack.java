@@ -19,7 +19,7 @@ public class Stack {
             return INSTANCE = new Stack();
     }
 
-    private Stack(){
+    public Stack(){
         EventData eventData = new EventData();
         eventData.fillCardList();
         addCards(eventData.getCardList());
