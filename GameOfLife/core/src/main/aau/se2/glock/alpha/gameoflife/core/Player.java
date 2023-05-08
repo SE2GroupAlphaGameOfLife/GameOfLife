@@ -4,9 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 
 import java.util.Random;
 
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+
 public class Player {
     private String username, gender;
-    private int age, money, id;
+    private Job currentJob;
+    private int age, money, id,lifePoints;
     protected int position;
     private Color color;
     private boolean isHost, hasTurn, isJoning, isOnline;
@@ -20,6 +24,7 @@ public class Player {
         this.position = 0;
         this.age = 18;
         this.money = 10000;
+        this.lifePoints = 0;
         this.color = new Color(Color.rgb888(255,0,0));
         this.isHost = isHost;
         this.isJoning = true;
@@ -92,6 +97,18 @@ public class Player {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
         this.moveCount--;
         this.position = currentField.getIndexOfNextGameFields().get(index);
+    }
+    public Event getEvent(){
+        Board board = Board.getInstance();
+        GameField field = board.getGameFields().get(this.position);
+        Event event = field.getLogicalField().getEvent();
+        System.out.println("Event triggered:"+event.getText());
+        this.money = this.money+ event.getCash();
+        this.lifePoints = this.lifePoints+event.getLp();
+        return event;
+
+
+
     }
 
     public boolean makeMove(){

@@ -21,9 +21,11 @@ public class GameField {
      * @param position              The position of the gameField.
      * @param indexOfNextGameFields The list of next possible gameFields for the gameField.
      */
-    public GameField(Vector2 position, List<Integer> indexOfNextGameFields,int index) {
+    public GameField(Vector2 position, List<Integer> indexOfNextGameFields) {
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
+        logicalField = new LogicalField(this);
+
     }
 
     /**
@@ -43,4 +45,9 @@ public class GameField {
     public List<Integer> getIndexOfNextGameFields() {
         return indexOfNextGameFields;
     }
+
+    public LogicalField getLogicalField(){
+        return this.logicalField;
+    }
 }
+

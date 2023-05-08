@@ -16,7 +16,6 @@ import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 public class Game {
 
     public static Game INSTANCE;
-
     private Board board;
     private Player currentplayer;
     private List<Player> otherPlayers;
@@ -32,13 +31,14 @@ public class Game {
      */
     public void startGame(){
         board = Board.getInstance();
+
         //sendInfoToOtherPlayers();
 
 
     }
 
 
-    public void rollDice(){
+    public void rollDice(){// outdated
         int rolledNumber = 0;
         if(currentplayer.isHasTurn()){
             rolledNumber = currentplayer.rollTheDice();
@@ -64,8 +64,7 @@ public class Game {
         if(!currentplayer.isHasTurn()){
             return;
         }else{
-            currentplayer.getPosition();
-
+            currentplayer.getEvent();
 
         }
 

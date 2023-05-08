@@ -109,6 +109,10 @@ public class EventData {
     public List<Event> eventList = new ArrayList<>();
     public List<Card> cardList = new ArrayList<>();
 
+    public EventData(){
+
+    }
+
     /**
      * Adds events to event list.
      */
@@ -248,7 +252,9 @@ public class EventData {
 
     }
 
-
+    public List<Card> getCardList() {
+        return cardList;
+    }
 }
 
 

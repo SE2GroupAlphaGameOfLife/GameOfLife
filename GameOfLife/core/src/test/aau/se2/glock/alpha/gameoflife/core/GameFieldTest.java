@@ -20,7 +20,7 @@ public class GameFieldTest {
     public void setUp() {
         position = new Vector2(1, 1);
         nextIndices = new ArrayList<>(Arrays.asList(2, 3, 4));
-        gameField = new GameField(position, nextIndices,0);
+        gameField = new GameField(position, nextIndices);
     }
 
     @Test

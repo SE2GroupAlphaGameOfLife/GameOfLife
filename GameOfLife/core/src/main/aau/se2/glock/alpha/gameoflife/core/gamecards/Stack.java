@@ -10,6 +10,21 @@ public class Stack {
 
     private int countCard = 0;
 
+    public static Stack INSTANCE;
+
+    public static Stack getINSTANCE() {
+        if(INSTANCE!=null){
+        return INSTANCE;
+        }else
+            return INSTANCE = new Stack();
+    }
+
+    private Stack(){
+        EventData eventData = new EventData();
+        eventData.fillCardList();
+        addCards(eventData.getCardList());
+    }
+
 
     /**
      * Loops card list and returns top card.
@@ -23,6 +38,8 @@ public class Stack {
         }
         return cardList.get(countCard++);
     }
+
+
 
     /**
      * Mixes card stack.

@@ -18,6 +18,7 @@ public class Card {
      * @param n describes the index
      * @return  event at n
      */
+
     public Event getEvent(int n){
        try {
            return events.get(n);
