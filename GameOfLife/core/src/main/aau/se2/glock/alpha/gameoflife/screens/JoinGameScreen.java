@@ -29,7 +29,9 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +62,6 @@ public class JoinGameScreen implements Screen {
     private float currentRotation = 0f;
     private float originXRefreshIcon=0f;
     private float originYRefreshIcon=0f;
-
 
 
     public JoinGameScreen() {
@@ -137,9 +138,13 @@ public class JoinGameScreen implements Screen {
         stage.addActor(ipInput); // Add the text field to the stage
     }
 
-    private boolean validateInput(String input) {
-        //check for valid ip-address
-        return true;
+    private boolean validateInput(String ipAddress) {
+        try {
+            InetAddress inetAddress = InetAddress.getByName(ipAddress);
+            return inetAddress instanceof Inet4Address;
+        } catch (UnknownHostException ex) {
+            return false;
+        }
     }
 
     private void createJoinGameButton() {
@@ -177,24 +182,26 @@ public class JoinGameScreen implements Screen {
         stage.addActor(labelServers); // Add the label to the stage
 
         int count = 0;
+        Label serverLabel = new Label("", labelServerDetailStyle); // Create the label with the text and style
+        serverLabel.remove();
 
         if (GameOfLife.availableServers.isEmpty()) {
-            Label serverLable = new Label("Searching for servers...", labelServerDetailStyle); // Create the label with the text and style
-            serverLable.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
+            serverLabel = new Label("Searching for servers...", labelServerDetailStyle); // Create the label with the text and style
+            serverLabel.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
 
-            stage.addActor(serverLable); // Add the label to the stage
+            stage.addActor(serverLabel); // Add the label to the stage
             count++;
         } else {
             for (final ServerInformation serverDetails : GameOfLife.availableServers) {
-                Label serverLable = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
-                serverLable.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
-                serverLable.addListener(new ClickListener() {
+                serverLabel = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
+                serverLabel.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
+                serverLabel.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         onIpClicked(serverDetails.getAddress());
                     }
                 });
-                stage.addActor(serverLable); // Add the label to the stage
+                stage.addActor(serverLabel); // Add the label to the stage
                 count++;
             }
         }
@@ -294,7 +301,7 @@ public class JoinGameScreen implements Screen {
             @Override
             public void run() {
                 showRefreshIcon = true;
-                // refreshServerList(); -> refreshServerList is called, but icon is not hiding anymore...
+                refreshServerList(); //-> refreshServerList is called, but icon is not hiding anymore...
                 timer.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
