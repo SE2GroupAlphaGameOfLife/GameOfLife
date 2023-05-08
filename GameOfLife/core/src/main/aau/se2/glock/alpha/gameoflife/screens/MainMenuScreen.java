@@ -29,18 +29,16 @@ public class MainMenuScreen implements Screen {
     private Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
     private int buttonWidth, buttonHeight;
-
-    public Vector2 buttonPosition;
-
-    Stage stage;
-    TextButton btnStartGame, btnJoinGame;
-    TextButtonStyle textButtonStyle;
-    BitmapFont standardFont, bigFont;
-    Skin skin;
-    Texture lightGrayTexture, grayTextrue;
-    TextFieldStyle textFieldStyle;
-    TextField usernameInput;
-    NinePatchDrawable borderDrawable;
+    private Vector2 buttonPosition;
+    private Stage stage;
+    private TextButton btnStartGame, btnJoinGame;
+    private TextButtonStyle textButtonStyle;
+    private BitmapFont standardFont, bigFont;
+    private Skin skin;
+    private Texture lightGrayTexture, grayTextrue;
+    private TextFieldStyle textFieldStyle;
+    private TextField usernameInput;
+    private NinePatchDrawable borderDrawable;
 
     /**
      * Constructor for MainMenuScreen. Initializes the screen dimensions, fonts, stage, textures and UI elements.
@@ -251,14 +249,14 @@ public class MainMenuScreen implements Screen {
                     //GameOfLife.server.start(GameOfLife.self.getUsername());
 
                     GameOfLife.changeScreen(new JoinGameScreen());
-                    new Thread(new Runnable() {
+                    /*new Thread(new Runnable() {
                         @Override
                         public void run() {
                             GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                             System.out.println(GameOfLife.availableServers);
                             //GameOfLife.getInstance().render();
                         }
-                    }).start();
+                    }).start();*/
                 }
             }
         });

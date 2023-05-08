@@ -33,15 +33,16 @@ public class StartGameScreen implements Screen {
     public Vector2 buttonPosition;
     private Stage stage;
     private TextButton btnStartGame;
+    private TextButton btnBack;
     private TextButtonStyle textButtonStyle;
     private Skin skin;
     private Texture lightGrayTexture, grayTextrue;
     private Label label;
     private BitmapFont standardFont, bigFont;
 
-    public StartGameScreen(){
+    public StartGameScreen() {
         gameCamera = new OrthographicCamera();
-        gameViewPort = new StretchViewport(800,400, gameCamera);
+        gameViewPort = new StretchViewport(800, 400, gameCamera);
 
         initScreenDimensions();
         initFonts();
@@ -59,6 +60,8 @@ public class StartGameScreen implements Screen {
         createGameOfLifeTitle();
         createPlayersOverview();
         createStartGameButton();
+        createBackButton();
+        createInfoLabel();
     }
 
     @Override
@@ -67,7 +70,7 @@ public class StartGameScreen implements Screen {
     }
 
     @Override
-    public void render(float delta){
+    public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
 
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
@@ -90,12 +93,12 @@ public class StartGameScreen implements Screen {
 
     }
 
-    public void dispose(){
+    public void dispose() {
 
     }
 
     @Override
-    public void hide(){
+    public void hide() {
         this.dispose();
     }
 
@@ -155,7 +158,6 @@ public class StartGameScreen implements Screen {
 
     /**
      * Creates the Game of Life title as a label and adds it to the stage.
-     *
      */
     private void createGameOfLifeTitle() {
         //Create Game of Life Title
@@ -167,41 +169,77 @@ public class StartGameScreen implements Screen {
         stage.addActor(label); // Add the label to the stage
     }
 
-    private void createPlayersOverview(){
+    private void createPlayersOverview() {
         //Create Overview for Players
         Label.LabelStyle labelPlayerStyle = new Label.LabelStyle();
         labelPlayerStyle.font = standardFont; // Set the font for the label
         labelPlayerStyle.fontColor = Color.WHITE; // Set the font color for the label
         Label labelPlayers = new Label("Players", labelPlayerStyle); // Create the label with the text and style
-        labelPlayers.setPosition(centerWidth - (label.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight()*2f)); // Set the position of the label
+        labelPlayers.setPosition(centerWidth - (label.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2f)); // Set the position of the label
         stage.addActor(labelPlayers); // Add the label to the stage
 
         int count = 0;
         for (Player player : GameOfLife.players) {
-            Gdx.app.log("count", count+ "");
+            Gdx.app.log("count", count + "");
             Label labelPlayer = new Label(player.getUsername(), labelPlayerStyle); // Create the label with the text and style
-            labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) +(labelPlayers.getWidth()/2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight()*2.0f) - (standardFont.getXHeight()*(count+2.5f))); // Set the position of the label
+            labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count + 2.5f))); // Set the position of the label
             stage.addActor(labelPlayer); // Add the label to the stage
         }
     }
 
-    private void createStartGameButton(){
+    private void createStartGameButton() {
         //Create a Start Game Button
-        btnStartGame = new TextButton("Start Game", textButtonStyle); // Create the text button with the text and style
-        btnStartGame.setPosition(buttonPosition.x, (float)(buttonPosition.y - (buttonHeight*1.25))); // Set the position of the button
-        btnStartGame.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        if (GameOfLife.self.isHost()) {
+            btnStartGame = new TextButton("Start Game", textButtonStyle); // Create the text button with the text and style
+            btnStartGame.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25))); // Set the position of the button
+            btnStartGame.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
-        stage.addActor(btnStartGame); // Add the button to the stage
+            stage.addActor(btnStartGame); // Add the button to the stage
+
+            // Create a ClickListener
+            ClickListener btnStartGameListener = new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    // This method will be called when the TextButton is clicked
+                    GameOfLife.changeScreen(new GameScreen());
+                }
+            };
+
+            btnStartGame.addListener(btnStartGameListener);
+        }
+    }
+
+    private void createBackButton() {
+        //Create a Back Button
+        btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
+        btnBack.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        btnBack.setPosition(30, 30); // Set the position of the button
+
+        stage.addActor(btnBack); // Add the button to the stage
 
         // Create a ClickListener
-        ClickListener btnStartGameListener = new ClickListener() {
+        ClickListener btnBackListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
-                GameOfLife.changeScreen(GameScreen.getINSTANCE());
+
+                GameOfLife.changeScreen(new MainMenuScreen());
+                GameOfLife.server.close();
+
             }
         };
 
-        btnStartGame.addListener(btnStartGameListener);
+        btnBack.addListener(btnBackListener);
+    }
+
+    private void createInfoLabel() {
+        if (!GameOfLife.self.isHost()) {
+            Label.LabelStyle labelStyle = new Label.LabelStyle();
+            labelStyle.font = standardFont; // Set the font for the label
+            labelStyle.fontColor = Color.WHITE; // Set the font color for the label
+            label = new Label("Waiting for host to start the game...", labelStyle); // Create the label with the text and style
+            label.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25)));
+            stage.addActor(label); // Add the label to the stage]
+        }
     }
 }
