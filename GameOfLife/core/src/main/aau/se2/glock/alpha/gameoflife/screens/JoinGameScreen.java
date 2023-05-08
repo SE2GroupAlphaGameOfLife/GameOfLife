@@ -63,6 +63,8 @@ public class JoinGameScreen implements Screen {
     private float originXRefreshIcon=0f;
     private float originYRefreshIcon=0f;
 
+    private List<Label> serverLabels = new ArrayList<>();
+
 
     public JoinGameScreen() {
         gameCamera = new OrthographicCamera();
@@ -173,6 +175,13 @@ public class JoinGameScreen implements Screen {
     }
 
     private void createServerOverview() {
+        // Remove old server labels from the stage
+        for (Label oldServerLabel : serverLabels) {
+            oldServerLabel.remove();
+        }
+        // Clear the serverLabels list
+        serverLabels.clear();
+
         //Create Overview for available Servers
         Label.LabelStyle labelServerDetailStyle = new Label.LabelStyle();
         labelServerDetailStyle.font = standardFont; // Set the font for the label
@@ -181,15 +190,16 @@ public class JoinGameScreen implements Screen {
         labelServers.setPosition(screenWidth / 25, screenHeight - screenHeight / 25 * 2 - ipInput.getHeight()); // Set the position of the label
         stage.addActor(labelServers); // Add the label to the stage
 
+        serverLabels.add(labelServers);
+
         int count = 0;
         Label serverLabel = new Label("", labelServerDetailStyle); // Create the label with the text and style
-        serverLabel.remove();
 
         if (GameOfLife.availableServers.isEmpty()) {
             serverLabel = new Label("Searching for servers...", labelServerDetailStyle); // Create the label with the text and style
             serverLabel.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
-
-            stage.addActor(serverLabel); // Add the label to the stage
+            stage.addActor(serverLabel);
+            serverLabels.add(serverLabel); // Add the label to the serverLabels list
             count++;
         } else {
             for (final ServerInformation serverDetails : GameOfLife.availableServers) {
@@ -201,7 +211,8 @@ public class JoinGameScreen implements Screen {
                         onIpClicked(serverDetails.getAddress());
                     }
                 });
-                stage.addActor(serverLabel); // Add the label to the stage
+                stage.addActor(serverLabel);
+                serverLabels.add(serverLabel); // Add the label to the serverLabels list
                 count++;
             }
         }
@@ -327,6 +338,7 @@ public class JoinGameScreen implements Screen {
 
     private void refreshServerList() {
         GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
+        this.createServerOverview();
     }
 
     @Override

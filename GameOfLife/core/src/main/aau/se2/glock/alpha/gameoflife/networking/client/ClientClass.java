@@ -100,7 +100,6 @@ public class ClientClass extends Listener {
             serverDetails.add(new ServerInformation("Host6", 6));
             GameOfLife.availableServers = serverDetails;
         }
-        GameOfLife.changeScreen(new JoinGameScreen());
     }
 
     @Override
