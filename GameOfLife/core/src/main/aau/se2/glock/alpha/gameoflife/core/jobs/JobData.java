@@ -26,7 +26,7 @@ public class JobData {
     Job j18 = new Job("Kostümbildner", new ArrayList<>(Arrays.asList(5000, 30000, 80000, 140000, 200000, 300000, 400000)));
     Job j19 = new Job("Kommissar", new ArrayList<>(Arrays.asList(5000, 20000, 60000, 400000, 800000, 1000000, 1600000)));
     Job j20 = new Job("Schriftsteller", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 500000)));
-    ArrayList<Job> jobList = new ArrayList<>();
+    public ArrayList<Job> jobList = new ArrayList<>();
     int countCard = 0;
 
     /**
