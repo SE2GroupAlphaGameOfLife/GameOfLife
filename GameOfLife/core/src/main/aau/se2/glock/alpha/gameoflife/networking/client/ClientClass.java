@@ -15,11 +15,26 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 
 public class ClientClass extends Listener {
 
     private final Client client;
+
+    // Constructor with a Client argument for testing
+    public ClientClass(Client client) {
+        this.client = client;
+        this.client.start();
+
+        this.client.addListener(this);
+
+        Kryo kryo = client.getKryo();
+        kryo.register(ServerInformation.class);
+        kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
+        kryo.register(Player.class);
+    }
 
     public ClientClass() {
         this.client = new Client();
@@ -63,7 +78,7 @@ public class ClientClass extends Listener {
 
         GameOfLife.availableServers = new ArrayList<>();
 
-        for (InetAddress a : this.client.discoverHosts(udpPort, 5000)) {
+        for (InetAddress a : this.client.discoverHosts(udpPort, 3000)) {
             if (!servers.contains(a))
                 servers.add(a);
         }
@@ -85,6 +100,7 @@ public class ClientClass extends Listener {
             serverDetails.add(new ServerInformation("Host6", 6));
             GameOfLife.availableServers = serverDetails;
         }
+        GameOfLife.changeScreen(new JoinGameScreen());
     }
 
     @Override
@@ -92,8 +108,11 @@ public class ClientClass extends Listener {
 
         System.out.println("[Client] Verbunden!");
 
-        this.client.sendTCP(GameOfLife.self);
+        this.sendPlayerTCP(GameOfLife.self);
+    }
 
+    public void sendPlayerTCP(Player player){
+        this.client.sendTCP(player);
     }
 
     @Override
