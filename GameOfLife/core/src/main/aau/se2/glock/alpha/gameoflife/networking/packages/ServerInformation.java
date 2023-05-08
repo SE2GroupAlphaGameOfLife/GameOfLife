@@ -14,8 +14,7 @@ public class ServerInformation {
         this.address = null;
     }
 
-    public ServerInformation() {
-    }
+    public ServerInformation() {}
 
     @Override
     public boolean equals(Object o) {

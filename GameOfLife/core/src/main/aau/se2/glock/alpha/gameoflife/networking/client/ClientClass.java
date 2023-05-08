@@ -78,7 +78,7 @@ public class ClientClass extends Listener {
 
         GameOfLife.availableServers = new ArrayList<>();
 
-        for (InetAddress a : this.client.discoverHosts(udpPort, 3000)) {
+        for (InetAddress a : this.client.discoverHosts(udpPort, 5000)) {
             if (!servers.contains(a))
                 servers.add(a);
         }

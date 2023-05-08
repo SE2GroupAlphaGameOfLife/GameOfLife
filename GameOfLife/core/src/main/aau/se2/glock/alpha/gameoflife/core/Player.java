@@ -12,6 +12,9 @@ public class Player {
     private boolean isHost, hasTurn, isJoning, isOnline;
     protected int moveCount;
 
+    // !!! Needed for Kryo Serialization !!!
+    public Player(){}
+
     public Player(String username, boolean isHost){
         this.position = 0;
         this.age = 18;

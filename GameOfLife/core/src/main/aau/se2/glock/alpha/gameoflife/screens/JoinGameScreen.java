@@ -65,10 +65,14 @@ public class JoinGameScreen implements Screen {
 
     private List<Label> serverLabels = new ArrayList<>();
 
+    private final Timer timer;
+
 
     public JoinGameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
+
+        timer = new Timer();
 
         initScreenDimensions();
         initFonts();
@@ -294,6 +298,7 @@ public class JoinGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
+                timer.clear();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
@@ -306,13 +311,17 @@ public class JoinGameScreen implements Screen {
         
         final float showTime = 1f; // in seconds
         final float hideTime = 5f; // in seconds
-        final Timer timer = new Timer();
 
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
                 showRefreshIcon = true;
-                refreshServerList(); //-> refreshServerList is called, but icon is not hiding anymore...
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshServerList();
+                    }
+                }).start(); //-> refreshServerList is called, but icon is not hiding anymore...
                 timer.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
