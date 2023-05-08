@@ -4,13 +4,19 @@ import com.badlogic.gdx.graphics.Color;
 
 import java.util.Random;
 
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+
 public class Player {
     private String username, gender;
+    private Job currentJob;
     private int age, money, id, lifepoints;
+
     protected int position;
     private Color color;
     private boolean isHost, hasTurn, isJoning, isOnline;
     protected int moveCount;
+
 
     // !!! Needed for Kryo Serialization !!!
     public Player(){}
@@ -19,6 +25,7 @@ public class Player {
         this.position = 0;
         this.age = 18;
         this.money = 10000;
+        this.lifepoints = 0;
         this.color = new Color(Color.rgb888(255,0,0));
         this.isHost = isHost;
         this.isJoning = true;
@@ -26,7 +33,8 @@ public class Player {
         this.username = username;
         this.moveCount = 0;
         this.isOnline = true;
-        this.id = -1;
+        this.id = 0;
+
     }
 
     public int getLifepoints() {
@@ -146,6 +154,18 @@ public class Player {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
         this.moveCount--;
         this.position = currentField.getIndexOfNextGameFields().get(index);
+    }
+    public Event getEvent(){
+        Board board = Board.getInstance();
+        GameField field = board.getGameFields().get(this.position);
+        Event event = field.getLogicalField().getEvent();
+        System.out.println("Event triggered:"+event.getText());
+        this.money = this.money+ event.getCash();
+        this.lifepoints = this.lifepoints+event.getLp();
+        return event;
+
+
+
     }
 
     public boolean makeMove(){
