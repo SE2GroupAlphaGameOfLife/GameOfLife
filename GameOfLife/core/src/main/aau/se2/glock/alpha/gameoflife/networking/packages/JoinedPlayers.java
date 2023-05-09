@@ -10,6 +10,7 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
  *
  */
 public class JoinedPlayers {
+
     /**
      *
      */
