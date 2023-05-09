@@ -1,18 +1,18 @@
 package aau.se2.glock.alpha.gameoflife.networking;
 
-import org.junit.Test;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
-public class TestServerInformation{
+public class TestServerInformation {
     @Test
     public void testDefaultConstructor() {
         ServerInformation serverInfo = new ServerInformation();

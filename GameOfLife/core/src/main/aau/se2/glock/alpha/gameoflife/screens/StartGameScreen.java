@@ -28,22 +28,84 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
+/**
+ *
+ */
 public class StartGameScreen implements Screen {
+
+    /**
+     *
+     */
     private final OrthographicCamera gameCamera;
+
+    /**
+     *
+     */
     private final Viewport gameViewPort;
+
+    /**
+     *
+     */
     private final TextButtonStyle textButtonStyle;
+
+    /**
+     *
+     */
     private final List<Label> playerLabels = new ArrayList<>();
+
+    /**
+     *
+     */
     public Vector2 buttonPosition;
+
+    /**
+     *
+     */
     private int screenWidth, screenHeight, centerWidth, centerHeight;
+
+    /**
+     *
+     */
     private int buttonWidth, buttonHeight;
+
+    /**
+     *
+     */
     private Stage stage;
+
+    /**
+     *
+     */
     private TextButton btnStartGame;
+
+    /**
+     *
+     */
     private TextButton btnBack;
+
+    /**
+     *
+     */
     private Skin skin;
+
+    /**
+     *
+     */
     private Texture lightGrayTexture, grayTextrue;
+
+    /**
+     *
+     */
     private Label label;
+
+    /**
+     *
+     */
     private BitmapFont standardFont, bigFont;
 
+    /**
+     *
+     */
     public StartGameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
@@ -60,7 +122,6 @@ public class StartGameScreen implements Screen {
         textButtonStyle.font = standardFont; // Set the font
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
 
-
         createGameOfLifeTitle();
         createPlayersOverview();
         createStartGameButton();
@@ -73,6 +134,9 @@ public class StartGameScreen implements Screen {
 
     }
 
+    /**
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
@@ -82,6 +146,10 @@ public class StartGameScreen implements Screen {
         stage.draw(); // Draw the stage
     }
 
+    /**
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         gameViewPort.update(width, height);
@@ -101,6 +169,9 @@ public class StartGameScreen implements Screen {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void hide() {
         this.dispose();
@@ -173,6 +244,9 @@ public class StartGameScreen implements Screen {
         stage.addActor(label); // Add the label to the stage
     }
 
+    /**
+     *
+     */
     public void createPlayersOverview() {
         // Remove old server labels from the stage
         for (Label oldPlayerLabel : playerLabels) {
@@ -200,6 +274,9 @@ public class StartGameScreen implements Screen {
         }
     }
 
+    /**
+     *
+     */
     private void createStartGameButton() {
         //Create a Start Game Button
         if (GameOfLife.self.isHost()) {
@@ -222,6 +299,9 @@ public class StartGameScreen implements Screen {
         }
     }
 
+    /**
+     *
+     */
     private void createBackButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
@@ -245,6 +325,9 @@ public class StartGameScreen implements Screen {
         btnBack.addListener(btnBackListener);
     }
 
+    /**
+     *
+     */
     private void createInfoLabel() {
         if (!GameOfLife.self.isHost()) {
             Label.LabelStyle labelStyle = new Label.LabelStyle();

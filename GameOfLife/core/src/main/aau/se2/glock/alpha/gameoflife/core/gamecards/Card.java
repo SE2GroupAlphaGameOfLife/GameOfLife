@@ -4,10 +4,15 @@ package aau.se2.glock.alpha.gameoflife.core.gamecards;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class Card {
 
+    /**
+     *
+     */
     private final List<Event> events = new ArrayList<>(4);
-
 
     /**
      * Returns the event at index n.
@@ -17,7 +22,6 @@ public class Card {
      * @param n describes the index
      * @return event at n
      */
-
     public Event getEvent(int n) {
         try {
             return events.get(n);
@@ -35,6 +39,7 @@ public class Card {
             events.add(new Event(0, 0, ""));
         }
     }
+
 /*
     public void addEvents(List<Event> newEvents){
         for (int i = 0; i < events.size(); i++) {
@@ -53,5 +58,4 @@ public class Card {
     public void addEvent(int index, Event e) {
         events.set(index, e);
     }
-
 }

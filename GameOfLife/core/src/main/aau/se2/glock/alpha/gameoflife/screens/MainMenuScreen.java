@@ -35,20 +35,79 @@ import java.util.ArrayList;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
+/**
+ *
+ */
 public class MainMenuScreen implements Screen {
+
+    /**
+     *
+     */
     private final OrthographicCamera gameCamera;
+
+    /**
+     *
+     */
     private final Viewport gameViewPort;
+
+    /**
+     *
+     */
     private int screenWidth, screenHeight, centerWidth, centerHeight;
+
+    /**
+     *
+     */
     private int buttonWidth, buttonHeight;
+
+    /**
+     *
+     */
     private Vector2 buttonPosition;
+
+    /**
+     *
+     */
     private Stage stage;
+
+    /**
+     *
+     */
     private TextButton btnStartGame, btnJoinGame;
+
+    /**
+     *
+     */
     private TextButtonStyle textButtonStyle;
+
+    /**
+     *
+     */
     private BitmapFont standardFont, bigFont;
+
+    /**
+     *
+     */
     private Skin skin;
+
+    /**
+     *
+     */
     private Texture lightGrayTexture, grayTextrue;
+
+    /**
+     *
+     */
     private TextFieldStyle textFieldStyle;
+
+    /**
+     *
+     */
     private TextField usernameInput;
+
+    /**
+     *
+     */
     private NinePatchDrawable borderDrawable;
 
     /**
@@ -72,6 +131,9 @@ public class MainMenuScreen implements Screen {
 
     }
 
+    /**
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
@@ -81,6 +143,10 @@ public class MainMenuScreen implements Screen {
         stage.draw(); // Draw the stage
     }
 
+    /**
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         gameViewPort.update(width, height);
@@ -100,6 +166,9 @@ public class MainMenuScreen implements Screen {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void hide() {
         this.dispose();
@@ -195,7 +264,7 @@ public class MainMenuScreen implements Screen {
         usernameInput.setSize(buttonWidth, buttonHeight); // Set the size of the text field
         // Set the placeholder text
         usernameInput.setMessageText("Enter username"); // Set the placeholder text
-        
+
         if (GameOfLife.self != null && !GameOfLife.self.getUsername().isEmpty()) {
             usernameInput.setText(GameOfLife.self.getUsername());
         }
@@ -210,7 +279,7 @@ public class MainMenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Check if the length of the text is greater than 0
-                if (validateInput(usernameInput.getText())) {
+                if (validateInput(usernameInput)) {
                     // Set the font color to light gray
                     usernameInput.setColor(Color.LIGHT_GRAY);
                     usernameInput.getStyle().fontColor = Color.LIGHT_GRAY;
@@ -248,7 +317,7 @@ public class MainMenuScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (validateInput(usernameInput.getText())) {
+                if (validateInput(usernameInput)) {
                     GameOfLife.self = new Player(usernameInput.getText(), false);
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
@@ -273,7 +342,7 @@ public class MainMenuScreen implements Screen {
         btnStartGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (validateInput(usernameInput.getText())) {
+                if (validateInput(usernameInput)) {
                     GameOfLife.self = new Player(usernameInput.getText(), true);
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
@@ -297,19 +366,19 @@ public class MainMenuScreen implements Screen {
     }
 
     /**
-     * Checks if the input text is valid.
+     * Checks if the input text is valid (length > 0).
+     * Changes color of TextField, dependent on validation result.
      *
-     * @param text Input text to validate.
-     * @return True if input is valid, false if not.
+     * @param txtField TextField object to validate and manipulate
+     * @return true if input is valid, false if not
      */
-    private boolean validateInput(String text) {
-        if (usernameInput.getText().length() < 1) {
-            usernameInput.setColor(Color.RED);
-            usernameInput.getStyle().messageFontColor = Color.RED;
+    private boolean validateInput(TextField txtField) {
+        if (txtField.getText().length() < 1) {
+            txtField.setColor(Color.RED);
+            txtField.getStyle().messageFontColor = Color.RED;
             return false;
         }
 
         return true;
     }
-
 }

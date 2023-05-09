@@ -5,19 +5,44 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
+/**
+ *
+ */
 //Should later be refactored to be a singleton
 public class Game {
 
+    /**
+     *
+     */
     public static Game INSTANCE;
-    private Board board;
-    private Player currentplayer;
+    /**
+     *
+     */
     private final List<Player> otherPlayers;
+    /**
+     *
+     */
+    private Board board;
+    /**
+     *
+     */
+    private Player currentplayer;
 
+
+    /**
+     * @param player
+     * @param otherPlayers
+     */
     private Game(Player player, List<Player> otherPlayers) {
         this.currentplayer = player;
         this.otherPlayers = otherPlayers;
     }
 
+    /**
+     * @param player
+     * @param otherPlayers
+     * @return
+     */
     public static Game getInstance(Player player, List<Player> otherPlayers) {
         if (INSTANCE == null) {
             INSTANCE = new Game(player, otherPlayers);
@@ -25,6 +50,9 @@ public class Game {
         return INSTANCE;
     }
 
+    /**
+     * @return
+     */
     public static Game getInstance() {
         return INSTANCE;
     }
@@ -35,19 +63,17 @@ public class Game {
      */
     public void startGame() {
         board = Board.getInstance();
-
         //sendInfoToOtherPlayers();
-
-
     }
 
+    /**
+     *
+     */
     public void getFieldEvent() {
         if (!currentplayer.isHasTurn()) {
         } else {
             currentplayer.getEvent();
-
         }
-
     }
 
     /**
@@ -60,14 +86,18 @@ public class Game {
         } else {
             currentplayer = otherPlayers.get(currentplayer.getId() + 1);
         }
-
-
     }
 
+    /**
+     * @return
+     */
     public Player getCurrentPlayer() {
         return currentplayer;
     }
 
+    /**
+     * @return
+     */
     public List<Player> getOtherPlayers() {
         return otherPlayers;
     }

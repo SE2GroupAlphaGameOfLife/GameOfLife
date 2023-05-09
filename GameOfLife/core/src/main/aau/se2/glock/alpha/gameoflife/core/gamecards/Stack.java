@@ -4,18 +4,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *
+ */
 public class Stack {
 
+    /**
+     *
+     */
     public static Stack INSTANCE;
+
+    /**
+     *
+     */
     private final List<Card> cardList = new ArrayList<>();
+
+    /**
+     *
+     */
     private int countCard = 0;
 
+    /**
+     *
+     */
     public Stack() {
         EventData eventData = new EventData();
         eventData.fillCardList();
         addCards(eventData.getCardList());
     }
 
+    /**
+     * @return
+     */
     public static Stack getINSTANCE() {
         if (INSTANCE != null) {
             return INSTANCE;

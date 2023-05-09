@@ -10,9 +10,20 @@ import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
  * Represents a game field with a position and a list of possible next gameFields.
  */
 public class GameField {
+
+    /**
+     *
+     */
     private final Vector2 position; // The position of the game field
+
+    /**
+     *
+     */
     private final List<Integer> indexOfNextGameFields; // The list of next gameFields for the game field
 
+    /**
+     *
+     */
     private final LogicalField logicalField;  //Logical field which has Information on events
 
     /**
@@ -25,7 +36,6 @@ public class GameField {
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
         logicalField = new LogicalField(this);
-
     }
 
     /**
@@ -46,8 +56,10 @@ public class GameField {
         return indexOfNextGameFields;
     }
 
+    /**
+     * @return
+     */
     public LogicalField getLogicalField() {
         return this.logicalField;
     }
 }
-

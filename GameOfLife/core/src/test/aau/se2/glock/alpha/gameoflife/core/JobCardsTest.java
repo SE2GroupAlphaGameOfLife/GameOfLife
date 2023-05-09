@@ -18,29 +18,29 @@ public class JobCardsTest {
     JobData data1;
 
     @Before
-    public void setup(){
+    public void setup() {
         j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
         data1 = new JobData();
 
     }
 
     @Test
-    public void testFillJobList(){
-        assertEquals(0,data1.jobList.size());
+    public void testFillJobList() {
+        assertEquals(0, data1.jobList.size());
         data1.fillJobList();
-        assertEquals(20,data1.jobList.size());
+        assertEquals(20, data1.jobList.size());
     }
 
     @Test
-    public void testMixCards(){
+    public void testMixCards() {
         data1.fillJobList();
         //assertEquals(j1,data1.jobList.get(0));
         data1.mixCards();
-        assertNotEquals(j1,data1.jobList.get(0));
+        assertNotEquals(j1, data1.jobList.get(0));
     }
 
     @Test
-    public void testGet2JobsToSelect(){
+    public void testGet2JobsToSelect() {
 
 
     }

@@ -19,11 +19,21 @@ import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
+/**
+ * Handles Kryonet Client communication
+ */
 public class ClientClass extends Listener {
 
+    /**
+     * Kryonet Client object, for serialized network communication
+     */
     private final Client client;
 
-    // Constructor with a Client argument for testing
+    /**
+     * Constructor only for mock-testing purpose
+     *
+     * @param client Kryonet Client object, needed to override internal client parameter with mocked object.
+     */
     public ClientClass(Client client) {
         this.client = client;
         this.client.start();
@@ -37,6 +47,10 @@ public class ClientClass extends Listener {
         kryo.register(Player.class);
     }
 
+    /**
+     * Default constructor used to create and start Kryonet client object,
+     * add ClientClass as Listener and register classes to be serialized for network transfer.
+     */
     public ClientClass() {
         this.client = new Client();
         this.client.start();
@@ -50,6 +64,11 @@ public class ClientClass extends Listener {
         kryo.register(Player.class);
     }
 
+    /**
+     * @param address
+     * @param tcpPort
+     * @param udpPort
+     */
     public void connect(InetAddress address, int tcpPort, int udpPort) {
         if (!this.client.isConnected()) {
             try {
@@ -60,6 +79,11 @@ public class ClientClass extends Listener {
         }
     }
 
+    /**
+     * @param address
+     * @param tcpPort
+     * @param udpPort
+     */
     public void connect(String address, int tcpPort, int udpPort) {
         if (!this.client.isConnected()) {
             try {
@@ -70,10 +94,16 @@ public class ClientClass extends Listener {
         }
     }
 
+    /**
+     * Closes client object, forcing it disconnect from server if connected to any
+     */
     public void disconnect() {
         this.client.close();
     }
 
+    /**
+     * @param udpPort
+     */
     public void discoverServers(int udpPort) {
         List<InetAddress> servers = new ArrayList<InetAddress>();
 
@@ -109,6 +139,9 @@ public class ClientClass extends Listener {
         }*/
     }
 
+    /**
+     * @param connection
+     */
     @Override
     public void connected(Connection connection) {
 
@@ -121,15 +154,25 @@ public class ClientClass extends Listener {
         }
     }
 
+    /**
+     * @param player
+     */
     public void sendPlayerTCP(Player player) {
         this.client.sendTCP(player);
     }
 
+    /**
+     * @param connection
+     */
     @Override
     public void disconnected(Connection connection) {
         System.out.println("[Client] Verbindung getrennt!");
     }
 
+    /**
+     * @param connection
+     * @param object
+     */
     @Override
     public void received(Connection connection, Object object) {
 

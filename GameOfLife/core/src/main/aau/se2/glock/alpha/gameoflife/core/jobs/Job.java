@@ -2,10 +2,25 @@ package aau.se2.glock.alpha.gameoflife.core.jobs;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Job {
-    String Bezeichnung;
-    ArrayList<Integer> gehaltsListe;
-    int gehaltsStufe = 0;
+
+    /**
+     *
+     */
+    private String Bezeichnung;
+
+    /**
+     *
+     */
+    private ArrayList<Integer> gehaltsListe;
+
+    /**
+     *
+     */
+    private int gehaltsStufe = 0;
 
     /**
      * Creates a new job object with job description and pay grade list.
@@ -21,7 +36,8 @@ public class Job {
     /**
      * Returns job description.
      *
-     * @return job description.
+     * @return job
+     * description.
      */
     public String getBezeichnung() {
         return Bezeichnung;
