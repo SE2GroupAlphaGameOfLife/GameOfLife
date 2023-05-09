@@ -31,41 +31,160 @@ import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
+/**
+ *
+ */
 public class GameScreen implements Screen {
 
+    /**
+     *
+     */
     private final OrthographicCamera gameCamera;
+
+    /**
+     *
+     */
     private final Viewport gameViewPort;
+
+    /**
+     *
+     */
     public Vector2 buttonPosition;
-    Stage stage;
-    TextButton btnRollDice;
-    TextButton btnQuit;
-    TextButton.TextButtonStyle textButtonStyle;
-    BitmapFont standardFont, bigFont;
-    Skin skin;
-    Texture background, skateboard;
-    Button nextFieldButton1, nextFieldButton2;
-    Group nextFieldButtonGroup; // Create a Group to hold actors
-    Texture lightGrayTexture, grayTextrue;
-    Texture wheelTexture;
-    Texture arrowTexture;
-    Label lbUsernameAge, lbMoney, lbLifepoints;
+
+    /**
+     *
+     */
+    private Stage stage;
+
+    /**
+     *
+     */
+    private TextButton btnRollDice;
+
+    /**
+     *
+     */
+    private TextButton btnQuit;
+
+    /**
+     *
+     */
+    private TextButton.TextButtonStyle textButtonStyle;
+
+    /**
+     *
+     */
+    private BitmapFont standardFont, bigFont;
+
+    /**
+     *
+     */
+    private Skin skin;
+
+    /**
+     *
+     */
+    private Texture background, skateboard;
+
+    /**
+     *
+     */
+    private Button nextFieldButton1, nextFieldButton2;
+
+    /**
+     *
+     */
+    private Group nextFieldButtonGroup; // Create a Group to hold actors
+
+    /**
+     *
+     */
+    private Texture lightGrayTexture, grayTextrue;
+
+    /**
+     *
+     */
+    private Texture wheelTexture;
+
+    /**
+     *
+     */
+    private Texture arrowTexture;
+
+    /**
+     *
+     */
+    private Label lbUsernameAge, lbMoney, lbLifepoints;
+
     //Wheel
-    int wheelSize = 100;
-    boolean isSpinning = false;
-    float arrowX = -25f;
-    float arrowY = -25f;
-    float arrowWidth = 50f;
-    float arrowHeight = 50f;
-    float arrowRotation = 216f; //216 is starting point
-    float spinSpeed = 360f;
-    float maxSpinDuration = 2f;
-    float spinDuration = 0f;
-    float spinAngle = 0f;
-    int selectedSection = 0;
-    boolean spinningEnded = true;
+    /**
+     *
+     */
+    private int wheelSize = 100;
+
+    /**
+     *
+     */
+    private boolean isSpinning = false;
+
+    /**
+     *
+     */
+    private float arrowX = -25f, arrowY = -25f;
+
+    /**
+     *
+     */
+    private float arrowWidth = 50f, arrowHeight = 50f;
+
+    /**
+     *
+     */
+    private float arrowRotation = 216f; //216 is starting point
+
+    /**
+     *
+     */
+    private float spinSpeed = 360f;
+
+    /**
+     *
+     */
+    private float maxSpinDuration = 2f;
+
+    /**
+     *
+     */
+    private float spinDuration = 0f;
+
+    /**
+     *
+     */
+    private float spinAngle = 0f;
+
+    /**
+     *
+     */
+    private int selectedSection = 0;
+
+    /**
+     *
+     */
+    private boolean spinningEnded = true;
+
+    /**
+     *
+     */
     private int screenWidth, screenHeight, centerWidth, centerHeight;
+
+    /**
+     *
+     */
     private int buttonWidth, buttonHeight;
 
+    /**
+     *
+     */
     public GameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
@@ -85,6 +204,9 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
@@ -114,6 +236,10 @@ public class GameScreen implements Screen {
         stage.draw(); // Draw the stage
     }
 
+    /**
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         gameViewPort.update(width, height);
@@ -133,6 +259,9 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void hide() {
         this.dispose();
@@ -290,9 +419,11 @@ public class GameScreen implements Screen {
     }
 
 
+    // !!! JAVA DOC @param BESCHREIBEN !!!
+
     /**
-     * When the player has chosen which step he wants to take next this function is called
-     * we set the current position of the player to the chosen field and makeMove is called again
+     * When the player has chosen which step he wants to take next, this function is called.
+     * We set the current position of the player to the chosen field and makeMove is called again
      *
      * @param index
      */
@@ -314,6 +445,9 @@ public class GameScreen implements Screen {
         GameOfLife.players.set(0, player);
     }
 
+    /**
+     * @param delta
+     */
     private void spinTheWheel(float delta) {
         // increase spin duration and angle
         spinDuration += delta;
@@ -339,6 +473,9 @@ public class GameScreen implements Screen {
         }
     }
 
+    /**
+     *
+     */
     private void createQuitButton() {
         //Create a Back Button
         btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
@@ -359,6 +496,9 @@ public class GameScreen implements Screen {
         btnQuit.addListener(btnQuitListener);
     }
 
+    /**
+     *
+     */
     private void createPlayerHUD() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = standardFont;
@@ -377,6 +517,9 @@ public class GameScreen implements Screen {
         stage.addActor(lbLifepoints);
     }
 
+    /**
+     *
+     */
     private void refreshPlayerHUD() {
         final float time = 0.5f; // in seconds
         final Timer timer = new Timer();
@@ -393,6 +536,9 @@ public class GameScreen implements Screen {
         }, 0, time);
     }
 
+    /**
+     * @param p
+     */
     private void fillPlayerHUD(Player p) {
         lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
         lbMoney.setText("Money: " + p.getMoney());

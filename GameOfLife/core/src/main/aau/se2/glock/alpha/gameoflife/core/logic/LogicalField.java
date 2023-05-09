@@ -5,25 +5,51 @@ import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
 
+/**
+ *
+ */
 public class LogicalField {
 
-    boolean isSpecial;
+    /**
+     *
+     */
+    private boolean isSpecial;
 
-    SpecialEvent specialEvent; //is null if field NOT special
+    /**
+     *
+     */
+    private SpecialEvent specialEvent; //is null if field NOT special
 
-    boolean hasPlayer;
+    /**
+     *
+     */
+    private boolean hasPlayer;
 
-    int position;
+    /**
+     *
+     */
+    private int position;
 
-    int type;
+    /**
+     *
+     */
+    private int type;
 
-    GameField field;
+    /**
+     *
+     */
+    private GameField field;
 
+    /**
+     * @param field
+     */
     public LogicalField(GameField field) {
         this.field = field;
-
     }
 
+    /**
+     * @return
+     */
     public Event getEvent() {
         if (this.isSpecial) {
             return null;
@@ -31,11 +57,6 @@ public class LogicalField {
         } else {
             Card c = Stack.getINSTANCE().getTopCard();
             return c.getEvent(type);
-
         }
-
-
     }
-
-
 }

@@ -1,8 +1,20 @@
 package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
 public class Event {
+
+    /**
+     *
+     */
     private int lp;
+
+    /**
+     *
+     */
     private int cash;
+
+    /**
+     *
+     */
     private String text;
 
     /**
@@ -27,6 +39,9 @@ public class Event {
         return lp;
     }
 
+    /**
+     * @param lp
+     */
     public void setLp(int lp) {
         this.lp = lp;
     }
@@ -40,6 +55,9 @@ public class Event {
         return cash;
     }
 
+    /**
+     * @param cash
+     */
     public void setCash(int cash) {
         this.cash = cash;
     }
@@ -53,6 +71,9 @@ public class Event {
         return text;
     }
 
+    /**
+     * @param text
+     */
     public void setText(String text) {
         this.text = text;
     }

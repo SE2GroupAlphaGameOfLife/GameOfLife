@@ -14,13 +14,13 @@ public class TestPlayer extends Player {
     }
 
     @Override
-    public boolean makeMove(){
+    public boolean makeMove() {
         GameField currentField = TestBoard.getMockInstance().getGameFields().get(this.getPosition());
 
-        while (this.moveCount > 0){
+        while (this.moveCount > 0) {
             this.moveCount--;
 
-            if(currentField.getIndexOfNextGameFields().size() > 1){
+            if (currentField.getIndexOfNextGameFields().size() > 1) {
                 //we have to choose between multiple fields which one we want to choose so we return false
                 return false;
             } else {

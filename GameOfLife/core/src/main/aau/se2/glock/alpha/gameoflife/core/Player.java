@@ -7,20 +7,57 @@ import java.util.Random;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 
+/**
+ *
+ */
 public class Player {
+
+    /**
+     *
+     */
     protected int position;
+
+    /**
+     *
+     */
     protected int moveCount;
+
+    /**
+     *
+     */
     private String username, gender;
+
+    /**
+     *
+     */
     private Job currentJob;
+
+    /**
+     *
+     */
     private int age, money, id, lifepoints;
+
+    /**
+     *
+     */
     private Color color;
+
+    /**
+     *
+     */
     private boolean isHost, hasTurn, isJoning, isOnline;
 
 
-    // !!! Needed for Kryo Serialization !!!
+    /**
+     * Needed for Kryo Serialization
+     */
     public Player() {
     }
 
+    /**
+     * @param username
+     * @param isHost
+     */
     public Player(String username, boolean isHost) {
         this.position = 0;
         this.age = 18;
@@ -34,109 +71,186 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = 0;
-
     }
 
+    /**
+     * @return
+     */
     public int getLifepoints() {
         return lifepoints;
     }
 
+    /**
+     * @param lifepoints
+     */
     public void setLifepoints(int lifepoints) {
         this.lifepoints = lifepoints;
     }
 
+    /**
+     * @return
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * @param gender
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * @return
+     */
     public int getMoney() {
         return money;
     }
 
+    /**
+     * @param money
+     */
     public void setMoney(int money) {
         this.money = money;
     }
 
+    /**
+     * @return
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * @param color
+     */
     public void setColor(Color color) {
         this.color = color;
     }
 
+    /**
+     * @return
+     */
     public int getMoveCount() {
         return moveCount;
     }
 
+    /**
+     * @param moveCount
+     */
     public void setMoveCount(int moveCount) {
         this.moveCount = moveCount;
     }
 
+    /**
+     * @return
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * @param age
+     */
     public void setAge(int age) {
         this.age = age;
     }
 
+    /**
+     * @return
+     */
     public boolean isOnline() {
         return isOnline;
     }
 
+    /**
+     * @param online
+     */
     public void setOnline(boolean online) {
         isOnline = online;
     }
 
+    /**
+     * @return
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return
+     */
     public boolean isHost() {
         return isHost;
     }
 
+    /**
+     * @param host
+     */
     public void setHost(boolean host) {
         isHost = host;
     }
 
+    /**
+     * @return
+     */
     public boolean isHasTurn() {
         return hasTurn;
     }
 
+    /**
+     * @param hasTurn
+     */
     public void setHasTurn(boolean hasTurn) {
         this.hasTurn = hasTurn;
     }
 
+    /**
+     * @return
+     */
     public boolean isJoning() {
         return isJoning;
     }
 
+    /**
+     * @param joning
+     */
     public void setJoning(boolean joning) {
         isJoning = joning;
     }
 
+    /**
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * @return
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     * @param position
+     */
     public void setPosition(int position) {
         this.position = position;
     }
@@ -154,12 +268,18 @@ public class Player {
         return randomNumber;
     }
 
+    /**
+     * @param index
+     */
     public void chooseDirection(int index) {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
         this.moveCount--;
         this.position = currentField.getIndexOfNextGameFields().get(index);
     }
 
+    /**
+     * @return
+     */
     public Event getEvent() {
         Board board = Board.getInstance();
         GameField field = board.getGameFields().get(this.position);
@@ -168,10 +288,11 @@ public class Player {
         this.money = this.money + event.getCash();
         this.lifepoints = this.lifepoints + event.getLp();
         return event;
-
-
     }
 
+    /**
+     * @return
+     */
     public boolean makeMove() {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
 
@@ -186,7 +307,6 @@ public class Player {
                 currentField = Board.getInstance().getGameFields().get(this.position);
             }
         }
-
         //we finished moving return true
         return true;
     }

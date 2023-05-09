@@ -12,18 +12,59 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 
+/**
+ *
+ */
 public class GameOfLife extends Game {
+
+    /**
+     *
+     */
     public static final int TCPPORT = 54333;
+
+    /**
+     *
+     */
     public static final int UDPPORT = 54777;
-    //This is the Player-Entity of the current device
+
+    /**
+     * Player-Entity of the current device
+     */
     public static Player self;
+
+    /**
+     *
+     */
     public static boolean gameStarted;
+
+    /**
+     *
+     */
     public static ServerClass server;
+
+    /**
+     *
+     */
     public static ClientClass client;
+
+    /**
+     *
+     */
     public static List<Player> players;
+
+    /**
+     *
+     */
     public static List<ServerInformation> availableServers;
+
+    /**
+     *
+     */
     private static GameOfLife INSTANCE;
 
+    /**
+     * @return
+     */
     public static GameOfLife getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new GameOfLife();
@@ -39,20 +80,32 @@ public class GameOfLife extends Game {
         return INSTANCE;
     }
 
+    /**
+     * @param screen
+     */
     public static void changeScreen(Screen screen) {
         INSTANCE.setScreen(screen);
     }
 
+    /**
+     * @param gu
+     */
     //For Testing only
     public static void changeInstance(GameOfLife gu) {
         INSTANCE = gu;
     }
 
+    /**
+     * @return
+     */
     //For testing only
     public static boolean isGameStarted() {
         return gameStarted;
     }
 
+    /**
+     *
+     */
     @Override
     public void create() {
         setScreen(new MainMenuScreen());
