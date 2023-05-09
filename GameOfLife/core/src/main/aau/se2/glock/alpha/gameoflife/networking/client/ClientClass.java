@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.client;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
@@ -117,7 +116,7 @@ public class ClientClass extends Listener {
 
         if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
             this.sendPlayerTCP(GameOfLife.self);
-        }else if(GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class) || GameOfLife.getInstance().getScreen().getClass().equals(MainMenuScreen.class)){
+        } else if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
             this.client.sendTCP(new ServerInformation());
         }
     }
@@ -141,23 +140,16 @@ public class ClientClass extends Listener {
 
                 if (!GameOfLife.availableServers.contains(serverInformation)) {
                     GameOfLife.availableServers.add(serverInformation);
-                    //System.out.println("[Client] " + connection.getRemoteAddressTCP().getAddress() + ":" + serverInformation.getTcpPort());
-                    //System.out.println("INOOOOFOOFFO "+serverInformation);
                     this.client.close();
-                    ((JoinGameScreen)GameOfLife.getInstance().getScreen()).createServerOverview();
-                    //GameOfLife.getInstance().render();
+                    ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
                 }
             }
 
-            return;
         } else if (object instanceof JoinedPlayers) {
             if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
                 ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
             }
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
-            //GameOfLife.getInstance().render();
-
-            return;
         }
     }
 }
