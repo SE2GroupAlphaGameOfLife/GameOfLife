@@ -135,22 +135,12 @@ public class ServerClass extends Listener {
         }
     }
 
-    //For testing only
-    public void setPlayers(JoinedPlayers joinedPlayers) {
-        this.players = joinedPlayers;
-    }
-
     public int getUDPPORT() {
         return UDPPORT;
     }
 
     public int getTCPPORT() {
         return TCPPORT;
-    }
-
-    //For testing only
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
     }
 
     //For testing only
@@ -164,15 +154,25 @@ public class ServerClass extends Listener {
     }
 
     //For testing only
-    public void setServer(Server server) {
-        this.server = server;
+    public void setPlayers(JoinedPlayers joinedPlayers) {
+        this.players = joinedPlayers;
     }
 
     public String getHostname() {
         return hostname;
     }
 
+    //For testing only
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
     public Server getServer() {
         return server;
+    }
+
+    //For testing only
+    public void setServer(Server server) {
+        this.server = server;
     }
 }
