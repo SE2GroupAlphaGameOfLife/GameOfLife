@@ -1,13 +1,24 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -25,8 +36,8 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class MainMenuScreen implements Screen {
-    private OrthographicCamera gameCamera;
-    private Viewport gameViewPort;
+    private final OrthographicCamera gameCamera;
+    private final Viewport gameViewPort;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
     private int buttonWidth, buttonHeight;
     private Vector2 buttonPosition;
@@ -42,7 +53,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Constructor for MainMenuScreen. Initializes the screen dimensions, fonts, stage, textures and UI elements.
-     *
      */
     public MainMenuScreen() {
         gameCamera = new OrthographicCamera();
@@ -97,7 +107,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Initializes the screen dimensions such as screen width, screen height, button width and button height.
-     *
      */
     private void initScreenDimensions() {
         screenWidth = Gdx.graphics.getWidth();
@@ -108,12 +117,11 @@ public class MainMenuScreen implements Screen {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2(centerWidth-(buttonWidth/2), centerHeight - buttonHeight);
+        buttonPosition = new Vector2(centerWidth - (buttonWidth / 2), centerHeight - buttonHeight);
     }
 
     /**
      * Initializes the fonts used in the UI elements.
-     *
      */
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
@@ -127,7 +135,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Initializes the stage for handling UI elements.
-     *
      */
     private void initStage() {
         stage = new Stage();
@@ -137,7 +144,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Initializes the textures used for UI elements.
-     *
      */
     private void initTextures() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -155,7 +161,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Creates the Game of Life title as a label and adds it to the stage.
-     *
      */
     private void createGameOfLifeTitle() {
         //Create Game of Life Title
@@ -169,7 +174,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Creates the username input text field and adds it to the stage.
-     *
      */
     private void createUsernameInput() {
         // Create a TextFieldStyle
@@ -191,6 +195,10 @@ public class MainMenuScreen implements Screen {
         usernameInput.setSize(buttonWidth, buttonHeight); // Set the size of the text field
         // Set the placeholder text
         usernameInput.setMessageText("Enter username"); // Set the placeholder text
+        
+        if (GameOfLife.self != null && !GameOfLife.self.getUsername().isEmpty()) {
+            usernameInput.setText(GameOfLife.self.getUsername());
+        }
 
         textFieldStyle.background.setLeftWidth(screenWidth / 50); // Set the left padding
         textFieldStyle.background.setRightWidth(screenWidth / 50); // Set the right padding
@@ -215,7 +223,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Creates the main menu buttons and adds them to the stage.
-     *
      */
     private void createMainMenuButtons() {
         //create a textButtonStyle
@@ -291,6 +298,7 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Checks if the input text is valid.
+     *
      * @param text Input text to validate.
      * @return True if input is valid, false if not.
      */
