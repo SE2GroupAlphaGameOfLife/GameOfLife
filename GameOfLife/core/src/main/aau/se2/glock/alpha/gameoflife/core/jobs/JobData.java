@@ -6,6 +6,7 @@ import java.util.Collections;
 
 public class JobData {
 
+    public ArrayList<Job> jobList = new ArrayList<>();
     Job j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
     Job j2 = new Job("Sportler", new ArrayList<>(Arrays.asList(5000, 20000, 35000, 65000, 90000, 300000, 1400000)));
     Job j3 = new Job("Landwirt", new ArrayList<>(Arrays.asList(5000, 30000, 50000, 100000, 150000, 300000, 1000000)));
@@ -26,7 +27,6 @@ public class JobData {
     Job j18 = new Job("Kostümbildner", new ArrayList<>(Arrays.asList(5000, 30000, 80000, 140000, 200000, 300000, 400000)));
     Job j19 = new Job("Kommissar", new ArrayList<>(Arrays.asList(5000, 20000, 60000, 400000, 800000, 1000000, 1600000)));
     Job j20 = new Job("Schriftsteller", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 500000)));
-    public ArrayList<Job> jobList = new ArrayList<>();
     int countCard = 0;
 
     /**
@@ -60,7 +60,7 @@ public class JobData {
      *
      * @return two different Jobs and increments tho countCard.
      */
-    public Job get2JobsToSelect(){
+    public Job get2JobsToSelect() {
         return jobList.get(countCard++ & countCard++);
     }
 

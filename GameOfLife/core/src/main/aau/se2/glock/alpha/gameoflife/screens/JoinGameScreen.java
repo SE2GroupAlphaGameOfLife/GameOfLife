@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -40,32 +38,29 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
 public class JoinGameScreen implements Screen {
 
-    private OrthographicCamera gameCamera;
-    private Viewport gameViewPort;
+    private final Timer timer;
+    private final OrthographicCamera gameCamera;
+    private final Viewport gameViewPort;
+    private final TextureRegion refreshIcon;
+    private final float rotationSpeed = 180; // degrees per second
+    private final List<Label> serverLabels = new ArrayList<>();
+    public Vector2 btnJoinPosition;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
     private int btnWidth, btnHeight;
-    public Vector2 btnJoinPosition;
     private Stage stage;
     private TextButton btnJoinGame;
     private TextButton btnBack;
-
     private TextButton.TextButtonStyle textButtonStyle;
     private Skin skin;
     private Texture lightGrayTexture, grayTextrue;
     private BitmapFont standardFont, bigFont;
     private TextField.TextFieldStyle textFieldStyle;
     private TextField ipInput;
-    private TextureRegion refreshIcon;
     private TextureRegion transparentImage;
     private boolean showRefreshIcon;
-    private float rotationSpeed = 180; // degrees per second
     private float currentRotation = 0f;
-    private float originXRefreshIcon=0f;
-    private float originYRefreshIcon=0f;
-
-    private List<Label> serverLabels = new ArrayList<>();
-
-    private final Timer timer;
+    private float originXRefreshIcon = 0f;
+    private float originYRefreshIcon = 0f;
 
 
     public JoinGameScreen() {
@@ -173,7 +168,7 @@ public class JoinGameScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(validateInput(ipInput.getText())){
+                if (validateInput(ipInput.getText())) {
                     GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     timer.clear();
                     GameOfLife.changeScreen(new StartGameScreen());
@@ -312,7 +307,7 @@ public class JoinGameScreen implements Screen {
 
     public void refreshImageInterval() {
         createRotation();
-        
+
         final float showTime = 1f; // in seconds
         final float hideTime = 5f; // in seconds
 
@@ -368,7 +363,7 @@ public class JoinGameScreen implements Screen {
 
         if (showRefreshIcon) {
             stage.getBatch().begin();
-            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F,originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
+            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F, originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
             stage.getBatch().end();
         } else {
             stage.getBatch().begin();

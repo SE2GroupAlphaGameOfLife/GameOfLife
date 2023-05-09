@@ -8,25 +8,25 @@ import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 
 public class Player {
+    protected int position;
+    protected int moveCount;
     private String username, gender;
     private Job currentJob;
     private int age, money, id, lifepoints;
-
-    protected int position;
     private Color color;
     private boolean isHost, hasTurn, isJoning, isOnline;
-    protected int moveCount;
 
 
     // !!! Needed for Kryo Serialization !!!
-    public Player(){}
+    public Player() {
+    }
 
-    public Player(String username, boolean isHost){
+    public Player(String username, boolean isHost) {
         this.position = 0;
         this.age = 18;
         this.money = 10000;
         this.lifepoints = 0;
-        this.color = new Color(Color.rgb888(255,0,0));
+        this.color = new Color(Color.rgb888(255, 0, 0));
         this.isHost = isHost;
         this.isJoning = true;
         this.hasTurn = isHost;
@@ -45,10 +45,6 @@ public class Player {
         this.lifepoints = lifepoints;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -65,10 +61,6 @@ public class Player {
         this.money = money;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     public Color getColor() {
         return color;
     }
@@ -77,12 +69,12 @@ public class Player {
         this.color = color;
     }
 
-    public void setHost(boolean host) {
-        isHost = host;
-    }
-
     public int getMoveCount() {
         return moveCount;
+    }
+
+    public void setMoveCount(int moveCount) {
+        this.moveCount = moveCount;
     }
 
     public int getAge() {
@@ -101,16 +93,20 @@ public class Player {
         isOnline = online;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
     public boolean isHost() {
         return isHost;
+    }
+
+    public void setHost(boolean host) {
+        isHost = host;
     }
 
     public boolean isHasTurn() {
@@ -133,8 +129,16 @@ public class Player {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public int getPosition() {
         return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     /**
@@ -155,26 +159,26 @@ public class Player {
         this.moveCount--;
         this.position = currentField.getIndexOfNextGameFields().get(index);
     }
-    public Event getEvent(){
+
+    public Event getEvent() {
         Board board = Board.getInstance();
         GameField field = board.getGameFields().get(this.position);
         Event event = field.getLogicalField().getEvent();
-        System.out.println("Event triggered:"+event.getText());
-        this.money = this.money+ event.getCash();
-        this.lifepoints = this.lifepoints+event.getLp();
+        System.out.println("Event triggered:" + event.getText());
+        this.money = this.money + event.getCash();
+        this.lifepoints = this.lifepoints + event.getLp();
         return event;
-
 
 
     }
 
-    public boolean makeMove(){
+    public boolean makeMove() {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
 
-        while (this.moveCount > 0){
+        while (this.moveCount > 0) {
             this.moveCount--;
 
-            if(currentField.getIndexOfNextGameFields().size() > 1){
+            if (currentField.getIndexOfNextGameFields().size() > 1) {
                 //we have to choose between multiple fields which one we want to choose so we return false
                 return false;
             } else {
@@ -185,9 +189,5 @@ public class Player {
 
         //we finished moving return true
         return true;
-    }
-
-    public void setMoveCount(int moveCount){
-        this.moveCount = moveCount;
     }
 }

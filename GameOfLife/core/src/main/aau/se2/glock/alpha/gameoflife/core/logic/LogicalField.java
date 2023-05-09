@@ -19,15 +19,16 @@ public class LogicalField {
 
     GameField field;
 
-    public LogicalField(GameField field){
+    public LogicalField(GameField field) {
         this.field = field;
 
     }
-    public Event getEvent(){
-        if(this.isSpecial){
+
+    public Event getEvent() {
+        if (this.isSpecial) {
             return null;
             //TODO Return Special event when they have been impemented
-        }else {
+        } else {
             Card c = Stack.getINSTANCE().getTopCard();
             return c.getEvent(type);
 
@@ -35,11 +36,6 @@ public class LogicalField {
 
 
     }
-
-
-
-
-
 
 
 }

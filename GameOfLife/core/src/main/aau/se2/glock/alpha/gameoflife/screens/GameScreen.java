@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
@@ -17,13 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -38,13 +33,9 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class GameScreen implements Screen {
 
-    private OrthographicCamera gameCamera;
-    private Viewport gameViewPort;
-    private int screenWidth, screenHeight, centerWidth, centerHeight;
-    private int buttonWidth, buttonHeight;
-
+    private final OrthographicCamera gameCamera;
+    private final Viewport gameViewPort;
     public Vector2 buttonPosition;
-
     Stage stage;
     TextButton btnRollDice;
     TextButton btnQuit;
@@ -58,7 +49,6 @@ public class GameScreen implements Screen {
     Texture wheelTexture;
     Texture arrowTexture;
     Label lbUsernameAge, lbMoney, lbLifepoints;
-
     //Wheel
     int wheelSize = 100;
     boolean isSpinning = false;
@@ -73,6 +63,8 @@ public class GameScreen implements Screen {
     float spinAngle = 0f;
     int selectedSection = 0;
     boolean spinningEnded = true;
+    private int screenWidth, screenHeight, centerWidth, centerHeight;
+    private int buttonWidth, buttonHeight;
 
     public GameScreen() {
         gameCamera = new OrthographicCamera();
@@ -322,7 +314,7 @@ public class GameScreen implements Screen {
         GameOfLife.players.set(0, player);
     }
 
-    private void spinTheWheel(float delta){
+    private void spinTheWheel(float delta) {
         // increase spin duration and angle
         spinDuration += delta;
         spinAngle -= spinSpeed * delta;
@@ -336,7 +328,7 @@ public class GameScreen implements Screen {
 
             Player player = GameOfLife.players.get(0);
             GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
-            if (player.makeMove() == false) {
+            if (!player.makeMove()) {
                 gameField = Board.getInstance().getGameFields().get(player.getPosition());
 
                 GameOfLife.players.set(0, player);
