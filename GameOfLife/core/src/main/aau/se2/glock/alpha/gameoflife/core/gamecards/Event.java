@@ -1,22 +1,22 @@
 package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
 public class Event {
+    private int lp;
+    private int cash;
+    private String text;
+
     /**
      * Creates event with life points, cash and text.
      *
-     * @param lp    life points which are added or subtracted
-     * @param cash  cash which is added or subtracted
-     * @param text  description of event
+     * @param lp   life points which are added or subtracted
+     * @param cash cash which is added or subtracted
+     * @param text description of event
      */
     public Event(int lp, int cash, String text) {
         this.lp = lp;
         this.cash = cash;
         this.text = text;
     }
-
-    private int lp;
-    private int cash;
-    private String text;
 
     /**
      * Returns life points.

@@ -1,23 +1,22 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Job {
+    String Bezeichnung;
+    ArrayList<Integer> gehaltsListe;
+    int gehaltsStufe = 0;
+
     /**
      * Creates a new job object with job description and pay grade list.
      *
-     * @param bezeichnung   description of the job
-     * @param gehaltsListe  pay grade list with six payment levels
+     * @param bezeichnung  description of the job
+     * @param gehaltsListe pay grade list with six payment levels
      */
     public Job(String bezeichnung, ArrayList<Integer> gehaltsListe) {
         Bezeichnung = bezeichnung;
         this.gehaltsListe = gehaltsListe;
     }
-
-    String Bezeichnung;
-    ArrayList<Integer> gehaltsListe;
-    int gehaltsStufe = 0;
 
     /**
      * Returns job description.
@@ -40,7 +39,7 @@ public class Job {
     /**
      * Increases pay grade until you reach the maximum grade.
      */
-    public void befoerderung(){
+    public void befoerderung() {
         if (gehaltsStufe < gehaltsListe.size() - 1) {
             gehaltsStufe++;
         } else {

@@ -29,21 +29,20 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
 public class StartGameScreen implements Screen {
-    private OrthographicCamera gameCamera;
-    private Viewport gameViewPort;
+    private final OrthographicCamera gameCamera;
+    private final Viewport gameViewPort;
+    private final TextButtonStyle textButtonStyle;
+    private final List<Label> playerLabels = new ArrayList<>();
+    public Vector2 buttonPosition;
     private int screenWidth, screenHeight, centerWidth, centerHeight;
     private int buttonWidth, buttonHeight;
-    public Vector2 buttonPosition;
     private Stage stage;
     private TextButton btnStartGame;
     private TextButton btnBack;
-    private TextButtonStyle textButtonStyle;
     private Skin skin;
     private Texture lightGrayTexture, grayTextrue;
     private Label label;
     private BitmapFont standardFont, bigFont;
-
-    private List<Label> playerLabels = new ArrayList<>();
 
     public StartGameScreen() {
         gameCamera = new OrthographicCamera();
