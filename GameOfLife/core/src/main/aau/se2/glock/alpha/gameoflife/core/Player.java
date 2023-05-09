@@ -13,39 +13,49 @@ import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 public class Player {
 
     /**
-     *
+     * The position of the player on the game board.
      */
     protected int position;
 
     /**
-     *
+     * Amount of steps the player can go.
      */
     protected int moveCount;
 
     /**
-     *
+     * Ingame name and gender of the player.
      */
     private String username, gender;
 
     /**
-     *
+     * Job the player currently has.
      */
     private Job currentJob;
 
     /**
-     *
+     * Vital values of the player, dependent on the player success.
      */
     private int age, money, id, lifepoints;
 
     /**
-     *
+     * Color of the player displayed on the board.
      */
     private Color color;
 
     /**
-     *
+     * Tells if the player is the game's host.
      */
-    private boolean isHost, hasTurn, isJoning, isOnline;
+    private boolean isHost;
+
+    /**
+     * Tells if it's the player's turn.
+     */
+    private boolean hasTurn;
+
+    /**
+     * Tells if the server is only and or the player joining.
+     */
+    private boolean isJoning, isOnline;
 
 
     /**
@@ -55,8 +65,13 @@ public class Player {
     }
 
     /**
+     * Constructor used to initialize the Player object and all it's attributes to a default value.
+     *
      * @param username
+     * The name of the player. Will be displayed throughout the game.
+     *
      * @param isHost
+     * Set true, if the player is the game host, else false.
      */
     public Player(String username, boolean isHost) {
         this.position = 0;
