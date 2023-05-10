@@ -51,7 +51,7 @@ public class Card {
      * @param index index
      * @param e     event
      */
-    public void addEvent(int index, Event e){
+    public void setEvent(int index, Event e){
         events.set(index, e);
     }
 
