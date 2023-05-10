@@ -56,12 +56,24 @@ public class JobData {
     }
 
     /**
-     * Returns two different Jobs and increments the countCard.
+     * Returns any amount of jobs and increment the countCard.
      *
      * @return two different Jobs and increments tho countCard.
      */
-    public Job get2JobsToSelect(){
-        return jobList.get(countCard++ & countCard++);
+    public Job[] getJobsToSelect(int amountOfJobs){
+        //amountOfJobs = amountOfJobs%20;
+        Job[] jobs = new Job[amountOfJobs];
+
+        for (int i = 0; i < jobs.length; i++) {
+            jobs[i] = jobList.get(countCard++%20);
+        }
+
+        return jobs;
+    }
+
+    public Job getOneJob(){
+        mixCards();
+        return jobList.get(countCard++);
     }
 
     /**
@@ -70,6 +82,7 @@ public class JobData {
     public void mixCards() {
         Collections.shuffle(jobList);
     }
+
 
 
 }
