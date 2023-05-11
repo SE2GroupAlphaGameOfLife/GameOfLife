@@ -370,6 +370,8 @@ public class GameScreen implements Screen {
         btnRollDice.addListener(btnRollDiceListener);
     }
 
+
+
     /**
      * Chooses the next step for the player on the game field.
      *

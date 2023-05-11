@@ -259,7 +259,7 @@ public class EventData {
         int index = 0;
         for (int i = 0; i < cardList.size(); i++) {
             for (int j = 0; j < 4; j++) {
-                cardList.get(i).addEvent(j, eventList.get(index + j));
+                cardList.get(i).setEvent(j, eventList.get(index + j));
             }
             index = index + 4;
         }
