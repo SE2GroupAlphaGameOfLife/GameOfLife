@@ -37,7 +37,7 @@ To install "Das Spiel des Lebens" Android Edition, follow these steps:
 2. Open the project in Android Studio.
 3. Run the project on your Android device or emulator.
 
-**Note:** The minimum Android version required to run the game is Android 6.0 (Marshmallow).
+**Note:** The minimum Android version required to run the game is Android 7.0 (Nougat).
 
 ## How to Play
 
