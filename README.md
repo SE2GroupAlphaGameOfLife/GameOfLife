@@ -13,6 +13,7 @@ Welcome to the GitHub repository of "Das Spiel des Lebens" - Android Edition. Ou
 5. [Contribution](#contribution)
 6. [License](#license)
 7. [Acknowledgments](#acknowledgments)
+8. [Contributors](#contributors)
 
 ## Introduction
 
@@ -54,8 +55,22 @@ This project is licensed under the terms of the MIT license. For more informatio
 
 This project is a labor of love by a dedicated team of developers and designers. We would like to express our gratitude to Hasbro for the original "Game of Life," which inspired us to embark on this journey.
 
+## Contributors
+
+- [Kati17W](https://github.com/Kati17W)
+- [lukita69](https://github.com/lukita69)
+- [mischuchnigg](https://github.com/mischuchnigg)
+- [niwiunig](https://github.com/niwiunig)
+- [tinesime](https://github.com/tinesime)
+- [moritzkupper](https://github.com/moritzkupper)
+
 ---
 
 Thank you for visiting our repository. We hope you enjoy "Das Spiel des Lebens" Android Edition. For any queries or feedback, please feel free to reach out to us.
+
+---
+
+
+Apologies for the confusion. The markdown syntax I provided should work correctly on GitHub. However, note that the links in the table of contents are case-sensitive and should match the section headings exactly. Additionally, spaces should be replaced with hyphens. Here's the corrected README.md:
 
 ---
