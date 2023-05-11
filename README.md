@@ -68,8 +68,3 @@ This project is a labor of love by a dedicated team of developers and designers.
 Thank you for visiting our repository. We hope you enjoy "Das Spiel des Lebens" Android Edition. For any queries or feedback, please feel free to reach out to us.
 
 ---
-
-
-Apologies for the confusion. The markdown syntax I provided should work correctly on GitHub. However, note that the links in the table of contents are case-sensitive and should match the section headings exactly. Additionally, spaces should be replaced with hyphens. Here's the corrected README.md:
-
----
