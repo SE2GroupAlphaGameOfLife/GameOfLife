@@ -57,12 +57,11 @@ This project is a labor of love by a dedicated team of developers and designers.
 
 ## Contributors
 
-- [Kati17W](https://github.com/Kati17W)
 - [lukita69](https://github.com/lukita69)
-- [mischuchnigg](https://github.com/mischuchnigg)
-- [niwiunig](https://github.com/niwiunig)
-- [tinesime](https://github.com/tinesime)
 - [moritzkupper](https://github.com/moritzkupper)
+- [niwiunig](https://github.com/niwiunig)
+- [Kati17W](https://github.com/Kati17W)
+- [mischuchnigg](https://github.com/mischuchnigg)
 
 ---
 
