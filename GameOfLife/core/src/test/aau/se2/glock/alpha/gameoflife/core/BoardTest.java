@@ -13,6 +13,7 @@ import java.util.List;
 public class BoardTest{
     private TestBoard testBoard;
 
+
     @Before
     public void setUp() {
         testBoard = new TestBoard();
