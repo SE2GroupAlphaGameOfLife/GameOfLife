@@ -1,4 +1,6 @@
 buildscript {
+
+
     repositories {
         mavenLocal()
         mavenCentral()
@@ -7,7 +9,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -61,11 +63,13 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+
     }
 }
 
 project(":core") {
     apply plugin: "java-library"
+
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -74,5 +78,6 @@ project(":core") {
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api "com.kotcrab.vis:vis-ui:1.4.11"
+
     }
 }
