@@ -53,6 +53,7 @@ android {
     namespace 'aau.se2.glock.alpha.gameoflife'
 }
 
+
 task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     reports {
