@@ -12,52 +12,102 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 
+/**
+ *
+ */
 public class GameOfLife extends Game {
-	private static GameOfLife INSTANCE;
 
-	//This is the Player-Entity of the current device
-	public static Player self;
+    /**
+     *
+     */
+    public static final int TCPPORT = 54333;
 
-	public static boolean gameStarted;
+    /**
+     *
+     */
+    public static final int UDPPORT = 54777;
 
-	public static ServerClass server;
-	public static ClientClass client;
-	public static List<Player> players;
-	public static List<ServerInformation> availableServers;
-	public static final int TCPPORT = 54333;
-	public static final int UDPPORT = 54777;
+    /**
+     * Player-Entity of the current device
+     */
+    public static Player self;
 
-	public static GameOfLife getInstance(){
-		if(INSTANCE == null){
-			INSTANCE = new GameOfLife();
+    /**
+     *
+     */
+    public static boolean gameStarted;
 
-			players = new ArrayList<>();
-			server = new ServerClass(TCPPORT, UDPPORT);
-			client = new ClientClass();
+    /**
+     *
+     */
+    public static ServerClass server;
 
-			gameStarted = false;
-			availableServers = new ArrayList<>();
-		}
+    /**
+     *
+     */
+    public static ClientClass client;
 
-		return INSTANCE;
-	}
+    /**
+     *
+     */
+    public static List<Player> players;
 
-	public static void changeScreen(Screen screen){
-		INSTANCE.setScreen(screen);
-	}
+    /**
+     *
+     */
+    public static List<ServerInformation> availableServers;
 
-	//For Testing only
-	public static void changeInstance(GameOfLife gu){
-		INSTANCE = gu;
-	}
+    /**
+     *
+     */
+    private static GameOfLife INSTANCE;
 
-	//For testing only
-	public static boolean isGameStarted() {
-		return gameStarted;
-	}
+    /**
+     * @return
+     */
+    public static GameOfLife getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new GameOfLife();
 
-	@Override
-	public void create() {
-		setScreen(new MainMenuScreen());
-	}
+            players = new ArrayList<>();
+            server = new ServerClass(TCPPORT, UDPPORT);
+            client = new ClientClass();
+
+            gameStarted = false;
+            availableServers = new ArrayList<>();
+        }
+
+        return INSTANCE;
+    }
+
+    /**
+     * @param screen
+     */
+    public static void changeScreen(Screen screen) {
+        INSTANCE.setScreen(screen);
+    }
+
+    /**
+     * @param gu
+     */
+    //For Testing only
+    public static void changeInstance(GameOfLife gu) {
+        INSTANCE = gu;
+    }
+
+    /**
+     * @return
+     */
+    //For testing only
+    public static boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void create() {
+        setScreen(new MainMenuScreen());
+    }
 }

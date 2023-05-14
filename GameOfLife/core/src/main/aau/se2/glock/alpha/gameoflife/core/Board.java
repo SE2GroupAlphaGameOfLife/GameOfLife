@@ -13,10 +13,21 @@ import java.util.List;
  * Represents a game board with a list of gameFields.
  */
 public class Board {
-    private static Board INSTANCE;
-    private List<GameField> gameFields; // The list of gameFields on the board
 
-    public Board(){
+    /**
+     *
+     */
+    private static Board INSTANCE;
+
+    /**
+     *
+     */
+    private final List<GameField> gameFields; // The list of gameFields on the board
+
+    /**
+     *
+     */
+    public Board() {
         String jsonString = loadJsonFile();
 
         // Parsing the json so we can use it
@@ -38,22 +49,26 @@ public class Board {
             );
             gameFields.add(gameField);
         }
-
         this.gameFields = gameFields;
     }
 
-    protected String loadJsonFile() {
-        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
-        return fileHandle.readString();
-    }
-
-    public static Board getInstance(){
-        if(INSTANCE == null){
+    /**
+     * @return
+     */
+    public static Board getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new Board();
         }
         return INSTANCE;
     }
 
+    /**
+     * @return
+     */
+    protected String loadJsonFile() {
+        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
+        return fileHandle.readString();
+    }
 
     /**
      * Returns the list of gameFields on the board.

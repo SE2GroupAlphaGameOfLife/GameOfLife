@@ -3,14 +3,14 @@ package aau.se2.glock.alpha.gameoflife.core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import aau.se2.glock.alpha.gameoflife.mock.TestBoard;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-public class BoardTest{
+import aau.se2.glock.alpha.gameoflife.mock.TestBoard;
+
+public class BoardTest {
     private TestBoard testBoard;
     @Before
     public void setUp() {

@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -38,36 +36,129 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
+/**
+ *
+ */
 public class JoinGameScreen implements Screen {
 
-    private OrthographicCamera gameCamera;
-    private Viewport gameViewPort;
-    private int screenWidth, screenHeight, centerWidth, centerHeight;
-    private int btnWidth, btnHeight;
-    public Vector2 btnJoinPosition;
-    private Stage stage;
-    private TextButton btnJoinGame;
-    private TextButton btnBack;
-
-    private TextButton.TextButtonStyle textButtonStyle;
-    private Skin skin;
-    private Texture lightGrayTexture, grayTextrue;
-    private BitmapFont standardFont, bigFont;
-    private TextField.TextFieldStyle textFieldStyle;
-    private TextField ipInput;
-    private TextureRegion refreshIcon;
-    private TextureRegion transparentImage;
-    private boolean showRefreshIcon;
-    private float rotationSpeed = 180; // degrees per second
-    private float currentRotation = 0f;
-    private float originXRefreshIcon=0f;
-    private float originYRefreshIcon=0f;
-
-    private List<Label> serverLabels = new ArrayList<>();
-
+    /**
+     *
+     */
     private final Timer timer;
 
+    /**
+     *
+     */
+    private final OrthographicCamera gameCamera;
 
+    /**
+     *
+     */
+    private final Viewport gameViewPort;
+
+    /**
+     *
+     */
+    private final TextureRegion refreshIcon;
+
+    /**
+     *
+     */
+    private final float rotationSpeed = 180; // degrees per second
+
+    /**
+     *
+     */
+    private final List<Label> serverLabels = new ArrayList<>();
+
+    /**
+     *
+     */
+    public Vector2 btnJoinPosition;
+
+    /**
+     *
+     */
+    private int screenWidth, screenHeight, centerWidth, centerHeight;
+
+    /**
+     *
+     */
+    private int btnWidth, btnHeight;
+
+    /**
+     *
+     */
+    private Stage stage;
+
+    /**
+     *
+     */
+    private TextButton btnJoinGame;
+
+    /**
+     *
+     */
+    private TextButton btnBack;
+
+    /**
+     *
+     */
+    private TextButton.TextButtonStyle textButtonStyle;
+
+    /**
+     *
+     */
+    private Skin skin;
+
+    /**
+     *
+     */
+    private Texture lightGrayTexture, grayTextrue;
+
+    /**
+     *
+     */
+    private BitmapFont standardFont, bigFont;
+
+    /**
+     *
+     */
+    private TextField.TextFieldStyle textFieldStyle;
+
+    /**
+     *
+     */
+    private TextField ipInput;
+
+    /**
+     *
+     */
+    private TextureRegion transparentImage;
+
+    /**
+     *
+     */
+    private boolean showRefreshIcon;
+
+    /**
+     *
+     */
+    private float currentRotation = 0f;
+
+    /**
+     *
+     */
+    private float originXRefreshIcon = 0f;
+
+    /**
+     *
+     */
+    private float originYRefreshIcon = 0f;
+
+    /**
+     *
+     */
     public JoinGameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
@@ -100,6 +191,9 @@ public class JoinGameScreen implements Screen {
         refreshImageInterval();
     }
 
+    /**
+     *
+     */
     private void createTransparentImage() {
         Pixmap pixmap = new Pixmap(refreshIcon.getRegionWidth(), refreshIcon.getRegionHeight(), Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 0); // set the color to transparent
@@ -108,6 +202,9 @@ public class JoinGameScreen implements Screen {
         transparentImage = new TextureRegion(transparentTexture);
     }
 
+    /**
+     *
+     */
     private void createServerTextField() {
         // Create a TextFieldStyle
         textFieldStyle = new TextField.TextFieldStyle();
@@ -144,6 +241,10 @@ public class JoinGameScreen implements Screen {
         stage.addActor(ipInput); // Add the text field to the stage
     }
 
+    /**
+     * @param ipAddress
+     * @return
+     */
     private boolean validateInput(String ipAddress) {
         try {
             InetAddress inetAddress = InetAddress.getByName(ipAddress);
@@ -153,6 +254,9 @@ public class JoinGameScreen implements Screen {
         }
     }
 
+    /**
+     *
+     */
     private void createJoinGameButton() {
         //create a textButtonStyle
         textButtonStyle = new TextButton.TextButtonStyle();
@@ -173,15 +277,19 @@ public class JoinGameScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-
-                GameOfLife.changeScreen(new StartGameScreen());
-
+                if (validateInput(ipInput.getText())) {
+                    GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    timer.clear();
+                    GameOfLife.changeScreen(new StartGameScreen());
+                }
             }
         });
     }
 
-    private void createServerOverview() {
+    /**
+     *
+     */
+    public void createServerOverview() {
         // Remove old server labels from the stage
         for (Label oldServerLabel : serverLabels) {
             oldServerLabel.remove();
@@ -225,10 +333,16 @@ public class JoinGameScreen implements Screen {
         }
     }
 
+    /**
+     * @param ipAddress
+     */
     private void onIpClicked(InetAddress ipAddress) {
         ipInput.setText(ipAddress.getHostAddress());
     }
 
+    /**
+     *
+     */
     private void initTextures() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 
@@ -243,12 +357,18 @@ public class JoinGameScreen implements Screen {
         pixmap.dispose();
     }
 
+    /**
+     *
+     */
     private void initStage() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         skin = new Skin();
     }
 
+    /**
+     *
+     */
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -259,6 +379,9 @@ public class JoinGameScreen implements Screen {
         generator.dispose();
     }
 
+    /**
+     *
+     */
     private void initScreenDimensions() {
         screenWidth = Gdx.graphics.getWidth();
         centerWidth = screenWidth / 2;
@@ -271,6 +394,9 @@ public class JoinGameScreen implements Screen {
         btnJoinPosition = new Vector2(centerWidth - (btnWidth / 2), centerHeight - btnHeight);
     }
 
+    /**
+     * @return
+     */
     private NinePatch createBorderPatch() {
         int borderSize = 3;
         int patchSize = borderSize * 2 + 1;
@@ -288,6 +414,9 @@ public class JoinGameScreen implements Screen {
         return patch;
     }
 
+    /**
+     *
+     */
     private void createBackButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
@@ -309,9 +438,12 @@ public class JoinGameScreen implements Screen {
         btnBack.addListener(btnBackListener);
     }
 
+    /**
+     *
+     */
     public void refreshImageInterval() {
         createRotation();
-        
+
         final float showTime = 1f; // in seconds
         final float hideTime = 5f; // in seconds
 
@@ -335,6 +467,9 @@ public class JoinGameScreen implements Screen {
         }, 0, showTime + hideTime); // schedule the task to repeat after showTime + hideTime seconds
     }
 
+    /**
+     *
+     */
     private void createRotation() {
 
         originXRefreshIcon = refreshIcon.getRegionWidth() * 0.2f / 2;
@@ -348,9 +483,11 @@ public class JoinGameScreen implements Screen {
         }, 0, 0.01f); // schedule the task to run every 0.01 seconds
     }
 
+    /**
+     *
+     */
     private void refreshServerList() {
         GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
-        this.createServerOverview();
     }
 
     @Override
@@ -358,6 +495,9 @@ public class JoinGameScreen implements Screen {
 
     }
 
+    /**
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
@@ -368,7 +508,7 @@ public class JoinGameScreen implements Screen {
 
         if (showRefreshIcon) {
             stage.getBatch().begin();
-            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F,originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
+            stage.getBatch().draw(refreshIcon, (float) (screenWidth - refreshIcon.getRegionWidth() * 0.2 - 10), 10F, originXRefreshIcon, originYRefreshIcon, (float) (refreshIcon.getRegionWidth() * 0.2), (float) (refreshIcon.getRegionHeight() * 0.2), 1, 1, currentRotation);
             stage.getBatch().end();
         } else {
             stage.getBatch().begin();
@@ -377,6 +517,10 @@ public class JoinGameScreen implements Screen {
         }
     }
 
+    /**
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         gameViewPort.update(width, height);
@@ -392,6 +536,9 @@ public class JoinGameScreen implements Screen {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void hide() {
         this.dispose();

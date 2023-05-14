@@ -5,9 +5,10 @@ import aau.se2.glock.alpha.gameoflife.core.Board;
 
 public class TestBoard extends Board {
 
-    public static TestBoard getMockInstance(){
+    public static TestBoard getMockInstance() {
         return new TestBoard();
     }
+
     @Override
     protected String loadJsonFile() {
         // Replace this with your mocked JSON string
