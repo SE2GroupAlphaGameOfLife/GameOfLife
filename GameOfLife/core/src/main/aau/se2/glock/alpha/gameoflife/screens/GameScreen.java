@@ -427,7 +427,7 @@ public class GameScreen implements Screen {
      * When the player has chosen which step he wants to take next, this function is called.
      * We set the current position of the player to the chosen field and makeMove is called again
      *
-     * @param index
+     * @param index We have a array of possible next Steps - The Buttons map their outcome to a position in the array, this is the index
      */
     private void stepChoosen(int index) {
         // Update player's choice and position
@@ -546,5 +546,4 @@ public class GameScreen implements Screen {
         lbMoney.setText("Money: " + p.getMoney());
         lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
     }
-
 }

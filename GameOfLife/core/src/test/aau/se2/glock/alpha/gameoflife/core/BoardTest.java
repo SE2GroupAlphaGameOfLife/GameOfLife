@@ -8,13 +8,12 @@ import org.junit.Test;
 
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.mock.TestBoard;
 
 public class BoardTest {
-    private TestBoard testBoard;
+    private Board testBoard;
     @Before
     public void setUp() {
-        testBoard = new TestBoard();
+        testBoard = new Board();
     }
 
     @Test
@@ -26,6 +25,6 @@ public class BoardTest {
     public void testGetGameFields() {
         List<GameField> gameFields = testBoard.getGameFields();
         assertNotNull(gameFields);
-        assertEquals(34, gameFields.size());
+        assertEquals(140, gameFields.size());
     }
 }

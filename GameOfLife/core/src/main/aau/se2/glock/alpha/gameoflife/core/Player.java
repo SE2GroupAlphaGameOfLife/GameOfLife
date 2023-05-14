@@ -322,6 +322,7 @@ public class Player {
                 currentField = Board.getInstance().getGameFields().get(this.position);
             }
         }
+
         //we finished moving return true
         return true;
     }
