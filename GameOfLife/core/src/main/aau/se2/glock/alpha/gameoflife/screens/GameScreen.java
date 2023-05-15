@@ -116,6 +116,8 @@ public class GameScreen implements Screen {
      */
     private Label lbUsernameAge, lbMoney, lbLifepoints;
 
+    private Label.LabelStyle labelStyle;
+
     private Dialog eventDialog;
 
     //Wheel
@@ -195,6 +197,7 @@ public class GameScreen implements Screen {
         initFonts();
         initStage();
         initTextures();
+        initStyles();
         createButton();
         createQuitButton();
         createPlayerHUD();
@@ -299,6 +302,23 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * Initialises Styles for Labels,Buttons,ETC...
+     */
+    private void initStyles(){
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+
+        //create a textButtonStyle
+        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
+        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
+        textButtonStyle.font = standardFont; // Set the font
+        textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
+    }
+
+    /**
      * Initializes the stage for handling UI elements.
      */
     private void initStage() {
@@ -335,12 +355,7 @@ public class GameScreen implements Screen {
      * Create Button for rolling the dice.
      */
     private void createButton() {
-        //create a textButtonStyle
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
-        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
-        textButtonStyle.font = standardFont; // Set the font
-        textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
 
         //Create a Start Game Button
         btnRollDice = new TextButton("Würfeln", textButtonStyle); // Create the text button with the text and style
@@ -511,10 +526,6 @@ public class GameScreen implements Screen {
      *
      */
     private void createPlayerHUD() {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = standardFont;
-        labelStyle.fontColor = Color.WHITE;
-
         lbUsernameAge = new Label("Username, Age", labelStyle);
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
@@ -559,9 +570,6 @@ public class GameScreen implements Screen {
 
     private void createEventPopup(){
         Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = standardFont;
-        labelStyle.fontColor = Color.WHITE;
         eventDialog = new Dialog("",windowStyle);
         eventDialog.setPosition(screenWidth/2-150,screenHeight/2-screenHeight/4);
         eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
