@@ -142,16 +142,10 @@ public class ClientClass extends Listener {
             this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
         }
         this.client.start();
-        /*if(GameOfLife.availableServers.isEmpty()){
-            List<ServerInformation> serverDetails = new ArrayList<>();
-            serverDetails.add(new ServerInformation("Host1", 1));
-            serverDetails.add(new ServerInformation("Host2", 2));
-            serverDetails.add(new ServerInformation("Host3", 3));
-            serverDetails.add(new ServerInformation("Host4", 4));
-            serverDetails.add(new ServerInformation("Host5", 5));
-            serverDetails.add(new ServerInformation("Host6", 6));
-            GameOfLife.availableServers = serverDetails;
-        }*/
+
+        if(!servers.isEmpty()){
+            ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
+        }
     }
 
     /**
@@ -223,10 +217,10 @@ public class ClientClass extends Listener {
             }
 
         } else if (object instanceof JoinedPlayers) {
+            GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
             if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
                 ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
             }
-            GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
         }
     }
 }
