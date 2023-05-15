@@ -59,7 +59,7 @@ public class Stack {
      * Removes all cards from the Stack
      */
     public void wipeStack(){
-        cardList.removeAll(cardList);
+        cardList.clear();
     }
 
     /**
