@@ -2,6 +2,23 @@ plugins {
     id 'jacoco'
     id 'org.sonarqube' version '3.5.0.2730'
 }
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+    dependsOn test
+
+    afterEvaluate{
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "aau/se2/glock/alpha/gameoflife/screens.*",
+            ])
+        }))
+    }
+}
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
 
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
