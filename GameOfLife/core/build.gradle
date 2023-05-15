@@ -30,6 +30,8 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+        property "sonar.coverage.exclusions", "**/GameScreen.java,**/JoinGameScreen.java,**/MainMenuScreen.java"
+
     }
 }
 
