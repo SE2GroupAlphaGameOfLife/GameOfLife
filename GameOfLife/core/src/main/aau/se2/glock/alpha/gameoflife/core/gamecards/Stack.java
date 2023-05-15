@@ -29,8 +29,10 @@ public class Stack {
      */
     public Stack() {
         EventData eventData = new EventData();
+        eventData.fillEventList();
         eventData.fillCardList();
         addCards(eventData.getCardList());
+        mixCards();
     }
 
     /**

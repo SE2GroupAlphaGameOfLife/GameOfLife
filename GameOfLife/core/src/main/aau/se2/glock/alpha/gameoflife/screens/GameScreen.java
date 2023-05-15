@@ -367,6 +367,9 @@ public class GameScreen implements Screen {
                 spinAngle = 0;
 
                 isSpinning = true;
+
+
+
             }
 
         };
@@ -448,6 +451,7 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+
     }
 
     /**
@@ -475,6 +479,8 @@ public class GameScreen implements Screen {
             }
 
             GameOfLife.players.set(0, player);
+
+            showEventPopUp(player.getEvent().getText());
         }
     }
 
@@ -552,40 +558,30 @@ public class GameScreen implements Screen {
 
 
     private void createEventPopup(){
-        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, btnRollDice.getBackground());
-        /*TextField.TextFieldStyle textFieldStyle =new TextField.TextFieldStyle(standardFont,Color.WHITE,null,null, btnQuit.getBackground());
-        TextArea textArea = new TextArea("Sample text",textFieldStyle);
-        textArea.*/
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = standardFont;
         labelStyle.fontColor = Color.WHITE;
-
-        //Label label = new Label("Sample text ver funny hahaha", labelStyle);
-
-        eventDialog = new Dialog("Holla this is a sick \n event right there",windowStyle);
-        eventDialog.setPosition(screenWidth/2-150,screenHeight/2-150);
-        eventDialog.button(new TextButton("okk",textButtonStyle));
-
-        //label.setWrap(true);
-        //label.setPosition(eventDialog.getOriginX(),eventDialog.getOriginY());
-        //eventDialog.addActor(label);
-
-
-        eventDialog.setSize(300,300);
-        //eventDialog.button("Confirm");
-
+        eventDialog = new Dialog("",windowStyle);
+        eventDialog.setPosition(screenWidth/2-150,screenHeight/2-screenHeight/4);
+        eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
         stage.addActor(eventDialog);
-        //eventDialog.hide();
-        //eventDialog.show(stage);
-
+        hideEventPopup();
 
     }
 
-    private void showEventPopUp(){
+    private void showEventPopUp(String eventText){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+        eventDialog.text(eventText,labelStyle);
+        eventDialog.show(stage);
+
 
     }
 
     private void hideEventPopup(){
+        eventDialog.hide();
 
     }
 
