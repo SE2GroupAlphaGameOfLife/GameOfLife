@@ -53,11 +53,12 @@ android {
     namespace 'aau.se2.glock.alpha.gameoflife'
 }
 
+
 task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     reports {
+        html.enabled(true)
         xml.enabled true
-        xml.destination file("${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     }
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']

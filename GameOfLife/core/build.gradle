@@ -26,7 +26,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:4.2.0'
 }
 
-sourceSets.main.java.srcDirs = [ "src/main" ]
-sourceSets.test.java.srcDirs = [ "src/test" ]
+sourceSets.main.java.srcDirs = ["src/main"]
+sourceSets.test.java.srcDirs = ["src/test"]
 
 eclipse.project.name = appName + "-core"

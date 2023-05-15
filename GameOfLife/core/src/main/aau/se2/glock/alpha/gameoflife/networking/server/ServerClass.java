@@ -13,15 +13,45 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
+/**
+ *
+ */
 public class ServerClass extends Listener {
 
+    /**
+     *
+     */
     private final int UDPPORT;
+
+    /**
+     *
+     */
     private final int TCPPORT;
+
+    /**
+     *
+     */
     private Server server;
+
+    /**
+     *
+     */
     private boolean serverStarted;
+
+    /**
+     *
+     */
     private JoinedPlayers players;
+
+    /**
+     *
+     */
     private String hostname;
 
+    /**
+     * @param TCPPORT
+     * @param UDPPORT
+     */
     public ServerClass(int TCPPORT, int UDPPORT) {
         this.server = new Server();
 
@@ -41,6 +71,9 @@ public class ServerClass extends Listener {
         this.serverStarted = false;
     }
 
+    /**
+     * @param hostname
+     */
     public void start(String hostname) {
         if (!this.serverStarted) {
             try {
@@ -60,28 +93,45 @@ public class ServerClass extends Listener {
         }
     }
 
+    /**
+     *
+     */
     private void sendServerInfoToAllTCP() {
         this.server.sendToAllTCP(new ServerInformation(this.hostname, this.TCPPORT));
     }
 
+    /**
+     *
+     */
     public void close() {
         this.server.close();
         this.serverStarted = false;
     }
 
+    /**
+     *
+     */
     private void sendPlayersObjectToAll() {
         this.server.sendToAllTCP(this.players);
     }
 
+    /**
+     * @return
+     */
     public int getTCPport() {
         return this.TCPPORT;
     }
 
+    /**
+     * @return
+     */
     public int getUDPport() {
         return this.UDPPORT;
     }
 
-
+    /**
+     * @param connection
+     */
     @Override
     public void connected(Connection connection) {
         if (GameOfLife.gameStarted) {
@@ -100,6 +150,9 @@ public class ServerClass extends Listener {
         }
     }
 
+    /**
+     * @param connection
+     */
     @Override
     public void disconnected(Connection connection) {
         if (GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
@@ -112,6 +165,10 @@ public class ServerClass extends Listener {
         System.out.println("[Server] Client hat Verbindung getrennt!");
     }
 
+    /**
+     * @param connection
+     * @param object
+     */
     @Override
     public void received(Connection connection, Object object) {
 
@@ -135,44 +192,71 @@ public class ServerClass extends Listener {
         }
     }
 
-    //For testing only
-    public void setPlayers(JoinedPlayers joinedPlayers) {
-        this.players = joinedPlayers;
-    }
-
+    /**
+     * @return
+     */
     public int getUDPPORT() {
         return UDPPORT;
     }
 
+    /**
+     * @return
+     */
     public int getTCPPORT() {
         return TCPPORT;
     }
 
-    //For testing only
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
+    /**
+     * @return
+     */
     //For testing only
     public boolean isServerStarted() {
         return serverStarted;
     }
 
+    /**
+     * @return
+     */
     //For testing only
     public JoinedPlayers getPlayers() {
         return players;
     }
 
+    /**
+     * @param joinedPlayers
+     */
     //For testing only
-    public void setServer(Server server) {
-        this.server = server;
+    public void setPlayers(JoinedPlayers joinedPlayers) {
+        this.players = joinedPlayers;
     }
 
+    /**
+     * @return
+     */
     public String getHostname() {
         return hostname;
     }
 
+    /**
+     * @param hostname
+     */
+    //For testing only
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    /**
+     * @return
+     */
     public Server getServer() {
         return server;
+    }
+
+    /**
+     * @param server
+     */
+    //For testing only
+    public void setServer(Server server) {
+        this.server = server;
     }
 }

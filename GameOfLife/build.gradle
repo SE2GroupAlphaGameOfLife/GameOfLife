@@ -1,6 +1,5 @@
 buildscript {
 
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -63,13 +62,11 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-
     }
 }
 
 project(":core") {
     apply plugin: "java-library"
-
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -78,6 +75,5 @@ project(":core") {
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api "com.kotcrab.vis:vis-ui:1.4.11"
-
     }
 }

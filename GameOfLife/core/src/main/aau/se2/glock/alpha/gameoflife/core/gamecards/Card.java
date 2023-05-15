@@ -6,9 +6,10 @@ import java.util.List;
 
 public class Card {
 
+    /**
+     *
+     */
     private List<Event> events = new ArrayList<>(4);
-
-
 
     /**
      * Returns the event at index n.
@@ -18,7 +19,6 @@ public class Card {
      * @param n describes the index
      * @return  event at n
      */
-
     public Event getEvent(int n){
        try {
            return events.get(n);
@@ -51,7 +51,7 @@ public class Card {
      * @param index index
      * @param e     event
      */
-    public void addEvent(int index, Event e){
+    public void setEvent(int index, Event e){
         events.set(index, e);
     }
 
