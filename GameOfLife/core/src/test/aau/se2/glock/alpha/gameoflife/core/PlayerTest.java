@@ -41,7 +41,7 @@ public class PlayerTest {
 
         player.makeMove();
 
-        if(player.getMoveCount() > 0){
+        while(player.getMoveCount() > 0){
             player.chooseDirection(0);
             player.makeMove();
         }
