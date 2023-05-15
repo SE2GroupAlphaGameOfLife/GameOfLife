@@ -6,6 +6,15 @@ jacocoTestReport {
     reports {
         xml.enabled true
     }
+    dependsOn test
+
+    afterEvaluate{
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "aau/se2/glock/alpha/gameoflife/screens.*",
+            ])
+        }))
+    }
 }
 test {
     finalizedBy jacocoTestReport // report is always generated after tests run
