@@ -67,11 +67,8 @@ public class Player {
     /**
      * Constructor used to initialize the Player object and all it's attributes to a default value.
      *
-     * @param username
-     * The name of the player. Will be displayed throughout the game.
-     *
-     * @param isHost
-     * Set true, if the player is the game host, else false.
+     * @param username The name of the player. Will be displayed throughout the game.
+     * @param isHost   Set true, if the player is the game host, else false.
      */
     public Player(String username, boolean isHost) {
         this.position = 0;
