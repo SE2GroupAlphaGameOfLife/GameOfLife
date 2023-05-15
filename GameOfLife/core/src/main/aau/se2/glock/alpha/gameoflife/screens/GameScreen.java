@@ -574,7 +574,6 @@ public class GameScreen implements Screen {
     private void createEventPopup(){
         Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
         eventDialog = new Dialog("",windowStyle);
-        eventDialog.setPosition(screenWidth/2-150,screenHeight/2-screenHeight/4);
         eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
         stage.addActor(eventDialog);
         hideEventPopup();
@@ -583,7 +582,6 @@ public class GameScreen implements Screen {
 
     private void showEventPopUp(String eventText){
        createEventPopup();
-        eventDialog.setPosition(screenWidth/2-150,screenHeight/2+screenHeight/4);
         eventDialog.text(eventText,labelStyle);
         eventDialog.show(stage);
 
