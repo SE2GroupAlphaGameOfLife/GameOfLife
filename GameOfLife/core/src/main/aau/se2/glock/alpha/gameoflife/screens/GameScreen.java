@@ -285,7 +285,7 @@ public class GameScreen implements Screen {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2((float) centerWidth - (buttonWidth / 2), (float) centerHeight - buttonHeight);
+        buttonPosition = new Vector2( centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**

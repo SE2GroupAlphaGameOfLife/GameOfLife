@@ -3,8 +3,6 @@ package aau.se2.glock.alpha.gameoflife.core;
 import com.badlogic.gdx.graphics.Color;
 
 import java.security.SecureRandom;
-import java.util.Random;
-
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 

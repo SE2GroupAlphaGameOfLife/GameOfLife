@@ -75,7 +75,9 @@ public class ClientClass extends Listener {
         if (!this.client.isConnected()) {
             try {
                 this.client.connect(5000, address, tcpPort, udpPort);
-            } catch (IOException e) {}
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -90,7 +92,9 @@ public class ClientClass extends Listener {
         if (!this.client.isConnected()) {
             try {
                 this.client.connect(5000, address, tcpPort, udpPort);
-            } catch (IOException e) {}
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
