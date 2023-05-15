@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.graphics.Color;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
@@ -276,7 +277,7 @@ public class Player {
      * @return The generated random integer.
      */
     public int rollTheDice() {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
         this.moveCount = randomNumber;
 

@@ -87,9 +87,7 @@ public class ServerClass extends Listener {
 
                 this.hostname = hostname;
                 //sendServerInfoToAllTCP();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {}
         }
     }
 

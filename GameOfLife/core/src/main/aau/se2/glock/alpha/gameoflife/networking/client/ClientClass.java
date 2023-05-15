@@ -66,39 +66,31 @@ public class ClientClass extends Listener {
 
     /**
      * Tries to connect to server, specified by parameters
-     * @param address
-     * IPAddress of the server
-     * @param tcpPort
-     * TCP port of the server
-     * @param udpPort
-     * UDP port of the server
+     *
+     * @param address IPAddress of the server
+     * @param tcpPort TCP port of the server
+     * @param udpPort UDP port of the server
      */
     public void connect(InetAddress address, int tcpPort, int udpPort) {
         if (!this.client.isConnected()) {
             try {
                 this.client.connect(5000, address, tcpPort, udpPort);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {}
         }
     }
 
     /**
      * Tries to connect to server, specified by parameters
-     * @param address
-     * IPAddress of the server
-     * @param tcpPort
-     * TCP port of the server
-     * @param udpPort
-     * UDP port of the server
+     *
+     * @param address IPAddress of the server
+     * @param tcpPort TCP port of the server
+     * @param udpPort UDP port of the server
      */
     public void connect(String address, int tcpPort, int udpPort) {
         if (!this.client.isConnected()) {
             try {
                 this.client.connect(5000, address, tcpPort, udpPort);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {}
         }
     }
 
@@ -116,8 +108,7 @@ public class ClientClass extends Listener {
      * Servers that have already been found previously, are not contacted again,
      * to reduce system load.
      *
-     * @param udpPort
-     * UDP port of the server(s)
+     * @param udpPort UDP port of the server(s)
      */
     public void discoverServers(int udpPort) {
         List<InetAddress> servers = new ArrayList<InetAddress>();
@@ -159,9 +150,8 @@ public class ClientClass extends Listener {
      * If on JoinGameScreen, further server information are requested over TCP.
      * If on StartGameScreen, the Player object is sent to the server (server registers player).
      *
-     * @param connection
-     * Represents a TCP and optionally a UDP connection between a Client and a Server.
-     * If either underlying connection is closed or errors, both connections are closed.
+     * @param connection Represents a TCP and optionally a UDP connection between a Client and a Server.
+     *                   If either underlying connection is closed or errors, both connections are closed.
      */
     @Override
     public void connected(Connection connection) {
@@ -177,8 +167,8 @@ public class ClientClass extends Listener {
 
     /**
      * Sends a Player object over TCP to the server.
-     * @param player
-     * Player object to be sent to server.
+     *
+     * @param player Player object to be sent to server.
      */
     public void sendPlayerTCP(Player player) {
         this.client.sendTCP(player);
@@ -187,9 +177,8 @@ public class ClientClass extends Listener {
     /**
      * Callback method, triggered when the Client loses connection to the server.
      *
-     * @param connection
-     * Represents a TCP and optionally a UDP connection between a Client and a Server.
-     * If either underlying connection is closed or errors, both connections are closed.
+     * @param connection Represents a TCP and optionally a UDP connection between a Client and a Server.
+     *                   If either underlying connection is closed or errors, both connections are closed.
      */
     @Override
     public void disconnected(Connection connection) {
@@ -201,12 +190,9 @@ public class ClientClass extends Listener {
      * Dependent on the class instance received, UI and static lists like availableServers or players from
      * the GameOfLife class are refreshed.
      *
-     * @param connection
-     * Represents a TCP and optionally a UDP connection between a Client and a Server.
-     * If either underlying connection is closed or errors, both connections are closed.
-     *
-     * @param object
-     * An object as instance of the received class.
+     * @param connection Represents a TCP and optionally a UDP connection between a Client and a Server.
+     *                   If either underlying connection is closed or errors, both connections are closed.
+     * @param object     An object as instance of the received class.
      */
     @Override
     public void received(Connection connection, Object object) {
