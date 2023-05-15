@@ -400,7 +400,7 @@ public class GameScreen implements Screen {
      */
     private void chooseNextStep(GameField gameField) {
         //Get the next game field based on player choice (1 or 2)
-        GameField nextGameField1 = new Board().getGameFields().get(gameField.getIndexOfNextGameFields().get(0));
+        GameField nextGameField1 = Board.getInstance().getGameFields().get(gameField.getIndexOfNextGameFields().get(0));
 
         //Create and configure the button to choose first of the possible next steps
         nextFieldButton1 = new TextButton("Hier", textButtonStyle);
@@ -419,7 +419,7 @@ public class GameScreen implements Screen {
         });
 
         // Get the next game field based on the player's choice (2nd option)
-        GameField nextGameField2 = new Board().getGameFields().get(gameField.getIndexOfNextGameFields().get(1));
+        GameField nextGameField2 = Board.getInstance().getGameFields().get(gameField.getIndexOfNextGameFields().get(1));
 
         //Create and configure the button to choose second of the possible next steps
         nextFieldButton2 = new TextButton("Hier", textButtonStyle);

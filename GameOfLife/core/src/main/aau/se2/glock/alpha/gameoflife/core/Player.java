@@ -105,16 +105,16 @@ public class Player {
     /**
      * @return
      */
-    public String getGender() {
+    /*public String getGender() {
         return gender;
-    }
+    }*/
 
     /**
      * @param gender
      */
-    public void setGender(String gender) {
+    /*public void setGender(String gender) {
         this.gender = gender;
-    }
+    }*/
 
     /**
      * @return
@@ -312,13 +312,12 @@ public class Player {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
 
         while (this.moveCount > 0) {
-            this.moveCount--;
-
             if (currentField.getIndexOfNextGameFields().size() > 1) {
                 //we have to choose between multiple fields which one we want to choose so we return false
                 return false;
             } else {
                 this.position = currentField.getIndexOfNextGameFields().get(0);
+                this.moveCount--;
                 currentField = Board.getInstance().getGameFields().get(this.position);
             }
         }
