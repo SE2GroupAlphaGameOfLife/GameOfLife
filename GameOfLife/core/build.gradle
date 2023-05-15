@@ -7,6 +7,9 @@ jacocoTestReport {
         xml.enabled true
     }
 }
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
 
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
