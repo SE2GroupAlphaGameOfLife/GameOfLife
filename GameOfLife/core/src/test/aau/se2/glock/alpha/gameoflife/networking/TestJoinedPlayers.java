@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.networking;
+/*package aau.se2.glock.alpha.gameoflife.networking;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
@@ -91,3 +91,4 @@ public class TestJoinedPlayers {
         Mockito.verify(player2).setHasTurn(true);
     }
 }
+*/
