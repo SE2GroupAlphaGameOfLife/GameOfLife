@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -79,7 +79,7 @@ public class GameScreen implements Screen {
     /**
      *
      */
-    private Skin skin;
+    private Skin skin,popupSkin;
 
     /**
      *
@@ -115,6 +115,8 @@ public class GameScreen implements Screen {
      *
      */
     private Label lbUsernameAge, lbMoney, lbLifepoints;
+
+    private Dialog eventDialog;
 
     //Wheel
     /**
@@ -196,6 +198,7 @@ public class GameScreen implements Screen {
         createButton();
         createQuitButton();
         createPlayerHUD();
+        createEventPopup();
         refreshPlayerHUD();
     }
 
@@ -545,6 +548,45 @@ public class GameScreen implements Screen {
         lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
         lbMoney.setText("Money: " + p.getMoney());
         lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
+    }
+
+
+    private void createEventPopup(){
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, btnRollDice.getBackground());
+        /*TextField.TextFieldStyle textFieldStyle =new TextField.TextFieldStyle(standardFont,Color.WHITE,null,null, btnQuit.getBackground());
+        TextArea textArea = new TextArea("Sample text",textFieldStyle);
+        textArea.*/
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+
+        //Label label = new Label("Sample text ver funny hahaha", labelStyle);
+
+        eventDialog = new Dialog("Holla this is a sick \n event right there",windowStyle);
+        eventDialog.setPosition(screenWidth/2-150,screenHeight/2-150);
+        eventDialog.button(new TextButton("okk",textButtonStyle));
+
+        //label.setWrap(true);
+        //label.setPosition(eventDialog.getOriginX(),eventDialog.getOriginY());
+        //eventDialog.addActor(label);
+
+
+        eventDialog.setSize(300,300);
+        //eventDialog.button("Confirm");
+
+        stage.addActor(eventDialog);
+        //eventDialog.hide();
+        //eventDialog.show(stage);
+
+
+    }
+
+    private void showEventPopUp(){
+
+    }
+
+    private void hideEventPopup(){
+
     }
 
 }
