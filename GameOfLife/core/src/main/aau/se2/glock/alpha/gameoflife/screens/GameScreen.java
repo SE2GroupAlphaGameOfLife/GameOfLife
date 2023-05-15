@@ -466,6 +466,7 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+        showEventPopUp(player.getEvent().getText());
 
     }
 
@@ -491,11 +492,13 @@ public class GameScreen implements Screen {
 
                 GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
+            }else {
+                showEventPopUp(player.getEvent().getText());
             }
 
             GameOfLife.players.set(0, player);
 
-            showEventPopUp(player.getEvent().getText());
+
         }
     }
 
@@ -579,11 +582,11 @@ public class GameScreen implements Screen {
     }
 
     private void showEventPopUp(String eventText){
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = standardFont;
-        labelStyle.fontColor = Color.WHITE;
+       createEventPopup();
+        eventDialog.setPosition(screenWidth/2-150,screenHeight/2+screenHeight/4);
         eventDialog.text(eventText,labelStyle);
         eventDialog.show(stage);
+
 
 
     }
