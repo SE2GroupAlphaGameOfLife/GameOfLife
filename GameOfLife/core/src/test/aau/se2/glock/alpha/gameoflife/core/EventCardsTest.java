@@ -92,8 +92,8 @@ public class EventCardsTest {
         c1.fillEvents();
         c1.setEvent(0,e1);
         cardList.add(c1);
+        s1.wipeStack();
         s1.addCards(cardList);
-
         s1.getTopCard();
         assertEquals(c1,s1.getTopCard());
     }
