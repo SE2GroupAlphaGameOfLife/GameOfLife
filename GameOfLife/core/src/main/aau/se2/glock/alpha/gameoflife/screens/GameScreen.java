@@ -285,7 +285,7 @@ public class GameScreen implements Screen {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2(centerWidth - (buttonWidth / 2), centerHeight - buttonHeight);
+        buttonPosition = new Vector2((float) centerWidth - (buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -376,7 +376,7 @@ public class GameScreen implements Screen {
                 Gdx.app.log("moveCount", moveCount + "");
 
                 //calculating the angle that the arrow has to spin, so that it stops at the correct number
-                float maxSpingAngle = (moveCount * 36) - 18;
+                float maxSpingAngle = (float) (moveCount * 36) - 18;
                 System.out.println(spinAngle);
                 spinSpeed = ((maxSpingAngle) + 720) / maxSpinDuration;
                 spinAngle = 0;

@@ -58,6 +58,8 @@ public class Player {
      */
     private boolean isJoning, isOnline;
 
+    SecureRandom random;
+
 
     /**
      * Needed for Kryo Serialization
@@ -277,7 +279,7 @@ public class Player {
      * @return The generated random integer.
      */
     public int rollTheDice() {
-        SecureRandom random = new SecureRandom();
+        random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
         this.moveCount = randomNumber;
 
