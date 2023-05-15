@@ -39,6 +39,11 @@ public class ServerInformation {
     public ServerInformation() {
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     /**
      * @param o
      * @return

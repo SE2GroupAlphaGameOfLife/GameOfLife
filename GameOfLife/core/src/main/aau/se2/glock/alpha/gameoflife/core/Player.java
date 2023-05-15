@@ -2,8 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.graphics.Color;
 
-import java.util.Random;
-
+import java.security.SecureRandom;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 
@@ -56,6 +55,8 @@ public class Player {
      * Tells if the server is only and or the player joining.
      */
     private boolean isJoning, isOnline;
+
+    SecureRandom random;
 
 
     /**
@@ -273,7 +274,7 @@ public class Player {
      * @return The generated random integer.
      */
     public int rollTheDice() {
-        Random random = new Random();
+        random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
         this.moveCount = randomNumber;
 
