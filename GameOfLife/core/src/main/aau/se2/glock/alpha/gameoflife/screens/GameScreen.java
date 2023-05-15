@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -79,7 +79,7 @@ public class GameScreen implements Screen {
     /**
      *
      */
-    private Skin skin;
+    private Skin skin,popupSkin;
 
     /**
      *
@@ -115,6 +115,10 @@ public class GameScreen implements Screen {
      *
      */
     private Label lbUsernameAge, lbMoney, lbLifepoints;
+
+    private Label.LabelStyle labelStyle;
+
+    private Dialog eventDialog;
 
     //Wheel
     /**
@@ -193,9 +197,11 @@ public class GameScreen implements Screen {
         initFonts();
         initStage();
         initTextures();
+        initStyles();
         createButton();
         createQuitButton();
         createPlayerHUD();
+        createEventPopup();
         refreshPlayerHUD();
     }
 
@@ -296,6 +302,23 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * Initialises Styles for Labels,Buttons,ETC...
+     */
+    private void initStyles(){
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+
+        //create a textButtonStyle
+        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
+        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
+        textButtonStyle.font = standardFont; // Set the font
+        textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
+    }
+
+    /**
      * Initializes the stage for handling UI elements.
      */
     private void initStage() {
@@ -332,12 +355,7 @@ public class GameScreen implements Screen {
      * Create Button for rolling the dice.
      */
     private void createButton() {
-        //create a textButtonStyle
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
-        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
-        textButtonStyle.font = standardFont; // Set the font
-        textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
 
         //Create a Start Game Button
         btnRollDice = new TextButton("Würfeln", textButtonStyle); // Create the text button with the text and style
@@ -364,6 +382,9 @@ public class GameScreen implements Screen {
                 spinAngle = 0;
 
                 isSpinning = true;
+
+
+
             }
 
         };
@@ -445,6 +466,8 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+        showEventPopUp(player.getEvent().getText());
+
     }
 
     /**
@@ -469,9 +492,13 @@ public class GameScreen implements Screen {
 
                 GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
+            }else {
+                showEventPopUp(player.getEvent().getText());
             }
 
             GameOfLife.players.set(0, player);
+
+
         }
     }
 
@@ -502,10 +529,6 @@ public class GameScreen implements Screen {
      *
      */
     private void createPlayerHUD() {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = standardFont;
-        labelStyle.fontColor = Color.WHITE;
-
         lbUsernameAge = new Label("Username, Age", labelStyle);
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
@@ -545,6 +568,30 @@ public class GameScreen implements Screen {
         lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
         lbMoney.setText("Money: " + p.getMoney());
         lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
+    }
+
+
+    private void createEventPopup(){
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
+        eventDialog = new Dialog("",windowStyle);
+        eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
+        stage.addActor(eventDialog);
+        hideEventPopup();
+
+    }
+
+    private void showEventPopUp(String eventText){
+       createEventPopup();
+        eventDialog.text(eventText,labelStyle);
+        eventDialog.show(stage);
+
+
+
+    }
+
+    private void hideEventPopup(){
+        eventDialog.hide();
+
     }
 
 }
