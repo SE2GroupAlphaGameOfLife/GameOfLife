@@ -53,7 +53,7 @@ public class LogicalField {
     public Event getEvent() {
         if (this.isSpecial) {
             return null;
-            //TODO Return Special event when they have been impemented
+            //TODO Return Special event when they have been implemented
         } else {
             Card c = Stack.getINSTANCE().getTopCard();
             return c.getEvent(type);
