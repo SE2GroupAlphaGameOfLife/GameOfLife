@@ -215,15 +215,15 @@ public class JoinGameScreen implements Screen {
 
         // Create the text field using the registered style
         ipInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        ipInput.setSize(screenWidth - btnWidth - screenWidth / 25 * 2 - screenWidth / 70, btnHeight); // Set the size of the text field
-        ipInput.setPosition(screenWidth / 25, screenHeight - screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
+        ipInput.setSize( screenWidth - btnWidth - (float) screenWidth / 25 * 2 - (float) screenWidth / 70, btnHeight); // Set the size of the text field
+        ipInput.setPosition((float) screenWidth / 25,  screenHeight - (float) screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
         // Set the placeholder text
         ipInput.setMessageText("Enter IP-Address"); // Set the placeholder text
 
-        textFieldStyle.background.setLeftWidth(screenWidth / 50); // Set the left padding
-        textFieldStyle.background.setRightWidth(screenWidth / 50); // Set the right padding
-        textFieldStyle.background.setTopHeight(screenWidth / 50); // Set the top padding
-        textFieldStyle.background.setBottomHeight(screenWidth / 50); // Set the bottom padding
+        textFieldStyle.background.setLeftWidth((float) screenWidth / 50); // Set the left padding
+        textFieldStyle.background.setRightWidth((float) screenWidth / 50); // Set the right padding
+        textFieldStyle.background.setTopHeight((float) screenWidth / 50); // Set the top padding
+        textFieldStyle.background.setBottomHeight((float) screenWidth / 50); // Set the bottom padding
 
         //If there was an error, we want to remove the read marking if the ipInput text gets valid
         ipInput.addListener(new ChangeListener() {
@@ -268,7 +268,7 @@ public class JoinGameScreen implements Screen {
         //Create a Join Game Button
         btnJoinGame = new TextButton("Join", textButtonStyle); // Create the text button with the text and style
         btnJoinGame.setSize(btnWidth, btnHeight);
-        btnJoinGame.setPosition(ipInput.getX() + ipInput.getWidth() + screenWidth / 70, ipInput.getY());
+        btnJoinGame.setPosition(ipInput.getX() + ipInput.getWidth() + (float) screenWidth / 70, ipInput.getY());
 
         stage.addActor(btnJoinGame);
 
@@ -312,7 +312,7 @@ public class JoinGameScreen implements Screen {
         labelServerDetailStyle.font = standardFont; // Set the font for the label
         labelServerDetailStyle.fontColor = Color.WHITE; // Set the font color for the label
         Label labelServers = new Label("Available Servers:", labelServerDetailStyle); // Create the label with the text and style
-        labelServers.setPosition(screenWidth / 25, screenHeight - screenHeight / 25 * 2 - ipInput.getHeight()); // Set the position of the label
+        labelServers.setPosition((float) screenWidth / 25, screenHeight - (float) screenHeight / 25 * 2 - ipInput.getHeight()); // Set the position of the label
         stage.addActor(labelServers); // Add the label to the stage
 
         serverLabels.add(labelServers);
@@ -322,14 +322,14 @@ public class JoinGameScreen implements Screen {
 
         if (GameOfLife.availableServers.isEmpty()) {
             serverLabel = new Label("Searching for servers...", labelServerDetailStyle); // Create the label with the text and style
-            serverLabel.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
+            serverLabel.setPosition((float) screenWidth / 20, labelServers.getY() - (float) screenHeight / 25 - count * 45); // Set the position of the label
             stage.addActor(serverLabel);
             serverLabels.add(serverLabel); // Add the label to the serverLabels list
             count++;
         } else {
             for (final ServerInformation serverDetails : GameOfLife.availableServers) {
                 serverLabel = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
-                serverLabel.setPosition(screenWidth / 20, labelServers.getY() - screenHeight / 25 - count * 45); // Set the position of the label
+                serverLabel.setPosition((float) screenWidth / 20, labelServers.getY() - (float) screenHeight / 25 - count * 45); // Set the position of the label
                 serverLabel.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -401,7 +401,7 @@ public class JoinGameScreen implements Screen {
         btnWidth = screenWidth / 5;
         btnHeight = screenHeight / 13;
 
-        btnJoinPosition = new Vector2(centerWidth - (btnWidth / 2), centerHeight - btnHeight);
+        btnJoinPosition = new Vector2(centerWidth - ((float) btnWidth / 2), centerHeight - btnHeight);
     }
 
     /**

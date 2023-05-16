@@ -2,8 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.graphics.Color;
 
-import java.util.Random;
-
+import java.security.SecureRandom;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 
@@ -57,6 +56,8 @@ public class Player {
      */
     private boolean isJoning, isOnline;
 
+    SecureRandom random;
+
 
     /**
      * Needed for Kryo Serialization
@@ -67,11 +68,8 @@ public class Player {
     /**
      * Constructor used to initialize the Player object and all it's attributes to a default value.
      *
-     * @param username
-     * The name of the player. Will be displayed throughout the game.
-     *
-     * @param isHost
-     * Set true, if the player is the game host, else false.
+     * @param username The name of the player. Will be displayed throughout the game.
+     * @param isHost   Set true, if the player is the game host, else false.
      */
     public Player(String username, boolean isHost) {
         this.position = 0;
@@ -105,16 +103,16 @@ public class Player {
     /**
      * @return
      */
-    public String getGender() {
+    /*public String getGender() {
         return gender;
-    }
+    }*/
 
     /**
      * @param gender
      */
-    public void setGender(String gender) {
+    /*public void setGender(String gender) {
         this.gender = gender;
-    }
+    }*/
 
     /**
      * @return
@@ -276,7 +274,7 @@ public class Player {
      * @return The generated random integer.
      */
     public int rollTheDice() {
-        Random random = new Random();
+        random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
         this.moveCount = randomNumber;
 
@@ -312,13 +310,12 @@ public class Player {
         GameField currentField = Board.getInstance().getGameFields().get(this.position);
 
         while (this.moveCount > 0) {
-            this.moveCount--;
-
             if (currentField.getIndexOfNextGameFields().size() > 1) {
                 //we have to choose between multiple fields which one we want to choose so we return false
                 return false;
             } else {
                 this.position = currentField.getIndexOfNextGameFields().get(0);
+                this.moveCount--;
                 currentField = Board.getInstance().getGameFields().get(this.position);
             }
         }
