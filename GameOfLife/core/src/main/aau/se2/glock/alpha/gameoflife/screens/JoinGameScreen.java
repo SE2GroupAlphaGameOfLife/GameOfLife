@@ -278,9 +278,19 @@ public class JoinGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (validateInput(ipInput.getText())) {
-                    GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     timer.clear();
-                    GameOfLife.changeScreen(new StartGameScreen());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                            try {
+                                wait(500);
+                                GameOfLife.changeScreen(new StartGameScreen());
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }).start();
                 }
             }
         });
@@ -431,6 +441,7 @@ public class JoinGameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 timer.clear();
+                GameOfLife.client.disconnect();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
@@ -471,7 +482,6 @@ public class JoinGameScreen implements Screen {
      *
      */
     private void createRotation() {
-
         originXRefreshIcon = refreshIcon.getRegionWidth() * 0.2f / 2;
         originYRefreshIcon = refreshIcon.getRegionHeight() * 0.2f / 2;
         Timer.schedule(new Timer.Task() {
