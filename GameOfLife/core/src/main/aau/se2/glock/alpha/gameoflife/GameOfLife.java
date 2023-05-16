@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
@@ -16,6 +17,9 @@ import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
  *
  */
 public class GameOfLife extends Game {
+
+
+    public static ProximitySensorInterface proximitySensorInterface;
 
     /**
      *
@@ -108,6 +112,13 @@ public class GameOfLife extends Game {
      */
     @Override
     public void create() {
+        proximitySensorInterface.registerSensor();
         setScreen(new MainMenuScreen());
+    }
+
+    @Override
+    public void dispose() {
+        proximitySensorInterface.unregisterSensor();
+        super.dispose();
     }
 }
