@@ -30,11 +30,12 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 
 /**
  *
  */
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, ProximityListener {
 
     /**
      *
@@ -116,8 +117,14 @@ public class GameScreen implements Screen {
      */
     private Label lbUsernameAge, lbMoney, lbLifepoints;
 
+    /**
+     *
+     */
     private Label.LabelStyle labelStyle;
 
+    /**
+     *
+     */
     private Dialog eventDialog;
 
     //Wheel
@@ -190,6 +197,9 @@ public class GameScreen implements Screen {
      *
      */
     public GameScreen() {
+
+        GameOfLife.proximitySensorInterface.setProximityListener(this);
+
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
@@ -208,6 +218,15 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
 
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void onProximity() {
+        // Here, you can define what to do when the proximity sensor is triggered
+        Gdx.app.log("Sensor", "Triggered in GameScreen");
     }
 
     /**
@@ -571,6 +590,9 @@ public class GameScreen implements Screen {
     }
 
 
+    /**
+     *
+     */
     private void createEventPopup(){
         Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
         eventDialog = new Dialog("",windowStyle);
@@ -580,6 +602,10 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     *
+     * @param eventText
+     */
     private void showEventPopUp(String eventText){
        createEventPopup();
         eventDialog.text(eventText,labelStyle);
@@ -589,9 +615,11 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     *
+     */
     private void hideEventPopup(){
         eventDialog.hide();
 
     }
-
 }
