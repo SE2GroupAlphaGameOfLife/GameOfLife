@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 public class JsonLoader {
 
-    public JsonLoader(){
+    public JsonLoader() {
 
     }
 
