@@ -49,7 +49,7 @@ We are always open to contributions. If you have any ideas or find any bugs, fee
 
 ## License
 
-This project is licensed under the terms of the MIT license. For more information, see [LICENSE.md](https://github.com/SE2GroupAlphaGameOfLife/GameOfLife/blob/main/LICENSE.md).
+This project is licensed under the terms of the MIT license. For more information, see [LICENSE.md](LICENCE.md).
 
 ## Acknowledgments
 
