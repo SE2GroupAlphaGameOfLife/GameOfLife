@@ -221,7 +221,7 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     *
+     *  Is Triggered, when the proximity sensor has been cover for a specified amount of time.
      */
     @Override
     public void onProximity() {
@@ -230,7 +230,8 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     * @param delta The time in seconds since the last render.
+     * @param delta
+     * The time in seconds since the last render.
      */
     @Override
     public void render(float delta) {
