@@ -271,6 +271,22 @@ public class Player {
     }
 
     /**
+     *
+     * @return
+     */
+    public Job getCurrentJob() {
+        return currentJob;
+    }
+
+    /**
+     *
+     * @param currentJob
+     */
+    public void setCurrentJob(Job currentJob) {
+        this.currentJob = currentJob;
+    }
+
+    /**
      * Generates a random integer between 1 and 10 which represents rolling the dice.
      *
      * @return The generated random integer.
