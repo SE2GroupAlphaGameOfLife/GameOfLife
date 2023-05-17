@@ -43,9 +43,7 @@ To install "Das Spiel des Lebens" Android Edition, follow these steps:
 
 Navigate to our [How to Play](https://github.com/SE2GroupAlphaGameOfLife/GameOfLife/wiki/How-to-Play) section in the Wiki for a detailed guide.
 
-## Contribution
-
-We are always open to contributions. If you have any ideas or find any bugs, feel free to open an issue or submit a pull request. Please read the [CONTRIBUTING.md](https://github.com/SE2GroupAlphaGameOfLife/GameOfLife/blob/main/CONTRIBUTING.md) for more information on how to contribute.
+We are always open to contributions. If you have any ideas or find any bugs, feel free to open an issue or submit a pull request. Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to contribute.
 
 ## License
 
