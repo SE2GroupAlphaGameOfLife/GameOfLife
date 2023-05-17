@@ -113,6 +113,31 @@ public class GameScreen implements Screen {
     /**
      *
      */
+    private Button closeBtn;
+
+    /**
+     *
+     */
+    private Button job1Btn;
+
+    /**
+     *
+     */
+    private Button job2Btn;
+
+    /**
+     *
+     */
+    private Label job1Description;
+
+    /**
+     *
+     */
+    private Label job2Description;
+
+    /**
+     *
+     */
     private Group nextFieldButtonGroup; // Create a Group to hold actors
 
     /**
@@ -531,19 +556,16 @@ public class GameScreen implements Screen {
            @Override
            public void clicked(InputEvent event, float x, float y){
                Gdx.app.log("TestJobBtn","Works");
-                createJobDialog();
+                createJobWindow();
            }
         };
 
         btnJob.addListener(btnJobListener);
     }
 
-    private Button closeBtn;
-    private Button job1Btn;
-    private Button job2Btn;
-    private Label job1Description;
-    private Label job2Description;
-    private void createJobDialog(){
+
+    private void createJobWindow(){
+        //loads uiSkin from files
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
         final Window window = new Window("",uiSkin);
@@ -555,11 +577,11 @@ public class GameScreen implements Screen {
         job1Description = new Label("Taenzer \n 1000 LP \n 500€",uiSkin);
         job2Description = new Label("Tester \n 2000LP \n 150€",uiSkin);
 
-        window.add(job1Description).pad(10,0,0,0).colspan(50);
+        window.add(job1Description).pad(10,0,0,0).colspan(1);
         window.add(job2Description).pad(10,50,0,0).colspan(0).row();
-        window.add(job1Btn).pad(0,0,0,0).colspan(50);
+        window.add(job1Btn).pad(0,0,0,0).colspan(1);
         window.add(job2Btn).pad(0,50,0,0).row();
-        window.add(closeBtn).pad(150,0,0,0).colspan(500);
+        window.add(closeBtn).pad(150,0,0,0).colspan(2);
 
         closeBtn.addListener (new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
