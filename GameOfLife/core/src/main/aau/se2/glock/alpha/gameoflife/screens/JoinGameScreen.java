@@ -215,8 +215,8 @@ public class JoinGameScreen implements Screen {
 
         // Create the text field using the registered style
         ipInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        ipInput.setSize( screenWidth - btnWidth - (float) screenWidth / 25 * 2 - (float) screenWidth / 70, btnHeight); // Set the size of the text field
-        ipInput.setPosition((float) screenWidth / 25,  screenHeight - (float) screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
+        ipInput.setSize(screenWidth - btnWidth - (float) screenWidth / 25 * 2 - (float) screenWidth / 70, btnHeight); // Set the size of the text field
+        ipInput.setPosition((float) screenWidth / 25, screenHeight - (float) screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
         // Set the placeholder text
         ipInput.setMessageText("Enter IP-Address"); // Set the placeholder text
 

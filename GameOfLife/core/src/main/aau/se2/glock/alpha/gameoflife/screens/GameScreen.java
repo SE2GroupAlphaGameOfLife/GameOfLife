@@ -15,10 +15,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -80,7 +82,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private Skin skin,popupSkin;
+    private Skin skin, popupSkin;
 
     /**
      *
@@ -221,7 +223,7 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     *  Is Triggered, when the proximity sensor has been cover for a specified amount of time.
+     * Is Triggered, when the proximity sensor has been cover for a specified amount of time.
      */
     @Override
     public void onProximity() {
@@ -230,8 +232,7 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     * @param delta
-     * The time in seconds since the last render.
+     * @param delta The time in seconds since the last render.
      */
     @Override
     public void render(float delta) {
@@ -305,7 +306,7 @@ public class GameScreen implements Screen, ProximityListener {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2( centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
+        buttonPosition = new Vector2(centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -324,7 +325,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      * Initialises Styles for Labels,Buttons,ETC...
      */
-    private void initStyles(){
+    private void initStyles() {
         labelStyle = new Label.LabelStyle();
         labelStyle.font = standardFont;
         labelStyle.fontColor = Color.WHITE;
@@ -404,13 +405,11 @@ public class GameScreen implements Screen, ProximityListener {
                 isSpinning = true;
 
 
-
             }
 
         };
         btnRollDice.addListener(btnRollDiceListener);
     }
-
 
 
     /**
@@ -512,7 +511,7 @@ public class GameScreen implements Screen, ProximityListener {
 
                 GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
-            }else {
+            } else {
                 showEventPopUp(player.getEvent().getText());
             }
 
@@ -594,24 +593,22 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private void createEventPopup(){
-        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
-        eventDialog = new Dialog("",windowStyle);
-        eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
+    private void createEventPopup() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont, Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
+        eventDialog = new Dialog("", windowStyle);
+        eventDialog.button(new TextButton("Bestätigen", textButtonStyle));
         stage.addActor(eventDialog);
         hideEventPopup();
 
     }
 
     /**
-     *
      * @param eventText
      */
-    private void showEventPopUp(String eventText){
-       createEventPopup();
-        eventDialog.text(eventText,labelStyle);
+    private void showEventPopUp(String eventText) {
+        createEventPopup();
+        eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-
 
 
     }
@@ -619,7 +616,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private void hideEventPopup(){
+    private void hideEventPopup() {
         eventDialog.hide();
 
     }

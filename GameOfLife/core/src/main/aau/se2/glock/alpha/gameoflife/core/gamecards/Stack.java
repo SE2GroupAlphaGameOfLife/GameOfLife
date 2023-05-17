@@ -58,14 +58,14 @@ public class Stack {
     /**
      * Removes all cards from the Stack
      */
-    public void wipeStack(){
+    public void wipeStack() {
         cardList.clear();
     }
 
     /**
      * Fills Stack with new Cards
      */
-    public void buildStack(){
+    public void buildStack() {
         EventData eventData = new EventData();
         eventData.fillEventList();
         eventData.fillCardList();

@@ -138,7 +138,7 @@ public class ClientClass extends Listener {
         }
         this.client.start();
 
-        if(!servers.isEmpty()){
+        if (!servers.isEmpty()) {
             ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
         }
     }
@@ -205,7 +205,6 @@ public class ClientClass extends Listener {
                     ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
                 }
             }
-
         } else if (object instanceof JoinedPlayers) {
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
             if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {

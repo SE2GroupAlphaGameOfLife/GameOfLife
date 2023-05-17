@@ -42,7 +42,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testEmptyConstructor(){
+    public void testEmptyConstructor() {
         assertNotNull(new Player());
     }
 
@@ -87,7 +87,7 @@ public class PlayerTest {
         assertEquals(0, testPlayer.getLifepoints());
         assertEquals(18, testPlayer.getAge());
         assertEquals(0, testPlayer.getMoveCount());
-        assertEquals(0,testPlayer.getId());
+        assertEquals(0, testPlayer.getId());
         assertEquals(new Color(Color.rgb888(255, 0, 0)), testPlayer.getColor());
         assertTrue(testPlayer.isHost());
         assertTrue(testPlayer.isHasTurn());
@@ -117,7 +117,7 @@ public class PlayerTest {
         assertFalse(testPlayer.isHasTurn());
         assertFalse(testPlayer.isOnline());
         assertFalse(testPlayer.isJoning());
-        assertEquals(99,testPlayer.getId());
+        assertEquals(99, testPlayer.getId());
         assertEquals(new Color(Color.rgb888(0, 255, 0)), testPlayer.getColor());
     }
 }
