@@ -34,6 +34,8 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 
 /**
  *
@@ -563,25 +565,36 @@ public class GameScreen implements Screen {
         btnJob.addListener(btnJobListener);
     }
 
+    private JobData jobSelection;
 
     private void createJobWindow(){
         //loads uiSkin from files
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        jobSelection = new JobData();
 
         final Window window = new Window("",uiSkin);
         window.setSize(600,450);
         window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
         closeBtn = new TextButton("Close",textButtonStyle);
-        job1Btn = new TextButton("Job1",textButtonStyle);
-        job2Btn = new TextButton("Job2",textButtonStyle);
-        job1Description = new Label("Taenzer \n 1000 LP \n 500€",uiSkin);
-        job2Description = new Label("Tester \n 2000LP \n 150€",uiSkin);
+        job1Btn = new TextButton("Auswählen",textButtonStyle);
+        job2Btn = new TextButton("Auswählen",textButtonStyle);
+
+        jobSelection.mixCards();
+        Job[] jobs = jobSelection.getJobsToSelect(2);
+
+        //job1Description = new Label("Taenzer \n 1000 LP \n 500€",uiSkin);
+        //job2Description = new Label("Tester \n 2000LP \n 150€",uiSkin);
+
+        job1Description = new Label(jobs[0].getBezeichnung()+"\n"+jobs[0].getGehaltsStufe(),uiSkin);
+        job2Description = new Label(jobs[1].getBezeichnung()+"\n"+jobs[1].getGehaltsListe().toString(),uiSkin);
 
         window.add(job1Description).pad(10,0,0,0).colspan(1);
         window.add(job2Description).pad(10,50,0,0).colspan(0).row();
         window.add(job1Btn).pad(0,0,0,0).colspan(1);
         window.add(job2Btn).pad(0,50,0,0).row();
         window.add(closeBtn).pad(150,0,0,0).colspan(2);
+
+        window.setScale(2F);
 
         closeBtn.addListener (new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.

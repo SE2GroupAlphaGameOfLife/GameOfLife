@@ -53,6 +53,14 @@ public class Job {
     }
 
     /**
+     *
+     * @return
+     */
+    public ArrayList<Integer> getGehaltsListe() {
+        return gehaltsListe;
+    }
+
+    /**
      * Increases pay grade until you reach the maximum grade.
      */
     public void befoerderung() {
