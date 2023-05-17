@@ -16,8 +16,9 @@ public class JobCardsTest {
 
     Job j1, j2, j3, j4;
     JobData data1;
+
     @Before
-    public void setup(){
+    public void setup() {
         j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
         j2 = new Job("Sportler", new ArrayList<>(Arrays.asList(5000, 20000, 35000, 65000, 90000, 300000, 1400000)));
         j3 = new Job("Landwirt", new ArrayList<>(Arrays.asList(5000, 30000, 50000, 100000, 150000, 300000, 1000000)));
@@ -26,14 +27,14 @@ public class JobCardsTest {
     }
 
     @Test
-    public void testFillJobList(){
-        assertEquals(0,data1.jobList.size());
+    public void testFillJobList() {
+        assertEquals(0, data1.jobList.size());
         data1.fillJobList();
-        assertEquals(20,data1.jobList.size());
+        assertEquals(20, data1.jobList.size());
     }
 
     @Test
-    public void testMixCards(){
+    public void testMixCards() {
         data1.fillJobList();
         String compare = testmethode(data1);
         data1.mixCards();
@@ -43,27 +44,27 @@ public class JobCardsTest {
     }
 
     @Test
-    public void testGet2JobsToSelect(){
+    public void testGet2JobsToSelect() {
         data1.fillJobList();
-        assertEquals(2,data1.getJobsToSelect(2).length);
+        assertEquals(2, data1.getJobsToSelect(2).length);
     }
 
     @Test
-    public void testGetOneJob(){
+    public void testGetOneJob() {
         data1.fillJobList();
-        assertEquals(1,data1.getJobsToSelect(1).length);
+        assertEquals(1, data1.getJobsToSelect(1).length);
     }
 
     @Test
-    public void testRobustnessOfJobsToSelect(){
+    public void testRobustnessOfJobsToSelect() {
         data1.fillJobList();
-        assertEquals(21,data1.getJobsToSelect(21).length);
+        assertEquals(21, data1.getJobsToSelect(21).length);
     }
 
-    public String testmethode(JobData data){
+    public String testmethode(JobData data) {
         String result = "";
         for (int i = 0; i < data.jobList.size(); i++) {
-            result+=data.jobList.get(i).getBezeichnung();
+            result += data.jobList.get(i).getBezeichnung();
 
         }
         return result;

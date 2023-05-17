@@ -19,18 +19,15 @@ import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 public class GameOfLife extends Game {
 
 
-    public static ProximitySensorInterface proximitySensorInterface;
-
     /**
      *
      */
     public static final int TCPPORT = 54333;
-
     /**
      *
      */
     public static final int UDPPORT = 54777;
-
+    public static ProximitySensorInterface proximitySensorInterface;
     /**
      * Player-Entity of the current device
      */
@@ -85,6 +82,15 @@ public class GameOfLife extends Game {
     }
 
     /**
+     * For testing only!
+     *
+     * @param gameOfLifeMock
+     */
+    public static void setInstance(GameOfLife gameOfLifeMock) {
+        INSTANCE = gameOfLifeMock;
+    }
+
+    /**
      * @param screen
      */
     public static void changeScreen(Screen screen) {
@@ -105,14 +111,6 @@ public class GameOfLife extends Game {
     //For testing only
     public static boolean isGameStarted() {
         return gameStarted;
-    }
-
-    /**
-     * For testing only!
-     * @param gameOfLifeMock
-     */
-    public static void setInstance(GameOfLife gameOfLifeMock) {
-        INSTANCE = gameOfLifeMock;
     }
 
     /**

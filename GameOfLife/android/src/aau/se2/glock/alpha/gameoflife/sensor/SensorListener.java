@@ -8,23 +8,20 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.util.Log;
 
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
-import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 
 public class SensorListener implements SensorEventListener, ProximitySensorInterface {
-
-    private SensorManager sensorManager;
-    private ProximityListener proximityListener;
-    private Sensor proximitySensor;
-    private Handler handler = new Handler();
-    private Runnable runnable;
 
     // Sensor proximity distance
     private static final float PROXIMITY_THRESHOLD = 1f;
     // Minimum time the hand should be close to the sensor (2 seconds)
     private static final int MINIMUM_TIME = 2000;
+    private SensorManager sensorManager;
+    private ProximityListener proximityListener;
+    private Sensor proximitySensor;
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
     public SensorListener(Context context, ProximityListener proximityListener) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
