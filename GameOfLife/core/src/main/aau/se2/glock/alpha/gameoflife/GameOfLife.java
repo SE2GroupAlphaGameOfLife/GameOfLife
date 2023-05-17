@@ -39,7 +39,7 @@ public class GameOfLife extends Game {
     /**
      *
      */
-    public static boolean gameStarted;
+    public static boolean gameStarted = false;
 
     /**
      *
@@ -54,12 +54,12 @@ public class GameOfLife extends Game {
     /**
      *
      */
-    public static List<Player> players;
+    public static List<Player> players = new ArrayList<>();
 
     /**
      *
      */
-    public static List<ServerInformation> availableServers;
+    public static List<ServerInformation> availableServers = new ArrayList<>();
 
     /**
      *
@@ -105,6 +105,14 @@ public class GameOfLife extends Game {
     //For testing only
     public static boolean isGameStarted() {
         return gameStarted;
+    }
+
+    /**
+     * For testing only!
+     * @param gameOfLifeMock
+     */
+    public static void setInstance(GameOfLife gameOfLifeMock) {
+        INSTANCE = gameOfLifeMock;
     }
 
     /**
