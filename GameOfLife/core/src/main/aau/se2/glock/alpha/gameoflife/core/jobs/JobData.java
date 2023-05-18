@@ -71,11 +71,6 @@ public class JobData {
         return jobs;
     }
 
-    public Job getOneJob(){
-        mixCards();
-        return jobList.get(countCard++);
-    }
-
     /**
      * Mixes jobList.
      */

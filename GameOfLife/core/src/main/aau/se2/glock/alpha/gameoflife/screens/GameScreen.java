@@ -631,6 +631,7 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y){
                 GameOfLife.players.get(0).setCurrentJob(jobs[0]);
                 window.remove();
+                Gdx.app.log("JobSelection", "Job 1 chosen");
             };
 
         });
@@ -640,6 +641,8 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y){
                 GameOfLife.players.get(0).setCurrentJob(jobs[1]);
                 window.remove();
+                Gdx.app.log("JobSelection", "Job 2 chosen");
+
             };
 
         });

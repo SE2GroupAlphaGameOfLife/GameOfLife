@@ -119,13 +119,13 @@ public class EventCardsTest {
         cardList.add(c5);
 
         s1.addCards(cardList);
-        String compare = testmethodeMix(s1);
+        String compare = testMethodMixCards(s1);
         s1.mixCards();
-        System.out.println(testmethodeMix(s1));
-        assertNotEquals(compare, testmethodeMix(s1));
+        System.out.println(testMethodMixCards(s1));
+        assertNotEquals(compare, testMethodMixCards(s1));
     }
 
-    public String testmethodeMix(Stack stack){
+    public String testMethodMixCards(Stack stack){
         String result = "";
         for (int i = 0; i < 5; i++) {
             result += stack.getTopCard().getEvent(0).getText();
@@ -134,7 +134,24 @@ public class EventCardsTest {
     }
 
     @Test
-    public void testAddCards(){
+    public void testGetAndSetCash(){
+        assertEquals(0,e1.getCash());
+        e1.setCash(200);
+        assertEquals(200,e1.getCash());
+    }
 
+    @Test
+    public void testGetAndSetLp(){
+        assertEquals(100,e1.getLp());
+        e1.setLp(1000);
+        assertEquals(1000,e1.getLp());
+    }
+
+    @Test
+    public void testSetText(){
+        assertEquals("Erhalte 100 LP.",e1.getText());
+        e1.setText("Erhalte 200 LP.");
+        e1.setLp(200);
+        assertEquals("Erhalte 200 LP.", e1.getText());
     }
 }
