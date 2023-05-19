@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -36,11 +37,12 @@ import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 
 /**
  *
  */
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, ProximityListener {
 
     /**
      *
@@ -100,7 +102,7 @@ public class GameScreen implements Screen {
     /**
      *
      */
-    private Skin skin;
+    private Skin skin, popupSkin;
 
     /**
      *
@@ -161,6 +163,16 @@ public class GameScreen implements Screen {
      *
      */
     private Label lbUsernameAge, lbMoney, lbLifepoints;
+
+    /**
+     *
+     */
+    private Label.LabelStyle labelStyle;
+
+    /**
+     *
+     */
+    private Dialog eventDialog;
 
     //Wheel
     /**
@@ -232,6 +244,9 @@ public class GameScreen implements Screen {
      *
      */
     public GameScreen() {
+
+        GameOfLife.proximitySensorInterface.setProximityListener(this);
+
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
@@ -239,9 +254,11 @@ public class GameScreen implements Screen {
         initFonts();
         initStage();
         initTextures();
+        initStyles();
         createButton();
         createQuitButton();
         createPlayerHUD();
+        createEventPopup();
         refreshPlayerHUD();
         createJobButton();
     }
@@ -249,6 +266,15 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
 
+    }
+
+    /**
+     * Is Triggered, when the proximity sensor has been cover for a specified amount of time.
+     */
+    @Override
+    public void onProximity() {
+        // Here, you can define what to do when the proximity sensor is triggered
+        Gdx.app.log("Sensor", "Triggered in GameScreen");
     }
 
     /**
@@ -326,7 +352,7 @@ public class GameScreen implements Screen {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2(centerWidth - (buttonWidth / 2), centerHeight - buttonHeight);
+        buttonPosition = new Vector2(centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -340,6 +366,23 @@ public class GameScreen implements Screen {
         parameter.size = 128;
         bigFont = generator.generateFont(parameter);
         generator.dispose();
+    }
+
+    /**
+     * Initialises Styles for Labels,Buttons,ETC...
+     */
+    private void initStyles() {
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = standardFont;
+        labelStyle.fontColor = Color.WHITE;
+
+        //create a textButtonStyle
+        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
+        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
+        textButtonStyle.font = standardFont; // Set the font
+        textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
     }
 
     /**
@@ -379,12 +422,7 @@ public class GameScreen implements Screen {
      * Create Button for rolling the dice.
      */
     private void createButton() {
-        //create a textButtonStyle
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
-        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
-        textButtonStyle.font = standardFont; // Set the font
-        textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
 
         //Create a Start Game Button
         btnRollDice = new TextButton("Würfeln", textButtonStyle); // Create the text button with the text and style
@@ -405,18 +443,19 @@ public class GameScreen implements Screen {
                 Gdx.app.log("moveCount", moveCount + "");
 
                 //calculating the angle that the arrow has to spin, so that it stops at the correct number
-                float maxSpingAngle = (moveCount * 36) - 18;
+                float maxSpingAngle = (float) (moveCount * 36) - 18;
                 System.out.println(spinAngle);
                 spinSpeed = ((maxSpingAngle) + 720) / maxSpinDuration;
                 spinAngle = 0;
 
                 isSpinning = true;
+
+
             }
 
         };
         btnRollDice.addListener(btnRollDiceListener);
     }
-
 
 
     /**
@@ -426,7 +465,7 @@ public class GameScreen implements Screen {
      */
     private void chooseNextStep(GameField gameField) {
         //Get the next game field based on player choice (1 or 2)
-        GameField nextGameField1 = new Board().getGameFields().get(gameField.getIndexOfNextGameFields().get(0));
+        GameField nextGameField1 = Board.getInstance().getGameFields().get(gameField.getIndexOfNextGameFields().get(0));
 
         //Create and configure the button to choose first of the possible next steps
         nextFieldButton1 = new TextButton("Hier", textButtonStyle);
@@ -445,7 +484,7 @@ public class GameScreen implements Screen {
         });
 
         // Get the next game field based on the player's choice (2nd option)
-        GameField nextGameField2 = new Board().getGameFields().get(gameField.getIndexOfNextGameFields().get(1));
+        GameField nextGameField2 = Board.getInstance().getGameFields().get(gameField.getIndexOfNextGameFields().get(1));
 
         //Create and configure the button to choose second of the possible next steps
         nextFieldButton2 = new TextButton("Hier", textButtonStyle);
@@ -492,6 +531,8 @@ public class GameScreen implements Screen {
         }
 
         GameOfLife.players.set(0, player);
+        showEventPopUp(player.getEvent().getText());
+
     }
 
     /**
@@ -516,9 +557,13 @@ public class GameScreen implements Screen {
 
                 GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
+            } else {
+                showEventPopUp(player.getEvent().getText());
             }
 
             GameOfLife.players.set(0, player);
+
+
         }
     }
 
@@ -662,10 +707,6 @@ public class GameScreen implements Screen {
      *
      */
     private void createPlayerHUD() {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = standardFont;
-        labelStyle.fontColor = Color.WHITE;
-
         lbUsernameAge = new Label("Username, Age", labelStyle);
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
@@ -707,4 +748,35 @@ public class GameScreen implements Screen {
         lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
     }
 
+
+    /**
+     *
+     */
+    private void createEventPopup() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont, Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
+        eventDialog = new Dialog("", windowStyle);
+        eventDialog.button(new TextButton("Bestätigen", textButtonStyle));
+        stage.addActor(eventDialog);
+        hideEventPopup();
+
+    }
+
+    /**
+     * @param eventText
+     */
+    private void showEventPopUp(String eventText) {
+        createEventPopup();
+        eventDialog.text(eventText, labelStyle);
+        eventDialog.show(stage);
+
+
+    }
+
+    /**
+     *
+     */
+    private void hideEventPopup() {
+        eventDialog.hide();
+
+    }
 }

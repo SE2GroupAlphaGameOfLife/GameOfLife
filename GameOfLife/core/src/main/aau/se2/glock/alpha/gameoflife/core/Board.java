@@ -1,13 +1,13 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import aau.se2.glock.alpha.gameoflife.core.utilities.JsonLoader;
 
 /**
  * Represents a game board with a list of gameFields.
@@ -27,9 +27,7 @@ public class Board {
     /**
      *
      */
-    public Board() {
-        String jsonString = loadJsonFile();
-
+    public Board(String jsonString) {
         // Parsing the json so we can use it
         JsonReader jsonReader = new JsonReader();
         JsonValue jsonValue = jsonReader.parse(jsonString);
@@ -57,17 +55,16 @@ public class Board {
      */
     public static Board getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Board();
+            INSTANCE = new Board(new JsonLoader().loadJsonFile());
         }
         return INSTANCE;
     }
 
-    /**
-     * @return
-     */
-    protected String loadJsonFile() {
-        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
-        return fileHandle.readString();
+    public static Board getInstance(String jsonString) {
+        if (INSTANCE == null) {
+            INSTANCE = new Board(jsonString);
+        }
+        return INSTANCE;
     }
 
     /**

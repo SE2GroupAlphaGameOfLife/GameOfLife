@@ -18,6 +18,7 @@ public class JobCardsTest {
 
     Job j1, j2, j3, j4;
     JobData data1;
+
     @Before
     public void setup(){
         j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));

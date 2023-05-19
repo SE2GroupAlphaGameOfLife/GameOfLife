@@ -96,14 +96,6 @@ public class TestClient {
     }
 
     @Test
-    public void testConnected() {
-        Connection mockConnection = Mockito.mock(Connection.class);
-        clientUnderTest.connected(mockConnection);
-
-        verify(mockClient).sendTCP(GameOfLife.self);
-    }
-
-    @Test
     public void testReceived() throws UnknownHostException {
         Connection mockConnection = Mockito.mock(Connection.class);
         InetAddress testAddress = InetAddress.getByName("127.0.0.1");

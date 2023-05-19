@@ -28,9 +28,8 @@ public class Stack {
      *
      */
     public Stack() {
-        EventData eventData = new EventData();
-        eventData.fillCardList();
-        addCards(eventData.getCardList());
+        buildStack();
+        mixCards();
     }
 
     /**
@@ -54,6 +53,23 @@ public class Stack {
             mixCards();
         }
         return cardList.get(countCard++);
+    }
+
+    /**
+     * Removes all cards from the Stack
+     */
+    public void wipeStack() {
+        cardList.clear();
+    }
+
+    /**
+     * Fills Stack with new Cards
+     */
+    public void buildStack() {
+        EventData eventData = new EventData();
+        eventData.fillEventList();
+        eventData.fillCardList();
+        addCards(eventData.getCardList());
     }
 
 

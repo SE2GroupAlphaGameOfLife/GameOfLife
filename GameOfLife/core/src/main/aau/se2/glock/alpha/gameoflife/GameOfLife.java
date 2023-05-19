@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
@@ -17,16 +18,16 @@ import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
  */
 public class GameOfLife extends Game {
 
+
     /**
      *
      */
     public static final int TCPPORT = 54333;
-
     /**
      *
      */
     public static final int UDPPORT = 54777;
-
+    public static ProximitySensorInterface proximitySensorInterface;
     /**
      * Player-Entity of the current device
      */
@@ -35,7 +36,7 @@ public class GameOfLife extends Game {
     /**
      *
      */
-    public static boolean gameStarted;
+    public static boolean gameStarted = false;
 
     /**
      *
@@ -50,12 +51,12 @@ public class GameOfLife extends Game {
     /**
      *
      */
-    public static List<Player> players;
+    public static List<Player> players = new ArrayList<>();
 
     /**
      *
      */
-    public static List<ServerInformation> availableServers;
+    public static List<ServerInformation> availableServers = new ArrayList<>();
 
     /**
      *
@@ -78,6 +79,15 @@ public class GameOfLife extends Game {
         }
 
         return INSTANCE;
+    }
+
+    /**
+     * For testing only!
+     *
+     * @param gameOfLifeMock
+     */
+    public static void setInstance(GameOfLife gameOfLifeMock) {
+        INSTANCE = gameOfLifeMock;
     }
 
     /**
@@ -108,6 +118,13 @@ public class GameOfLife extends Game {
      */
     @Override
     public void create() {
+        proximitySensorInterface.registerSensor();
         setScreen(new MainMenuScreen());
+    }
+
+    @Override
+    public void dispose() {
+        proximitySensorInterface.unregisterSensor();
+        super.dispose();
     }
 }

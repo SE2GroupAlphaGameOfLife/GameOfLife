@@ -252,6 +252,7 @@ public class StartGameScreen implements Screen {
         for (Label oldPlayerLabel : playerLabels) {
             oldPlayerLabel.remove();
         }
+
         // Clear the serverLabels list
         playerLabels.clear();
 
@@ -271,6 +272,7 @@ public class StartGameScreen implements Screen {
             labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count + 2.5f))); // Set the position of the label
             stage.addActor(labelPlayer); // Add the label to the stage
             playerLabels.add(labelPlayer);
+            count++;
         }
     }
 
@@ -315,10 +317,9 @@ public class StartGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
-
-                GameOfLife.changeScreen(new MainMenuScreen());
+                GameOfLife.client.disconnect();
                 GameOfLife.server.close();
-
+                GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
 

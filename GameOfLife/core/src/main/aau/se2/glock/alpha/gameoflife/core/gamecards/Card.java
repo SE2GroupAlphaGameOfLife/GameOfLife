@@ -13,27 +13,27 @@ public class Card {
 
     /**
      * Returns the event at index n.
-     *
+     * <p>
      * Index of the list: 0 = blue, 1 = purple, 2 = green, 3 = orange.
      *
      * @param n describes the index
-     * @return  event at n
+     * @return event at n
      */
-    public Event getEvent(int n){
-       try {
-           return events.get(n);
-       }catch(Exception e){
-           System.out.println(e);
-           return null;
-       }
+    public Event getEvent(int n) {
+        try {
+            return events.get(n);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     /**
      * Fills up events.
      */
-    public void fillEvents(){
+    public void fillEvents() {
         for (int i = 0; i < 4; i++) {
-            events.add(new Event(0,0,""));
+            events.add(new Event(0, 0, ""));
         }
     }
 /*
@@ -51,7 +51,7 @@ public class Card {
      * @param index index
      * @param e     event
      */
-    public void setEvent(int index, Event e){
+    public void setEvent(int index, Event e) {
         events.set(index, e);
     }
 

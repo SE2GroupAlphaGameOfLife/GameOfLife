@@ -8,7 +8,6 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 /**
  *
  */
-//Should later be refactored to be a singleton
 public class Game {
 
     /**
