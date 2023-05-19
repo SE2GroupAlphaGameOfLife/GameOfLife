@@ -644,7 +644,6 @@ public class GameScreen implements Screen {
                 Gdx.app.log("JobSelection", "Job 2 chosen");
 
             };
-
         });
 
         closeBtn.addListener (new ChangeListener() {
