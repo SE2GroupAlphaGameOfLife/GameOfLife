@@ -18,13 +18,15 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
@@ -67,12 +69,15 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private TextButton btnRollDice;
+    private TextButton btnQuit;
 
     /**
      *
      */
-    private TextButton btnQuit;
+    private TextButton btnCheat1Field;
+    private TextButton btnCheat2Fields;
+    private TextButton btnCheat3Fields;
+
 
     /**
      *
@@ -97,23 +102,23 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private BitmapFont standardFont, bigFont;
-
+    private BitmapFont standardFont;
+    private BitmapFont bigFont;
     /**
      *
      */
-    private Skin skin, popupSkin;
-
+    private Skin skin;
+    private Skin popupSkin;
     /**
      *
      */
-    private Texture background, skateboard;
-
+    private Texture background;
+    private Texture skateboard;
     /**
      *
      */
-    private Button nextFieldButton1, nextFieldButton2;
-
+    private Button nextFieldButton1;
+    private Button nextFieldButton2;
     /**
      *
      */
@@ -143,17 +148,23 @@ public class GameScreen implements Screen, ProximityListener {
      *
      */
     private Group nextFieldButtonGroup; // Create a Group to hold actors
-
+    private Group cheatingButtonGroup;
+    private Group spinTheWheelGroup;
+    private Group playersGroup;
     /**
      *
      */
-    private Texture lightGrayTexture, grayTextrue;
-
+    private Texture lightGrayTexture;
+    private Texture grayTextrue;
     /**
      *
      */
     private Texture wheelTexture;
 
+
+    private Drawable wheelDrawable;
+    private ImageButton wheelImageButton;
+    private ImageButton arrowImageButton;
     /**
      *
      */
@@ -162,7 +173,9 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private Label lbUsernameAge, lbMoney, lbLifepoints;
+    private Label lbUsernameAge;
+    private Label lbMoney;
+    private Label lbLifepoints;
 
     /**
      *
@@ -188,13 +201,13 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private float arrowX = -25f, arrowY = -25f;
-
+    private float arrowX = -25f;
+    private float arrowY = -25f;
     /**
      *
      */
-    private float arrowWidth = 50f, arrowHeight = 50f;
-
+    private float arrowWidth = 50f;
+    private float arrowHeight = 50f;
     /**
      *
      */
@@ -233,12 +246,16 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private int screenWidth, screenHeight, centerWidth, centerHeight;
-
+    private int screenWidth;
+    private int screenHeight;
+    private int centerWidth;
+    private int centerHeight;
     /**
      *
      */
     private int buttonWidth, buttonHeight;
+
+    private Image arrowImage;
 
     /**
      *
@@ -250,12 +267,12 @@ public class GameScreen implements Screen, ProximityListener {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
+
         initScreenDimensions();
         initFonts();
         initStage();
         initTextures();
         initStyles();
-        createButton();
         createQuitButton();
         createPlayerHUD();
         createEventPopup();
@@ -275,6 +292,10 @@ public class GameScreen implements Screen, ProximityListener {
     public void onProximity() {
         // Here, you can define what to do when the proximity sensor is triggered
         Gdx.app.log("Sensor", "Triggered in GameScreen");
+
+        if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() != 0) {
+            createMenuCheating();
+        }
     }
 
     /**
@@ -289,22 +310,39 @@ public class GameScreen implements Screen, ProximityListener {
         stage.getBatch().begin();
 
         stage.getBatch().draw(background, -gameCamera.viewportWidth / 3, -gameCamera.viewportHeight / 2, gameCamera.viewportWidth / 3 * 2, gameCamera.viewportHeight);
+        playersGroup.clearChildren();
         for (Player player : GameOfLife.players) {
             GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
-            stage.getBatch().draw(skateboard, currentField.getPosition().x - 20, currentField.getPosition().y - 20, 40, 40);
+            Vector3 v3 = new Vector3(currentField.getPosition().x - 20, currentField.getPosition().y - 20, 0);
+            gameCamera.project(v3);
+            ImageButton playerButton = new ImageButton(new TextureRegionDrawable(skateboard));
+            playerButton.setPosition(v3.x, v3.y);
+            playerButton.setSize(100, 100);
+            playersGroup.addActor(playerButton);
         }
 
+
         if (GameOfLife.self.isHasTurn()) {
-            stage.getBatch().draw(wheelTexture, -(wheelSize / 2), -(wheelSize / 2), (wheelSize), (wheelSize));
-            stage.getBatch().draw(arrowTexture, arrowX, arrowY, arrowWidth / 2f, arrowHeight / 2f, arrowWidth, arrowHeight, 1f, 1f, spinAngle + arrowRotation, 0, 0, arrowTexture.getWidth(), arrowTexture.getHeight(), false, false);
+            createSpinTheWheelButton();
+
+            if (isSpinning) {
+                arrowImage.setRotation(((float) spinAngle + arrowRotation));
+            }
+
+            if (!spinTheWheelGroup.hasChildren()) {
+                spinTheWheelGroup.addActor(wheelImageButton);
+                spinTheWheelGroup.addActor(arrowImageButton);
+            }
+
 
             if (isSpinning) {
                 spinTheWheel(delta);
             }
+        } else {
+            spinTheWheelGroup.clearChildren();
         }
 
         stage.getBatch().end();
-
         stage.act(Gdx.graphics.getDeltaTime()); // Update the stage
         stage.draw(); // Draw the stage
     }
@@ -382,7 +420,6 @@ public class GameScreen implements Screen, ProximityListener {
         textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
         textButtonStyle.font = standardFont; // Set the font
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
-
     }
 
     /**
@@ -391,7 +428,16 @@ public class GameScreen implements Screen, ProximityListener {
     private void initStage() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+        stage.getBatch().setProjectionMatrix(gameCamera.combined);
+
         nextFieldButtonGroup = new Group();
+        cheatingButtonGroup = new Group();
+        spinTheWheelGroup = new Group();
+        playersGroup = new Group();
+        stage.addActor(nextFieldButtonGroup);
+        stage.addActor(cheatingButtonGroup);
+        stage.addActor(spinTheWheelGroup);
+        stage.addActor(playersGroup);
         skin = new Skin();
     }
 
@@ -416,47 +462,136 @@ public class GameScreen implements Screen, ProximityListener {
 
         wheelTexture = new Texture("wheel.png");
         arrowTexture = new Texture("arrow.png");
+
+        arrowImage = new Image(arrowTexture);
+
+        wheelDrawable = new TextureRegionDrawable(new TextureRegion(wheelTexture));
+        wheelImageButton = new ImageButton(wheelDrawable);
+        arrowImageButton = new ImageButton(new TextureRegionDrawable(arrowTexture));
     }
 
     /**
      * Create Button for rolling the dice.
      */
-    private void createButton() {
+    private void createSpinTheWheelButton() {
+        Vector3 v3Wheel = new Vector3(-50, -50, 0);
+        Vector3 v3Arrow = new Vector3(-30, -50, 0);
+        Vector3 v3Center = new Vector3(0, 0, 0);
+        gameCamera.project(v3Wheel);
+        gameCamera.project(v3Center);
+        gameCamera.project(v3Arrow);
+        wheelImageButton.setSize((v3Center.x - v3Wheel.x) * 2, (v3Center.y - v3Wheel.y) * 2);
+        wheelImageButton.setPosition(v3Wheel.x, v3Wheel.y);
 
-
-        //Create a Start Game Button
-        btnRollDice = new TextButton("Würfeln", textButtonStyle); // Create the text button with the text and style
-        btnRollDice.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25))); // Set the position of the button
-        btnRollDice.setSize(buttonWidth, buttonHeight); // Set the size of the button
-
-        stage.addActor(btnRollDice); // Add the button to the stage
+        arrowImageButton.setSize((v3Center.x - v3Arrow.x) * 2, (v3Center.y - v3Arrow.y) * 2);
+        arrowImageButton.setPosition(v3Arrow.x, v3Arrow.y);
+        arrowImage = arrowImageButton.getImage();
+        arrowImage.setOrigin(arrowImage.getWidth() / 2, arrowImage.getHeight() / 2);
 
         // Create a ClickListener
         ClickListener btnRollDiceListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // This method will be called when the TextButton is clicked
-                boolean isInTurn = true;
+                if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() == 0) {
+                    // This method will be called when the TextButton is clicked
+                    boolean isInTurn = true;
 
-                Player player = GameOfLife.players.get(0);
-                int moveCount = player.rollTheDice();
-                Gdx.app.log("moveCount", moveCount + "");
+                    Player player = GameOfLife.self;
+                    player.setAge(player.getAge() + 1);
+                    int moveCount = player.rollTheDice();
+                    Gdx.app.log("moveCount", moveCount + "");
 
-                //calculating the angle that the arrow has to spin, so that it stops at the correct number
-                float maxSpingAngle = (float) (moveCount * 36) - 18;
-                System.out.println(spinAngle);
-                spinSpeed = ((maxSpingAngle) + 720) / maxSpinDuration;
-                spinAngle = 0;
+                    //calculating the angle that the arrow has to spin, so that it stops at the correct number
+                    float maxSpingAngle = (float) (moveCount * 36) - 18;
+                    System.out.println(spinAngle);
+                    spinSpeed = ((maxSpingAngle) + 720) / maxSpinDuration;
+                    spinAngle = 0;
 
-                isSpinning = true;
-
-
+                    isSpinning = true;
+                }
             }
 
         };
-        btnRollDice.addListener(btnRollDiceListener);
+
+        //btnRollDice.addListener(btnRollDiceListener);
+        wheelImageButton.addListener(btnRollDiceListener);
+        arrowImageButton.addListener(btnRollDiceListener);
     }
 
+    /**
+     * Create Button for rolling the dice.
+     */
+    private void createMenuCheating() {
+        //Create a Start Game Button
+        btnCheat1Field = new TextButton("+1 Feld", textButtonStyle); // Create the text button with the text and style
+        btnCheat1Field.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the button
+        btnCheat1Field.setSize(buttonWidth, buttonHeight); // Set the size of the button
+
+        cheatingButtonGroup.addActor(btnCheat1Field);
+
+        //Create a Start Game Button
+        btnCheat2Fields = new TextButton("+2 Felder", textButtonStyle); // Create the text button with the text and style
+        btnCheat2Fields.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25 * 2))); // Set the position of the button
+        btnCheat2Fields.setSize(buttonWidth, buttonHeight); // Set the size of the button
+
+        cheatingButtonGroup.addActor(btnCheat2Fields);
+
+        //Create a Start Game Button
+        btnCheat3Fields = new TextButton("+3 Felder", textButtonStyle); // Create the text button with the text and style
+        btnCheat3Fields.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25 * 3))); // Set the position of the button
+        btnCheat3Fields.setSize(buttonWidth, buttonHeight); // Set the size of the button
+
+        cheatingButtonGroup.addActor(btnCheat3Fields);
+
+        // Create a ClickListener
+        ClickListener btnCheat1FieldListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Player self = GameOfLife.self;
+
+                // This method will be called when the TextButton is clicked
+                self.setMoveCount(self.getMoveCount() + 1);
+                self.setHasCheated(true);
+                self.setHasCheatedAtAge(self.getAge());
+
+                cheatingButtonGroup.clearChildren();
+            }
+
+        };
+        btnCheat1Field.addListener(btnCheat1FieldListener);
+
+        ClickListener btnCheat2FieldsListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Player self = GameOfLife.self;
+
+                // This method will be called when the TextButton is clicked
+                self.setMoveCount(self.getMoveCount() + 2);
+                self.setHasCheated(true);
+                self.setHasCheatedAtAge(self.getAge());
+
+                cheatingButtonGroup.clearChildren();
+            }
+
+        };
+        btnCheat2Fields.addListener(btnCheat2FieldsListener);
+
+        ClickListener btnCheat3FieldsListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Player self = GameOfLife.self;
+
+                // This method will be called when the TextButton is clicked
+                self.setMoveCount(self.getMoveCount() + 3);
+                self.setHasCheated(true);
+                self.setHasCheatedAtAge(self.getAge());
+
+                cheatingButtonGroup.clearChildren();
+            }
+
+        };
+        btnCheat3Fields.addListener(btnCheat3FieldsListener);
+    }
 
     /**
      * Chooses the next step for the player on the game field.
@@ -501,9 +636,6 @@ public class GameScreen implements Screen, ProximityListener {
                 stepChoosen(1);
             }
         });
-
-        // Add the next field buttons to the stage
-        stage.addActor(nextFieldButtonGroup);
     }
 
 
@@ -513,26 +645,24 @@ public class GameScreen implements Screen, ProximityListener {
      * When the player has chosen which step he wants to take next, this function is called.
      * We set the current position of the player to the chosen field and makeMove is called again
      *
-     * @param index
+     * @param index a GameField has an array of next possible GameFields, index defines the index of the array which we want to choose for our next step
      */
     private void stepChoosen(int index) {
         // Update player's choice and position
-        Player player = GameOfLife.players.get(0);
+        Player player = GameOfLife.self;
         player.chooseDirection(index);
-        GameOfLife.players.set(0, player);
         nextFieldButtonGroup.clearChildren();
 
         //Check if player can still move
         GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
         if (!player.makeMove()) {
             gameField = Board.getInstance().getGameFields().get(player.getPosition());
-            GameOfLife.players.set(0, player);
             chooseNextStep(gameField);
         }
 
-        GameOfLife.players.set(0, player);
-        showEventPopUp(player.getEvent().getText());
-
+        if (player.getMoveCount() == 0) {
+            showEventPopUp(player.getEvent().getText());
+        }
     }
 
     /**
@@ -550,20 +680,18 @@ public class GameScreen implements Screen, ProximityListener {
             selectedSection = MathUtils.random(10);
             isSpinning = false;
 
-            Player player = GameOfLife.players.get(0);
+            Player player = GameOfLife.self;
             GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
             if (!player.makeMove()) {
                 gameField = Board.getInstance().getGameFields().get(player.getPosition());
 
-                GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
             } else {
-                showEventPopUp(player.getEvent().getText());
+                if (player.getMoveCount() == 0) {
+                    Gdx.app.log("Zeile", "673");
+                    showEventPopUp(player.getEvent().getText());
+                }
             }
-
-            GameOfLife.players.set(0, player);
-
-
         }
     }
 
@@ -589,22 +717,23 @@ public class GameScreen implements Screen, ProximityListener {
 
         btnQuit.addListener(btnQuitListener);
     }
- /**
+
+    /**
      *
      */
-    private void createJobButton(){
-       btnJob = new TextButton("Job",textButtonStyle);
-       btnJob.setSize(buttonWidth,buttonHeight);
-       btnJob.setPosition(Gdx.graphics.getWidth()-buttonWidth-10,Gdx.graphics.getHeight()-buttonHeight-10);
+    private void createJobButton() {
+        btnJob = new TextButton("Job", textButtonStyle);
+        btnJob.setSize(buttonWidth, buttonHeight);
+        btnJob.setPosition(Gdx.graphics.getWidth() - buttonWidth - 10, Gdx.graphics.getHeight() - buttonHeight - 10);
 
-       stage.addActor(btnJob);
+        stage.addActor(btnJob);
 
-       ClickListener btnJobListener = new ClickListener(){
-           @Override
-           public void clicked(InputEvent event, float x, float y){
-               Gdx.app.log("TestJobBtn","Works");
+        ClickListener btnJobListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("TestJobBtn", "Works");
                 chooseJobWindow();
-           }
+            }
         };
 
         btnJob.addListener(btnJobListener);
@@ -613,25 +742,25 @@ public class GameScreen implements Screen, ProximityListener {
     private JobData jobSelection;
     private Job[] jobs;
 
-    private void createJobWindow(){
+    private void createJobWindow() {
         //loads uiSkin from files
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        final Window window = new Window("",uiSkin);
-        window.setSize(600,450);
-        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
-        closeBtn = new TextButton("Close",textButtonStyle);
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
+        closeBtn = new TextButton("Close", textButtonStyle);
 
-        job1Description = new Label(GameOfLife.players.get(0).getCurrentJob().getBezeichnung(),uiSkin);
+        job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
         //TODO Exception einfügen falls noch kein Job ausgewählt wurde
 
-        window.add(job1Description).pad(10,0,0,0).colspan(0).row();
+        window.add(job1Description).pad(10, 0, 0, 0).colspan(0).row();
 
-        window.add(closeBtn).pad(150,0,0,0).colspan(2);
+        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
 
         window.setScale(2F);
 
-        closeBtn.addListener (new ChangeListener() {
+        closeBtn.addListener(new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -643,55 +772,59 @@ public class GameScreen implements Screen, ProximityListener {
         stage.addActor(window);
     }
 
-    private void chooseJobWindow(){
+    private void chooseJobWindow() {
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
         jobSelection = new JobData();
 
-        final Window window = new Window("",uiSkin);
-        window.setSize(600,450);
-        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
 
-        closeBtn = new TextButton("Close",textButtonStyle);
-        job1Btn = new TextButton("Auswählen",textButtonStyle);
-        job2Btn = new TextButton("Auswählen",textButtonStyle);
+        closeBtn = new TextButton("Close", textButtonStyle);
+        job1Btn = new TextButton("Auswählen", textButtonStyle);
+        job2Btn = new TextButton("Auswählen", textButtonStyle);
 
         jobSelection.fillJobList();
         jobs = new Job[2];
         jobSelection.mixCards();
         final Job[] jobs = jobSelection.getJobsToSelect(2);
 
-        job1Description = new Label(jobs[0].getBezeichnung()+"\n"+jobs[0].getGehaltsListe().toString(),uiSkin);
-        job2Description = new Label(jobs[1].getBezeichnung()+"\n"+jobs[1].getGehaltsListe().toString(),uiSkin);
+        job1Description = new Label(jobs[0].getBezeichnung() + "\n" + jobs[0].getGehaltsListe().toString(), uiSkin);
+        job2Description = new Label(jobs[1].getBezeichnung() + "\n" + jobs[1].getGehaltsListe().toString(), uiSkin);
 
-        window.add(job1Description).pad(10,0,0,0).colspan(1);
-        window.add(job2Description).pad(10,50,0,0).colspan(0).row();
-        window.add(job1Btn).pad(0,0,0,0).colspan(1);
-        window.add(job2Btn).pad(0,50,0,0).row();
-        window.add(closeBtn).pad(150,0,0,0).colspan(2);
+        window.add(job1Description).pad(10, 0, 0, 0).colspan(1);
+        window.add(job2Description).pad(10, 50, 0, 0).colspan(0).row();
+        window.add(job1Btn).pad(0, 0, 0, 0).colspan(1);
+        window.add(job2Btn).pad(0, 50, 0, 0).row();
+        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
 
         window.setScale(2F);
 
-        job1Btn.addListener(new ClickListener(){
+        job1Btn.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
-                GameOfLife.players.get(0).setCurrentJob(jobs[0]);
+            public void clicked(InputEvent event, float x, float y) {
+                GameOfLife.self.setCurrentJob(jobs[0]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 1 chosen");
-            };
+            }
+
+            ;
 
         });
 
-        job2Btn.addListener(new ClickListener(){
+        job2Btn.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
-                GameOfLife.players.get(0).setCurrentJob(jobs[1]);
+            public void clicked(InputEvent event, float x, float y) {
+                GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
 
-            };
+            }
+
+            ;
         });
 
-        closeBtn.addListener (new ChangeListener() {
+        closeBtn.addListener(new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -768,8 +901,6 @@ public class GameScreen implements Screen, ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-
-
     }
 
     /**
@@ -777,6 +908,5 @@ public class GameScreen implements Screen, ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
-
     }
 }

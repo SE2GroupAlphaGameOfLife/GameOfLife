@@ -37,6 +37,8 @@ public class PlayerTest {
 
     @Test
     public void testRollTheDice() {
+        player = new Player("testUser", true);
+
         int roll = player.rollTheDice();
         assertTrue(roll >= 1 && roll <= 10);
     }
@@ -48,6 +50,8 @@ public class PlayerTest {
 
     @Test
     public void testChooseDirection() {
+        player = new Player("testUser", true);
+
         player.setMoveCount(1);
         player.chooseDirection(0);
         assertEquals(1, player.getPosition());
@@ -55,6 +59,8 @@ public class PlayerTest {
 
     @Test
     public void testMakeMove() {
+        player = new Player("testUser", true);
+
         player.setMoveCount(1);
 
         player.makeMove();
@@ -93,6 +99,8 @@ public class PlayerTest {
         assertTrue(testPlayer.isHasTurn());
         assertTrue(testPlayer.isOnline());
         assertTrue(testPlayer.isJoning());
+        assertFalse(testPlayer.isHasCheated());
+        assertEquals(0,testPlayer.getHasCheatedAtAge());
 
         testPlayer.setUsername("User");
         testPlayer.setPosition(99);
@@ -106,6 +114,9 @@ public class PlayerTest {
         testPlayer.setJoning(false);
         testPlayer.setId(99);
         testPlayer.setColor(new Color(Color.rgb888(0, 255, 0)));
+        testPlayer.setHasCheated(true);
+        testPlayer.setHasCheatedAtAge(99);
+
 
         assertEquals("User", testPlayer.getUsername());
         assertEquals(99, testPlayer.getPosition());
@@ -119,5 +130,7 @@ public class PlayerTest {
         assertFalse(testPlayer.isJoning());
         assertEquals(99, testPlayer.getId());
         assertEquals(new Color(Color.rgb888(0, 255, 0)), testPlayer.getColor());
+        assertTrue(testPlayer.isHasCheated());
+        assertEquals(99, testPlayer.getHasCheatedAtAge());
     }
 }
