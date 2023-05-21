@@ -2,7 +2,9 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThrows;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ public class JobCardsTest {
 
     Job j1, j2, j3, j4;
     JobData data1;
+
     @Before
     public void setup(){
         j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
@@ -35,10 +38,10 @@ public class JobCardsTest {
     @Test
     public void testMixCards(){
         data1.fillJobList();
-        String compare = testmethode(data1);
+        String compare = getBezeichnung(data1);
         data1.mixCards();
-        System.out.println(testmethode(data1));
-        assertNotEquals(compare, testmethode(data1));
+        System.out.println(getBezeichnung(data1));
+        assertNotEquals(compare, getBezeichnung(data1));
 
     }
 
@@ -60,7 +63,29 @@ public class JobCardsTest {
         assertEquals(21,data1.getJobsToSelect(21).length);
     }
 
-    public String testmethode(JobData data){
+    @Test
+    public void testGetJobList(){
+        assertEquals(0, data1.getJobList().size());
+        data1.fillJobList();
+        assertEquals(20, data1.getJobList().size());
+    }
+
+    @Test
+    public void testGetGehaltsstufeUndBefoerderung() throws Exception {
+        assertEquals(0,j1.getGehaltsStufe());
+        j1.befoerderung();
+        assertEquals(1,j1.getGehaltsStufe());
+    }
+
+    /*
+    TODO Klammern entfernen wenn language level höher als 7
+    @Test
+    public void testBefoerderungMaxStufe(){
+        Assert.assertThrows(Exception.class, ()->j1.befoerderung());
+    }
+     */
+
+    public String getBezeichnung(JobData data){
         String result = "";
         for (int i = 0; i < data.jobList.size(); i++) {
             result+=data.jobList.get(i).getBezeichnung();
@@ -68,4 +93,7 @@ public class JobCardsTest {
         }
         return result;
     }
+
+
+
 }

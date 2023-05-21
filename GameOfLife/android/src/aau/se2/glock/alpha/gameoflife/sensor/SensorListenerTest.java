@@ -1,11 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.sensor;
 
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-
-import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
-
 /*
 import org.junit.Before;
 import org.junit.Test;

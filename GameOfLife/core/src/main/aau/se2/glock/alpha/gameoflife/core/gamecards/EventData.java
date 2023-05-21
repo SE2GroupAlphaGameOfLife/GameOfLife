@@ -21,7 +21,7 @@ public class EventData {
     /**
      *
      */
-    private Event e1 = new Event(200, 0, "Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhältst du 200 LP."),
+    final private Event e1 = new Event(200, 0, "Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhältst du 200 LP."),
             e2 = new Event(200, 0, "Du malst nach einem Foto ein Familienporträt. Es ist kein Meisterwerk, aber allen gefällt's. Du erhältst 200 LP."),
             e3 = new Event(0, 20000, "Du übernachtest in enem skandinvischen Eishotel. Für deine Frostbeueln erhälst du € 20.000. Schmerzensgeld."),
             e4 = new Event(0, -12000, "Du bewirfst einen Star mit faulen Eiern. Zahle € 12.000 Strafe."),
@@ -264,11 +264,6 @@ public class EventData {
             index = index + 4;
         }
 
-
-    }
-
-    public void cardToStack() {
-        //s1.addCards(cardList);
 
     }
 

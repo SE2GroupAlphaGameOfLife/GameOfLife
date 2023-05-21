@@ -11,9 +11,11 @@ Welcome to the GitHub repository of "Das Spiel des Lebens" - Android Edition. Ou
 3. [Installation](#installation)
 4. [How to Play](#how-to-play)
 5. [Contribution](#contribution)
-6. [License](#license)
-7. [Acknowledgments](#acknowledgments)
-8. [Contributors](#contributors)
+6. [Security](#security)
+7. [License](#license)
+8. [Code of Conduct](#code-of-conduct)
+9. [Acknowledgments](#acknowledgments)
+10. [Contributors](#contributors)
 
 ## Introduction
 
@@ -43,13 +45,22 @@ To install "Das Spiel des Lebens" Android Edition, follow these steps:
 
 Navigate to our [How to Play](https://github.com/SE2GroupAlphaGameOfLife/GameOfLife/wiki/How-to-Play) section in the Wiki for a detailed guide.
 
-## Contribution
 
-We are always open to contributions. If you have any ideas or find any bugs, feel free to open an issue or submit a pull request. Please read the [CONTRIBUTING.md](https://github.com/SE2GroupAlphaGameOfLife/GameOfLife/blob/main/CONTRIBUTING.md) for more information on how to contribute.
+## Security
+
+For information about the security of our project, please see our [Security Policy](SECURITY.md).
+
+## Code of Conduct
+
+We aim to foster an inclusive and respectful environment for everyone involved in our project. To learn more about our expectations and guidelines, please review our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-This project is licensed under the terms of the MIT license. For more information, see [LICENSE.md](https://github.com/SE2GroupAlphaGameOfLife/GameOfLife/blob/main/LICENSE.md).
+This project is licensed under the terms of the MIT license. For more information, see [LICENSE](LICENSE).
+
+## Contribution
+
+We are always open to contributions. If you have any ideas or find any bugs, feel free to open an issue or submit a pull request. Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to contribute.
 
 ## Acknowledgments
 

@@ -12,13 +12,18 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -30,6 +35,8 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 
 /**
@@ -75,12 +82,27 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
+    private TextButton btnJob;
+
+    /**
+     *
+     */
+    private Dialog jobDialog;
+
+    /**
+     *
+     */
+    private Skin uiSkin;
+
+    /**
+     *
+     */
     private BitmapFont standardFont, bigFont;
 
     /**
      *
      */
-    private Skin skin,popupSkin;
+    private Skin skin, popupSkin;
 
     /**
      *
@@ -91,6 +113,31 @@ public class GameScreen implements Screen, ProximityListener {
      *
      */
     private Button nextFieldButton1, nextFieldButton2;
+
+    /**
+     *
+     */
+    private Button closeBtn;
+
+    /**
+     *
+     */
+    private Button job1Btn;
+
+    /**
+     *
+     */
+    private Button job2Btn;
+
+    /**
+     *
+     */
+    private Label job1Description;
+
+    /**
+     *
+     */
+    private Label job2Description;
 
     /**
      *
@@ -213,6 +260,7 @@ public class GameScreen implements Screen, ProximityListener {
         createPlayerHUD();
         createEventPopup();
         refreshPlayerHUD();
+        createJobButton();
     }
 
     @Override
@@ -221,7 +269,7 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     *  Is Triggered, when the proximity sensor has been cover for a specified amount of time.
+     * Is Triggered, when the proximity sensor has been cover for a specified amount of time.
      */
     @Override
     public void onProximity() {
@@ -230,8 +278,7 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     * @param delta
-     * The time in seconds since the last render.
+     * @param delta The time in seconds since the last render.
      */
     @Override
     public void render(float delta) {
@@ -305,7 +352,7 @@ public class GameScreen implements Screen, ProximityListener {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2( centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
+        buttonPosition = new Vector2(centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -324,7 +371,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      * Initialises Styles for Labels,Buttons,ETC...
      */
-    private void initStyles(){
+    private void initStyles() {
         labelStyle = new Label.LabelStyle();
         labelStyle.font = standardFont;
         labelStyle.fontColor = Color.WHITE;
@@ -404,13 +451,11 @@ public class GameScreen implements Screen, ProximityListener {
                 isSpinning = true;
 
 
-
             }
 
         };
         btnRollDice.addListener(btnRollDiceListener);
     }
-
 
 
     /**
@@ -512,7 +557,7 @@ public class GameScreen implements Screen, ProximityListener {
 
                 GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
-            }else {
+            } else {
                 showEventPopUp(player.getEvent().getText());
             }
 
@@ -543,6 +588,119 @@ public class GameScreen implements Screen, ProximityListener {
         };
 
         btnQuit.addListener(btnQuitListener);
+    }
+ /**
+     *
+     */
+    private void createJobButton(){
+       btnJob = new TextButton("Job",textButtonStyle);
+       btnJob.setSize(buttonWidth,buttonHeight);
+       btnJob.setPosition(Gdx.graphics.getWidth()-buttonWidth-10,Gdx.graphics.getHeight()-buttonHeight-10);
+
+       stage.addActor(btnJob);
+
+       ClickListener btnJobListener = new ClickListener(){
+           @Override
+           public void clicked(InputEvent event, float x, float y){
+               Gdx.app.log("TestJobBtn","Works");
+                chooseJobWindow();
+           }
+        };
+
+        btnJob.addListener(btnJobListener);
+    }
+
+    private JobData jobSelection;
+    private Job[] jobs;
+
+    private void createJobWindow(){
+        //loads uiSkin from files
+        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        final Window window = new Window("",uiSkin);
+        window.setSize(600,450);
+        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
+        closeBtn = new TextButton("Close",textButtonStyle);
+
+        job1Description = new Label(GameOfLife.players.get(0).getCurrentJob().getBezeichnung(),uiSkin);
+        //TODO Exception einfügen falls noch kein Job ausgewählt wurde
+
+        window.add(job1Description).pad(10,0,0,0).colspan(0).row();
+
+        window.add(closeBtn).pad(150,0,0,0).colspan(2);
+
+        window.setScale(2F);
+
+        closeBtn.addListener (new ChangeListener() {
+            // This method is called whenever the actor is clicked. We override its behavior here.
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // This is where we remove the window.
+                window.remove();
+            }
+        });
+
+        stage.addActor(window);
+    }
+
+    private void chooseJobWindow(){
+        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        jobSelection = new JobData();
+
+        final Window window = new Window("",uiSkin);
+        window.setSize(600,450);
+        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
+
+        closeBtn = new TextButton("Close",textButtonStyle);
+        job1Btn = new TextButton("Auswählen",textButtonStyle);
+        job2Btn = new TextButton("Auswählen",textButtonStyle);
+
+        jobSelection.fillJobList();
+        jobs = new Job[2];
+        jobSelection.mixCards();
+        final Job[] jobs = jobSelection.getJobsToSelect(2);
+
+        job1Description = new Label(jobs[0].getBezeichnung()+"\n"+jobs[0].getGehaltsListe().toString(),uiSkin);
+        job2Description = new Label(jobs[1].getBezeichnung()+"\n"+jobs[1].getGehaltsListe().toString(),uiSkin);
+
+        window.add(job1Description).pad(10,0,0,0).colspan(1);
+        window.add(job2Description).pad(10,50,0,0).colspan(0).row();
+        window.add(job1Btn).pad(0,0,0,0).colspan(1);
+        window.add(job2Btn).pad(0,50,0,0).row();
+        window.add(closeBtn).pad(150,0,0,0).colspan(2);
+
+        window.setScale(2F);
+
+        job1Btn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                GameOfLife.players.get(0).setCurrentJob(jobs[0]);
+                window.remove();
+                Gdx.app.log("JobSelection", "Job 1 chosen");
+            };
+
+        });
+
+        job2Btn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                GameOfLife.players.get(0).setCurrentJob(jobs[1]);
+                window.remove();
+                Gdx.app.log("JobSelection", "Job 2 chosen");
+
+            };
+        });
+
+        closeBtn.addListener (new ChangeListener() {
+            // This method is called whenever the actor is clicked. We override its behavior here.
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // This is where we remove the window.
+                window.remove();
+            }
+        });
+
+        stage.addActor(window);
     }
 
     /**
@@ -594,24 +752,22 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private void createEventPopup(){
-        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
-        eventDialog = new Dialog("",windowStyle);
-        eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
+    private void createEventPopup() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont, Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
+        eventDialog = new Dialog("", windowStyle);
+        eventDialog.button(new TextButton("Bestätigen", textButtonStyle));
         stage.addActor(eventDialog);
         hideEventPopup();
 
     }
 
     /**
-     *
      * @param eventText
      */
-    private void showEventPopUp(String eventText){
-       createEventPopup();
-        eventDialog.text(eventText,labelStyle);
+    private void showEventPopUp(String eventText) {
+        createEventPopup();
+        eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-
 
 
     }
@@ -619,7 +775,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private void hideEventPopup(){
+    private void hideEventPopup() {
         eventDialog.hide();
 
     }

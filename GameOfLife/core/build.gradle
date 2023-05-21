@@ -8,7 +8,7 @@ jacocoTestReport {
     }
     dependsOn test
 
-    afterEvaluate{
+    afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     "aau/se2/glock/alpha/gameoflife/screens.*",
