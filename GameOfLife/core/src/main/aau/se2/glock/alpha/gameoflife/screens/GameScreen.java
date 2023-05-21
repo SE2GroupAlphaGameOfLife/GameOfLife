@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -26,7 +25,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -67,11 +65,6 @@ public class GameScreen implements Screen, ProximityListener {
      *
      */
     private Stage stage;
-
-    /**
-     *
-     */
-    private TextButton btnRollDice;
 
     /**
      *
@@ -299,7 +292,7 @@ public class GameScreen implements Screen, ProximityListener {
         // Here, you can define what to do when the proximity sensor is triggered
         Gdx.app.log("Sensor", "Triggered in GameScreen");
 
-        if (GameOfLife.self.isHasTurn()) {
+        if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() != 0) {
             createMenuCheating();
         }
     }
@@ -324,11 +317,11 @@ public class GameScreen implements Screen, ProximityListener {
         if (GameOfLife.self.isHasTurn()) {
             createSpinTheWheelButton();
 
-            if(isSpinning) {
+            if (isSpinning) {
                 arrowImage.setRotation(((float) spinAngle + arrowRotation));
             }
 
-            if(!spinTheWheelGroup.hasChildren()) {
+            if (!spinTheWheelGroup.hasChildren()) {
                 spinTheWheelGroup.addActor(wheelImageButton);
                 spinTheWheelGroup.addActor(arrowImageButton);
             }
@@ -489,11 +482,12 @@ public class GameScreen implements Screen, ProximityListener {
         ClickListener btnRollDiceListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() == 0) {
+                if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() == 0) {
                     // This method will be called when the TextButton is clicked
                     boolean isInTurn = true;
 
                     Player player = GameOfLife.self;
+                    player.setAge(player.getAge() + 1);
                     int moveCount = player.rollTheDice();
                     Gdx.app.log("moveCount", moveCount + "");
 
@@ -892,6 +886,5 @@ public class GameScreen implements Screen, ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
-
     }
 }
