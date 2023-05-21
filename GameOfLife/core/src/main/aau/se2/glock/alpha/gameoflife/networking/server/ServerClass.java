@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking.server;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
@@ -139,14 +140,14 @@ public class ServerClass extends Listener {
                 Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
                 player.setOnline(true);
                 this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
-                System.out.println("[Server] Client wiederverbunden!");
+                Gdx.app.log("Server", "Client wiederverbunden!");
                 sendPlayersObjectToAll();
             } else {
-                System.out.println("[Server] Client Verbindung abgelehnt da Spiel bereits läuft!");
+                Gdx.app.log("Server", "Client Verbindung abgelehnt da Spiel bereits läuft!");
                 connection.close();
             }
         } else {
-            System.out.println("[Server] Client verbunden!");
+            Gdx.app.log("Server", "Client verbunden!");
         }
     }
 
@@ -162,7 +163,8 @@ public class ServerClass extends Listener {
             this.players.setPlayersTurn(player.getId() + 1);
             sendPlayersObjectToAll();
         }
-        System.out.println("[Server] Client hat Verbindung getrennt!");
+        Gdx.app.log("Server", "Client hat Verbindung getrennt!");
+        //System.out.println("[Server] Client hat Verbindung getrennt!");
     }
 
     /**

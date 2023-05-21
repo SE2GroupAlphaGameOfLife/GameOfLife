@@ -325,14 +325,14 @@ public class MainMenuScreen implements Screen {
                     //GameOfLife.server.start(GameOfLife.self.getUsername());
 
                     GameOfLife.changeScreen(new JoinGameScreen());
-                    new Thread(new Runnable() {
+                    /*new Thread(new Runnable() {
                         @Override
                         public void run() {
                             GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                             System.out.println(GameOfLife.availableServers);
                             //GameOfLife.getInstance().render();
                         }
-                    }).start();
+                    }).start();*/
                 }
             }
         });
