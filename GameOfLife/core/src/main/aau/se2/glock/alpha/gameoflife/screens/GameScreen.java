@@ -70,6 +70,12 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
+    private TextButton btnCheat1Field, btnCheat2Fields, btnCheat3Fields;
+
+
+    /**
+     *
+     */
     private TextButton.TextButtonStyle textButtonStyle;
 
     /**
@@ -80,7 +86,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private Skin skin,popupSkin;
+    private Skin skin, popupSkin;
 
     /**
      *
@@ -95,7 +101,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private Group nextFieldButtonGroup; // Create a Group to hold actors
+    private Group nextFieldButtonGroup, cheatingButtonGroup; // Create a Group to hold actors
 
     /**
      *
@@ -209,6 +215,7 @@ public class GameScreen implements Screen, ProximityListener {
         initTextures();
         initStyles();
         createButton();
+        createMenuCheating();
         createQuitButton();
         createPlayerHUD();
         createEventPopup();
@@ -221,17 +228,20 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     *  Is Triggered, when the proximity sensor has been cover for a specified amount of time.
+     * Is Triggered, when the proximity sensor has been cover for a specified amount of time.
      */
     @Override
     public void onProximity() {
         // Here, you can define what to do when the proximity sensor is triggered
         Gdx.app.log("Sensor", "Triggered in GameScreen");
+
+        if (GameOfLife.self.isHasTurn()) {
+            stage.addActor(cheatingButtonGroup);
+        }
     }
 
     /**
-     * @param delta
-     * The time in seconds since the last render.
+     * @param delta The time in seconds since the last render.
      */
     @Override
     public void render(float delta) {
@@ -305,7 +315,7 @@ public class GameScreen implements Screen, ProximityListener {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2( centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
+        buttonPosition = new Vector2(centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -324,7 +334,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      * Initialises Styles for Labels,Buttons,ETC...
      */
-    private void initStyles(){
+    private void initStyles() {
         labelStyle = new Label.LabelStyle();
         labelStyle.font = standardFont;
         labelStyle.fontColor = Color.WHITE;
@@ -335,7 +345,6 @@ public class GameScreen implements Screen, ProximityListener {
         textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
         textButtonStyle.font = standardFont; // Set the font
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
-
     }
 
     /**
@@ -345,6 +354,7 @@ public class GameScreen implements Screen, ProximityListener {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         nextFieldButtonGroup = new Group();
+        cheatingButtonGroup = new Group();
         skin = new Skin();
     }
 
@@ -404,14 +414,77 @@ public class GameScreen implements Screen, ProximityListener {
                 isSpinning = true;
 
 
-
             }
 
         };
         btnRollDice.addListener(btnRollDiceListener);
     }
 
+    /**
+     * Create Button for rolling the dice.
+     */
+    private void createMenuCheating() {
+        //Create a Start Game Button
+        btnCheat1Field = new TextButton("+1 Feld", textButtonStyle); // Create the text button with the text and style
+        btnCheat1Field.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the button
+        btnCheat1Field.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
+        cheatingButtonGroup.addActor(btnCheat1Field);
+
+        //Create a Start Game Button
+        btnCheat2Fields = new TextButton("+2 Felder", textButtonStyle); // Create the text button with the text and style
+        btnCheat2Fields.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25 * 2))); // Set the position of the button
+        btnCheat2Fields.setSize(buttonWidth, buttonHeight); // Set the size of the button
+
+        cheatingButtonGroup.addActor(btnCheat2Fields);
+
+        //Create a Start Game Button
+        btnCheat3Fields = new TextButton("+3 Felder", textButtonStyle); // Create the text button with the text and style
+        btnCheat3Fields.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25 * 3))); // Set the position of the button
+        btnCheat3Fields.setSize(buttonWidth, buttonHeight); // Set the size of the button
+
+        cheatingButtonGroup.addActor(btnCheat3Fields);
+
+        // Create a ClickListener
+        ClickListener btnCheat1FieldListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // This method will be called when the TextButton is clicked
+                GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 1);
+                GameOfLife.players.get(0).setMoveCount(GameOfLife.players.get(0).getMoveCount() + 1);
+
+                cheatingButtonGroup.clearChildren();
+            }
+
+        };
+        btnCheat1Field.addListener(btnCheat1FieldListener);
+
+        ClickListener btnCheat2FieldsListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // This method will be called when the TextButton is clicked
+                GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 2);
+                GameOfLife.players.get(0).setMoveCount(GameOfLife.players.get(0).getMoveCount() + 2);
+
+                cheatingButtonGroup.clearChildren();
+            }
+
+        };
+        btnCheat2Fields.addListener(btnCheat2FieldsListener);
+
+        ClickListener btnCheat3FieldsListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // This method will be called when the TextButton is clicked
+                GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 3);
+                GameOfLife.players.get(0).setMoveCount(GameOfLife.players.get(0).getMoveCount() + 3);
+
+                cheatingButtonGroup.clearChildren();
+            }
+
+        };
+        btnCheat3Fields.addListener(btnCheat3FieldsListener);
+    }
 
     /**
      * Chooses the next step for the player on the game field.
@@ -512,7 +585,7 @@ public class GameScreen implements Screen, ProximityListener {
 
                 GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
-            }else {
+            } else {
                 showEventPopUp(player.getEvent().getText());
             }
 
@@ -594,24 +667,22 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private void createEventPopup(){
-        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont,Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
-        eventDialog = new Dialog("",windowStyle);
-        eventDialog.button(new TextButton("Bestätigen",textButtonStyle));
+    private void createEventPopup() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(standardFont, Color.WHITE, new TextureRegionDrawable(new TextureRegion(lightGrayTexture)));
+        eventDialog = new Dialog("", windowStyle);
+        eventDialog.button(new TextButton("Bestätigen", textButtonStyle));
         stage.addActor(eventDialog);
         hideEventPopup();
 
     }
 
     /**
-     *
      * @param eventText
      */
-    private void showEventPopUp(String eventText){
-       createEventPopup();
-        eventDialog.text(eventText,labelStyle);
+    private void showEventPopUp(String eventText) {
+        createEventPopup();
+        eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-
 
 
     }
@@ -619,7 +690,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      *
      */
-    private void hideEventPopup(){
+    private void hideEventPopup() {
         eventDialog.hide();
 
     }
