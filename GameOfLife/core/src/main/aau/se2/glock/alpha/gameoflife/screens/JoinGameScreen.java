@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.esotericsoftware.kryonet.Server;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -278,19 +279,29 @@ public class JoinGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (validateInput(ipInput.getText())) {
-                    timer.clear();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-                            try {
-                                wait(500);
-                                GameOfLife.changeScreen(new StartGameScreen());
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
+                    for(ServerInformation s : GameOfLife.availableServers){
+                        try {
+                            if(s.getAddress().equals(InetAddress.getByName(ipInput.getText()))){
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                                            wait(500);
+                                            timer.clear();
+                                            GameOfLife.changeScreen(new StartGameScreen());
+                                        } catch (InterruptedException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }).start();
+                            }else{
+                                //Put here what to happen if non valid ip was given to connect to
                             }
+                        } catch (UnknownHostException e) {
+                            throw new RuntimeException(e);
                         }
-                    }).start();
+                    }
                 }
             }
         });
