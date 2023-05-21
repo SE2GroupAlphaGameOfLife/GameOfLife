@@ -10,10 +10,10 @@ Welcome to the GitHub repository of "Das Spiel des Lebens" - Android Edition. Ou
 2. [Features](#features)
 3. [Installation](#installation)
 4. [How to Play](#how-to-play)
-5. [Contribution](#contribution)
-6. [Security](#security)
+5. [Security](#security)
+6. [Code of Conduct](#code-of-conduct)
 7. [License](#license)
-8. [Code of Conduct](#code-of-conduct)
+8. [Contribution](#contribution)
 9. [Acknowledgments](#acknowledgments)
 10. [Contributors](#contributors)
 
