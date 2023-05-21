@@ -37,6 +37,8 @@ public class PlayerTest {
 
     @Test
     public void testRollTheDice() {
+        player = new Player("testUser", true);
+
         int roll = player.rollTheDice();
         assertTrue(roll >= 1 && roll <= 10);
     }
@@ -48,6 +50,8 @@ public class PlayerTest {
 
     @Test
     public void testChooseDirection() {
+        player = new Player("testUser", true);
+
         player.setMoveCount(1);
         player.chooseDirection(0);
         assertEquals(1, player.getPosition());
@@ -55,6 +59,8 @@ public class PlayerTest {
 
     @Test
     public void testMakeMove() {
+        player = new Player("testUser", true);
+
         player.setMoveCount(1);
 
         player.makeMove();
