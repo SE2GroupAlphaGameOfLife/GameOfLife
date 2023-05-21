@@ -53,13 +53,22 @@ public class Job {
     }
 
     /**
+     *
+     * @return
+     */
+    public ArrayList<Integer> getGehaltsListe() {
+        return gehaltsListe;
+    }
+
+    /**
      * Increases pay grade until you reach the maximum grade.
      */
-    public void befoerderung() {
+    public void befoerderung() throws Exception{
         if (gehaltsStufe < gehaltsListe.size() - 1) {
             gehaltsStufe++;
         } else {
             System.out.println("Error: highest possible job level reached.");
+            throw new Exception("Highest possible job level reached");
         }
     }
 

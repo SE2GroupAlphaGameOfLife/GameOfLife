@@ -3,6 +3,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 import com.badlogic.gdx.graphics.Color;
 
 import java.security.SecureRandom;
+
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 
@@ -20,43 +21,35 @@ public class Player {
      * Amount of steps the player can go.
      */
     protected int moveCount;
-
+    SecureRandom random;
     /**
      * Ingame name and gender of the player.
      */
     private String username, gender;
-
     /**
      * Job the player currently has.
      */
     private Job currentJob;
-
     /**
      * Vital values of the player, dependent on the player success.
      */
     private int age, money, id, lifepoints;
-
     /**
      * Color of the player displayed on the board.
      */
     private Color color;
-
     /**
      * Tells if the player is the game's host.
      */
     private boolean isHost;
-
     /**
      * Tells if it's the player's turn.
      */
     private boolean hasTurn;
-
     /**
      * Tells if the server is only and or the player joining.
      */
     private boolean isJoning, isOnline;
-
-    SecureRandom random;
 
 
     /**
@@ -266,6 +259,22 @@ public class Player {
      */
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Job getCurrentJob() {
+        return currentJob;
+    }
+
+    /**
+     *
+     * @param currentJob
+     */
+    public void setCurrentJob(Job currentJob) {
+        this.currentJob = currentJob;
     }
 
     /**
