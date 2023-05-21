@@ -150,6 +150,7 @@ public class GameScreen implements Screen, ProximityListener {
     private Group nextFieldButtonGroup; // Create a Group to hold actors
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
+    private Group playersGroup;
     /**
      *
      */
@@ -309,10 +310,17 @@ public class GameScreen implements Screen, ProximityListener {
         stage.getBatch().begin();
 
         stage.getBatch().draw(background, -gameCamera.viewportWidth / 3, -gameCamera.viewportHeight / 2, gameCamera.viewportWidth / 3 * 2, gameCamera.viewportHeight);
+        playersGroup.clearChildren();
         for (Player player : GameOfLife.players) {
             GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
-            stage.getBatch().draw(skateboard, currentField.getPosition().x - 20, currentField.getPosition().y - 20, 40, 40);
+            Vector3 v3 = new Vector3(currentField.getPosition().x - 20, currentField.getPosition().y - 20, 0);
+            gameCamera.project(v3);
+            ImageButton playerButton = new ImageButton(new TextureRegionDrawable(skateboard));
+            playerButton.setPosition(v3.x, v3.y);
+            playerButton.setSize(100, 100);
+            playersGroup.addActor(playerButton);
         }
+
 
         if (GameOfLife.self.isHasTurn()) {
             createSpinTheWheelButton();
@@ -425,9 +433,11 @@ public class GameScreen implements Screen, ProximityListener {
         nextFieldButtonGroup = new Group();
         cheatingButtonGroup = new Group();
         spinTheWheelGroup = new Group();
+        playersGroup = new Group();
         stage.addActor(nextFieldButtonGroup);
         stage.addActor(cheatingButtonGroup);
         stage.addActor(spinTheWheelGroup);
+        stage.addActor(playersGroup);
         skin = new Skin();
     }
 
@@ -537,8 +547,12 @@ public class GameScreen implements Screen, ProximityListener {
         ClickListener btnCheat1FieldListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Player self = GameOfLife.self;
+
                 // This method will be called when the TextButton is clicked
-                GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 1);
+                self.setMoveCount(self.getMoveCount() + 1);
+                self.setHasCheated(true);
+                self.setHasCheatedAtAge(self.getAge());
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -549,8 +563,12 @@ public class GameScreen implements Screen, ProximityListener {
         ClickListener btnCheat2FieldsListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Player self = GameOfLife.self;
+
                 // This method will be called when the TextButton is clicked
-                GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 2);
+                self.setMoveCount(self.getMoveCount() + 2);
+                self.setHasCheated(true);
+                self.setHasCheatedAtAge(self.getAge());
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -561,8 +579,12 @@ public class GameScreen implements Screen, ProximityListener {
         ClickListener btnCheat3FieldsListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Player self = GameOfLife.self;
+
                 // This method will be called when the TextButton is clicked
-                GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 3);
+                self.setMoveCount(self.getMoveCount() + 3);
+                self.setHasCheated(true);
+                self.setHasCheatedAtAge(self.getAge());
 
                 cheatingButtonGroup.clearChildren();
             }
