@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -327,8 +328,11 @@ public class GameScreen implements Screen, ProximityListener {
                 arrowImage.setRotation(((float) spinAngle + arrowRotation));
             }
 
-            spinTheWheelGroup.addActor(wheelImageButton);
-            spinTheWheelGroup.addActor(arrowImageButton);
+            if(!spinTheWheelGroup.hasChildren()) {
+                spinTheWheelGroup.addActor(wheelImageButton);
+                spinTheWheelGroup.addActor(arrowImageButton);
+            }
+
 
             if (isSpinning) {
                 spinTheWheel(delta);
@@ -489,7 +493,7 @@ public class GameScreen implements Screen, ProximityListener {
                     // This method will be called when the TextButton is clicked
                     boolean isInTurn = true;
 
-                    Player player = GameOfLife.players.get(0);
+                    Player player = GameOfLife.self;
                     int moveCount = player.rollTheDice();
                     Gdx.app.log("moveCount", moveCount + "");
 
@@ -553,7 +557,6 @@ public class GameScreen implements Screen, ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 2);
-                GameOfLife.players.get(0).setMoveCount(GameOfLife.players.get(0).getMoveCount() + 2);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -566,7 +569,6 @@ public class GameScreen implements Screen, ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 GameOfLife.self.setMoveCount(GameOfLife.self.getMoveCount() + 3);
-                GameOfLife.players.get(0).setMoveCount(GameOfLife.players.get(0).getMoveCount() + 3);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -590,8 +592,6 @@ public class GameScreen implements Screen, ProximityListener {
         nextFieldButton1.setSize(100, 50);
         Vector3 v3 = new Vector3(nextGameField1.getPosition().x, nextGameField1.getPosition().y - 5, 0);
         gameCamera.project(v3);
-        Gdx.app.log("Original", "x: " + (nextGameField1.getPosition().x) + ", y:" + (nextGameField1.getPosition().y));
-        Gdx.app.log("V3", "x: " + v3.x + ", y:" + v3.y);
         nextFieldButton1.setPosition(v3.x, v3.y);
 
         //Add click listener for the first option button
@@ -633,22 +633,20 @@ public class GameScreen implements Screen, ProximityListener {
      */
     private void stepChoosen(int index) {
         // Update player's choice and position
-        Player player = GameOfLife.players.get(0);
+        Player player = GameOfLife.self;
         player.chooseDirection(index);
-        GameOfLife.players.set(0, player);
         nextFieldButtonGroup.clearChildren();
 
         //Check if player can still move
         GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
         if (!player.makeMove()) {
             gameField = Board.getInstance().getGameFields().get(player.getPosition());
-            GameOfLife.players.set(0, player);
             chooseNextStep(gameField);
         }
 
-        GameOfLife.players.set(0, player);
-        showEventPopUp(player.getEvent().getText());
-
+        if (player.getMoveCount() == 0) {
+            showEventPopUp(player.getEvent().getText());
+        }
     }
 
     /**
@@ -666,20 +664,18 @@ public class GameScreen implements Screen, ProximityListener {
             selectedSection = MathUtils.random(10);
             isSpinning = false;
 
-            Player player = GameOfLife.players.get(0);
+            Player player = GameOfLife.self;
             GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
             if (!player.makeMove()) {
                 gameField = Board.getInstance().getGameFields().get(player.getPosition());
 
-                GameOfLife.players.set(0, player);
                 chooseNextStep(gameField);
             } else {
-                showEventPopUp(player.getEvent().getText());
+                if (player.getMoveCount() == 0) {
+                    Gdx.app.log("Zeile", "673");
+                    showEventPopUp(player.getEvent().getText());
+                }
             }
-
-            GameOfLife.players.set(0, player);
-
-
         }
     }
 
@@ -739,7 +735,7 @@ public class GameScreen implements Screen, ProximityListener {
         window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
         closeBtn = new TextButton("Close", textButtonStyle);
 
-        job1Description = new Label(GameOfLife.players.get(0).getCurrentJob().getBezeichnung(), uiSkin);
+        job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
         //TODO Exception einfügen falls noch kein Job ausgewählt wurde
 
         window.add(job1Description).pad(10, 0, 0, 0).colspan(0).row();
@@ -791,7 +787,7 @@ public class GameScreen implements Screen, ProximityListener {
         job1Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.players.get(0).setCurrentJob(jobs[0]);
+                GameOfLife.self.setCurrentJob(jobs[0]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 1 chosen");
             }
@@ -803,7 +799,7 @@ public class GameScreen implements Screen, ProximityListener {
         job2Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.players.get(0).setCurrentJob(jobs[1]);
+                GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
 
@@ -889,8 +885,6 @@ public class GameScreen implements Screen, ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-
-
     }
 
     /**
