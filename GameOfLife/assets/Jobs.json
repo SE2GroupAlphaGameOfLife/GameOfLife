@@ -1,0 +1,242 @@
+[
+  {
+    "Bezeichnung": "Schauspieler",
+    "gehaltsListe": [
+      5000,
+      20000,
+      30000,
+      60000,
+      90000,
+      300000,
+      1500000
+    ]
+  },
+  {
+    "Bezeichnung": "Sportler",
+    "gehaltsListe": [
+      5000,
+      20000,
+      35000,
+      65000,
+      90000,
+      300000,
+      1400000
+    ]
+  },
+  {
+    "Bezeichnung": "Landwirt",
+    "gehaltsListe": [
+      5000,
+      30000,
+      50000,
+      100000,
+      150000,
+      300000,
+      1000000
+    ]
+  },
+  {
+    "Bezeichnung": "Schönheitsberater",
+    "gehaltsListe": [
+      5000,
+      20000,
+      30000,
+      40000,
+      50000,
+      60000,
+      700000
+    ]
+  },
+  {
+    "Bezeichnung": "Zirkusartist",
+    "gehaltsListe": [
+      5000,
+      70000,
+      80000,
+      90000,
+      100000,
+      110000,
+      130000
+    ]
+  },
+  {
+    "Bezeichnung": "Koch",
+    "gehaltsListe": [
+      5000,
+      25000,
+      35000,
+      50000,
+      750000,
+      400000,
+      900000
+    ]
+  },
+  {
+    "Bezeichnung": "Musiker",
+    "gehaltsListe": [
+      5000,
+      30000,
+      50000,
+      100000,
+      1050000,
+      300000,
+      1500000
+    ]
+  },
+  {
+    "Bezeichnung": "Künstler",
+    "gehaltsListe": [
+      5000,
+      80000,
+      120000,
+      140000,
+      160000,
+      180000,
+      220000
+    ]
+  },
+  {
+    "Bezeichnung": "Politiker",
+    "gehaltsListe": [
+      5000,
+      60000,
+      80000,
+      90000,
+      150000,
+      300000,
+      600000
+    ]
+  },
+  {
+    "Bezeichnung": "Tänzer",
+    "gehaltsListe": [
+      5000,
+      110000,
+      120000,
+      140000,
+      160000,
+      180000,
+      190000
+    ]
+  },
+  {
+    "Bezeichnung": "Super-Nanny",
+    "gehaltsListe": [
+      5000,
+      10000,
+      50000,
+      80000,
+      120000,
+      220000,
+      270000
+    ]
+  },
+  {
+    "Bezeichnung": "Fotomodell",
+    "gehaltsListe": [
+      5000,
+      10000,
+      20000,
+      50000,
+      200000,
+      500000,
+      700000
+    ]
+  },
+  {
+    "Bezeichnung": "Computerspezialist",
+    "gehaltsListe": [
+      5000,
+      10000,
+      50000,
+      100000,
+      250000,
+      500000,
+      1000000
+    ]
+  },
+  {
+    "Bezeichnung": "Spion",
+    "gehaltsListe": [
+      5000,
+      10000,
+      100000,
+      400000,
+      950000,
+      1200000,
+      1500000
+    ]
+  },
+  {
+    "Bezeichnung": "Abenteurer",
+    "gehaltsListe": [
+      5000,
+      30000,
+      80000,
+      140000,
+      200000,
+      300000,
+      400000
+    ]
+  },
+  {
+    "Bezeichnung": "Journalist",
+    "gehaltsListe": [
+      5000,
+      10000,
+      30000,
+      50000,
+      100000,
+      200000,
+      600000
+    ]
+  },
+  {
+    "Bezeichnung": "Bauunternehmer",
+    "gehaltsListe": [
+      5000,
+      70000,
+      80000,
+      90000,
+      100000,
+      110000,
+      300000
+    ]
+  },
+  {
+    "Bezeichnung": "Kostümbildner",
+    "gehaltsListe": [
+      5000,
+      30000,
+      80000,
+      140000,
+      200000,
+      300000,
+      400000
+    ]
+  },
+  {
+    "Bezeichnung": "Kommissar",
+    "gehaltsListe": [
+      5000,
+      20000,
+      60000,
+      400000,
+      800000,
+      1000000,
+      1600000
+    ]
+  },
+  {
+    "Bezeichnung": "Schriftsteller",
+    "gehaltsListe": [
+      5000,
+      10000,
+      50000,
+      80000,
+      120000,
+      220000,
+      500000
+    ]
+  }
+]
