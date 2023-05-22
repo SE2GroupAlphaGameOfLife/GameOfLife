@@ -589,13 +589,13 @@ public class GameScreen implements Screen, ProximityListener {
 
         btnQuit.addListener(btnQuitListener);
     }
- /**
+    /**
      *
      */
     private void createJobButton(){
        btnJob = new TextButton("Job",textButtonStyle);
        btnJob.setSize(buttonWidth,buttonHeight);
-       btnJob.setPosition(Gdx.graphics.getWidth()-buttonWidth-10,Gdx.graphics.getHeight()-buttonHeight-10);
+       btnJob.setPosition(Gdx.graphics.getWidth()-buttonWidth-10f,Gdx.graphics.getHeight()-buttonHeight-10f);
 
        stage.addActor(btnJob);
 

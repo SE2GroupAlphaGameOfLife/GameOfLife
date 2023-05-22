@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
@@ -40,7 +40,6 @@ public class JobCardsTest {
         data1.fillJobList();
         String compare = getBezeichnung(data1);
         data1.mixCards();
-        System.out.println(getBezeichnung(data1));
         assertNotEquals(compare, getBezeichnung(data1));
 
     }
@@ -78,12 +77,21 @@ public class JobCardsTest {
     }
 
     /*
-    TODO Klammern entfernen wenn language level höher als 7
     @Test
     public void testBefoerderungMaxStufe(){
         Assert.assertThrows(Exception.class, ()->j1.befoerderung());
     }
+
      */
+
+
+    @Test
+
+    public void testGetGehaltsListe() {
+        assertEquals(7, j1.getGehaltsListe().size());
+        int gehalt = j1.getGehaltsListe().get(6);
+        assertEquals(1500000,gehalt);
+    }
 
     public String getBezeichnung(JobData data){
         String result = "";

@@ -6,6 +6,8 @@ import java.security.SecureRandom;
 
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.special.Building;
+import aau.se2.glock.alpha.gameoflife.core.special.Car;
 
 /**
  *
@@ -51,6 +53,15 @@ public class Player {
      */
     private boolean isJoning, isOnline;
 
+    /**
+     *
+     */
+    private Building[] buildings;
+
+    /**
+     *
+     */
+    private Car[] cars;
 
     /**
      * Needed for Kryo Serialization
