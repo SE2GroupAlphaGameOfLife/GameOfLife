@@ -1,0 +1,502 @@
+[
+  {
+    "lp": 200,
+    "cash": 0,
+    "text": "Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhältst du 200 LP."
+  },
+  {
+    "lp": 200,
+    "cash": 0,
+    "text": "Du malst nach einem Foto ein Familienporträt. Es ist kein Meisterwerk, aber allen gefällt's. Du erhältst 200 LP."
+  },
+  {
+    "lp": 0,
+    "cash": 20000,
+    "text": "Du übernachtest in enem skandinvischen Eishotel. Für deine Frostbeueln erhälst du € 20.000. Schmerzensgeld."
+  },
+  {
+    "lp": 0,
+    "cash": -12000,
+    "text": "Du bewirfst einen Star mit faulen Eiern. Zahle € 12.000 Strafe."
+  },
+  {
+    "lp": -100,
+    "cash": 0,
+    "text": "Hola! Ein Freund bringt dir für den Urlaub etwas Spanisch bei, aber wenn du auf Mallorca nach dem Weg fragst, laufen alle vor dir davon. Du verlierst 100 LP."
+  },
+  {
+    "lp": 0,
+    "cash": 10000,
+    "text": "Du erfindest ein neues Zubehör für Handys und verkaufst das Patent für mickrige € 10.000. Dabei hättest du damit Millionen verdienen können!"
+  },
+  {
+    "lp": 0,
+    "cash": 20000,
+    "text": "Du gehst mit deinen beiden dicken Nachbarinnen zum Bingo-Spielen und gewinnst € 20.000."
+  },
+  {
+    "lp": 650,
+    "cash": 0,
+    "text": "Wer hat den ganzen Kuchen gegessen? Na,du! Du wolltest den Kuchenessen-Weltrekord brechen! Du erhältst 650 LP."
+  },
+  {
+    "lp": -400,
+    "cash": 0,
+    "text": "Du kannst deine ganze Schulklasse überreden,im Park Hundehaufen einzusammeln. Alle sind sauer auf dich und du verlierst 400 LP."
+  },
+  {
+    "lp": -275,
+    "cash": 0,
+    "text": "Du leihst das Auto deines Chefs unf fährst gegen die Wand. Du kriegst Ärger mit deinem Chef und verlierst 275 LP."
+  },
+  {
+    "lp": 500,
+    "cash": 0,
+    "text": "Deine Freunde gehen Skifahren und du passt auf ihre Haustiere auf: eine Tarantel, ein Leguan und sechs Hunde. Du erhältst dafür 500 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -15000,
+    "text": "Du verwechselst deinen Handyvertrag und zahlst plötzlich ein Jahr lang das Doppelte. Zahle € 15.000."
+  },
+  {
+    "lp": 0,
+    "cash": -15000,
+    "text": "Du bekommst von deinen Eltern ein nagelneues Fahrrad zum Geburtstag. Und das nächste was du siehst, ist dein Fahrrad - mit verbogenem Lenker und platten Reifen. Zahle € 15.000 für die Reparatur."
+  },
+  {
+    "lp": 0,
+    "cash": -30000,
+    "text": "Du versuchst, ein teures Bild zu fälschen, um es zu verkaufen. Aber der Kunstexperte bemerkt es sofort. Zahle € 30.000 Strafe."
+  },
+  {
+    "lp": 0,
+    "cash": 30000,
+    "text": "Du gewinnst im Lotto! Du freust dich über € 30.000. Jetzt aber nicht alles auf einmal ausgeben!"
+  },
+  {
+    "lp": 0,
+    "cash": 40000,
+    "text": "Du hilfst einer alten Dame beim Überqueren der Straße. Sie bedankt sich mit einer kleinen Schachtel und was findest du darin? Ein Schmuckstück im Wert von € 40.000!"
+  },
+  {
+    "lp": -450,
+    "cash": 0,
+    "text": "Du isst eine gesamte Packung von extrem scharfen Chilis, um deinen Mut zu beweisen. Dein Mund brennt und du verlierst 450 LP."
+  },
+  {
+    "lp": 500,
+    "cash": 0,
+    "text": "Du bist ein großer Fan von Astronomie und verbringst die Nacht damit, den Himmel zu beobachten. Du entdeckst einen bisher unbekannten Stern und erhältst 500 LP."
+  },
+  {
+    "lp": 0,
+    "cash": 50000,
+    "text": "Du schreibst einen Bestseller-Roman und verdienst damit € 50.000. Du bist jetzt offiziell ein berühmter Autor!"
+  },
+  {
+    "lp": 600,
+    "cash": 0,
+    "text": "Du organisierst ein großes Picknick für deine Freunde. Das Essen ist lecker und alle haben Spaß. Du erhältst 600 LP."
+  },
+  {
+    "lp": 700,
+    "cash": 0,
+    "text": "Du bist ein großer Musikfan und organisierst ein lokales Musikfestival. Das Festival ist ein großer Erfolg und du erhältst 700 LP."
+  },
+  {
+    "lp": 0,
+    "cash": 60000,
+    "text": "Du erfindest ein neues Videospiel und verkaufst es erfolgreich. Du verdienst dabei € 60.000."
+  },
+  {
+    "lp": -500,
+    "cash": 0,
+    "text": "Du vergisst deinen Hochzeitstag und dein Partner ist sehr verärgert. Du verlierst 500 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -20000,
+    "text": "Du verlierst deine Geldbörse mit € 20.000 Bargeld. Zahle € 20.000."
+  },
+  {
+    "lp": 0,
+    "cash": 70000,
+    "text": "Du erbst von einem unbekannten Verwandten ein altes Gemälde, das € 70.000 wert ist."
+  },
+  {
+    "lp": 800,
+    "cash": 0,
+    "text": "Du gewinnst einen lokalen Kochwettbewerb und erhältst dafür 800 LP."
+  },
+  {
+    "lp": -600,
+    "cash": 0,
+    "text": "Du nimmst an einer Reality-Show teil und wirst als erster rausgeworfen. Du verlierst 600 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -25000,
+    "text": "Du zerkratzt versehentlich das Auto deines Nachbarn. Zahle € 25.000 für die Reparatur."
+  },
+  {
+    "lp": 0,
+    "cash": 80000,
+    "text": "Du findest eine alte Münze, die sich als sehr wertvoll erweist und verkaufst sie für € 80.000."
+  },
+  {
+    "lp": 900,
+    "cash": 0,
+    "text": "Du rettest eine Katze, die auf einem Baum feststeckt. Du erhältst 900 LP."
+  },
+  {
+    "lp": -700,
+    "cash": 0,
+    "text": "Du verpasst den letzten Zug nach Hause und musst die ganze Nacht draußen verbringen. Du verlierst 700 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -30000,
+    "text": "Du kaufst eine Designerhandtasche, die du dir eigentlich nicht leisten kannst. Zahle € 30.000."
+  },
+  {
+    "lp": 0,
+    "cash": 90000,
+    "text": "Du gewinnst eine Wette gegen einen Freund und erhältst € 90.000."
+  },
+  {
+    "lp": 1000,
+    "cash": 0,
+    "text": "Du lernst eine neue Sprache und fühlst dich sehr erfüllt. Du erhältst 1000 LP."
+  },
+  {
+    "lp": -800,
+    "cash": 0,
+    "text": "Du schläfst zu spät ein und verschläfst den ersten Tag deines neuen Jobs. Du verlierst 800 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -35000,
+    "text": "Du verwechselst die Flugdaten und verpasst deinen Flug. Zahle € 35.000 für ein neues Ticket."
+  },
+  {
+    "lp": 0,
+    "cash": 100000,
+    "text": "Du gründest ein Startup und verkaufst es für € 100.000."
+  },
+  {
+    "lp": 1100,
+    "cash": 0,
+    "text": "Du baust ein Baumhaus für die Kinder in deiner Nachbarschaft. Sie sind begeistert und du erhältst 1100 LP."
+  },
+  {
+    "lp": -900,
+    "cash": 0,
+    "text": "Du verwechselst Zucker mit Salz und dein Kuchen ist ungenießbar. Du verlierst 900 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -40000,
+    "text": "Du spielst Poker und verlierst. Zahle € 40.000."
+  },
+  {
+    "lp": 0,
+    "cash": 110000,
+    "text": "Du investierst in Aktien und machst einen großen Gewinn. Du erhältst € 110.000."
+  },
+  {
+    "lp": 1200,
+    "cash": 0,
+    "text": "Du rettest einen Hund aus dem Tierheim und gibst ihm ein neues Zuhause. Du erhältst 1200 LP."
+  },
+  {
+    "lp": -1000,
+    "cash": 0,
+    "text": "Du verschläfst und verpasst ein wichtiges Meeting. Du verlierst 1000 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -45000,
+    "text": "Dein Laptop gibt den Geist auf und du musst einen neuen kaufen. Zahle € 45.000."
+  },
+  {
+    "lp": 0,
+    "cash": 120000,
+    "text": "Du verkaufst ein seltenes Sammlerstück und erhältst € 120.000."
+  },
+  {
+    "lp": 1300,
+    "cash": 0,
+    "text": "Du läufst einen Marathon und fühlst dich unglaublich erfüllt. Du erhältst 1300 LP."
+  },
+  {
+    "lp": -1100,
+    "cash": 0,
+    "text": "Du verlierst dein Handy und bist total verloren. Du verlierst 1100 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -50000,
+    "text": "Du nimmst an einer Auktion teil und gibst zu viel Geld für ein wertloses Objekt aus. Zahle € 50.000."
+  },
+  {
+    "lp": 0,
+    "cash": 130000,
+    "text": "Du verkaufst deine Eigentumswohnung und erhältst € 130.000."
+  },
+  {
+    "lp": 1400,
+    "cash": 0,
+    "text": "Du bist der Star in einer lokalen Theaterproduktion und bekommst viel Lob. Du erhältst 1400 LP."
+  },
+  {
+    "lp": -1200,
+    "cash": 0,
+    "text": "Du verlierst beim Bowling gegen einen 10-Jährigen. Du verlierst 1200 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -55000,
+    "text": "Du hast eine teure Reparatur an deinem Auto. Zahle € 55.000."
+  },
+  {
+    "lp": 0,
+    "cash": 140000,
+    "text": "Du gewinnst im Lotto und erhältst € 140.000."
+  },
+  {
+    "lp": 1500,
+    "cash": 0,
+    "text": "Du reist nach Japan und erfüllst dir einen Lebenstraum. Du erhältst 1500 LP."
+  },
+  {
+    "lp": -1300,
+    "cash": 0,
+    "text": "Du verpasst deinen Anschlussflug und verbringst die Nacht am Flughafen. Du verlierst 1300 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -60000,
+    "text": "Du zahlst eine hohe Steuernachzahlung. Zahle € 60.000."
+  },
+  {
+    "lp": 0,
+    "cash": 150000,
+    "text": "Du verkaufst ein Gemälde, das sich als sehr wertvoll herausstellt. Du erhältst € 150.000."
+  },
+  {
+    "lp": 1600,
+    "cash": 0,
+    "text": "Du schreibst ein Buch und es wird ein Bestseller. Du erhältst 1600 LP."
+  },
+  {
+    "lp": -1400,
+    "cash": 0,
+    "text": "Du lässt dein Mittagessen auf dem Herd anbrennen. Du verlierst 1400 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -65000,
+    "text": "Du beschädigst versehentlich einen teuren Gegenstand in einem Laden. Zahle € 65.000."
+  },
+  {
+    "lp": 0,
+    "cash": 160000,
+    "text": "Du erbst von einem entfernten Verwandten € 160.000."
+  },
+  {
+    "lp": 1700,
+    "cash": 0,
+    "text": "Du absolvierst einen Fallschirmsprung und es ist eine unglaubliche Erfahrung. Du erhältst 1700 LP."
+  },
+  {
+    "lp": -1500,
+    "cash": 0,
+    "text": "Du verschüttest Kaffee auf deiner neuen Kleidung. Du verlierst 1500 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -70000,
+    "text": "Du musst eine teure Zahnbehandlung bezahlen. Zahle € 70.000."
+  },
+  {
+    "lp": 0,
+    "cash": 170000,
+    "text": "Du findest einen seltenen Schatz beim Wandern und verkaufst ihn. Du erhältst € 170.000."
+  },
+  {
+    "lp": 1800,
+    "cash": 0,
+    "text": "Du bekommst dein erstes Patenkind und bist sehr stolz. Du erhältst 1800 LP."
+  },
+  {
+    "lp": -1600,
+    "cash": 0,
+    "text": "Du verlierst den Schlüssel zu deinem Haus und musst die Nacht draußen verbringen. Du verlierst 1600 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -75000,
+    "text": "Du investierst in eine Unternehmensgründung, die scheitert. Zahle € 75.000."
+  },
+  {
+    "lp": 0,
+    "cash": 180000,
+    "text": "Du verkaufst dein Auto und erhältst € 180.000."
+  },
+  {
+    "lp": 1900,
+    "cash": 0,
+    "text": "Du triffst deinen Lieblingsschauspieler und er/sie ist genauso nett, wie du dir vorgestellt hast. Du erhältst 1900 LP."
+  },
+  {
+    "lp": -1700,
+    "cash": 0,
+    "text": "Du verlierst eine teure Wette. Du verlierst 1700 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -80000,
+    "text": "Du fällst auf einen Betrug herein und verlierst Geld. Zahle € 80.000."
+  },
+  {
+    "lp": 0,
+    "cash": 190000,
+    "text": "Du verkaufst dein Haus und ziehst in eine kleinere Wohnung. Du erhältst € 190.000."
+  },
+  {
+    "lp": 2000,
+    "cash": 0,
+    "text": "Du erreichst ein wichtiges persönliches Ziel. Du erhältst 2000 LP."
+  },
+  {
+    "lp": -1800,
+    "cash": 0,
+    "text": "Du fällst beim Wandern und verstauchst dir den Knöchel. Du verlierst 1800 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -85000,
+    "text": "Dein Computer bricht zusammen und du musst einen neuen kaufen. Zahle € 85.000."
+  },
+  {
+    "lp": 0,
+    "cash": 200000,
+    "text": "Du gewinnst im Lotto. Du erhältst € 200.000."
+  },
+  {
+    "lp": 2100,
+    "cash": 0,
+    "text": "Du wirst befördert und freust dich über deine neue Position. Du erhältst 2100 LP."
+  },
+  {
+    "lp": -1900,
+    "cash": 0,
+    "text": "Dein geliebtes Haustier läuft weg und du bist sehr traurig. Du verlierst 1900 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -90000,
+    "text": "Du hast einen Autounfall und musst Reparaturen bezahlen. Zahle € 90.000."
+  },
+  {
+    "lp": 0,
+    "cash": 210000,
+    "text": "Deine Aktien steigen stark an. Du erhältst € 210.000."
+  },
+  {
+    "lp": 2200,
+    "cash": 0,
+    "text": "Du lernst ein neues Instrument und es macht dir viel Spaß. Du erhältst 2200 LP."
+  },
+  {
+    "lp": -2000,
+    "cash": 0,
+    "text": "Du verlierst eine wichtige Datei für die Arbeit und musst alles noch einmal machen. Du verlierst 2000 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -95000,
+    "text": "Deine Waschmaschine geht kaputt und du musst eine neue kaufen. Zahle € 95.000."
+  },
+  {
+    "lp": 0,
+    "cash": 220000,
+    "text": "Du erbst eine Immobilie und verkaufst sie. Du erhältst € 220.000."
+  },
+  {
+    "lp": 2300,
+    "cash": 0,
+    "text": "Du gehst auf eine aufregende Reise und siehst unglaubliche Sehenswürdigkeiten. Du erhältst 2300 LP."
+  },
+  {
+    "lp": -2100,
+    "cash": 0,
+    "text": "Du erleidest eine peinliche Situation in der Öffentlichkeit. Du verlierst 2100 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -100000,
+    "text": "Du musst eine unerwartete Steuernachzahlung leisten. Zahle € 100.000."
+  },
+  {
+    "lp": 0,
+    "cash": 230000,
+    "text": "Du erfindest ein beliebtes Produkt und machst einen großen Gewinn. Du erhältst € 230.000."
+  },
+  {
+    "lp": 2400,
+    "cash": 0,
+    "text": "Du heiratest die Liebe deines Lebens. Du erhältst 2400 LP."
+  },
+  {
+    "lp": -2200,
+    "cash": 0,
+    "text": "Du verpasst einen wichtigen Termin und es hat negative Konsequenzen. Du verlierst 2200 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -105000,
+    "text": "Du musst eine teure Reparatur an deinem Haus bezahlen. Zahle € 105.000."
+  },
+  {
+    "lp": 0,
+    "cash": 240000,
+    "text": "Du gewinnst einen großen Preis in einer Fernsehshow. Du erhältst € 240.000."
+  },
+  {
+    "lp": 2500,
+    "cash": 0,
+    "text": "Du ziehst in dein Traumhaus. Du erhältst 2500 LP."
+  },
+  {
+    "lp": -2300,
+    "cash": 0,
+    "text": "Du bekommst eine schlechte Nachricht und bist sehr traurig. Du verlierst 2300 LP."
+  },
+  {
+    "lp": 0,
+    "cash": -110000,
+    "text": "Du zahlst für eine teure, aber notwendige Operation. Zahle € 110.000."
+  },
+  {
+    "lp": -350,
+    "cash": 9,
+    "text": "Du programmeirst den gemeinsten Computer-Virus, den es jemals gab. Du verlierst 350 LP."
+  },
+  {
+    "lp": 0,
+    "cash": 30000,
+    "text": "Ein Babyfoto von dir wird für eine Werbeaktion verwendet. Du warst ja so süß! Du verdienst € 30.000."
+  },
+  {
+    "lp": 0,
+    "cash": 70000,
+    "text": "Du kassierst € 70.000 Gewinn aus Aktien, die deine Oma für dich gekauft hat, als du noch ein Baby warst. Wie nett von ihr!"
+  },
+  {
+    "lp": 0,
+    "cash": 17000,
+    "text": "Einer deiner Schnappschüsse von einer Reise nach Peru gewinnt einen Fotowettbewerb. du erhältst € 17.000."
+  }
+]

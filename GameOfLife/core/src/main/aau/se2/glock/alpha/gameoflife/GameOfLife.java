@@ -18,6 +18,10 @@ import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
  */
 public class GameOfLife extends Game {
 
+    /**
+     * File name of the Event and Job json files located in the assets folder
+     */
+    public static final String fileJobJson = "Jobs.json", fileEventJson = "Events.json";
 
     /**
      *
