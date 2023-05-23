@@ -1,12 +1,29 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.SerializationException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
+
 public class JobData {
 
-    public ArrayList<Job> jobList = new ArrayList<>();
+    /**
+     *
+     */
+    private JsonFileReader jsonFileReader;
+
+    /**
+     *
+     */
+    public ArrayList<Job> jobList;
+
+    /*
     Job j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
     Job j2 = new Job("Sportler", new ArrayList<>(Arrays.asList(5000, 20000, 35000, 65000, 90000, 300000, 1400000)));
     Job j3 = new Job("Landwirt", new ArrayList<>(Arrays.asList(5000, 30000, 50000, 100000, 150000, 300000, 1000000)));
@@ -27,32 +44,37 @@ public class JobData {
     Job j18 = new Job("Kostümbildner", new ArrayList<>(Arrays.asList(5000, 30000, 80000, 140000, 200000, 300000, 400000)));
     Job j19 = new Job("Kommissar", new ArrayList<>(Arrays.asList(5000, 20000, 60000, 400000, 800000, 1000000, 1600000)));
     Job j20 = new Job("Schriftsteller", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 500000)));
-    int countCard = 0;
+    */
+    int countCard;
+
+    public JobData(){
+        this.jsonFileReader = new JsonFileReader();
+        this.countCard = 0;
+        this.jobList = new ArrayList<Job>();
+    }
+
+    /**
+     *
+     */
+    public void parseJobsJson(){
+        try{
+            this.jsonFileReader.readJson(GameOfLife.fileJobJson, Job.class, new JsonCallback<Job>() {
+                @Override
+                public void onJsonRead(ArrayList<Job> result) {
+                    jobList = result;
+                }
+            });
+        }catch(SerializationException e){
+            Gdx.app.log("JobData", e.getMessage());
+        }
+    }
 
     /**
      * Fills jobList with 20 Jobs.
      */
     public void fillJobList() {
-        jobList.add(j1);
-        jobList.add(j2);
-        jobList.add(j3);
-        jobList.add(j4);
-        jobList.add(j5);
-        jobList.add(j6);
-        jobList.add(j7);
-        jobList.add(j8);
-        jobList.add(j9);
-        jobList.add(j10);
-        jobList.add(j11);
-        jobList.add(j12);
-        jobList.add(j13);
-        jobList.add(j14);
-        jobList.add(j15);
-        jobList.add(j16);
-        jobList.add(j17);
-        jobList.add(j18);
-        jobList.add(j19);
-        jobList.add(j20);
+        this.parseJobsJson();
+        Gdx.app.log("JobData", "Read from JSON: "+this.jobList);
     }
 
     /**
