@@ -23,6 +23,11 @@ public class Job {
     private int gehaltsStufe = 0;
 
     /**
+     * Needed for JSON deserialization
+     */
+    public Job(){}
+
+    /**
      * Creates a new job object with job description and pay grade list.
      *
      * @param bezeichnung  description of the job
@@ -72,4 +77,12 @@ public class Job {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Job{" +
+                "Bezeichnung='" + Bezeichnung + '\'' +
+                ", gehaltsListe=" + gehaltsListe +
+                ", gehaltsStufe=" + gehaltsStufe +
+                '}';
+    }
 }
