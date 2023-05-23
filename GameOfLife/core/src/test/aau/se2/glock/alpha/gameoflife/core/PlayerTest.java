@@ -100,7 +100,7 @@ public class PlayerTest {
         assertTrue(testPlayer.isOnline());
         assertTrue(testPlayer.isJoning());
         assertFalse(testPlayer.isHasCheated());
-        assertEquals(0,testPlayer.getHasCheatedAtAge());
+        assertEquals(0, testPlayer.getHasCheatedAtAge());
 
         testPlayer.setUsername("User");
         testPlayer.setPosition(99);

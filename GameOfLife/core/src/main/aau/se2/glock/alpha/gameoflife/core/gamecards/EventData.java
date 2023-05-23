@@ -11,16 +11,6 @@ public class EventData {
     /**
      *
      */
-    private List<Event> eventList = new ArrayList<>();
-
-    /**
-     *
-     */
-    private List<Card> cardList = new ArrayList<>();
-
-    /**
-     *
-     */
     final private Event e1 = new Event(200, 0, "Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhältst du 200 LP."),
             e2 = new Event(200, 0, "Du malst nach einem Foto ein Familienporträt. Es ist kein Meisterwerk, aber allen gefällt's. Du erhältst 200 LP."),
             e3 = new Event(0, 20000, "Du übernachtest in enem skandinvischen Eishotel. Für deine Frostbeueln erhälst du € 20.000. Schmerzensgeld."),
@@ -121,6 +111,14 @@ public class EventData {
             e98 = new Event(0, 30000, "Ein Babyfoto von dir wird für eine Werbeaktion verwendet. Du warst ja so süß! Du verdienst € 30.000."),
             e99 = new Event(0, 70000, "Du kassierst € 70.000 Gewinn aus Aktien, die deine Oma für dich gekauft hat, als du noch ein Baby warst. Wie nett von ihr!"),
             e100 = new Event(0, 17000, "Einer deiner Schnappschüsse von einer Reise nach Peru gewinnt einen Fotowettbewerb. du erhältst € 17.000.");
+    /**
+     *
+     */
+    private List<Event> eventList = new ArrayList<>();
+    /**
+     *
+     */
+    private List<Card> cardList = new ArrayList<>();
 
     public EventData() {
 

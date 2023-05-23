@@ -25,7 +25,8 @@ public class Job {
     /**
      * Needed for JSON deserialization
      */
-    public Job(){}
+    public Job() {
+    }
 
     /**
      * Creates a new job object with job description and pay grade list.
@@ -58,7 +59,6 @@ public class Job {
     }
 
     /**
-     *
      * @return
      */
     public ArrayList<Integer> getGehaltsListe() {
@@ -68,7 +68,7 @@ public class Job {
     /**
      * Increases pay grade until you reach the maximum grade.
      */
-    public void befoerderung() throws Exception{
+    public void befoerderung() throws Exception {
         if (gehaltsStufe < gehaltsListe.size() - 1) {
             gehaltsStufe++;
         } else {

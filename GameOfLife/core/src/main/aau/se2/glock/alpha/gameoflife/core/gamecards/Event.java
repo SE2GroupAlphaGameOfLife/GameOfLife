@@ -20,7 +20,7 @@ public class Event {
     /**
      * Needed for JSON deserialization
      */
-    public Event(){
+    public Event() {
 
     }
 

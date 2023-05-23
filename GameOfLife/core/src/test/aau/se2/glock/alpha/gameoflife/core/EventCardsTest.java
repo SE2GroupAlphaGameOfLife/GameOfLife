@@ -15,35 +15,35 @@ import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
 
 public class EventCardsTest {
 
-    Card c1,c2,c3,c4,c5;
+    Card c1, c2, c3, c4, c5;
 
     Event e1, e2, e3, e4, e5;
     Stack s1;
-    ArrayList <Card> cardList;
-    ArrayList <Event> eventList1;
+    ArrayList<Card> cardList;
+    ArrayList<Event> eventList1;
     EventData f1;
 
 
     @Before
-    public void setup(){
-    c1 = new Card();
-    c2 = new Card();
-    c3 = new Card();
-    c4 = new Card();
-    c5 = new Card();
+    public void setup() {
+        c1 = new Card();
+        c2 = new Card();
+        c3 = new Card();
+        c4 = new Card();
+        c5 = new Card();
 
-    cardList = new ArrayList<>();
-    eventList1 = new ArrayList<>();
+        cardList = new ArrayList<>();
+        eventList1 = new ArrayList<>();
 
-    s1 = new Stack();
+        s1 = new Stack();
 
-    e1 = new Event(100,0,"Erhalte 100 LP.");
-    e2 = new Event(200,0,"Erhalte 200 LP.");
-    e3 = new Event(0,1000,"Erhalte € 1.000.");
-    e4 = new Event(0,2000,"Erhalte € 2.000.");
-    e5 = new Event(300,0,"Erhalte 300 LP.");
+        e1 = new Event(100, 0, "Erhalte 100 LP.");
+        e2 = new Event(200, 0, "Erhalte 200 LP.");
+        e3 = new Event(0, 1000, "Erhalte € 1.000.");
+        e4 = new Event(0, 2000, "Erhalte € 2.000.");
+        e5 = new Event(300, 0, "Erhalte 300 LP.");
 
-    f1 = new EventData();
+        f1 = new EventData();
 
     }
 
@@ -68,50 +68,50 @@ public class EventCardsTest {
     }
 
     @Test
-    public void testGetEvent(){
+    public void testGetEvent() {
         c1.fillEvents();
-        c1.setEvent(0,e1);
-        c1.setEvent(1,e2);
-        c1.setEvent(2,e3);
-        c1.setEvent(3,e4);
+        c1.setEvent(0, e1);
+        c1.setEvent(1, e2);
+        c1.setEvent(2, e3);
+        c1.setEvent(3, e4);
 
-        assertEquals(e1,c1.getEvent(0));
+        assertEquals(e1, c1.getEvent(0));
 
 
     }
 
     @Test
-    public void testFillEvents(){
+    public void testFillEvents() {
         f1.fillEventList();
         f1.fillCardList();
         //assertEquals(4,c1.fillEvents.size());
     }
 
     @Test
-    public void testGetTopCard(){
+    public void testGetTopCard() {
         c1.fillEvents();
-        c1.setEvent(0,e1);
+        c1.setEvent(0, e1);
         cardList.add(c1);
         s1.wipeStack();
         s1.addCards(cardList);
 
         s1.getTopCard();
-        assertEquals(c1,s1.getTopCard());
+        assertEquals(c1, s1.getTopCard());
     }
 
     @Test
-    public void testMixCards(){
+    public void testMixCards() {
         c1.fillEvents();
         c2.fillEvents();
         c3.fillEvents();
         c4.fillEvents();
         c5.fillEvents();
 
-        c1.setEvent(0,e1);
-        c2.setEvent(0,e2);
-        c3.setEvent(0,e3);
-        c4.setEvent(0,e4);
-        c5.setEvent(0,e5);
+        c1.setEvent(0, e1);
+        c2.setEvent(0, e2);
+        c3.setEvent(0, e3);
+        c4.setEvent(0, e4);
+        c5.setEvent(0, e5);
 
         cardList.add(c1);
         cardList.add(c2);
@@ -126,7 +126,7 @@ public class EventCardsTest {
         assertNotEquals(compare, testMethodMixCards(s1));
     }
 
-    public String testMethodMixCards(Stack stack){
+    public String testMethodMixCards(Stack stack) {
         String result = "";
         for (int i = 0; i < 5; i++) {
             result += stack.getTopCard().getEvent(0).getText();
@@ -135,22 +135,22 @@ public class EventCardsTest {
     }
 
     @Test
-    public void testGetAndSetCash(){
-        assertEquals(0,e1.getCash());
+    public void testGetAndSetCash() {
+        assertEquals(0, e1.getCash());
         e1.setCash(200);
-        assertEquals(200,e1.getCash());
+        assertEquals(200, e1.getCash());
     }
 
     @Test
-    public void testGetAndSetLp(){
-        assertEquals(100,e1.getLp());
+    public void testGetAndSetLp() {
+        assertEquals(100, e1.getLp());
         e1.setLp(1000);
-        assertEquals(1000,e1.getLp());
+        assertEquals(1000, e1.getLp());
     }
 
     @Test
-    public void testSetText(){
-        assertEquals("Erhalte 100 LP.",e1.getText());
+    public void testSetText() {
+        assertEquals("Erhalte 100 LP.", e1.getText());
         e1.setText("Erhalte 200 LP.");
         e1.setLp(200);
         assertEquals("Erhalte 200 LP.", e1.getText());
