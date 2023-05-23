@@ -2,12 +2,15 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThrows;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
@@ -44,25 +47,25 @@ public class JobCardsTest {
     }
 
     @Test
-    public void testGet2JobsToSelect() {
+    public void testGet2JobsToSelect(){
         data1.fillJobList();
-        assertEquals(2, data1.getJobsToSelect(2).length);
+        assertEquals(2,data1.getJobsToSelect(2).length);
     }
 
     @Test
-    public void testGetOneJob() {
+    public void testGetOneJob(){
         data1.fillJobList();
-        assertEquals(1, data1.getJobsToSelect(1).length);
+        assertEquals(1,data1.getJobsToSelect(1).length);
     }
 
     @Test
-    public void testRobustnessOfJobsToSelect() {
+    public void testRobustnessOfJobsToSelect(){
         data1.fillJobList();
-        assertEquals(21, data1.getJobsToSelect(21).length);
+        assertEquals(21,data1.getJobsToSelect(21).length);
     }
 
     @Test
-    public void testGetJobList() {
+    public void testGetJobList(){
         assertEquals(0, data1.getJobList().size());
         data1.fillJobList();
         assertEquals(20, data1.getJobList().size());
@@ -70,9 +73,9 @@ public class JobCardsTest {
 
     @Test
     public void testGetGehaltsstufeUndBefoerderung() throws Exception {
-        assertEquals(0, j1.getGehaltsStufe());
+        assertEquals(0,j1.getGehaltsStufe());
         j1.befoerderung();
-        assertEquals(1, j1.getGehaltsStufe());
+        assertEquals(1,j1.getGehaltsStufe());
     }
 
     /*
@@ -83,6 +86,15 @@ public class JobCardsTest {
     }
      */
 
+
+    @Test
+
+    public void testGetGehaltsListe() {
+        assertEquals(7, j1.getGehaltsListe().size());
+        int gehalt = j1.getGehaltsListe().get(6);
+        assertEquals(1500000,gehalt);
+    }
+
     public String getBezeichnung(JobData data) {
         String result = "";
         for (int i = 0; i < data.jobList.size(); i++) {
@@ -91,6 +103,7 @@ public class JobCardsTest {
         }
         return result;
     }
+
 
 
 }
