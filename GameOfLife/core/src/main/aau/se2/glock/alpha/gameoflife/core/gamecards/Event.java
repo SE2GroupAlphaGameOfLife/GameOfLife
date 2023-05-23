@@ -18,6 +18,13 @@ public class Event {
     private String text;
 
     /**
+     * Needed for JSON deserialization
+     */
+    public Event(){
+
+    }
+
+    /**
      * Creates event with life points, cash and text.
      *
      * @param lp   life points which are added or subtracted
@@ -76,5 +83,14 @@ public class Event {
      */
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "lp=" + lp +
+                ", cash=" + cash +
+                ", text='" + text + '\'' +
+                '}';
     }
 }
