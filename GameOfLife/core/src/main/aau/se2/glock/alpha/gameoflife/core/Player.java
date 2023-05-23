@@ -3,9 +3,13 @@ package aau.se2.glock.alpha.gameoflife.core;
 import com.badlogic.gdx.graphics.Color;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.special.Building;
+import aau.se2.glock.alpha.gameoflife.core.special.Car;
+import aau.se2.glock.alpha.gameoflife.core.special.CarType;
 
 /**
  *
@@ -54,6 +58,9 @@ public class Player {
     private boolean hasCheated;
     private int hasCheatedAtAge;
 
+    private ArrayList<Building> buildings;
+    private ArrayList<Car> cars;
+
     /**
      * Needed for Kryo Serialization
      */
@@ -81,6 +88,24 @@ public class Player {
         this.id = 0;
         this.hasCheated = false;
         this.hasCheatedAtAge = 0;
+        this.buildings = new ArrayList<>();
+        this.cars = new ArrayList<>();
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(ArrayList<Building> buildings) {
+        this.buildings = buildings;
+    }
+
+    public ArrayList<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
     }
 
     public int getHasCheatedAtAge() {
@@ -351,4 +376,43 @@ public class Player {
         //we finished moving return true
         return true;
     }
+
+    public void calculateBuildingRound(){
+        for (int i = 0; i < buildings.size(); i++) {
+            //raises the price per 6% with every call
+            buildings.set(i,new Building((int) (buildings.get(i).getPrice()*1.06F),buildings.get(i).getType()));
+        }
+    }
+
+    public void calculateCarRound(){
+        for (int i = 0; i < cars.size(); i++) {
+            //lowers price of cars but you gain LP
+            this.lifepoints+=cars.get(i).getLp();
+            if(cars.get(i).getType() == CarType.HATCHBACK){
+                Car oldCar = cars.get(i);
+                if(oldCar.getPrice() <= 1000){
+                    cars.remove(i);
+                }else {
+                    cars.set(i, new Car(oldCar.getPrice() - 1000, oldCar.getLp(), oldCar.getType()));
+                }
+            }else{
+                Car oldCar = cars.get(i);
+                if(oldCar.getPrice() <= 2000){
+                    cars.remove(i);
+                }else{
+                    cars.set(i, new Car(oldCar.getPrice() - 2000,oldCar.getLp(),oldCar.getType()));
+                }
+            }
+        }
+    }
+
+    public void recieveBuilding(Building building){
+        this.buildings.add(building);
+    }
+
+    public void recieveCar(Car car){
+        this.cars.add(car);
+    }
+
+
 }
