@@ -256,6 +256,8 @@ public class GameScreen implements Screen, ProximityListener {
     private int buttonWidth, buttonHeight;
 
     private Image arrowImage;
+    private JobData jobSelection;
+    private Job[] jobs;
 
     /**
      *
@@ -520,6 +522,9 @@ public class GameScreen implements Screen, ProximityListener {
         arrowImageButton.addListener(btnRollDiceListener);
     }
 
+
+    // !!! JAVA DOC @param BESCHREIBEN !!!
+
     /**
      * Create Button for rolling the dice.
      */
@@ -640,9 +645,6 @@ public class GameScreen implements Screen, ProximityListener {
         });
     }
 
-
-    // !!! JAVA DOC @param BESCHREIBEN !!!
-
     /**
      * When the player has chosen which step he wants to take next, this function is called.
      * We set the current position of the player to the chosen field and makeMove is called again
@@ -740,9 +742,6 @@ public class GameScreen implements Screen, ProximityListener {
 
         btnJob.addListener(btnJobListener);
     }
-
-    private JobData jobSelection;
-    private Job[] jobs;
 
     private void createJobWindow() {
         //loads uiSkin from files

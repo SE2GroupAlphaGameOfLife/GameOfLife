@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
@@ -16,13 +15,7 @@ public class JobData {
     /**
      *
      */
-    private JsonFileReader jsonFileReader;
-
-    /**
-     *
-     */
     public ArrayList<Job> jobList;
-
     /*
     Job j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
     Job j2 = new Job("Sportler", new ArrayList<>(Arrays.asList(5000, 20000, 35000, 65000, 90000, 300000, 1400000)));
@@ -46,8 +39,12 @@ public class JobData {
     Job j20 = new Job("Schriftsteller", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 500000)));
     */
     int countCard;
+    /**
+     *
+     */
+    private JsonFileReader jsonFileReader;
 
-    public JobData(){
+    public JobData() {
         this.jsonFileReader = new JsonFileReader();
         this.countCard = 0;
         this.jobList = new ArrayList<Job>();
@@ -56,15 +53,15 @@ public class JobData {
     /**
      *
      */
-    public void parseJobsJson(){
-        try{
+    public void parseJobsJson() {
+        try {
             this.jsonFileReader.readJson(GameOfLife.fileJobJson, Job.class, new JsonCallback<Job>() {
                 @Override
                 public void onJsonRead(ArrayList<Job> result) {
                     jobList = result;
                 }
             });
-        }catch(SerializationException e){
+        } catch (SerializationException e) {
             Gdx.app.log("JobData", e.getMessage());
         }
     }
@@ -74,7 +71,7 @@ public class JobData {
      */
     public void fillJobList() {
         this.parseJobsJson();
-        Gdx.app.log("JobData", "Read from JSON: "+this.jobList);
+        Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
     }
 
     /**

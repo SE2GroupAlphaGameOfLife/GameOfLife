@@ -134,10 +134,10 @@ public class ClientClass extends Listener {
 
         this.client.close();
         for (InetAddress a : servers) {
-            if(GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+            if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
                 this.client.start();
                 this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-            }else{
+            } else {
                 return;
             }
         }

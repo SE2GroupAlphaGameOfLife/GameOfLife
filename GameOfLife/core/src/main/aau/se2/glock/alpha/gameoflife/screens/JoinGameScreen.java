@@ -279,11 +279,11 @@ public class JoinGameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("JoinGameScreen", "Join Button pressed");
                 if (validateInput(ipInput.getText())) {
-                    for(ServerInformation s : GameOfLife.availableServers){
+                    for (ServerInformation s : GameOfLife.availableServers) {
                         try {
-                            if(s.getAddress().equals(InetAddress.getByName(ipInput.getText()))){
+                            if (s.getAddress().equals(InetAddress.getByName(ipInput.getText()))) {
                                 timer.clear();
-                                Gdx.app.log("JoinGameScreen", "Available Servers: "+GameOfLife.availableServers);
+                                Gdx.app.log("JoinGameScreen", "Available Servers: " + GameOfLife.availableServers);
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
