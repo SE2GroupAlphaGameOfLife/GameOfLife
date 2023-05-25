@@ -752,8 +752,11 @@ public class GameScreen implements Screen, ProximityListener {
         window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
         closeBtn = new TextButton("Close", textButtonStyle);
 
-        job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
-        //TODO Exception einfügen falls noch kein Job ausgewählt wurde
+        if (GameOfLife.self.getCurrentJob() != null) {
+            job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
+        }else {
+            //TODO Exception einfügen falls noch kein Job ausgewählt wurde
+        }
 
         window.add(job1Description).pad(10, 0, 0, 0).colspan(0).row();
 
@@ -817,7 +820,6 @@ public class GameScreen implements Screen, ProximityListener {
                 GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
-
             }
 
             ;
