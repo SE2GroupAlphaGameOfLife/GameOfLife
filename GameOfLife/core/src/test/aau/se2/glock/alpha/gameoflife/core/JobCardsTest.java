@@ -6,20 +6,16 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
-import aau.se2.glock.alpha.gameoflife.core.utilities.JsonLoader;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class JobCardsTest {
 
@@ -33,7 +29,7 @@ public class JobCardsTest {
         byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
         String jobsString = new String(bytes);
 
-        JsonLoader jsonLoader = mock(JsonLoader.class);
+        JsonFileReader jsonLoader = mock(JsonFileReader.class);
         when(jsonLoader.loadJsonFile("Jobs.json")).thenReturn(jobsString);
         JobData.getInstance(jsonLoader.loadJsonFile("Jobs.json"));
         data1 = JobData.getInstance();

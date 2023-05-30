@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.core.utilities.JsonLoader;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class BoardTest {
     private Board board;
@@ -25,7 +25,7 @@ public class BoardTest {
         byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
         String boardString = new String(bytes);
 
-        JsonLoader jsonLoader = mock(JsonLoader.class);
+        JsonFileReader jsonLoader = mock(JsonFileReader.class);
         when(jsonLoader.loadJsonFile("gameboard.json")).thenReturn(boardString);
         Board.getInstance(jsonLoader.loadJsonFile("gameboard.json"));
         board = Board.getInstance();

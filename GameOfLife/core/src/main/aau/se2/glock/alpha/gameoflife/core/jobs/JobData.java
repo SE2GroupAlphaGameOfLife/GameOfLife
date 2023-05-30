@@ -1,21 +1,12 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.Board;
-import aau.se2.glock.alpha.gameoflife.core.GameField;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
-import aau.se2.glock.alpha.gameoflife.core.utilities.JsonLoader;
 
 public class JobData {
 
@@ -54,7 +45,7 @@ public class JobData {
 
     public static JobData getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new JobData(new JsonLoader().loadJsonFile("Jobs.json"));
+            INSTANCE = new JobData(new JsonFileReader().loadJsonFile("Jobs.json"));
         }
         return INSTANCE;
     }
