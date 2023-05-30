@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import aau.se2.glock.alpha.gameoflife.core.utilities.JsonLoader;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 
 public class PlayerTest {
@@ -29,9 +29,9 @@ public class PlayerTest {
         byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
         String boardString = new String(bytes);
 
-        JsonLoader jsonLoader = mock(JsonLoader.class);
-        when(jsonLoader.loadJsonFile()).thenReturn(boardString);
-        Board.getInstance(jsonLoader.loadJsonFile());
+        JsonFileReader jsonLoader = mock(JsonFileReader.class);
+        when(jsonLoader.loadJsonFile("gameboard.json")).thenReturn(boardString);
+        Board.getInstance(jsonLoader.loadJsonFile("gameboard.json"));
         player = new Player("testUser", true);
     }
 

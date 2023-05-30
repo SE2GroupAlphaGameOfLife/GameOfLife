@@ -1,13 +1,11 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.SerializationException;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class JobData {
@@ -15,45 +13,54 @@ public class JobData {
     /**
      *
      */
-    public ArrayList<Job> jobList;
-    /*
-    Job j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
-    Job j2 = new Job("Sportler", new ArrayList<>(Arrays.asList(5000, 20000, 35000, 65000, 90000, 300000, 1400000)));
-    Job j3 = new Job("Landwirt", new ArrayList<>(Arrays.asList(5000, 30000, 50000, 100000, 150000, 300000, 1000000)));
-    Job j4 = new Job("Schönheitsberater", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 40000, 50000, 60000, 700000)));
-    Job j5 = new Job("Zirkusartist", new ArrayList<>(Arrays.asList(5000, 70000, 80000, 90000, 100000, 110000, 130000)));
-    Job j6 = new Job("Koch", new ArrayList<>(Arrays.asList(5000, 25000, 35000, 50000, 750000, 400000, 900000)));
-    Job j7 = new Job("Musiker", new ArrayList<>(Arrays.asList(5000, 30000, 50000, 100000, 1050000, 300000, 1500000)));
-    Job j8 = new Job("Künstler", new ArrayList<>(Arrays.asList(5000, 80000, 120000, 140000, 160000, 180000, 220000)));
-    Job j9 = new Job("Politiker", new ArrayList<>(Arrays.asList(5000, 60000, 80000, 90000, 150000, 300000, 600000)));
-    Job j10 = new Job("Tänzer", new ArrayList<>(Arrays.asList(5000, 110000, 120000, 140000, 160000, 180000, 190000)));
-    Job j11 = new Job("Super-Nanny", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 270000)));
-    Job j12 = new Job("Fotomodell", new ArrayList<>(Arrays.asList(5000, 10000, 20000, 50000, 200000, 500000, 700000)));
-    Job j13 = new Job("Computerspezialist", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 100000, 250000, 500000, 1000000)));
-    Job j14 = new Job("Spion", new ArrayList<>(Arrays.asList(5000, 10000, 100000, 400000, 950000, 1200000, 1500000)));
-    Job j15 = new Job("Abenteurer", new ArrayList<>(Arrays.asList(5000, 30000, 80000, 140000, 200000, 300000, 400000)));
-    Job j16 = new Job("Journalist", new ArrayList<>(Arrays.asList(5000, 10000, 30000, 50000, 100000, 200000, 600000)));
-    Job j17 = new Job("Bauunternehmer", new ArrayList<>(Arrays.asList(5000, 70000, 80000, 90000, 100000, 110000, 300000)));
-    Job j18 = new Job("Kostümbildner", new ArrayList<>(Arrays.asList(5000, 30000, 80000, 140000, 200000, 300000, 400000)));
-    Job j19 = new Job("Kommissar", new ArrayList<>(Arrays.asList(5000, 20000, 60000, 400000, 800000, 1000000, 1600000)));
-    Job j20 = new Job("Schriftsteller", new ArrayList<>(Arrays.asList(5000, 10000, 50000, 80000, 120000, 220000, 500000)));
-    */
-    int countCard;
+    private static JobData INSTANCE;
+
     /**
      *
      */
-    private JsonFileReader jsonFileReader;
+    public ArrayList<Job> jobList;
+    int countCard;
 
-    public JobData() {
-        this.jsonFileReader = new JsonFileReader();
+    private JobData(String jsonString) {
+        // Parsing the json so we can use it
+        JsonReader jsonReader = new JsonReader();
+        JsonValue jsonValue = jsonReader.parse(jsonString);
+
+        ArrayList<Job> jobs = new ArrayList<>();
+
+        // Read the values and create a list of gameFields
+        for (JsonValue jsonField : jsonValue) {
+            ArrayList<Integer> nextPositions = new ArrayList<>();
+            for (int i : jsonField.get("gehaltsListe").asIntArray()) {
+                nextPositions.add(i);
+            }
+
+            Job job = new Job(jsonField.getString("Bezeichnung"), nextPositions);
+            jobs.add(job);
+        }
+        jobList = jobs;
+
         this.countCard = 0;
-        this.jobList = new ArrayList<Job>();
+    }
+
+    public static JobData getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new JobData(new JsonFileReader().loadJsonFile("Jobs.json"));
+        }
+        return INSTANCE;
+    }
+
+    public static JobData getInstance(String jsonString) {
+        if (INSTANCE == null) {
+            INSTANCE = new JobData(jsonString);
+        }
+        return INSTANCE;
     }
 
     /**
      *
      */
-    public void parseJobsJson() {
+    /*public void parseJobsJson() {
         try {
             this.jsonFileReader.readJson(GameOfLife.fileJobJson, Job.class, new JsonCallback<Job>() {
                 @Override
@@ -64,15 +71,15 @@ public class JobData {
         } catch (SerializationException e) {
             Gdx.app.log("JobData", e.getMessage());
         }
-    }
+    }*/
 
     /**
      * Fills jobList with 20 Jobs.
      */
-    public void fillJobList() {
+    /*public void fillJobList() {
         this.parseJobsJson();
         Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
-    }
+    }*/
 
     /**
      * Returns any amount of jobs and increment the countCard.
