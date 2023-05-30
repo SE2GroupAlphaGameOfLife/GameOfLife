@@ -30,8 +30,8 @@ public class PlayerTest {
         String boardString = new String(bytes);
 
         JsonLoader jsonLoader = mock(JsonLoader.class);
-        when(jsonLoader.loadJsonFile()).thenReturn(boardString);
-        Board.getInstance(jsonLoader.loadJsonFile());
+        when(jsonLoader.loadJsonFile("gameboard.json")).thenReturn(boardString);
+        Board.getInstance(jsonLoader.loadJsonFile("gameboard.json"));
         player = new Player("testUser", true);
     }
 

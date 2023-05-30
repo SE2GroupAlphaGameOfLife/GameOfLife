@@ -12,8 +12,8 @@ public class JsonLoader {
     /**
      * @return
      */
-    public String loadJsonFile() {
-        FileHandle fileHandle = Gdx.files.internal("gameboard.json");
+    public String loadJsonFile(String filename) {
+        FileHandle fileHandle = Gdx.files.internal(filename);
         return fileHandle.readString();
     }
 }

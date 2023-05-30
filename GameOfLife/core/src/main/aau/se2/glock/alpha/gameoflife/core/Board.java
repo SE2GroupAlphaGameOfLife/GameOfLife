@@ -55,7 +55,7 @@ public class Board {
      */
     public static Board getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Board(new JsonLoader().loadJsonFile());
+            INSTANCE = new Board(new JsonLoader().loadJsonFile("gameboard.json"));
         }
         return INSTANCE;
     }
