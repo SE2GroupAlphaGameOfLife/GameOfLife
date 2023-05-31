@@ -2,40 +2,46 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class JobCardsTest {
 
-    Job j1, j2, j3, j4;
+    Job job1;
     JobData data1;
 
     @Before
-    public void setup() {
-        j1 = new Job("Schauspieler", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 60000, 90000, 300000, 1500000)));
-        j2 = new Job("Sportler", new ArrayList<>(Arrays.asList(5000, 20000, 35000, 65000, 90000, 300000, 1400000)));
-        j3 = new Job("Landwirt", new ArrayList<>(Arrays.asList(5000, 30000, 50000, 100000, 150000, 300000, 1000000)));
-        j4 = new Job("Schönheitsberater", new ArrayList<>(Arrays.asList(5000, 20000, 30000, 40000, 50000, 60000, 700000)));
-        data1 = new JobData();
+    public void setup() throws IOException {
+        String relativePath = "GameOfLife/assets/Jobs.json";
+        String absolutePath = Paths.get("../../").toAbsolutePath().toString() + "/" + relativePath;
+        byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
+        String jobsString = new String(bytes);
+
+        JsonFileReader jsonLoader = mock(JsonFileReader.class);
+        when(jsonLoader.loadJsonFile("Jobs.json")).thenReturn(jobsString);
+        JobData.getInstance(jsonLoader.loadJsonFile("Jobs.json"));
+        data1 = JobData.getInstance();
     }
 
     @Test
     public void testFillJobList() {
-        assertEquals(0, data1.jobList.size());
-        data1.fillJobList();
         assertEquals(20, data1.jobList.size());
     }
 
     @Test
     public void testMixCards() {
-        data1.fillJobList();
         String compare = getBezeichnung(data1);
         data1.mixCards();
         System.out.println(getBezeichnung(data1));
@@ -45,34 +51,30 @@ public class JobCardsTest {
 
     @Test
     public void testGet2JobsToSelect() {
-        data1.fillJobList();
         assertEquals(2, data1.getJobsToSelect(2).length);
     }
 
     @Test
     public void testGetOneJob() {
-        data1.fillJobList();
         assertEquals(1, data1.getJobsToSelect(1).length);
     }
 
     @Test
     public void testRobustnessOfJobsToSelect() {
-        data1.fillJobList();
         assertEquals(21, data1.getJobsToSelect(21).length);
     }
 
     @Test
     public void testGetJobList() {
-        assertEquals(0, data1.getJobList().size());
-        data1.fillJobList();
         assertEquals(20, data1.getJobList().size());
     }
 
     @Test
     public void testGetGehaltsstufeUndBefoerderung() throws Exception {
-        assertEquals(0, j1.getGehaltsStufe());
-        j1.befoerderung();
-        assertEquals(1, j1.getGehaltsStufe());
+        job1 = data1.getJobList().get(0);
+        assertEquals(0, job1.getGehaltsStufe());
+        job1.befoerderung();
+        assertEquals(1, job1.getGehaltsStufe());
     }
 
     /*
@@ -83,6 +85,15 @@ public class JobCardsTest {
     }
      */
 
+
+    @Test
+
+    public void testGetGehaltsListe() {
+        /*assertEquals(7, j1.getGehaltsListe().size());
+        int gehalt = j1.getGehaltsListe().get(6);
+        assertEquals(1500000,gehalt);*/
+    }
+
     public String getBezeichnung(JobData data) {
         String result = "";
         for (int i = 0; i < data.jobList.size(); i++) {
@@ -91,6 +102,4 @@ public class JobCardsTest {
         }
         return result;
     }
-
-
 }

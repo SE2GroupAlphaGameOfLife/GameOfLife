@@ -282,6 +282,7 @@ public class Player {
     }
 
     /**
+     *
      * @return
      */
     public Job getCurrentJob() {
@@ -289,6 +290,7 @@ public class Player {
     }
 
     /**
+     *
      * @param currentJob
      */
     public void setCurrentJob(Job currentJob) {

@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.core.utilities.JsonLoader;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 /**
  * Represents a game board with a list of gameFields.
@@ -55,7 +55,7 @@ public class Board {
      */
     public static Board getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Board(new JsonLoader().loadJsonFile());
+            INSTANCE = new Board(new JsonFileReader().loadJsonFile("gameboard.json"));
         }
         return INSTANCE;
     }

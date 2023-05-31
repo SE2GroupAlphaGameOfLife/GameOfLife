@@ -264,8 +264,7 @@ public class GameScreen implements Screen, ProximityListener {
      */
     public GameScreen() {
 
-        jobSelection = new JobData();
-        jobSelection.fillJobList();
+        jobSelection = JobData.getInstance();
         GameOfLife.proximitySensorInterface.setProximityListener(this);
 
         gameCamera = new OrthographicCamera();
@@ -424,6 +423,7 @@ public class GameScreen implements Screen, ProximityListener {
         textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(lightGrayTexture)); // Set the down state texture
         textButtonStyle.font = standardFont; // Set the font
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
+
     }
 
     /**
@@ -721,14 +721,13 @@ public class GameScreen implements Screen, ProximityListener {
 
         btnQuit.addListener(btnQuitListener);
     }
-
-    /**
+ /**
      *
      */
-    private void createJobButton() {
-        btnJob = new TextButton("Job", textButtonStyle);
-        btnJob.setSize(buttonWidth, buttonHeight);
-        btnJob.setPosition(Gdx.graphics.getWidth() - buttonWidth - 10, Gdx.graphics.getHeight() - buttonHeight - 10);
+    private void createJobButton(){
+       btnJob = new TextButton("Job",textButtonStyle);
+       btnJob.setSize(buttonWidth,buttonHeight);
+       btnJob.setPosition(Gdx.graphics.getWidth()-buttonWidth-10f,Gdx.graphics.getHeight()-buttonHeight-10f);
 
         stage.addActor(btnJob);
 
@@ -743,28 +742,26 @@ public class GameScreen implements Screen, ProximityListener {
         btnJob.addListener(btnJobListener);
     }
 
-    private void createJobWindow() {
+
+    private void createJobWindow(){
         //loads uiSkin from files
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        final Window window = new Window("", uiSkin);
-        window.setSize(600, 450);
-        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
-        closeBtn = new TextButton("Close", textButtonStyle);
+        final Window window = new Window("",uiSkin);
+        window.setSize(600,450);
+        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
+        closeBtn = new TextButton("Close",textButtonStyle);
 
-        if (GameOfLife.self.getCurrentJob() != null) {
-            job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
-        }else {
-            //TODO Exception einfügen falls noch kein Job ausgewählt wurde
-        }
+        job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
+        //TODO Exception einfügen falls noch kein Job ausgewählt wurde
 
-        window.add(job1Description).pad(10, 0, 0, 0).colspan(0).row();
+        window.add(job1Description).pad(10,0,0,0).colspan(0).row();
 
-        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
+        window.add(closeBtn).pad(150,0,0,0).colspan(2);
 
         window.setScale(2F);
 
-        closeBtn.addListener(new ChangeListener() {
+        closeBtn.addListener (new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -776,33 +773,34 @@ public class GameScreen implements Screen, ProximityListener {
         stage.addActor(window);
     }
 
-    private void chooseJobWindow() {
+    private void chooseJobWindow(){
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        jobSelection = JobData.getInstance();
 
-        final Window window = new Window("", uiSkin);
-        window.setSize(600, 450);
-        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
+        final Window window = new Window("",uiSkin);
+        window.setSize(600,450);
+        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
 
-        closeBtn = new TextButton("Close", textButtonStyle);
-        job1Btn = new TextButton("Auswählen", textButtonStyle);
-        job2Btn = new TextButton("Auswählen", textButtonStyle);
+        closeBtn = new TextButton("Close",textButtonStyle);
+        job1Btn = new TextButton("Auswählen",textButtonStyle);
+        job2Btn = new TextButton("Auswählen",textButtonStyle);
 
         jobs = new Job[2];
         jobSelection.mixCards();
         final Job[] jobs = jobSelection.getJobsToSelect(2);
 
-        job1Description = new Label(jobs[0].getBezeichnung() + "\n" + jobs[0].getGehaltsListe().toString(), uiSkin);
-        job2Description = new Label(jobs[1].getBezeichnung() + "\n" + jobs[1].getGehaltsListe().toString(), uiSkin);
+        job1Description = new Label(jobs[0].getBezeichnung()+"\n"+jobs[0].getGehaltsListe().toString(),uiSkin);
+        job2Description = new Label(jobs[1].getBezeichnung()+"\n"+jobs[1].getGehaltsListe().toString(),uiSkin);
 
-        window.add(job1Description).pad(10, 0, 0, 0).colspan(1);
-        window.add(job2Description).pad(10, 50, 0, 0).colspan(0).row();
-        window.add(job1Btn).pad(0, 0, 0, 0).colspan(1);
-        window.add(job2Btn).pad(0, 50, 0, 0).row();
-        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
+        window.add(job1Description).pad(10,0,0,0).colspan(1);
+        window.add(job2Description).pad(10,50,0,0).colspan(0).row();
+        window.add(job1Btn).pad(0,0,0,0).colspan(1);
+        window.add(job2Btn).pad(0,50,0,0).row();
+        window.add(closeBtn).pad(150,0,0,0).colspan(2);
 
         window.setScale(2F);
 
-        job1Btn.addListener(new ClickListener() {
+        job1Btn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.setCurrentJob(jobs[0]);
@@ -814,18 +812,17 @@ public class GameScreen implements Screen, ProximityListener {
 
         });
 
-        job2Btn.addListener(new ClickListener() {
+        job2Btn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
-            }
 
-            ;
+            };
         });
 
-        closeBtn.addListener(new ChangeListener() {
+        closeBtn.addListener (new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -902,6 +899,8 @@ public class GameScreen implements Screen, ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
+
+
     }
 
     /**
@@ -909,5 +908,6 @@ public class GameScreen implements Screen, ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
+
     }
 }
