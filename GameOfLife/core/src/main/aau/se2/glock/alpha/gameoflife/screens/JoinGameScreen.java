@@ -410,7 +410,7 @@ public class JoinGameScreen implements Screen {
         btnWidth = screenWidth / 5;
         btnHeight = screenHeight / 13;
 
-        btnJoinPosition = new Vector2(centerWidth - ((float) btnWidth / 2), centerHeight - btnHeight);
+        btnJoinPosition = new Vector2(centerWidth - ((float) btnWidth / 2), (float) centerHeight - btnHeight);
     }
 
     /**
@@ -531,7 +531,7 @@ public class JoinGameScreen implements Screen {
             stage.getBatch().end();
         } else {
             stage.getBatch().begin();
-            stage.getBatch().draw(transparentImage, screenWidth - transparentImage.getRegionWidth() - 10, 10);
+            stage.getBatch().draw(transparentImage, (float) screenWidth - (float) transparentImage.getRegionWidth() - 10F, 10F);
             stage.getBatch().end();
         }
     }

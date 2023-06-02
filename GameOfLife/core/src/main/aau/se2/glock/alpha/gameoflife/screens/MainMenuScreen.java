@@ -186,7 +186,7 @@ public class MainMenuScreen implements Screen {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2(centerWidth - (buttonWidth / 2), centerHeight - buttonHeight);
+        buttonPosition = new Vector2((float) centerWidth - (buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -237,7 +237,7 @@ public class MainMenuScreen implements Screen {
         labelStyle.font = bigFont; // Set the font for the label
         labelStyle.fontColor = Color.WHITE; // Set the font color for the label
         Label label = new Label("Game of Life", labelStyle); // Create the label with the text and style
-        label.setPosition(centerWidth - (label.getWidth() / 2), centerHeight + (buttonHeight * 2)); // Set the position of the label
+        label.setPosition(centerWidth - (label.getWidth() / 2), (float) centerHeight + (buttonHeight * 2)); // Set the position of the label
         stage.addActor(label); // Add the label to the stage
     }
 
@@ -260,7 +260,7 @@ public class MainMenuScreen implements Screen {
 
         // Create the text field using the registered style
         usernameInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        usernameInput.setPosition(centerWidth - (buttonWidth / 2), (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the text field
+        usernameInput.setPosition((float) centerWidth - (buttonWidth / 2), (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the text field
         usernameInput.setSize(buttonWidth, buttonHeight); // Set the size of the text field
         // Set the placeholder text
         usernameInput.setMessageText("Enter username"); // Set the placeholder text
@@ -269,10 +269,10 @@ public class MainMenuScreen implements Screen {
             usernameInput.setText(GameOfLife.self.getUsername());
         }
 
-        textFieldStyle.background.setLeftWidth(screenWidth / 50); // Set the left padding
-        textFieldStyle.background.setRightWidth(screenWidth / 50); // Set the right padding
-        textFieldStyle.background.setTopHeight(screenWidth / 50); // Set the top padding
-        textFieldStyle.background.setBottomHeight(screenWidth / 50); // Set the bottom padding
+        textFieldStyle.background.setLeftWidth((float) screenWidth / 50); // Set the left padding
+        textFieldStyle.background.setRightWidth((float) screenWidth / 50); // Set the right padding
+        textFieldStyle.background.setTopHeight((float) screenWidth / 50); // Set the top padding
+        textFieldStyle.background.setBottomHeight((float) screenWidth / 50); // Set the bottom padding
 
         //If there was an error, we want to remove the read marking if the usernameInput text gets valid
         usernameInput.addListener(new ChangeListener() {

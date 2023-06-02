@@ -189,7 +189,7 @@ public class StartGameScreen implements Screen {
         buttonWidth = screenWidth / 5;
         buttonHeight = screenHeight / 8;
 
-        buttonPosition = new Vector2(centerWidth - (buttonWidth / 2), centerHeight - buttonHeight);
+        buttonPosition = new Vector2((float) centerWidth - (buttonWidth / 2), (float) centerHeight - buttonHeight);
     }
 
     /**
@@ -240,7 +240,7 @@ public class StartGameScreen implements Screen {
         labelStyle.font = bigFont; // Set the font for the label
         labelStyle.fontColor = Color.WHITE; // Set the font color for the label
         label = new Label("Game of Life", labelStyle); // Create the label with the text and style
-        label.setPosition(centerWidth - (label.getWidth() / 2), centerHeight + (buttonHeight * 2)); // Set the position of the label
+        label.setPosition(centerWidth - (label.getWidth() / 2), (float) centerHeight + (buttonHeight * 2)); // Set the position of the label
         stage.addActor(label); // Add the label to the stage
     }
 
