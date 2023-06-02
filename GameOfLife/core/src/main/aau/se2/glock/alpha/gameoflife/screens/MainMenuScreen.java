@@ -81,7 +81,7 @@ public class MainMenuScreen extends BasicScreen {
 
         // Create the text field using the registered style
         usernameInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        usernameInput.setPosition((float) centerWidth - (buttonWidth / 2), (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the text field
+        usernameInput.setPosition((float) centerWidth - ((float) buttonWidth / 2), (float) (buttonPosition.y + (buttonHeight * 1.25F))); // Set the position of the text field
         usernameInput.setSize(buttonWidth, buttonHeight); // Set the size of the text field
         // Set the placeholder text
         usernameInput.setMessageText("Enter username"); // Set the placeholder text
