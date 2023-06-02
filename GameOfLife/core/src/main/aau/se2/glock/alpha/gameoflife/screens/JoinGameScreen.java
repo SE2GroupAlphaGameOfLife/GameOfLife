@@ -39,126 +39,23 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 /**
  *
  */
-public class JoinGameScreen implements Screen {
+public class JoinGameScreen extends BasicScreen {
 
-    /**
-     *
-     */
     private final Timer timer;
-
-    /**
-     *
-     */
-    private final OrthographicCamera gameCamera;
-
-    /**
-     *
-     */
-    private final Viewport gameViewPort;
-
-    /**
-     *
-     */
     private final TextureRegion refreshIcon;
-
-    /**
-     *
-     */
     private final float rotationSpeed = 180; // degrees per second
-
-    /**
-     *
-     */
     private final List<Label> serverLabels = new ArrayList<>();
-
-    /**
-     *
-     */
-    public Vector2 btnJoinPosition;
-
-    /**
-     *
-     */
-    private int screenWidth, screenHeight, centerWidth, centerHeight;
-
-    /**
-     *
-     */
-    private int btnWidth, btnHeight;
-
-    /**
-     *
-     */
-    private Stage stage;
-
-    /**
-     *
-     */
     private TextButton btnJoinGame;
-
-    /**
-     *
-     */
     private TextButton btnBack;
-
-    /**
-     *
-     */
     private TextButton.TextButtonStyle textButtonStyle;
-
-    /**
-     *
-     */
-    private Skin skin;
-
-    /**
-     *
-     */
-    private Texture lightGrayTexture, grayTextrue;
-
-    /**
-     *
-     */
-    private BitmapFont standardFont, bigFont;
-
-    /**
-     *
-     */
     private TextField.TextFieldStyle textFieldStyle;
-
-    /**
-     *
-     */
     private TextField ipInput;
-
-    /**
-     *
-     */
     private TextureRegion transparentImage;
-
-    /**
-     *
-     */
     private boolean showRefreshIcon;
-
-    /**
-     *
-     */
     private float currentRotation = 0f;
-
-    /**
-     *
-     */
     private float originXRefreshIcon = 0f;
-
-    /**
-     *
-     */
     private float originYRefreshIcon = 0f;
 
-    /**
-     *
-     */
     public JoinGameScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
@@ -215,7 +112,7 @@ public class JoinGameScreen implements Screen {
 
         // Create the text field using the registered style
         ipInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        ipInput.setSize(screenWidth - btnWidth - (float) screenWidth / 25 * 2 - (float) screenWidth / 70, btnHeight); // Set the size of the text field
+        ipInput.setSize(screenWidth - buttonWidth - (float) screenWidth / 25 * 2 - (float) screenWidth / 70, buttonHeight); // Set the size of the text field
         ipInput.setPosition((float) screenWidth / 25, screenHeight - (float) screenHeight / 25 - ipInput.getHeight()); // Set the position of the text field
         // Set the placeholder text
         ipInput.setMessageText("Enter IP-Address"); // Set the placeholder text
@@ -267,7 +164,7 @@ public class JoinGameScreen implements Screen {
 
         //Create a Join Game Button
         btnJoinGame = new TextButton("Join", textButtonStyle); // Create the text button with the text and style
-        btnJoinGame.setSize(btnWidth, btnHeight);
+        btnJoinGame.setSize(buttonWidth, buttonHeight);
         btnJoinGame.setPosition(ipInput.getX() + ipInput.getWidth() + (float) screenWidth / 70, ipInput.getY());
 
         stage.addActor(btnJoinGame);
@@ -359,59 +256,6 @@ public class JoinGameScreen implements Screen {
         ipInput.setText(ipAddress.getHostAddress());
     }
 
-    /**
-     *
-     */
-    private void initTextures() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.LIGHT_GRAY);
-        pixmap.fill();
-        lightGrayTexture = new Texture(pixmap);
-
-        pixmap.setColor(Color.GRAY);
-        pixmap.fill();
-        grayTextrue = new Texture(pixmap);
-
-        pixmap.dispose();
-    }
-
-    /**
-     *
-     */
-    private void initStage() {
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-    }
-
-    /**
-     *
-     */
-    private void initFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
-        standardFont = generator.generateFont(parameter);
-        parameter.size = 128;
-        bigFont = generator.generateFont(parameter);
-        generator.dispose();
-    }
-
-    /**
-     *
-     */
-    private void initScreenDimensions() {
-        screenWidth = Gdx.graphics.getWidth();
-        centerWidth = screenWidth / 2;
-        screenHeight = Gdx.graphics.getHeight();
-        centerHeight = screenHeight / 2;
-
-        btnWidth = screenWidth / 5;
-        btnHeight = screenHeight / 13;
-
-        btnJoinPosition = new Vector2(centerWidth - ((float) btnWidth / 2), (float) centerHeight - btnHeight);
-    }
 
     /**
      * @return
@@ -439,7 +283,7 @@ public class JoinGameScreen implements Screen {
     private void createBackButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
-        btnBack.setSize(btnWidth, btnHeight); // Set the size of the button
+        btnBack.setSize(buttonWidth, buttonHeight); // Set the size of the button
         btnBack.setPosition(30, 30); // Set the position of the button
 
         stage.addActor(btnBack); // Add the button to the stage
@@ -509,11 +353,6 @@ public class JoinGameScreen implements Screen {
         GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
     }
 
-    @Override
-    public void show() {
-
-    }
-
     /**
      * @param delta The time in seconds since the last render.
      */
@@ -534,36 +373,5 @@ public class JoinGameScreen implements Screen {
             stage.getBatch().draw(transparentImage, (float) screenWidth - (float) transparentImage.getRegionWidth() - 10F, 10F);
             stage.getBatch().end();
         }
-    }
-
-    /**
-     * @param width
-     * @param height
-     */
-    @Override
-    public void resize(int width, int height) {
-        gameViewPort.update(width, height);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void hide() {
-        this.dispose();
-    }
-
-    @Override
-    public void dispose() {
     }
 }

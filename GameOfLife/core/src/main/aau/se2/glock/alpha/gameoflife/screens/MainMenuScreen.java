@@ -38,76 +38,12 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 /**
  *
  */
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends BasicScreen {
 
-    /**
-     *
-     */
-    private final OrthographicCamera gameCamera;
-
-    /**
-     *
-     */
-    private final Viewport gameViewPort;
-
-    /**
-     *
-     */
-    private int screenWidth, screenHeight, centerWidth, centerHeight;
-
-    /**
-     *
-     */
-    private int buttonWidth, buttonHeight;
-
-    /**
-     *
-     */
-    private Vector2 buttonPosition;
-
-    /**
-     *
-     */
-    private Stage stage;
-
-    /**
-     *
-     */
     private TextButton btnStartGame, btnJoinGame;
-
-    /**
-     *
-     */
     private TextButtonStyle textButtonStyle;
-
-    /**
-     *
-     */
-    private BitmapFont standardFont, bigFont;
-
-    /**
-     *
-     */
-    private Skin skin;
-
-    /**
-     *
-     */
-    private Texture lightGrayTexture, grayTextrue;
-
-    /**
-     *
-     */
     private TextFieldStyle textFieldStyle;
-
-    /**
-     *
-     */
     private TextField usernameInput;
-
-    /**
-     *
-     */
     private NinePatchDrawable borderDrawable;
 
     /**
@@ -124,121 +60,6 @@ public class MainMenuScreen implements Screen {
         createGameOfLifeTitle();
         createUsernameInput();
         createMainMenuButtons();
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    /**
-     * @param delta The time in seconds since the last render.
-     */
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-
-        stage.getBatch().setProjectionMatrix(gameCamera.combined);
-        stage.act(Gdx.graphics.getDeltaTime()); // Update the stage
-        stage.draw(); // Draw the stage
-    }
-
-    /**
-     * @param width
-     * @param height
-     */
-    @Override
-    public void resize(int width, int height) {
-        gameViewPort.update(width, height);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    public void dispose() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void hide() {
-        this.dispose();
-    }
-
-    /**
-     * Initializes the screen dimensions such as screen width, screen height, button width and button height.
-     */
-    private void initScreenDimensions() {
-        screenWidth = Gdx.graphics.getWidth();
-        centerWidth = screenWidth / 2;
-        screenHeight = Gdx.graphics.getHeight();
-        centerHeight = screenHeight / 2;
-
-        buttonWidth = screenWidth / 5;
-        buttonHeight = screenHeight / 8;
-
-        buttonPosition = new Vector2((float) centerWidth - (buttonWidth / 2), (float) centerHeight - buttonHeight);
-    }
-
-    /**
-     * Initializes the fonts used in the UI elements.
-     */
-    private void initFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
-        standardFont = generator.generateFont(parameter);
-        parameter.size = 128;
-        bigFont = generator.generateFont(parameter);
-        generator.dispose();
-    }
-
-    /**
-     * Initializes the stage for handling UI elements.
-     */
-    private void initStage() {
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-    }
-
-    /**
-     * Initializes the textures used for UI elements.
-     */
-    private void initTextures() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.LIGHT_GRAY);
-        pixmap.fill();
-        lightGrayTexture = new Texture(pixmap);
-
-        pixmap.setColor(Color.GRAY);
-        pixmap.fill();
-        grayTextrue = new Texture(pixmap);
-
-        pixmap.dispose();
-    }
-
-    /**
-     * Creates the Game of Life title as a label and adds it to the stage.
-     */
-    private void createGameOfLifeTitle() {
-        //Create Game of Life Title
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = bigFont; // Set the font for the label
-        labelStyle.fontColor = Color.WHITE; // Set the font color for the label
-        Label label = new Label("Game of Life", labelStyle); // Create the label with the text and style
-        label.setPosition(centerWidth - (label.getWidth() / 2), (float) centerHeight + (buttonHeight * 2)); // Set the position of the label
-        stage.addActor(label); // Add the label to the stage
     }
 
     /**
