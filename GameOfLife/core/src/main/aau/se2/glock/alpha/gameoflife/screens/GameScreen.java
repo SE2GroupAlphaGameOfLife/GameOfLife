@@ -44,224 +44,48 @@ import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 /**
  *
  */
-public class GameScreen implements Screen, ProximityListener {
-
-    /**
-     *
-     */
-    private final OrthographicCamera gameCamera;
-
-    /**
-     *
-     */
-    private final Viewport gameViewPort;
-
-    /**
-     *
-     */
-    public Vector2 buttonPosition;
-
-    /**
-     *
-     */
-    private Stage stage;
-
-    /**
-     *
-     */
+public class GameScreen extends BasicScreen implements ProximityListener {
+    
     private TextButton btnQuit;
-
-    /**
-     *
-     */
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
-
-
-    /**
-     *
-     */
     private TextButton.TextButtonStyle textButtonStyle;
-
-    /**
-     *
-     */
     private TextButton btnJob;
-
-    /**
-     *
-     */
-    private Dialog jobDialog;
-
-    /**
-     *
-     */
     private Skin uiSkin;
-
-    /**
-     *
-     */
-    private BitmapFont standardFont;
-    private BitmapFont bigFont;
-    /**
-     *
-     */
-    private Skin skin;
-    private Skin popupSkin;
-    /**
-     *
-     */
     private Texture background;
     private Texture skateboard;
-    /**
-     *
-     */
     private Button nextFieldButton1;
     private Button nextFieldButton2;
-    /**
-     *
-     */
     private Button closeBtn;
-
-    /**
-     *
-     */
     private Button job1Btn;
-
-    /**
-     *
-     */
     private Button job2Btn;
-
-    /**
-     *
-     */
     private Label job1Description;
-
-    /**
-     *
-     */
     private Label job2Description;
-
-    /**
-     *
-     */
     private Group nextFieldButtonGroup; // Create a Group to hold actors
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
     private Group playersGroup;
-    /**
-     *
-     */
-    private Texture lightGrayTexture;
-    private Texture grayTextrue;
-    /**
-     *
-     */
     private Texture wheelTexture;
-
-
     private Drawable wheelDrawable;
     private ImageButton wheelImageButton;
     private ImageButton arrowImageButton;
-    /**
-     *
-     */
     private Texture arrowTexture;
-
-    /**
-     *
-     */
     private Label lbUsernameAge;
     private Label lbMoney;
     private Label lbLifepoints;
-
-    /**
-     *
-     */
     private Label.LabelStyle labelStyle;
-
-    /**
-     *
-     */
     private Dialog eventDialog;
-
-    //Wheel
-    /**
-     *
-     */
-    private int wheelSize = 100;
-
-    /**
-     *
-     */
     private boolean isSpinning = false;
-
-    /**
-     *
-     */
-    private float arrowX = -25f;
-    private float arrowY = -25f;
-    /**
-     *
-     */
-    private float arrowWidth = 50f;
-    private float arrowHeight = 50f;
-    /**
-     *
-     */
     private float arrowRotation = 216f; //216 is starting point
-
-    /**
-     *
-     */
     private float spinSpeed = 360f;
-
-    /**
-     *
-     */
     private float maxSpinDuration = 2f;
-
-    /**
-     *
-     */
     private float spinDuration = 0f;
-
-    /**
-     *
-     */
     private float spinAngle = 0f;
-
-    /**
-     *
-     */
-    private int selectedSection = 0;
-
-    /**
-     *
-     */
-    private boolean spinningEnded = true;
-
-    /**
-     *
-     */
-    private int screenWidth;
-    private int screenHeight;
-    private int centerWidth;
-    private int centerHeight;
-    /**
-     *
-     */
-    private int buttonWidth, buttonHeight;
-
     private Image arrowImage;
     private JobData jobSelection;
     private Job[] jobs;
 
-    /**
-     *
-     */
     public GameScreen() {
 
         jobSelection = JobData.getInstance();
@@ -281,11 +105,6 @@ public class GameScreen implements Screen, ProximityListener {
         createEventPopup();
         refreshPlayerHUD();
         createJobButton();
-    }
-
-    @Override
-    public void show() {
-
     }
 
     /**
@@ -351,65 +170,6 @@ public class GameScreen implements Screen, ProximityListener {
     }
 
     /**
-     * @param width
-     * @param height
-     */
-    @Override
-    public void resize(int width, int height) {
-        gameViewPort.update(width, height);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    public void dispose() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void hide() {
-        this.dispose();
-    }
-
-    /**
-     * Initializes the screen dimensions such as screen width, screen height, button width and button height.
-     */
-    private void initScreenDimensions() {
-        screenWidth = Gdx.graphics.getWidth();
-        centerWidth = screenWidth / 2;
-        screenHeight = Gdx.graphics.getHeight();
-        centerHeight = screenHeight / 2;
-
-        buttonWidth = screenWidth / 5;
-        buttonHeight = screenHeight / 8;
-
-        buttonPosition = new Vector2(centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
-    }
-
-    /**
-     * Initializes the fonts used in the UI elements.
-     */
-    private void initFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
-        standardFont = generator.generateFont(parameter);
-        parameter.size = 128;
-        bigFont = generator.generateFont(parameter);
-        generator.dispose();
-    }
-
-    /**
      * Initialises Styles for Labels,Buttons,ETC...
      */
     private void initStyles() {
@@ -429,7 +189,8 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      * Initializes the stage for handling UI elements.
      */
-    private void initStage() {
+
+    protected void initStage() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
@@ -448,7 +209,7 @@ public class GameScreen implements Screen, ProximityListener {
     /**
      * Initializes the textures used for UI elements.
      */
-    private void initTextures() {
+    protected void initTextures() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 
         pixmap.setColor(Color.LIGHT_GRAY);
@@ -681,7 +442,6 @@ public class GameScreen implements Screen, ProximityListener {
         if (spinDuration > maxSpinDuration) {
             spinDuration = 0f;
             spinSpeed = 0f;
-            selectedSection = MathUtils.random(10);
             isSpinning = false;
 
             Player player = GameOfLife.self;
