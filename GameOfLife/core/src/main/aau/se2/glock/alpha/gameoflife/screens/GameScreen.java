@@ -317,10 +317,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 Player self = GameOfLife.self;
 
-                // This method will be called when the TextButton is clicked
-                self.setMoveCount(self.getMoveCount() + 1);
-                self.setHasCheated(true);
-                self.setHasCheatedAtAge(self.getAge());
+                self.cheat(1);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -333,10 +330,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 Player self = GameOfLife.self;
 
-                // This method will be called when the TextButton is clicked
-                self.setMoveCount(self.getMoveCount() + 2);
-                self.setHasCheated(true);
-                self.setHasCheatedAtAge(self.getAge());
+                self.cheat(2);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -349,10 +343,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 Player self = GameOfLife.self;
 
-                // This method will be called when the TextButton is clicked
-                self.setMoveCount(self.getMoveCount() + 3);
-                self.setHasCheated(true);
-                self.setHasCheatedAtAge(self.getAge());
+                self.cheat(3);
 
                 cheatingButtonGroup.clearChildren();
             }
