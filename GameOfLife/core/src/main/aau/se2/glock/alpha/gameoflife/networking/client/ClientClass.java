@@ -16,6 +16,7 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TCPCommands;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
@@ -175,6 +176,26 @@ public class ClientClass extends Listener {
      */
     public void sendPlayerTCP(Player player) {
         this.client.sendTCP(player);
+    }
+
+
+
+    /**
+     * Sends a Player object over TCP to the server.
+     *
+     * @param player Player object to be sent to server.
+     */
+    public void sendReportPlayerTCP(Player player) {
+        this.client.sendTCP(TCPCommands.REPORTED +"#" + player.getId());
+    }
+
+    /**
+     * Sends a Player object over TCP to the server.
+     *
+     * @param player Player object to be sent to server.
+     */
+    public void sendPlayerCheatedTCP(Player player, int cheatedAmount) {
+        this.client.sendTCP(TCPCommands.CHEATED +"#" +  player.getId() + "#" + cheatedAmount);
     }
 
     /**
