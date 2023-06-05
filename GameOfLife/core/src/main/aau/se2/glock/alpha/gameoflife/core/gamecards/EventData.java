@@ -120,8 +120,10 @@ public class EventData {
      */
     private List<Card> cardList = new ArrayList<>();
 
-    public EventData() {
-
+    public EventData(){
+        /**
+        Empty Constructor
+        **/
     }
 
     /**

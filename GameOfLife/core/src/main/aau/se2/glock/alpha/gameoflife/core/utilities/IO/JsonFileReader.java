@@ -6,7 +6,9 @@ import com.badlogic.gdx.files.FileHandle;
 public class JsonFileReader {
 
     public JsonFileReader() {
-
+        /**
+         Empty Constructor
+         **/
     }
 
     /**

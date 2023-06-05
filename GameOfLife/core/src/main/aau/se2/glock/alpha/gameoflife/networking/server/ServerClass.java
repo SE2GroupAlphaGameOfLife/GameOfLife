@@ -25,6 +25,8 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
  */
 public class ServerClass implements Listener {
 
+    private static final String STRING_SERVER = "Server";
+
     /**
      *
      */
@@ -145,14 +147,14 @@ public class ServerClass implements Listener {
     /**
      * @return
      */
-    public int getTCPport() {
+    public int getTCPPort() {
         return this.TCPPORT;
     }
 
     /**
      * @return
      */
-    public int getUDPport() {
+    public int getUDPPort() {
         return this.UDPPORT;
     }
 
@@ -167,14 +169,14 @@ public class ServerClass implements Listener {
                 player.setOnline(true);
                 player.setJoning(false);
                 this.players.addPlayer(player, connection.getID());
-                Gdx.app.log("Server", "Client wiederverbunden!");
+                Gdx.app.log(STRING_SERVER, "Client wiederverbunden!");
                 sendPlayersObjectToAll();
             } else {
-                Gdx.app.log("Server", "Client Verbindung abgelehnt da Spiel bereits läuft!");
+                Gdx.app.log(STRING_SERVER, "Client Verbindung abgelehnt da Spiel bereits läuft!");
                 connection.close();
             }
         } else {
-            Gdx.app.log("Server", "Client verbunden!");
+            Gdx.app.log(STRING_SERVER, "Client verbunden!");
         }
     }
 
@@ -198,7 +200,7 @@ public class ServerClass implements Listener {
             System.out.println(players.getPlayerCount());
             sendPlayersObjectToAll();
         }
-        Gdx.app.log("Server", "Client hat Verbindung getrennt!");
+        Gdx.app.log(STRING_SERVER, "Client hat Verbindung getrennt!");
         //System.out.println("[Server] Client hat Verbindung getrennt!");
     }
 
@@ -232,20 +234,6 @@ public class ServerClass implements Listener {
                 this.sendMessageToAll(payload);
             }
         }
-    }
-
-    /**
-     * @return
-     */
-    public int getUDPPORT() {
-        return UDPPORT;
-    }
-
-    /**
-     * @return
-     */
-    public int getTCPPORT() {
-        return TCPPORT;
     }
 
     /**
