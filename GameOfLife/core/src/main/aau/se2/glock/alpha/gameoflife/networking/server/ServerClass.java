@@ -6,13 +6,20 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.esotericsoftware.kryonet.ServerDiscoveryHandler;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
+import java.security.SecureRandom;
+import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
@@ -21,7 +28,7 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.TCPCommands;
 /**
  *
  */
-public class ServerClass extends Listener {
+public class ServerClass implements Listener {
 
     /**
      *
@@ -53,7 +60,28 @@ public class ServerClass extends Listener {
      */
     private String hostname;
 
+    /**
+     *
+     */
     private List<PlayerCheated> playerCheatedList;
+
+    private ServerDiscoveryHandler serverDiscoveryHandler = new ServerDiscoveryHandler() {
+        @Override
+        public boolean onDiscoverHost(DatagramChannel datagramChannel, InetSocketAddress fromAddress) throws IOException {
+
+            DiscoveryResponsePacket packet = new DiscoveryResponsePacket();
+            packet.hostname = hostname;
+
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            GameOfLife.client.getClient().getSerialization().write(null, buffer, packet);
+            buffer.flip();
+
+            datagramChannel.send(buffer, fromAddress);
+
+            return true;
+        }
+    };
+
 
     /**
      * @param TCPPORT
@@ -66,12 +94,16 @@ public class ServerClass extends Listener {
         this.UDPPORT = UDPPORT;
 
         this.server.addListener(this);
+        this.server.setDiscoveryHandler(serverDiscoveryHandler);
 
         Kryo kryo = this.server.getKryo();
-        kryo.register(ServerInformation.class);
+        //kryo.register(ServerInformation.class);
+        kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
 
         players = new JoinedPlayers();
 
@@ -83,16 +115,12 @@ public class ServerClass extends Listener {
      */
     public void start(String hostname) {
         if (!this.serverStarted) {
+            this.hostname = hostname;
             try {
-                /*ServerSocket s = new ServerSocket(0);
-                this.TCPPORT = s.getLocalPort();
-                s.close();*/
-                this.server.start();
                 this.server.bind(this.TCPPORT, this.UDPPORT);
+                this.server.start();
 
                 this.serverStarted = true;
-
-                this.hostname = hostname;
                 //sendServerInfoToAllTCP();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -122,6 +150,10 @@ public class ServerClass extends Listener {
         this.server.sendToAllTCP(this.players);
     }
 
+    private void sendMessageToAll(String message) {
+        this.server.sendToAllTCP(message);
+    }
+
     /**
      * @return
      */
@@ -142,10 +174,11 @@ public class ServerClass extends Listener {
     @Override
     public void connected(Connection connection) {
         if (GameOfLife.gameStarted) {
-            if (this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
-                Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
+            if (this.players.getPlayers().containsKey(connection.getID())) {
+                Player player = this.players.getPlayers().get(connection.getID());
                 player.setOnline(true);
-                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+                player.setJoning(false);
+                this.players.addPlayer(player, connection.getID());
                 Gdx.app.log("Server", "Client wiederverbunden!");
                 sendPlayersObjectToAll();
             } else {
@@ -162,11 +195,19 @@ public class ServerClass extends Listener {
      */
     @Override
     public void disconnected(Connection connection) {
-        if (GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())) {
-            Player player = this.players.getPlayers().get(connection.getRemoteAddressTCP().getAddress());
+        if (GameOfLife.gameStarted && this.players.getPlayers().containsKey(connection.getID())) {
+            Player player = this.players.getPlayers().get(connection.getID());
             player.setOnline(false);
-            this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
+            player.setJoning(true);
+            player.setHasTurn(false);
+            this.players.addPlayer(player, connection.getID());
             this.players.setPlayersTurn(player.getId() + 1);
+            sendPlayersObjectToAll();
+        } else if ((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())) {
+            System.out.println("GJDGHJDJHD");
+            System.out.println(players.getPlayerCount());
+            players.removePlayerWithConnectionID(connection.getID());
+            System.out.println(players.getPlayerCount());
             sendPlayersObjectToAll();
         }
         Gdx.app.log("Server", "Client hat Verbindung getrennt!");
@@ -179,22 +220,27 @@ public class ServerClass extends Listener {
      */
     @Override
     public void received(Connection connection, Object object) {
-
-        if (object instanceof ServerInformation) {
-            this.server.sendToTCP(connection.getID(), new ServerInformation(this.hostname, this.TCPPORT));
-        } else if (object instanceof Player) {
+        if (object instanceof Player) {
             Player player = (Player) object;
+            Gdx.app.log("ServerClass", "Received Player object (" + player + ")");
             if (!GameOfLife.gameStarted && player.isJoning()) {
                 player.setJoning(false);
                 player.setId(this.players.getPlayerCount() + 1);
-                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
-                return;
+                this.players.addPlayer(player, connection.getID());
+                //return;
             }
-            if (GameOfLife.gameStarted && player.isHasTurn()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
+            if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
                 player.setHasTurn(false);
                 this.players.setPlayersTurn(player.getId() + 1);
-                this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
-                return;
+                this.players.addPlayer(player, connection.getID());
+                //return;
+            }
+            this.sendPlayersObjectToAll();
+        } else if (object instanceof String) {
+            String payload = (String) object;
+            if (payload.equals(GameOfLife.startGamePayload)) {
+                Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
+                this.sendMessageToAll(payload);
             }
             sendPlayersObjectToAll();
         } else if(object instanceof String){ //This is for the cheating functionality

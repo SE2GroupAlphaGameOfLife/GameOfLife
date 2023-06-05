@@ -1,21 +1,13 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -24,9 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -143,17 +133,8 @@ public class MainMenuScreen extends BasicScreen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
-                    //GameOfLife.server.start(GameOfLife.self.getUsername());
-
                     GameOfLife.changeScreen(new JoinGameScreen());
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
-                            System.out.println(GameOfLife.availableServers);
-                            //GameOfLife.getInstance().render();
-                        }
-                    }).start();*/
+                    //GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                 }
             }
         });
@@ -168,19 +149,25 @@ public class MainMenuScreen extends BasicScreen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.server.start(GameOfLife.self.getUsername());
-                            try {
-                                GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-                            } catch (UnknownHostException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }).start();
+                    if (!GameOfLife.server.isServerStarted()) {
 
-                    GameOfLife.changeScreen(new StartGameScreen());
+                        GameOfLife.changeScreen(new StartGameScreen());
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                GameOfLife.server.start(GameOfLife.self.getUsername());
+                                try {
+                                    GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                                } catch (UnknownHostException e) {
+                                    GameOfLife.changeScreen(new MainMenuScreen());
+                                    //throw new RuntimeException(e);
+                                }
+                            }
+                        }).start();
+                    } else {
+                        GameOfLife.server.close();
+                    }
                 }
             }
         });
@@ -201,5 +188,18 @@ public class MainMenuScreen extends BasicScreen {
         }
 
         return true;
+    }
+
+    @Override
+    public void update(String payload) {
+        if (payload.equals(GameOfLife.clientConnectingFailed)) {
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    // code to be executed on main thread
+                    GameOfLife.changeScreen(new MainMenuScreen());
+                }
+            });
+        }
     }
 }

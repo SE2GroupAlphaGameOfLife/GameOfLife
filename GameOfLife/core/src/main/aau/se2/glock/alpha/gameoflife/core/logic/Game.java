@@ -69,7 +69,7 @@ public class Game {
      *
      */
     public void getFieldEvent() {
-        if (!currentplayer.isHasTurn()) {
+        if (!currentplayer.hasTurn()) {
         } else {
             currentplayer.getEvent();
         }
