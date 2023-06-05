@@ -12,6 +12,7 @@ import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +86,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
 
         Kryo kryo = client.getKryo();
         //kryo.register(ServerInformation.class);
+        kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
@@ -105,6 +107,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
 
         Kryo kryo = client.getKryo();
         //kryo.register(ServerInformation.class);
+        kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
@@ -191,9 +194,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
 
         if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
             this.sendPlayerTCP(GameOfLife.self);
-        }/* else if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
-            this.client.sendTCP(new ServerInformation());
-        }*/
+        }
     }
 
     /**
