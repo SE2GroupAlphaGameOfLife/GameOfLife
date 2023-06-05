@@ -14,19 +14,19 @@ public class JoinedPlayers {
     /**
      *
      */
-    private HashMap<String, Player> players;
+    private HashMap<Integer, Player> players;
 
     /**
      *
      */
     public JoinedPlayers() {
-        players = new HashMap<String, Player>();
+        players = new HashMap<Integer, Player>();
     }
 
     /**
      * @param players
      */
-    public JoinedPlayers(HashMap<String, Player> players) {
+    public JoinedPlayers(HashMap<Integer, Player> players) {
         this.players = players;
     }
 
@@ -35,31 +35,31 @@ public class JoinedPlayers {
      * @param ipaddress
      * @return
      */
-    public boolean addPlayer(Player player, InetAddress ipaddress) {
-        if (this.players.containsKey(ipaddress.toString()))
+    public boolean addPlayer(Player player, Integer connectionId) {
+        if (this.players.containsKey(connectionId))
             return false;
-        this.players.put(ipaddress.toString(), player);
+        this.players.put(connectionId, player);
         return true;
     }
 
     /**
      * @param ipaddress
      */
-    public void removePlayerWithIP(InetAddress ipaddress) {
-        this.players.remove(ipaddress.toString());
+    public void removePlayerWithConnectionID(Integer connectionId) {
+        this.players.remove(connectionId);
     }
 
     /**
      * @return
      */
-    public HashMap<String, Player> getPlayers() {
+    public HashMap<Integer, Player> getPlayers() {
         return this.players;
     }
 
     /**
      * @param players
      */
-    public void setPlayers(HashMap<String, Player> players) {
+    public void setPlayers(HashMap<Integer, Player> players) {
         this.players = players;
     }
 
