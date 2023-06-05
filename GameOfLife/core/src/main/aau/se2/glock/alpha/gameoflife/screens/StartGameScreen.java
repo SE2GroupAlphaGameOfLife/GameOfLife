@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -27,11 +28,13 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 /**
  *
  */
-public class StartGameScreen implements Screen {
+public class StartGameScreen implements Screen, ClientObserver {
 
     /**
      *
@@ -115,6 +118,8 @@ public class StartGameScreen implements Screen {
         initStage();
         initTextures();
 
+        GameOfLife.client.registerObserver(this);
+
         //create a textButtonStyle
         textButtonStyle = new TextButtonStyle();
         textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(grayTextrue)); // Set the up state texture
@@ -123,7 +128,7 @@ public class StartGameScreen implements Screen {
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
 
         createGameOfLifeTitle();
-        createPlayersOverview();
+        this.createPlayersOverview();
         createStartGameButton();
         createBackButton();
         createInfoLabel();
@@ -174,6 +179,7 @@ public class StartGameScreen implements Screen {
      */
     @Override
     public void hide() {
+        GameOfLife.client.removeObserver(this);
         this.dispose();
     }
 
@@ -268,7 +274,7 @@ public class StartGameScreen implements Screen {
         int count = 0;
         for (Player player : GameOfLife.players) {
             Gdx.app.log("count", count + "");
-            Label labelPlayer = new Label(player.getUsername(), labelPlayerStyle); // Create the label with the text and style
+            Label labelPlayer = new Label(player.isHost() ? (player.getUsername() + " (Host)") : player.getUsername(), labelPlayerStyle); // Create the label with the text and style
             labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count + 2.5f))); // Set the position of the label
             stage.addActor(labelPlayer); // Add the label to the stage
             playerLabels.add(labelPlayer);
@@ -293,7 +299,15 @@ public class StartGameScreen implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // This method will be called when the TextButton is clicked
-                    GameOfLife.changeScreen(new GameScreen());
+
+                    if ((GameOfLife.players.size() > 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {
+                        //Broadcast, game started
+                        btnStartGame.setVisible(false);
+                        Gdx.app.log("StartGameScreen", "StartGame button pressed!");
+                        GameOfLife.client.sendMessageToServerTCP(GameOfLife.startGamePayload);
+                    } else {
+                        //Should be shown to user, that at least 2 players have to have joined or that some player joining is in progress
+                    }
                 }
             };
 
@@ -317,8 +331,13 @@ public class StartGameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
-                GameOfLife.client.disconnect();
-                GameOfLife.server.close();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameOfLife.server.close();
+                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    }
+                }).start();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
@@ -337,6 +356,30 @@ public class StartGameScreen implements Screen {
             label = new Label("Waiting for host to start the game...", labelStyle); // Create the label with the text and style
             label.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25)));
             stage.addActor(label); // Add the label to the stage]
+        }
+    }
+
+    @Override
+    public void update(String payload) {
+        if (payload.equals(GameOfLife.startGamePayload)) {
+            Gdx.app.log("StartGameScreen/update", "StartGamePayload received!");
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    // code to be executed on main thread
+                    GameOfLife.changeScreen(new GameScreen());
+                }
+            });
+        }else if(payload.equals(GameOfLife.createPlayersOverviewPayload)){
+            this.createPlayersOverview();
+        }else if(payload.equals(GameOfLife.clientConnectingFailed)){
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    // code to be executed on main thread
+                    GameOfLife.changeScreen(new MainMenuScreen());
+                }
+            });
         }
     }
 }
