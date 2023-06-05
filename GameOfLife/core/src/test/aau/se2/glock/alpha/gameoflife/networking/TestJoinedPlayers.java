@@ -51,9 +51,9 @@ public class TestJoinedPlayers {
 
     @Test
     public void testSetPlayers() {
-        HashMap<InetAddress, Player> players = new HashMap<>();
-        players.put(ip1, player1);
-        players.put(ip2, player2);
+        HashMap<String, Player> players = new HashMap<>();
+        players.put(ip1.toString(), player1);
+        players.put(ip2.toString(), player2);
         joinedPlayers.setPlayers(players);
         assertEquals(2, joinedPlayers.getPlayerCount());
     }
@@ -62,10 +62,10 @@ public class TestJoinedPlayers {
     public void testGetPlayers() {
         joinedPlayers.addPlayer(player1, ip1);
         joinedPlayers.addPlayer(player2, ip2);
-        HashMap<InetAddress, Player> players = joinedPlayers.getPlayers();
+        HashMap<String, Player> players = joinedPlayers.getPlayers();
         assertEquals(2, players.size());
-        assertTrue(players.containsKey(ip1));
-        assertTrue(players.containsKey(ip2));
+        assertTrue(players.containsKey(ip1.toString()));
+        assertTrue(players.containsKey(ip2.toString()));
     }
 
     @Test
