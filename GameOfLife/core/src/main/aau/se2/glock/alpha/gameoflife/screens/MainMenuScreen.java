@@ -1,21 +1,22 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -24,25 +25,19 @@ import java.util.ArrayList;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 
-public class MainMenuScreen implements Screen {
-    private OrthographicCamera gameCamera;
-    private Viewport gameViewPort;
-    private int screenWidth, screenHeight, centerWidth, centerHeight;
-    private int buttonWidth, buttonHeight;
-    private Vector2 buttonPosition;
-    private Stage stage;
+/**
+ *
+ */
+public class MainMenuScreen extends BasicScreen {
+
     private TextButton btnStartGame, btnJoinGame;
     private TextButtonStyle textButtonStyle;
-    private BitmapFont standardFont, bigFont;
-    private Skin skin;
-    private Texture lightGrayTexture, grayTextrue;
     private TextFieldStyle textFieldStyle;
     private TextField usernameInput;
     private NinePatchDrawable borderDrawable;
 
     /**
      * Constructor for MainMenuScreen. Initializes the screen dimensions, fonts, stage, textures and UI elements.
-     *
      */
     public MainMenuScreen() {
         gameCamera = new OrthographicCamera();
@@ -57,119 +52,8 @@ public class MainMenuScreen implements Screen {
         createMainMenuButtons();
     }
 
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-
-        stage.getBatch().setProjectionMatrix(gameCamera.combined);
-        stage.act(Gdx.graphics.getDeltaTime()); // Update the stage
-        stage.draw(); // Draw the stage
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        gameViewPort.update(width, height);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    public void dispose() {
-
-    }
-
-    @Override
-    public void hide() {
-        this.dispose();
-    }
-
-    /**
-     * Initializes the screen dimensions such as screen width, screen height, button width and button height.
-     *
-     */
-    private void initScreenDimensions() {
-        screenWidth = Gdx.graphics.getWidth();
-        centerWidth = screenWidth / 2;
-        screenHeight = Gdx.graphics.getHeight();
-        centerHeight = screenHeight / 2;
-
-        buttonWidth = screenWidth / 5;
-        buttonHeight = screenHeight / 8;
-
-        buttonPosition = new Vector2(centerWidth-(buttonWidth/2), centerHeight - buttonHeight);
-    }
-
-    /**
-     * Initializes the fonts used in the UI elements.
-     *
-     */
-    private void initFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
-        standardFont = generator.generateFont(parameter);
-        parameter.size = 128;
-        bigFont = generator.generateFont(parameter);
-        generator.dispose();
-    }
-
-    /**
-     * Initializes the stage for handling UI elements.
-     *
-     */
-    private void initStage() {
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-    }
-
-    /**
-     * Initializes the textures used for UI elements.
-     *
-     */
-    private void initTextures() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.LIGHT_GRAY);
-        pixmap.fill();
-        lightGrayTexture = new Texture(pixmap);
-
-        pixmap.setColor(Color.GRAY);
-        pixmap.fill();
-        grayTextrue = new Texture(pixmap);
-
-        pixmap.dispose();
-    }
-
-    /**
-     * Creates the Game of Life title as a label and adds it to the stage.
-     *
-     */
-    private void createGameOfLifeTitle() {
-        //Create Game of Life Title
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = bigFont; // Set the font for the label
-        labelStyle.fontColor = Color.WHITE; // Set the font color for the label
-        Label label = new Label("Game of Life", labelStyle); // Create the label with the text and style
-        label.setPosition(centerWidth - (label.getWidth() / 2), centerHeight + (buttonHeight * 2)); // Set the position of the label
-        stage.addActor(label); // Add the label to the stage
-    }
-
     /**
      * Creates the username input text field and adds it to the stage.
-     *
      */
     private void createUsernameInput() {
         // Create a TextFieldStyle
@@ -187,22 +71,26 @@ public class MainMenuScreen implements Screen {
 
         // Create the text field using the registered style
         usernameInput = new TextField("", textFieldStyle); // You can set an initial text value in the first parameter of the TextField constructor
-        usernameInput.setPosition(centerWidth - (buttonWidth / 2), (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the text field
+        usernameInput.setPosition((float) centerWidth - ((float) buttonWidth / 2), (float) (buttonPosition.y + (buttonHeight * 1.25F))); // Set the position of the text field
         usernameInput.setSize(buttonWidth, buttonHeight); // Set the size of the text field
         // Set the placeholder text
         usernameInput.setMessageText("Enter username"); // Set the placeholder text
 
-        textFieldStyle.background.setLeftWidth(screenWidth / 50); // Set the left padding
-        textFieldStyle.background.setRightWidth(screenWidth / 50); // Set the right padding
-        textFieldStyle.background.setTopHeight(screenWidth / 50); // Set the top padding
-        textFieldStyle.background.setBottomHeight(screenWidth / 50); // Set the bottom padding
+        if (GameOfLife.self != null && !GameOfLife.self.getUsername().isEmpty()) {
+            usernameInput.setText(GameOfLife.self.getUsername());
+        }
+
+        textFieldStyle.background.setLeftWidth((float) screenWidth / 50); // Set the left padding
+        textFieldStyle.background.setRightWidth((float) screenWidth / 50); // Set the right padding
+        textFieldStyle.background.setTopHeight((float) screenWidth / 50); // Set the top padding
+        textFieldStyle.background.setBottomHeight((float) screenWidth / 50); // Set the bottom padding
 
         //If there was an error, we want to remove the read marking if the usernameInput text gets valid
         usernameInput.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Check if the length of the text is greater than 0
-                if (validateInput(usernameInput.getText())) {
+                if (validateInput(usernameInput)) {
                     // Set the font color to light gray
                     usernameInput.setColor(Color.LIGHT_GRAY);
                     usernameInput.getStyle().fontColor = Color.LIGHT_GRAY;
@@ -215,7 +103,6 @@ public class MainMenuScreen implements Screen {
 
     /**
      * Creates the main menu buttons and adds them to the stage.
-     *
      */
     private void createMainMenuButtons() {
         //create a textButtonStyle
@@ -241,22 +128,13 @@ public class MainMenuScreen implements Screen {
         btnJoinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (validateInput(usernameInput.getText())) {
+                if (validateInput(usernameInput)) {
                     GameOfLife.self = new Player(usernameInput.getText(), false);
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
-                    //GameOfLife.server.start(GameOfLife.self.getUsername());
-
                     GameOfLife.changeScreen(new JoinGameScreen());
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
-                            System.out.println(GameOfLife.availableServers);
-                            //GameOfLife.getInstance().render();
-                        }
-                    }).start();*/
+                    //GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                 }
             }
         });
@@ -266,42 +144,62 @@ public class MainMenuScreen implements Screen {
         btnStartGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (validateInput(usernameInput.getText())) {
+                if (validateInput(usernameInput)) {
                     GameOfLife.self = new Player(usernameInput.getText(), true);
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.server.start(GameOfLife.self.getUsername());
-                            try {
-                                GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-                            } catch (UnknownHostException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }).start();
+                    if (!GameOfLife.server.isServerStarted()) {
 
-                    GameOfLife.changeScreen(new StartGameScreen());
+                        GameOfLife.changeScreen(new StartGameScreen());
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                GameOfLife.server.start(GameOfLife.self.getUsername());
+                                try {
+                                    GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                                } catch (UnknownHostException e) {
+                                    GameOfLife.changeScreen(new MainMenuScreen());
+                                    //throw new RuntimeException(e);
+                                }
+                            }
+                        }).start();
+                    } else {
+                        GameOfLife.server.close();
+                    }
                 }
             }
         });
     }
 
     /**
-     * Checks if the input text is valid.
-     * @param text Input text to validate.
-     * @return True if input is valid, false if not.
+     * Checks if the input text is valid (length > 0).
+     * Changes color of TextField, dependent on validation result.
+     *
+     * @param txtField TextField object to validate and manipulate
+     * @return true if input is valid, false if not
      */
-    private boolean validateInput(String text) {
-        if (usernameInput.getText().length() < 1) {
-            usernameInput.setColor(Color.RED);
-            usernameInput.getStyle().messageFontColor = Color.RED;
+    private boolean validateInput(TextField txtField) {
+        if (txtField.getText().length() < 1) {
+            txtField.setColor(Color.RED);
+            txtField.getStyle().messageFontColor = Color.RED;
             return false;
         }
 
         return true;
     }
 
+    @Override
+    public void update(String payload) {
+        if (payload.equals(GameOfLife.clientConnectingFailed)) {
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    // code to be executed on main thread
+                    GameOfLife.changeScreen(new MainMenuScreen());
+                }
+            });
+        }
+    }
 }

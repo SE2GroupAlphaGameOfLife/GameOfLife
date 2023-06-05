@@ -2,6 +2,23 @@ plugins {
     id 'jacoco'
     id 'org.sonarqube' version '3.5.0.2730'
 }
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+    dependsOn test
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "aau/se2/glock/alpha/gameoflife/screens.*",
+            ])
+        }))
+    }
+}
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
 
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -13,6 +30,8 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+        property "sonar.coverage.exclusions", "**/GameScreen.java,**/JoinGameScreen.java,**/MainMenuScreen.java,**/StartGameScreen.java"
+
     }
 }
 
@@ -20,13 +39,13 @@ dependencies {
     implementation 'junit:junit:4.13.2'
     implementation 'com.badlogicgames.gdx:gdx-backend-android:1.11.0'
 
-    implementation 'com.esotericsoftware:kryonet:2.22.0-RC1'
-    implementation 'com.esotericsoftware.kryo:kryo:2.24.0'
+    implementation 'com.esotericsoftware:kryo:5.0.0'
+    implementation 'com.github.crykn:kryonet:2.22.7'
 
     testImplementation 'org.mockito:mockito-core:4.2.0'
 }
 
-sourceSets.main.java.srcDirs = [ "src/main" ]
-sourceSets.test.java.srcDirs = [ "src/test" ]
+sourceSets.main.java.srcDirs = ["src/main"]
+sourceSets.test.java.srcDirs = ["src/test"]
 
 eclipse.project.name = appName + "-core"
