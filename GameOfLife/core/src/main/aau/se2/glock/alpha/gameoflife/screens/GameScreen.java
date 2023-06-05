@@ -424,6 +424,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         if (player.getMoveCount() == 0) {
             showEventPopUp(player.getEvent().getText());
+            //GameOfLife.client.sendPlayerTCP(GameOfLife.self);
         }
     }
 
@@ -629,12 +630,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                for (Player p : GameOfLife.players) {
+                /*for (Player p : GameOfLife.players) {
                     if (p.hasTurn()) {
                         fillPlayerHUD(p);
                         break;
                     }
-                }
+                }*/
+                fillPlayerHUD(GameOfLife.self);
             }
         }, 0, time);
     }
@@ -668,8 +670,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-
-
     }
 
     /**
