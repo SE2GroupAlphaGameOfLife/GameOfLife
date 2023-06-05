@@ -351,4 +351,27 @@ public class Player {
         //we finished moving return true
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "position=" + position +
+                ", moveCount=" + moveCount +
+                ", random=" + random +
+                ", username='" + username + '\'' +
+                ", gender='" + gender + '\'' +
+                ", currentJob=" + currentJob +
+                ", age=" + age +
+                ", money=" + money +
+                ", id=" + id +
+                ", lifepoints=" + lifepoints +
+                ", color=" + color +
+                ", isHost=" + isHost +
+                ", hasTurn=" + hasTurn +
+                ", isJoning=" + isJoning +
+                ", isOnline=" + isOnline +
+                ", hasCheated=" + hasCheated +
+                ", hasCheatedAtAge=" + hasCheatedAtAge +
+                '}';
+    }
 }
