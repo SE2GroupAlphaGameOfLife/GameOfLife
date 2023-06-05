@@ -40,229 +40,52 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
-import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
 
 /**
  *
  */
-public class GameScreen implements Screen, ProximityListener, ClientObserver {
-
-    /**
-     *
-     */
-    private final OrthographicCamera gameCamera;
-
-    /**
-     *
-     */
-    private final Viewport gameViewPort;
-
-    /**
-     *
-     */
-    public Vector2 buttonPosition;
-
-    /**
-     *
-     */
-    private Stage stage;
-
-    /**
-     *
-     */
+public class GameScreen extends BasicScreen implements ProximityListener {
+    
     private TextButton btnQuit;
-
-    /**
-     *
-     */
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
-
-
-    /**
-     *
-     */
     private TextButton.TextButtonStyle textButtonStyle;
-
-    /**
-     *
-     */
     private TextButton btnJob;
-
-    /**
-     *
-     */
-    private Dialog jobDialog;
-
-    /**
-     *
-     */
     private Skin uiSkin;
-
-    /**
-     *
-     */
-    private BitmapFont standardFont;
-    private BitmapFont bigFont;
-    /**
-     *
-     */
-    private Skin skin;
-    private Skin popupSkin;
-    /**
-     *
-     */
     private Texture background;
     private Texture skateboard;
-    /**
-     *
-     */
     private Button nextFieldButton1;
     private Button nextFieldButton2;
-    /**
-     *
-     */
     private Button closeBtn;
-
-    /**
-     *
-     */
     private Button job1Btn;
-
-    /**
-     *
-     */
     private Button job2Btn;
-
-    /**
-     *
-     */
     private Label job1Description;
-
-    /**
-     *
-     */
     private Label job2Description;
-
-    /**
-     *
-     */
     private Group nextFieldButtonGroup; // Create a Group to hold actors
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
     private Group playersGroup;
-    /**
-     *
-     */
-    private Texture lightGrayTexture;
-    private Texture grayTextrue;
-    /**
-     *
-     */
     private Texture wheelTexture;
-
-
     private Drawable wheelDrawable;
     private ImageButton wheelImageButton;
     private ImageButton arrowImageButton;
-    /**
-     *
-     */
     private Texture arrowTexture;
-
-    /**
-     *
-     */
     private Label lbUsernameAge;
     private Label lbMoney;
     private Label lbLifepoints;
-
-    /**
-     *
-     */
     private Label.LabelStyle labelStyle;
-
-    /**
-     *
-     */
     private Dialog eventDialog;
-
-    //Wheel
-    /**
-     *
-     */
-    private int wheelSize = 100;
-
-    /**
-     *
-     */
     private boolean isSpinning = false;
-
-    /**
-     *
-     */
-    private float arrowX = -25f;
-    private float arrowY = -25f;
-    /**
-     *
-     */
-    private float arrowWidth = 50f;
-    private float arrowHeight = 50f;
-    /**
-     *
-     */
     private float arrowRotation = 216f; //216 is starting point
-
-    /**
-     *
-     */
     private float spinSpeed = 360f;
-
-    /**
-     *
-     */
     private float maxSpinDuration = 2f;
-
-    /**
-     *
-     */
     private float spinDuration = 0f;
-
-    /**
-     *
-     */
     private float spinAngle = 0f;
-
-    /**
-     *
-     */
-    private int selectedSection = 0;
-
-    /**
-     *
-     */
-    private boolean spinningEnded = true;
-
-    /**
-     *
-     */
-    private int screenWidth;
-    private int screenHeight;
-    private int centerWidth;
-    private int centerHeight;
-    /**
-     *
-     */
-    private int buttonWidth, buttonHeight;
-
     private Image arrowImage;
     private JobData jobSelection;
     private Job[] jobs;
 
-    /**
-     *
-     */
     public GameScreen() {
 
         jobSelection = JobData.getInstance();
@@ -271,7 +94,6 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
-        GameOfLife.client.registerObserver(this);
 
         initScreenDimensions();
         initFonts();
@@ -285,11 +107,6 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
         createJobButton();
     }
 
-    @Override
-    public void show() {
-
-    }
-
     /**
      * Is Triggered, when the proximity sensor has been cover for a specified amount of time.
      */
@@ -298,7 +115,7 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
         // Here, you can define what to do when the proximity sensor is triggered
         Gdx.app.log("Sensor", "Triggered in GameScreen");
 
-        if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() != 0) {
+        if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() != 0) {
             createMenuCheating();
         }
     }
@@ -327,7 +144,7 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
         }
 
 
-        if (GameOfLife.self.hasTurn()) {
+        if (GameOfLife.self.isHasTurn()) {
             createSpinTheWheelButton();
 
             if (isSpinning) {
@@ -353,66 +170,6 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
     }
 
     /**
-     * @param width
-     * @param height
-     */
-    @Override
-    public void resize(int width, int height) {
-        gameViewPort.update(width, height);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    public void dispose() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void hide() {
-        GameOfLife.client.removeObserver(this);
-        this.dispose();
-    }
-
-    /**
-     * Initializes the screen dimensions such as screen width, screen height, button width and button height.
-     */
-    private void initScreenDimensions() {
-        screenWidth = Gdx.graphics.getWidth();
-        centerWidth = screenWidth / 2;
-        screenHeight = Gdx.graphics.getHeight();
-        centerHeight = screenHeight / 2;
-
-        buttonWidth = screenWidth / 5;
-        buttonHeight = screenHeight / 8;
-
-        buttonPosition = new Vector2(centerWidth - ((float) buttonWidth / 2), (float) centerHeight - buttonHeight);
-    }
-
-    /**
-     * Initializes the fonts used in the UI elements.
-     */
-    private void initFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
-        standardFont = generator.generateFont(parameter);
-        parameter.size = 128;
-        bigFont = generator.generateFont(parameter);
-        generator.dispose();
-    }
-
-    /**
      * Initialises Styles for Labels,Buttons,ETC...
      */
     private void initStyles() {
@@ -432,7 +189,8 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
     /**
      * Initializes the stage for handling UI elements.
      */
-    private void initStage() {
+
+    protected void initStage() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
@@ -451,7 +209,7 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
     /**
      * Initializes the textures used for UI elements.
      */
-    private void initTextures() {
+    protected void initTextures() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 
         pixmap.setColor(Color.LIGHT_GRAY);
@@ -499,7 +257,7 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
         ClickListener btnRollDiceListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() == 0) {
+                if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() == 0) {
                     // This method will be called when the TextButton is clicked
                     boolean isInTurn = true;
 
@@ -684,7 +442,6 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
         if (spinDuration > maxSpinDuration) {
             spinDuration = 0f;
             spinSpeed = 0f;
-            selectedSection = MathUtils.random(10);
             isSpinning = false;
 
             Player player = GameOfLife.self;
@@ -864,7 +621,7 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
             @Override
             public void run() {
                 for (Player p : GameOfLife.players) {
-                    if (p.hasTurn()) {
+                    if (p.isHasTurn()) {
                         fillPlayerHUD(p);
                         break;
                     }
@@ -911,11 +668,6 @@ public class GameScreen implements Screen, ProximityListener, ClientObserver {
      */
     private void hideEventPopup() {
         eventDialog.hide();
-
-    }
-
-    @Override
-    public void update(String payload) {
 
     }
 }
