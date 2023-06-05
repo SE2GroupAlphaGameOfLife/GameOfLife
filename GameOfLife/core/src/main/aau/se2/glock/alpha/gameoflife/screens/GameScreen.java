@@ -40,11 +40,12 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
 
 /**
  *
  */
-public class GameScreen implements Screen, ProximityListener {
+public class GameScreen implements Screen, ProximityListener, ClientObserver {
 
     /**
      *
@@ -270,6 +271,7 @@ public class GameScreen implements Screen, ProximityListener {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
+        GameOfLife.client.registerObserver(this);
 
         initScreenDimensions();
         initFonts();
@@ -378,6 +380,7 @@ public class GameScreen implements Screen, ProximityListener {
      */
     @Override
     public void hide() {
+        GameOfLife.client.removeObserver(this);
         this.dispose();
     }
 
@@ -908,6 +911,11 @@ public class GameScreen implements Screen, ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
+
+    }
+
+    @Override
+    public void update(String payload) {
 
     }
 }
