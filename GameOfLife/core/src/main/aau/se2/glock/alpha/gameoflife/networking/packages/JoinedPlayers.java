@@ -1,7 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking.packages;
 
 
-import java.net.InetAddress;
 import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;

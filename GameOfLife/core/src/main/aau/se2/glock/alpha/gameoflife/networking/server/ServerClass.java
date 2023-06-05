@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.security.SecureRandom;
 import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
@@ -87,6 +88,7 @@ public class ServerClass implements Listener {
 
         Kryo kryo = this.server.getKryo();
         //kryo.register(ServerInformation.class);
+        kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
@@ -191,7 +193,7 @@ public class ServerClass implements Listener {
             this.players.addPlayer(player, connection.getID());
             this.players.setPlayersTurn(player.getId() + 1);
             sendPlayersObjectToAll();
-        }else if((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())){
+        } else if ((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())) {
             System.out.println("GJDGHJDJHD");
             System.out.println(players.getPlayerCount());
             players.removePlayerWithConnectionID(connection.getID());
@@ -208,7 +210,6 @@ public class ServerClass implements Listener {
      */
     @Override
     public void received(Connection connection, Object object) {
-
         if (object instanceof Player) {
             Player player = (Player) object;
             Gdx.app.log("ServerClass", "Received Player object (" + player + ")");
