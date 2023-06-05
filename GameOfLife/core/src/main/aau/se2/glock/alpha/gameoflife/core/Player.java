@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 
 import java.security.SecureRandom;
 
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 
 /**
  *
@@ -51,8 +53,6 @@ public class Player {
      */
     private boolean isJoning, isOnline;
 
-    private boolean hasCheated;
-    private int hasCheatedAtAge;
 
     /**
      * Needed for Kryo Serialization
@@ -79,24 +79,11 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = 0;
-        this.hasCheated = false;
-        this.hasCheatedAtAge = 0;
     }
 
-    public int getHasCheatedAtAge() {
-        return hasCheatedAtAge;
-    }
-
-    public void setHasCheatedAtAge(int hasCheatedAtAge) {
-        this.hasCheatedAtAge = hasCheatedAtAge;
-    }
-
-    public boolean isHasCheated() {
-        return hasCheated;
-    }
-
-    public void setHasCheated(boolean hasCheated) {
-        this.hasCheated = hasCheated;
+    public void cheat(int amount) {
+        this.setMoveCount(this.getMoveCount() + amount);
+        GameOfLife.client.sendPlayerCheatedTCP(this, amount);
     }
 
     /**
@@ -282,7 +269,6 @@ public class Player {
     }
 
     /**
-     *
      * @return
      */
     public Job getCurrentJob() {
@@ -290,7 +276,6 @@ public class Player {
     }
 
     /**
-     *
      * @param currentJob
      */
     public void setCurrentJob(Job currentJob) {
