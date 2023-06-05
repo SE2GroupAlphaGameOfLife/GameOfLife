@@ -355,8 +355,6 @@ public class Player {
                 ", hasTurn=" + hasTurn +
                 ", isJoning=" + isJoning +
                 ", isOnline=" + isOnline +
-                ", hasCheated=" + hasCheated +
-                ", hasCheatedAtAge=" + hasCheatedAtAge +
                 '}';
     }
 }
