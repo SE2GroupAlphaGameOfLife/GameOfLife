@@ -17,6 +17,7 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 /**
@@ -76,7 +77,7 @@ public class StartGameScreen extends BasicScreen {
         for (Player player : GameOfLife.players) {
             Gdx.app.log("count", count + "");
             labelPlayer = new Label(player.isHost() ? (player.getUsername() + " (Host)") : player.getUsername(), labelPlayerStyle); // Create the label with the text and style
-            labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count*2.5f + 2.5f))); // Set the position of the label
+            labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count * 2.5f + 2.5f))); // Set the position of the label
             stage.addActor(labelPlayer); // Add the label to the stage
             playerLabels.add(labelPlayer);
             count++;
@@ -138,8 +139,13 @@ public class StartGameScreen extends BasicScreen {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        GameOfLife.server.close();
-                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                        if (GameOfLife.self.isHost()) {
+                            GameOfLife.server.close();
+                            GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                        } else {
+                            GameOfLife.client.disconnect();
+                            GameOfLife.client = new ClientClass();
+                        }
                     }
                 }).start();
                 GameOfLife.changeScreen(new MainMenuScreen());
