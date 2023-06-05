@@ -8,7 +8,6 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.ClientDiscoveryHandler;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -19,8 +18,8 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.networking.observers.ClientObserver;
-import aau.se2.glock.alpha.gameoflife.networking.observers.ClientObserverSubject;
+import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserverSubject;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
@@ -172,7 +171,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
      */
     public void discoverServers(int udpPort) {
         if (!this.client.isConnected()) {
-            //GameOfLife.availableServers = new ArrayList<ServerInformation>();
+            newServers = new ArrayList<ServerInformation>();
             this.client.discoverHosts(udpPort, 3000);
         }
     }
