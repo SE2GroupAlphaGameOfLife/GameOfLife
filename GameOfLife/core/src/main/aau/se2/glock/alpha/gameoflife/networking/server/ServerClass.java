@@ -184,7 +184,7 @@ public class ServerClass extends Listener {
                 this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());
                 return;
             }
-            if (GameOfLife.gameStarted && player.isHasTurn()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
+            if (GameOfLife.gameStarted && player.hasTurn()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
                 player.setHasTurn(false);
                 this.players.setPlayersTurn(player.getId() + 1);
                 this.players.addPlayer(player, connection.getRemoteAddressTCP().getAddress());

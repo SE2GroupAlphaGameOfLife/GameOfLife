@@ -228,7 +228,7 @@ public class Player {
     /**
      * @return
      */
-    public boolean isHasTurn() {
+    public boolean hasTurn() {
         return hasTurn;
     }
 

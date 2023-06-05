@@ -296,7 +296,7 @@ public class GameScreen implements Screen, ProximityListener {
         // Here, you can define what to do when the proximity sensor is triggered
         Gdx.app.log("Sensor", "Triggered in GameScreen");
 
-        if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() != 0) {
+        if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() != 0) {
             createMenuCheating();
         }
     }
@@ -325,7 +325,7 @@ public class GameScreen implements Screen, ProximityListener {
         }
 
 
-        if (GameOfLife.self.isHasTurn()) {
+        if (GameOfLife.self.hasTurn()) {
             createSpinTheWheelButton();
 
             if (isSpinning) {
@@ -496,7 +496,7 @@ public class GameScreen implements Screen, ProximityListener {
         ClickListener btnRollDiceListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() == 0) {
+                if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() == 0) {
                     // This method will be called when the TextButton is clicked
                     boolean isInTurn = true;
 
@@ -861,7 +861,7 @@ public class GameScreen implements Screen, ProximityListener {
             @Override
             public void run() {
                 for (Player p : GameOfLife.players) {
-                    if (p.isHasTurn()) {
+                    if (p.hasTurn()) {
                         fillPlayerHUD(p);
                         break;
                     }

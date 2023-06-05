@@ -96,7 +96,7 @@ public class PlayerTest {
         assertEquals(0, testPlayer.getId());
         assertEquals(new Color(Color.rgb888(255, 0, 0)), testPlayer.getColor());
         assertTrue(testPlayer.isHost());
-        assertTrue(testPlayer.isHasTurn());
+        assertTrue(testPlayer.hasTurn());
         assertTrue(testPlayer.isOnline());
         assertTrue(testPlayer.isJoning());
         assertFalse(testPlayer.isHasCheated());
@@ -125,7 +125,7 @@ public class PlayerTest {
         assertEquals(99, testPlayer.getAge());
         assertEquals(99, testPlayer.getMoveCount());
         assertFalse(testPlayer.isHost());
-        assertFalse(testPlayer.isHasTurn());
+        assertFalse(testPlayer.hasTurn());
         assertFalse(testPlayer.isOnline());
         assertFalse(testPlayer.isJoning());
         assertEquals(99, testPlayer.getId());
