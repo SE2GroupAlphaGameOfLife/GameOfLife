@@ -39,8 +39,8 @@ dependencies {
     implementation 'junit:junit:4.13.2'
     implementation 'com.badlogicgames.gdx:gdx-backend-android:1.11.0'
 
-    implementation 'com.esotericsoftware:kryonet:2.22.0-RC1'
-    implementation 'com.esotericsoftware.kryo:kryo:2.24.0'
+    implementation 'com.esotericsoftware:kryo:5.0.0'
+    implementation 'com.github.crykn:kryonet:2.22.7'
 
     testImplementation 'org.mockito:mockito-core:4.2.0'
 }
