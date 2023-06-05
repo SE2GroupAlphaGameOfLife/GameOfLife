@@ -11,6 +11,7 @@ public class CarTest {
 
     int price = 50000;
     int lp = 1234;
+
     @Test
     public void testGetPrice() {
         // Arrange

@@ -1,16 +1,11 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -31,7 +26,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
@@ -40,14 +36,14 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
-import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 /**
  *
  */
-public class GameScreen extends BasicScreen implements ProximityListener{
-    
+public class GameScreen extends BasicScreen implements ProximityListener {
+
     private TextButton btnQuit;
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
@@ -482,19 +478,23 @@ public class GameScreen extends BasicScreen implements ProximityListener{
                         GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     }
                 }).start();
+                GameOfLife.gameStarted = false;
+                GameOfLife.players = new ArrayList<Player>();
+                GameOfLife.availableServers = new ArrayList<ServerInformation>();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
 
         btnQuit.addListener(btnQuitListener);
     }
- /**
+
+    /**
      *
      */
-    private void createJobButton(){
-       btnJob = new TextButton("Job",textButtonStyle);
-       btnJob.setSize(buttonWidth,buttonHeight);
-       btnJob.setPosition(Gdx.graphics.getWidth()-buttonWidth-10f,Gdx.graphics.getHeight()-buttonHeight-10f);
+    private void createJobButton() {
+        btnJob = new TextButton("Job", textButtonStyle);
+        btnJob.setSize(buttonWidth, buttonHeight);
+        btnJob.setPosition(Gdx.graphics.getWidth() - buttonWidth - 10f, Gdx.graphics.getHeight() - buttonHeight - 10f);
 
         stage.addActor(btnJob);
 
@@ -510,25 +510,25 @@ public class GameScreen extends BasicScreen implements ProximityListener{
     }
 
 
-    private void createJobWindow(){
+    private void createJobWindow() {
         //loads uiSkin from files
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        final Window window = new Window("",uiSkin);
-        window.setSize(600,450);
-        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
-        closeBtn = new TextButton("Close",textButtonStyle);
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
+        closeBtn = new TextButton("Close", textButtonStyle);
 
         job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
         //TODO Exception einfügen falls noch kein Job ausgewählt wurde
 
-        window.add(job1Description).pad(10,0,0,0).colspan(0).row();
+        window.add(job1Description).pad(10, 0, 0, 0).colspan(0).row();
 
-        window.add(closeBtn).pad(150,0,0,0).colspan(2);
+        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
 
         window.setScale(2F);
 
-        closeBtn.addListener (new ChangeListener() {
+        closeBtn.addListener(new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -540,34 +540,34 @@ public class GameScreen extends BasicScreen implements ProximityListener{
         stage.addActor(window);
     }
 
-    private void chooseJobWindow(){
+    private void chooseJobWindow() {
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
         jobSelection = JobData.getInstance();
 
-        final Window window = new Window("",uiSkin);
-        window.setSize(600,450);
-        window.setPosition(Gdx.graphics.getWidth()/2F-window.getWidth()/2,Gdx.graphics.getHeight()/2F-window.getHeight()/2);
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
 
-        closeBtn = new TextButton("Close",textButtonStyle);
-        job1Btn = new TextButton("Auswählen",textButtonStyle);
-        job2Btn = new TextButton("Auswählen",textButtonStyle);
+        closeBtn = new TextButton("Close", textButtonStyle);
+        job1Btn = new TextButton("Auswählen", textButtonStyle);
+        job2Btn = new TextButton("Auswählen", textButtonStyle);
 
         jobs = new Job[2];
         jobSelection.mixCards();
         final Job[] jobs = jobSelection.getJobsToSelect(2);
 
-        job1Description = new Label(jobs[0].getBezeichnung()+"\n"+jobs[0].getGehaltsListe().toString(),uiSkin);
-        job2Description = new Label(jobs[1].getBezeichnung()+"\n"+jobs[1].getGehaltsListe().toString(),uiSkin);
+        job1Description = new Label(jobs[0].getBezeichnung() + "\n" + jobs[0].getGehaltsListe().toString(), uiSkin);
+        job2Description = new Label(jobs[1].getBezeichnung() + "\n" + jobs[1].getGehaltsListe().toString(), uiSkin);
 
-        window.add(job1Description).pad(10,0,0,0).colspan(1);
-        window.add(job2Description).pad(10,50,0,0).colspan(0).row();
-        window.add(job1Btn).pad(0,0,0,0).colspan(1);
-        window.add(job2Btn).pad(0,50,0,0).row();
-        window.add(closeBtn).pad(150,0,0,0).colspan(2);
+        window.add(job1Description).pad(10, 0, 0, 0).colspan(1);
+        window.add(job2Description).pad(10, 50, 0, 0).colspan(0).row();
+        window.add(job1Btn).pad(0, 0, 0, 0).colspan(1);
+        window.add(job2Btn).pad(0, 50, 0, 0).row();
+        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
 
         window.setScale(2F);
 
-        job1Btn.addListener(new ClickListener(){
+        job1Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.setCurrentJob(jobs[0]);
@@ -579,17 +579,19 @@ public class GameScreen extends BasicScreen implements ProximityListener{
 
         });
 
-        job2Btn.addListener(new ClickListener(){
+        job2Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
 
-            };
+            }
+
+            ;
         });
 
-        closeBtn.addListener (new ChangeListener() {
+        closeBtn.addListener(new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
             public void changed(ChangeEvent event, Actor actor) {

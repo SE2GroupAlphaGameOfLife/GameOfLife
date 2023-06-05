@@ -12,13 +12,10 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.core.logic.Game;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
@@ -62,17 +59,17 @@ public class ServerClass implements Listener {
         @Override
         public boolean onDiscoverHost(DatagramChannel datagramChannel, InetSocketAddress fromAddress) throws IOException {
 
-                DiscoveryResponsePacket packet = new DiscoveryResponsePacket();
-                packet.hostname = hostname;
+            DiscoveryResponsePacket packet = new DiscoveryResponsePacket();
+            packet.hostname = hostname;
 
-                ByteBuffer buffer = ByteBuffer.allocate(256);
-                GameOfLife.client.getClient().getSerialization().write(null, buffer, packet);
-                buffer.flip();
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            GameOfLife.client.getClient().getSerialization().write(null, buffer, packet);
+            buffer.flip();
 
-                datagramChannel.send(buffer, fromAddress);
+            datagramChannel.send(buffer, fromAddress);
 
-                return true;
-            }
+            return true;
+        }
     };
 
     /**
@@ -141,7 +138,7 @@ public class ServerClass implements Listener {
         this.server.sendToAllTCP(this.players);
     }
 
-    private void sendMessageToAll(String message){
+    private void sendMessageToAll(String message) {
         this.server.sendToAllTCP(message);
     }
 
@@ -208,7 +205,7 @@ public class ServerClass implements Listener {
 
         if (object instanceof Player) {
             Player player = (Player) object;
-            Gdx.app.log("ServerClass", "Received Player object ("+player+")");
+            Gdx.app.log("ServerClass", "Received Player object (" + player + ")");
             if (!GameOfLife.gameStarted && player.isJoning()) {
                 player.setJoning(false);
                 player.setId(this.players.getPlayerCount() + 1);
@@ -222,9 +219,9 @@ public class ServerClass implements Listener {
                 //return;
             }
             this.sendPlayersObjectToAll();
-        }else if(object instanceof String){
+        } else if (object instanceof String) {
             String payload = (String) object;
-            if(payload.equals(GameOfLife.startGamePayload)){
+            if (payload.equals(GameOfLife.startGamePayload)) {
                 Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
                 this.sendMessageToAll(payload);
             }

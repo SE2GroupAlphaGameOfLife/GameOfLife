@@ -17,11 +17,11 @@
     <application
         android:allowBackup="true"
         android:appCategory="game"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="true"
         android:icon="@drawable/ic_launcher"
         android:isGame="true"
         android:label="@string/app_name"
-        android:enableOnBackInvokedCallback="true"
         tools:ignore="UnusedAttribute">
         <activity
             android:name="aau.se2.glock.alpha.gameoflife.AndroidLauncher"
