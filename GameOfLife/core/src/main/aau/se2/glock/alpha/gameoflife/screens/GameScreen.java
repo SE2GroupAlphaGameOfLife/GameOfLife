@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -33,6 +34,8 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
 import aau.se2.glock.alpha.gameoflife.core.GameField;
@@ -41,6 +44,7 @@ import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 /**
@@ -482,6 +486,9 @@ public class GameScreen extends BasicScreen implements ProximityListener{
                         GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     }
                 }).start();
+                GameOfLife.gameStarted = false;
+                GameOfLife.players = new ArrayList<Player>();
+                GameOfLife.availableServers = new ArrayList<ServerInformation>();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
