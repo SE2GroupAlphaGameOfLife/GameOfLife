@@ -70,11 +70,13 @@ public class StartGameScreen extends BasicScreen {
         stage.addActor(labelPlayers); // Add the label to the stage
         playerLabels.add(labelPlayers);
 
+        Label labelPlayer = new Label("", labelPlayerStyle);
+
         int count = 0;
         for (Player player : GameOfLife.players) {
             Gdx.app.log("count", count + "");
-            Label labelPlayer = new Label(player.isHost() ? (player.getUsername() + " (Host)") : player.getUsername(), labelPlayerStyle); // Create the label with the text and style
-            labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count + 2.5f))); // Set the position of the label
+            labelPlayer = new Label(player.isHost() ? (player.getUsername() + " (Host)") : player.getUsername(), labelPlayerStyle); // Create the label with the text and style
+            labelPlayer.setPosition(centerWidth - (label.getWidth() / 2) + (labelPlayers.getWidth() / 2), centerHeight + (buttonHeight * 2) - (standardFont.getXHeight() * 2.0f) - (standardFont.getXHeight() * (count*2.5f + 2.5f))); // Set the position of the label
             stage.addActor(labelPlayer); // Add the label to the stage
             playerLabels.add(labelPlayer);
             count++;
@@ -96,6 +98,15 @@ public class StartGameScreen extends BasicScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     // This method will be called when the TextButton is clicked
 
+                    /*
+                    THIS IS FOR TESTING ONLY AND HAS TO BE REMOVED ON FINAL VERSION
+                     */
+                    btnStartGame.setVisible(false);
+                    Gdx.app.log("StartGameScreen", "StartGame button pressed!");
+                    GameOfLife.client.sendMessageToServerTCP(GameOfLife.startGamePayload);
+                    /*
+                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                     */
                     if ((GameOfLife.players.size() > 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {
                         //Broadcast, game started
                         btnStartGame.setVisible(false);

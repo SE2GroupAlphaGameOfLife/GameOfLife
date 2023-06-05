@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.observers.ClientObserver;
 
 public abstract class BasicScreen implements Screen, ClientObserver {
 
