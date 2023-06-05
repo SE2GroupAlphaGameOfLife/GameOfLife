@@ -1,21 +1,15 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -25,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -34,14 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
 /**
  *
  */
-public class JoinGameScreen extends BasicScreen{
+public class JoinGameScreen extends BasicScreen {
 
     private final Timer timer;
     private final TextureRegion refreshIcon;
@@ -184,7 +176,7 @@ public class JoinGameScreen extends BasicScreen{
                                 timer.clear();
                                 Gdx.app.log("JoinGameScreen", "Available Servers: " + GameOfLife.availableServers);
 
-                                Gdx.app.log("JoinGameScreen", "Connecting to selected Server ("+s+")");
+                                Gdx.app.log("JoinGameScreen", "Connecting to selected Server (" + s + ")");
                                 GameOfLife.changeScreen(new StartGameScreen());
                                 new Thread(new Runnable() {
                                     @Override
@@ -380,7 +372,7 @@ public class JoinGameScreen extends BasicScreen{
 
     @Override
     public void update(String payload) {
-        if(payload.equals(GameOfLife.createServerOverviewPayload)){
+        if (payload.equals(GameOfLife.createServerOverviewPayload)) {
             this.createServerOverview();
         }
     }

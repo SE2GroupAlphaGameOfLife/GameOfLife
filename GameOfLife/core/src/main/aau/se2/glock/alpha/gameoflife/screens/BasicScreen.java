@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
 
-public abstract class BasicScreen implements Screen, ClientObserver{
+public abstract class BasicScreen implements Screen, ClientObserver {
 
 
     protected Stage stage;

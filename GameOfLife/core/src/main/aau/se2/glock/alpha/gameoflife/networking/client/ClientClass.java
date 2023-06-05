@@ -12,9 +12,7 @@ import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,9 +23,6 @@ import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserverSubject
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
-import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
-import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
 /**
@@ -57,9 +52,9 @@ public class ClientClass implements Listener, ClientObserverSubject {
             if (input != null) {
                 DiscoveryResponsePacket packet;
                 packet = (DiscoveryResponsePacket) client.getKryo().readClassAndObject(input);
-                if(!client.isConnected()) {
+                if (!client.isConnected()) {
                     GameOfLife.availableServers.add(new ServerInformation(packet.hostname, datagramPacket.getAddress()));
-                }else{
+                } else {
                     onFinally();
                 }
             }
@@ -114,7 +109,8 @@ public class ClientClass implements Listener, ClientObserverSubject {
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
     }
-    public void sendMessageToServerTCP(String message){
+
+    public void sendMessageToServerTCP(String message) {
         this.client.sendTCP(message);
     }
 
@@ -243,9 +239,9 @@ public class ClientClass implements Listener, ClientObserverSubject {
                 ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
                 Gdx.app.log("ClientClass", "Players at StartGameScreen (" + GameOfLife.players + ")");
             }*/
-        }else if(object instanceof String){
+        } else if (object instanceof String) {
             String payload = (String) object;
-            if(payload.equals(GameOfLife.startGamePayload)){
+            if (payload.equals(GameOfLife.startGamePayload)) {
                 Gdx.app.log("ClientClass/Received", "StartGamePayload received!");
                 GameOfLife.gameStarted = true;
                 notifyObservers(payload);
