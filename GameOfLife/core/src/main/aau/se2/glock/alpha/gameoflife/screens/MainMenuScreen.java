@@ -27,8 +27,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.esotericsoftware.kryonet.Listener;
-import com.sun.management.internal.GarbageCollectorExtImpl;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -36,13 +34,12 @@ import java.util.ArrayList;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
-import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
 
 /**
  *
  */
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen implements Screen, ClientObserver {
 
     /**
      *
@@ -121,6 +118,8 @@ public class MainMenuScreen implements Screen {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
+        GameOfLife.client.registerObserver(this);
+
         initScreenDimensions();
         initFonts();
         initStage();
@@ -175,6 +174,7 @@ public class MainMenuScreen implements Screen {
      */
     @Override
     public void hide() {
+        GameOfLife.client.removeObserver(this);
         this.dispose();
     }
 
@@ -326,17 +326,8 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
-                    //GameOfLife.server.start(GameOfLife.self.getUsername());
-
                     GameOfLife.changeScreen(new JoinGameScreen());
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
-                            System.out.println(GameOfLife.availableServers);
-                            //GameOfLife.getInstance().render();
-                        }
-                    }).start();*/
+                    //GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                 }
             }
         });
@@ -351,23 +342,25 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
-                    GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-                    GameOfLife.client = new ClientClass();
+                    if (!GameOfLife.server.isServerStarted()) {
 
-                    GameOfLife.changeScreen(new StartGameScreen());
+                        GameOfLife.changeScreen(new StartGameScreen());
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameOfLife.server.start(GameOfLife.self.getUsername());
-                            try {
-                                GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-                            } catch (UnknownHostException e) {
-                                GameOfLife.changeScreen(new MainMenuScreen());
-                                throw new RuntimeException(e);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                GameOfLife.server.start(GameOfLife.self.getUsername());
+                                try {
+                                    GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                                } catch (UnknownHostException e) {
+                                    GameOfLife.changeScreen(new MainMenuScreen());
+                                    //throw new RuntimeException(e);
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    } else {
+                        GameOfLife.server.close();
+                    }
                 }
             }
         });
@@ -388,5 +381,18 @@ public class MainMenuScreen implements Screen {
         }
 
         return true;
+    }
+
+    @Override
+    public void update(String payload) {
+        if(payload.equals(GameOfLife.clientConnectingFailed)){
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    // code to be executed on main thread
+                    GameOfLife.changeScreen(new MainMenuScreen());
+                }
+            });
+        }
     }
 }
