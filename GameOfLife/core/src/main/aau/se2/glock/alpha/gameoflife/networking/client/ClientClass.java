@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking.client;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
@@ -10,6 +11,7 @@ import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
@@ -46,6 +48,7 @@ public class ClientClass extends Listener {
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(HashMap.class);
     }
 
     /**
@@ -63,6 +66,7 @@ public class ClientClass extends Listener {
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(HashMap.class);
     }
 
     /**
@@ -163,9 +167,9 @@ public class ClientClass extends Listener {
 
         if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
             this.sendPlayerTCP(GameOfLife.self);
-        } else if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+        }/* else if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
             this.client.sendTCP(new ServerInformation());
-        }
+        }*/
     }
 
     /**
@@ -199,7 +203,7 @@ public class ClientClass extends Listener {
      */
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof ServerInformation) {
+        /*if (object instanceof ServerInformation) {
             ServerInformation serverInformation = (ServerInformation) object;
             if (!GameOfLife.gameStarted && (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class) || GameOfLife.getInstance().getScreen().getClass().equals(MainMenuScreen.class))) {
                 serverInformation.setAddress(connection.getRemoteAddressTCP().getAddress());
@@ -210,12 +214,18 @@ public class ClientClass extends Listener {
                     ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
                 }
             }
-        } else if (object instanceof JoinedPlayers) {
-            System.out.println("Object receivedddd");
+        } else*/ if (object instanceof JoinedPlayers) {
+            Gdx.app.log("ClientClass", "Received JoinedPlayers object ("+((JoinedPlayers)object)+")");
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
+            for(Player p : GameOfLife.players){
+                if(p.getUsername().equals(GameOfLife.self.getUsername())){
+                    GameOfLife.self = p;
+                    break;
+                }
+            }
             if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
                 ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
-                System.out.println(GameOfLife.players);
+                Gdx.app.log("ClientClass", "Players at StartGameScreen ("+ GameOfLife.players +")");
             }
         }
     }
