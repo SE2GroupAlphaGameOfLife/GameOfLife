@@ -33,8 +33,14 @@ public class ServerInformation {
         this.address = null;
     }
 
+    public ServerInformation(String hostname, InetAddress address) {
+        this.hostname = hostname;
+        this.tcpPort = -1;
+        this.address = address;
+    }
+
     /**
-     *
+     * For testing only
      */
     public ServerInformation() {
     }
