@@ -8,11 +8,15 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TCPCommands;
 
 /**
  *
@@ -48,6 +52,8 @@ public class ServerClass extends Listener {
      *
      */
     private String hostname;
+
+    private List<PlayerCheated> playerCheatedList;
 
     /**
      * @param TCPPORT
@@ -191,6 +197,27 @@ public class ServerClass extends Listener {
                 return;
             }
             sendPlayersObjectToAll();
+        } else if(object instanceof String){ //This is for the cheating functionality
+            String command = ((String) object).split("#")[0];
+            int playerId = Integer.parseInt(((String) object).split("#")[1]);
+
+            if(command.equals(TCPCommands.REPORTED)){ //if someone reports a player the server has to check if this player has cheated in the last few rounds
+                for (PlayerCheated playerCheated : playerCheatedList) {
+                    if(playerCheated.getPlayerId() == playerId){
+                        Player player = players.getPlayers().get(playerId);
+                        if(player.getAge() <= playerCheated.getCheatedAtAge() + 5){
+                            player.setPosition(player.getPosition() - playerCheated.getAmountCheated());
+                            this.sendPlayersObjectToAll();
+
+                            return;
+                        }
+                    }
+                }
+            } else if(command.equals(TCPCommands.CHEATED)){ //When a player has cheated, the server is notified, so we can save the event
+                int cheatedAmount = Integer.parseInt(((String) object).split("#")[2]);
+                Player player = players.getPlayers().get(playerId);
+                playerCheatedList.add(new PlayerCheated(player.getAge(), player.getId(), cheatedAmount));
+            }
         }
     }
 
