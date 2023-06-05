@@ -191,7 +191,7 @@ public class ServerClass implements Listener {
             this.players.addPlayer(player, connection.getID());
             this.players.setPlayersTurn(player.getId() + 1);
             sendPlayersObjectToAll();
-        }else if((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())){
+        } else if ((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())) {
             System.out.println("GJDGHJDJHD");
             System.out.println(players.getPlayerCount());
             players.removePlayerWithConnectionID(connection.getID());
