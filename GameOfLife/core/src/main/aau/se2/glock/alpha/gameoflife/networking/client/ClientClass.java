@@ -3,19 +3,29 @@ package aau.se2.glock.alpha.gameoflife.networking.client;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.ClientDiscoveryHandler;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserverSubject;
+import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.screens.GameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
@@ -23,12 +33,46 @@ import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 /**
  * Handles Kryonet Client communication
  */
-public class ClientClass extends Listener {
+public class ClientClass implements Listener, ClientObserverSubject {
 
     /**
      * Kryonet Client object, for serialized network communication
      */
     private final Client client;
+
+    private List<ClientObserver> clientObservers = new ArrayList<>();
+
+    private final ClientDiscoveryHandler clientDiscoveryHandler = new ClientDiscoveryHandler() {
+        private Input input = null;
+
+        @Override
+        public DatagramPacket onRequestNewDatagramPacket() {
+            byte[] buffer = new byte[1024];
+            input = new Input(buffer);
+            return new DatagramPacket(buffer, buffer.length);
+        }
+
+        @Override
+        public void onDiscoveredHost(DatagramPacket datagramPacket) {
+            if (input != null) {
+                DiscoveryResponsePacket packet;
+                packet = (DiscoveryResponsePacket) client.getKryo().readClassAndObject(input);
+                if(!client.isConnected()) {
+                    GameOfLife.availableServers.add(new ServerInformation(packet.hostname, datagramPacket.getAddress()));
+                }else{
+                    onFinally();
+                }
+            }
+        }
+
+        @Override
+        public void onFinally() {
+            if (input != null) {
+                notifyObservers(GameOfLife.createServerOverviewPayload);
+                input.close();
+            }
+        }
+    };
 
     /**
      * Constructor only for mock-testing purpose
@@ -37,15 +81,18 @@ public class ClientClass extends Listener {
      */
     public ClientClass(Client client) {
         this.client = client;
+        this.client.setDiscoveryHandler(clientDiscoveryHandler);
         this.client.start();
 
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        kryo.register(ServerInformation.class);
+        //kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
     }
 
     /**
@@ -54,15 +101,21 @@ public class ClientClass extends Listener {
      */
     public ClientClass() {
         this.client = new Client();
+        this.client.setDiscoveryHandler(clientDiscoveryHandler);
         this.client.start();
 
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        kryo.register(ServerInformation.class);
+        //kryo.register(ServerInformation.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
+    }
+    public void sendMessageToServerTCP(String message){
+        this.client.sendTCP(message);
     }
 
     /**
@@ -77,7 +130,9 @@ public class ClientClass extends Listener {
             try {
                 this.client.connect(5000, address, tcpPort, udpPort);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
+                e.printStackTrace();
+                notifyObservers(GameOfLife.clientConnectingFailed);
             }
         }
     }
@@ -94,7 +149,8 @@ public class ClientClass extends Listener {
             try {
                 this.client.connect(5000, address, tcpPort, udpPort);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                notifyObservers(GameOfLife.clientConnectingFailed);
             }
         }
     }
@@ -116,35 +172,9 @@ public class ClientClass extends Listener {
      * @param udpPort UDP port of the server(s)
      */
     public void discoverServers(int udpPort) {
-        List<InetAddress> servers = new ArrayList<InetAddress>();
-
-        ArrayList<ServerInformation> toKeep = new ArrayList<ServerInformation>();
-
-        for (InetAddress a : this.client.discoverHosts(udpPort, 3000)) {
-            if (!servers.contains(a))
-                servers.add(a);
-        }
-        for (ServerInformation s : GameOfLife.availableServers) {
-            if (servers.contains(s.getAddress())) {
-                servers.remove(s.getAddress());
-                toKeep.add(s);
-            }
-        }
-        GameOfLife.availableServers = toKeep;
-
-        this.client.close();
-        for (InetAddress a : servers) {
-            if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
-                this.client.start();
-                this.connect(a, GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-            } else {
-                return;
-            }
-        }
-        this.client.start();
-
-        if (!servers.isEmpty()) {
-            ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
+        if (!this.client.isConnected()) {
+            GameOfLife.availableServers = new ArrayList<ServerInformation>();
+            this.client.discoverHosts(udpPort, 3000);
         }
     }
 
@@ -159,13 +189,13 @@ public class ClientClass extends Listener {
     @Override
     public void connected(Connection connection) {
 
-        Gdx.app.log("Client", "Verbunden!");
+        Gdx.app.log("Client", "Verbunden mit Server! ");
 
         if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
             this.sendPlayerTCP(GameOfLife.self);
-        } else if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
+        }/* else if (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class)) {
             this.client.sendTCP(new ServerInformation());
-        }
+        }*/
     }
 
     /**
@@ -199,24 +229,48 @@ public class ClientClass extends Listener {
      */
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof ServerInformation) {
-            ServerInformation serverInformation = (ServerInformation) object;
-            if (!GameOfLife.gameStarted && (GameOfLife.getInstance().getScreen().getClass().equals(JoinGameScreen.class) || GameOfLife.getInstance().getScreen().getClass().equals(MainMenuScreen.class))) {
-                serverInformation.setAddress(connection.getRemoteAddressTCP().getAddress());
-
-                if (!GameOfLife.availableServers.contains(serverInformation)) {
-                    GameOfLife.availableServers.add(serverInformation);
-                    this.client.close();
-                    ((JoinGameScreen) GameOfLife.getInstance().getScreen()).createServerOverview();
+        if (object instanceof JoinedPlayers) {
+            Gdx.app.log("ClientClass", "Received JoinedPlayers object (" + ((JoinedPlayers) object) + ")");
+            GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
+            for (Player p : GameOfLife.players) {
+                if (p.getUsername().equals(GameOfLife.self.getUsername())) {
+                    GameOfLife.self = p;
+                    break;
                 }
             }
-        } else if (object instanceof JoinedPlayers) {
-            System.out.println("Object receivedddd");
-            GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
-            if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
+            notifyObservers(GameOfLife.createPlayersOverviewPayload);
+            /*if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
                 ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
-                System.out.println(GameOfLife.players);
+                Gdx.app.log("ClientClass", "Players at StartGameScreen (" + GameOfLife.players + ")");
+            }*/
+        }else if(object instanceof String){
+            String payload = (String) object;
+            if(payload.equals(GameOfLife.startGamePayload)){
+                Gdx.app.log("ClientClass/Received", "StartGamePayload received!");
+                GameOfLife.gameStarted = true;
+                notifyObservers(payload);
             }
+        }
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    @Override
+    public void registerObserver(ClientObserver observer) {
+        clientObservers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(ClientObserver observer) {
+        clientObservers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String payload) {
+        for (ClientObserver observer : clientObservers) {
+            observer.update(payload);
         }
     }
 }

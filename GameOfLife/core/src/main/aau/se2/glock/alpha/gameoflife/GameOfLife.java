@@ -27,11 +27,15 @@ public class GameOfLife extends Game {
      *
      */
     public static final int TCPPORT = 54333;
+
     /**
      *
      */
     public static final int UDPPORT = 54777;
+
+    public static final String startGamePayload = "START_GAME", createServerOverviewPayload = "CREATE_SERVER_OVERVIEW", createPlayersOverviewPayload = "CREATE_PLAYERS_OVERVIEW", clientConnectingFailed = "CLIENT_CONNECTION_FAILED";
     public static ProximitySensorInterface proximitySensorInterface;
+
     /**
      * Player-Entity of the current device
      */

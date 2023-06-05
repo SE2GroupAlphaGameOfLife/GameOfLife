@@ -34,12 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
 /**
  *
  */
-public class JoinGameScreen extends BasicScreen {
+public class JoinGameScreen extends BasicScreen{
 
     private final Timer timer;
     private final TextureRegion refreshIcon;
@@ -76,7 +78,7 @@ public class JoinGameScreen extends BasicScreen {
 
         createServerTextField();
         createJoinGameButton();
-        createServerOverview();
+        this.createServerOverview();
         createBackButton();
 
         Texture refreshIconTexture = new Texture("refresh.png");
@@ -181,22 +183,24 @@ public class JoinGameScreen extends BasicScreen {
                             if (s.getAddress().equals(InetAddress.getByName(ipInput.getText()))) {
                                 timer.clear();
                                 Gdx.app.log("JoinGameScreen", "Available Servers: " + GameOfLife.availableServers);
+
+                                Gdx.app.log("JoinGameScreen", "Connecting to selected Server ("+s+")");
+                                GameOfLife.changeScreen(new StartGameScreen());
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Gdx.app.log("JoinGameScreen", "Changing to StartGameScreen");
                                         GameOfLife.client.connect(ipInput.getText(), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                                     }
                                 }).start();
-                                //Gdx.app.log("TEST", ""+GameOfLife.players);
-                                GameOfLife.changeScreen(new StartGameScreen());
                                 return;
                             }
                         } catch (UnknownHostException e) {
-                            throw new RuntimeException(e);
+                            e.printStackTrace();
+                            //throw new RuntimeException(e);
                         }
                     }
-                    //Here what should happen is invalid ip address given
+                    //Here what should happen, if tipped ip address not in GameOfLife.availableServers
+                    Gdx.app.log("JoinGameScreen", "IP address format correct, but not in availableServers list.");
                 }
             }
         });
@@ -234,7 +238,7 @@ public class JoinGameScreen extends BasicScreen {
             count++;
         } else {
             for (final ServerInformation serverDetails : GameOfLife.availableServers) {
-                serverLabel = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress(), labelServerDetailStyle); // Create the label with the text and style
+                serverLabel = new Label(serverDetails.getHostname() + ": " + serverDetails.getAddress().toString(), labelServerDetailStyle); // Create the label with the text and style
                 serverLabel.setPosition((float) screenWidth / 20, labelServers.getY() - (float) screenHeight / 25 - count * 45); // Set the position of the label
                 serverLabel.addListener(new ClickListener() {
                     @Override
@@ -294,7 +298,13 @@ public class JoinGameScreen extends BasicScreen {
             public void clicked(InputEvent event, float x, float y) {
                 // This method will be called when the TextButton is clicked
                 timer.clear();
-                GameOfLife.client.disconnect();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameOfLife.client.disconnect();
+                        GameOfLife.client = new ClientClass();
+                    }
+                }).start();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
@@ -309,7 +319,7 @@ public class JoinGameScreen extends BasicScreen {
         createRotation();
 
         final float showTime = 1f; // in seconds
-        final float hideTime = 5f; // in seconds
+        final float hideTime = 3f; // in seconds
 
         timer.scheduleTask(new Timer.Task() {
             @Override
@@ -318,7 +328,7 @@ public class JoinGameScreen extends BasicScreen {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        refreshServerList();
+                        GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
                     }
                 }).start(); //-> refreshServerList is called, but icon is not hiding anymore...
                 timer.scheduleTask(new Timer.Task() {
@@ -347,13 +357,6 @@ public class JoinGameScreen extends BasicScreen {
     }
 
     /**
-     *
-     */
-    private void refreshServerList() {
-        GameOfLife.client.discoverServers(GameOfLife.UDPPORT);
-    }
-
-    /**
      * @param delta The time in seconds since the last render.
      */
     @Override
@@ -372,6 +375,13 @@ public class JoinGameScreen extends BasicScreen {
             stage.getBatch().begin();
             stage.getBatch().draw(transparentImage, (float) screenWidth - (float) transparentImage.getRegionWidth() - 10F, 10F);
             stage.getBatch().end();
+        }
+    }
+
+    @Override
+    public void update(String payload) {
+        if(payload.equals(GameOfLife.createServerOverviewPayload)){
+            this.createServerOverview();
         }
     }
 }

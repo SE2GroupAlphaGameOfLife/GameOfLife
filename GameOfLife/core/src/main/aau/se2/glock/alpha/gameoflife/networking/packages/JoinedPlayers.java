@@ -14,19 +14,19 @@ public class JoinedPlayers {
     /**
      *
      */
-    private HashMap<InetAddress, Player> players;
+    private HashMap<String, Player> players;
 
     /**
      *
      */
     public JoinedPlayers() {
-        players = new HashMap<InetAddress, Player>();
+        players = new HashMap<String, Player>();
     }
 
     /**
      * @param players
      */
-    public JoinedPlayers(HashMap<InetAddress, Player> players) {
+    public JoinedPlayers(HashMap<String, Player> players) {
         this.players = players;
     }
 
@@ -36,9 +36,9 @@ public class JoinedPlayers {
      * @return
      */
     public boolean addPlayer(Player player, InetAddress ipaddress) {
-        if (this.players.containsKey(ipaddress))
+        if (this.players.containsKey(ipaddress.toString()))
             return false;
-        this.players.put(ipaddress, player);
+        this.players.put(ipaddress.toString(), player);
         return true;
     }
 
@@ -46,20 +46,20 @@ public class JoinedPlayers {
      * @param ipaddress
      */
     public void removePlayerWithIP(InetAddress ipaddress) {
-        this.players.remove(ipaddress);
+        this.players.remove(ipaddress.toString());
     }
 
     /**
      * @return
      */
-    public HashMap<InetAddress, Player> getPlayers() {
+    public HashMap<String, Player> getPlayers() {
         return this.players;
     }
 
     /**
      * @param players
      */
-    public void setPlayers(HashMap<InetAddress, Player> players) {
+    public void setPlayers(HashMap<String, Player> players) {
         this.players = players;
     }
 
@@ -77,8 +77,18 @@ public class JoinedPlayers {
         playerId = playerId > this.players.size() ? 1 : playerId;
         for (Player player : this.players.values()) {
             if (player.getId() == playerId) {
+                if(player.isOnline() == false){
+                    setPlayersTurn(playerId + 1);
+                }
                 player.setHasTurn(true);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "JoinedPlayers{" +
+                "players=" + players +
+                '}';
     }
 }

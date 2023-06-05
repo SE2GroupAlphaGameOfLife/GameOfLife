@@ -16,7 +16,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class BasicScreen implements Screen {
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+
+public abstract class BasicScreen implements Screen, ClientObserver{
 
 
     protected Stage stage;
@@ -33,6 +36,7 @@ public class BasicScreen implements Screen {
     public BasicScreen() {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
+        GameOfLife.client.registerObserver(this);
     }
 
     @Override
@@ -80,6 +84,7 @@ public class BasicScreen implements Screen {
      */
     @Override
     public void hide() {
+        GameOfLife.client.removeObserver(this);
         this.dispose();
     }
 
@@ -149,4 +154,6 @@ public class BasicScreen implements Screen {
         label.setPosition(centerWidth - (label.getWidth() / 2), (float) centerHeight + (buttonHeight * 2)); // Set the position of the label
         stage.addActor(label); // Add the label to the stage
     }
+
+    public abstract void update(String payload);
 }
