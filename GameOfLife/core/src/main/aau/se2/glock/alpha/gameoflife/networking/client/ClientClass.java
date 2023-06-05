@@ -8,6 +8,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.ClientDiscoveryHandler;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -18,8 +19,8 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
-import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserverSubject;
+import aau.se2.glock.alpha.gameoflife.networking.observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.observers.ClientObserverSubject;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
@@ -34,6 +35,8 @@ public class ClientClass implements Listener, ClientObserverSubject {
      * Kryonet Client object, for serialized network communication
      */
     private final Client client;
+
+    private List<ServerInformation> newServers = new ArrayList<>();
 
     private List<ClientObserver> clientObservers = new ArrayList<>();
 
@@ -50,10 +53,9 @@ public class ClientClass implements Listener, ClientObserverSubject {
         @Override
         public void onDiscoveredHost(DatagramPacket datagramPacket) {
             if (input != null) {
-                DiscoveryResponsePacket packet;
-                packet = (DiscoveryResponsePacket) client.getKryo().readClassAndObject(input);
+                DiscoveryResponsePacket packet = (DiscoveryResponsePacket) client.getKryo().readClassAndObject(input);
                 if (!client.isConnected()) {
-                    GameOfLife.availableServers.add(new ServerInformation(packet.hostname, datagramPacket.getAddress()));
+                    newServers.add(new ServerInformation(packet.hostname, datagramPacket.getAddress()));
                 } else {
                     onFinally();
                 }
@@ -63,6 +65,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         @Override
         public void onFinally() {
             if (input != null) {
+                GameOfLife.availableServers = newServers;
                 notifyObservers(GameOfLife.createServerOverviewPayload);
                 input.close();
             }
@@ -169,7 +172,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
      */
     public void discoverServers(int udpPort) {
         if (!this.client.isConnected()) {
-            GameOfLife.availableServers = new ArrayList<ServerInformation>();
+            //GameOfLife.availableServers = new ArrayList<ServerInformation>();
             this.client.discoverHosts(udpPort, 3000);
         }
     }
