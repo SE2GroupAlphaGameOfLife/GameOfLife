@@ -40,11 +40,13 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
+import aau.se2.glock.alpha.gameoflife.networking.Observers.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 /**
  *
  */
-public class GameScreen extends BasicScreen implements ProximityListener {
+public class GameScreen extends BasicScreen implements ProximityListener{
     
     private TextButton btnQuit;
     private TextButton btnCheat1Field;
@@ -94,7 +96,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);
 
-
         initScreenDimensions();
         initFonts();
         initStage();
@@ -115,7 +116,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         // Here, you can define what to do when the proximity sensor is triggered
         Gdx.app.log("Sensor", "Triggered in GameScreen");
 
-        if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() != 0) {
+        if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() != 0) {
             createMenuCheating();
         }
     }
@@ -144,7 +145,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
 
-        if (GameOfLife.self.isHasTurn()) {
+        if (GameOfLife.self.hasTurn()) {
             createSpinTheWheelButton();
 
             if (isSpinning) {
@@ -257,7 +258,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnRollDiceListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (GameOfLife.self.isHasTurn() && GameOfLife.self.getMoveCount() == 0) {
+                if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() == 0) {
                     // This method will be called when the TextButton is clicked
                     boolean isInTurn = true;
 
@@ -474,7 +475,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnQuitListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.server.close();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameOfLife.server.close();
+                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    }
+                }).start();
                 GameOfLife.changeScreen(new MainMenuScreen());
             }
         };
@@ -621,7 +628,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             @Override
             public void run() {
                 for (Player p : GameOfLife.players) {
-                    if (p.isHasTurn()) {
+                    if (p.hasTurn()) {
                         fillPlayerHUD(p);
                         break;
                     }
@@ -668,6 +675,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
+
+    }
+
+    @Override
+    public void update(String payload) {
 
     }
 }
