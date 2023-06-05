@@ -77,6 +77,9 @@ public class JoinedPlayers {
         playerId = playerId > this.players.size() ? 1 : playerId;
         for (Player player : this.players.values()) {
             if (player.getId() == playerId) {
+                if(player.isOnline() == false){
+                    setPlayersTurn(playerId + 1);
+                }
                 player.setHasTurn(true);
             }
         }
