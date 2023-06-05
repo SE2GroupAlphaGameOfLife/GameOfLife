@@ -27,6 +27,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.esotericsoftware.kryonet.Listener;
+import com.sun.management.internal.GarbageCollectorExtImpl;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -34,6 +36,8 @@ import java.util.ArrayList;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
+import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 /**
  *
@@ -347,6 +351,11 @@ public class MainMenuScreen implements Screen {
                     GameOfLife.players = new ArrayList<>();
                     GameOfLife.players.add(GameOfLife.self);
 
+                    GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                    GameOfLife.client = new ClientClass();
+
+                    GameOfLife.changeScreen(new StartGameScreen());
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -354,12 +363,11 @@ public class MainMenuScreen implements Screen {
                             try {
                                 GameOfLife.client.connect(InetAddress.getByName("localhost"), GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                             } catch (UnknownHostException e) {
+                                GameOfLife.changeScreen(new MainMenuScreen());
                                 throw new RuntimeException(e);
                             }
                         }
                     }).start();
-
-                    GameOfLife.changeScreen(new StartGameScreen());
                 }
             }
         });
