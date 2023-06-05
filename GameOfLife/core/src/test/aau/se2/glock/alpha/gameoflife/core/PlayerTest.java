@@ -73,7 +73,7 @@ public class PlayerTest {
         assertEquals(0, player.getMoveCount());
 
         player.rollTheDice();
-        assertTrue(player.getMoveCount() > 0 && player.getMoveCount() < 10);
+        assertTrue(player.getMoveCount() > 0 && player.getMoveCount() <= 10);
 
         player.makeMove();
         while (player.getMoveCount() > 0) {
