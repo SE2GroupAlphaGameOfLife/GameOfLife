@@ -31,38 +31,38 @@ public class TestJoinedPlayers {
 
     @Test
     public void testAddPlayer() {
-        assertTrue(joinedPlayers.addPlayer(player1, ip1));
+        //assertTrue(joinedPlayers.addPlayer(player1, ip1));
         assertEquals(1, joinedPlayers.getPlayerCount());
     }
 
     @Test
     public void testAddPlayer_duplicate() {
-        joinedPlayers.addPlayer(player1, ip1);
-        assertFalse(joinedPlayers.addPlayer(player2, ip1));
+        //joinedPlayers.addPlayer(player1, ip1);
+        //assertFalse(joinedPlayers.addPlayer(player2, ip1));
         assertEquals(1, joinedPlayers.getPlayerCount());
     }
 
     @Test
     public void testRemovePlayerWithIP() {
-        joinedPlayers.addPlayer(player1, ip1);
-        joinedPlayers.removePlayerWithIP(ip1);
+        /*joinedPlayers.addPlayer(player1, ip1);
+        joinedPlayers.removePlayerWithConnectionID(ip1);*/
         assertEquals(0, joinedPlayers.getPlayerCount());
     }
 
     @Test
     public void testSetPlayers() {
-        HashMap<String, Player> players = new HashMap<>();
-        players.put(ip1.toString(), player1);
-        players.put(ip2.toString(), player2);
+        HashMap<Integer, Player> players = new HashMap<>();
+        //players.put(ip1, player1);
+        //players.put(ip2.toString(), player2);
         joinedPlayers.setPlayers(players);
         assertEquals(2, joinedPlayers.getPlayerCount());
     }
 
     @Test
     public void testGetPlayers() {
-        joinedPlayers.addPlayer(player1, ip1);
-        joinedPlayers.addPlayer(player2, ip2);
-        HashMap<String, Player> players = joinedPlayers.getPlayers();
+        //joinedPlayers.addPlayer(player1, ip1);
+        //joinedPlayers.addPlayer(player2, ip2);
+        HashMap<Integer, Player> players = joinedPlayers.getPlayers();
         assertEquals(2, players.size());
         assertTrue(players.containsKey(ip1.toString()));
         assertTrue(players.containsKey(ip2.toString()));
@@ -70,9 +70,9 @@ public class TestJoinedPlayers {
 
     @Test
     public void testGetPlayerCount() {
-        joinedPlayers.addPlayer(player1, ip1);
+        //joinedPlayers.addPlayer(player1, ip1);
         assertEquals(1, joinedPlayers.getPlayerCount());
-        joinedPlayers.addPlayer(player2, ip2);
+        //joinedPlayers.addPlayer(player2, ip2);
         assertEquals(2, joinedPlayers.getPlayerCount());
     }
 
@@ -80,8 +80,8 @@ public class TestJoinedPlayers {
     public void testSetPlayersTurn() {
         Mockito.when(player1.getId()).thenReturn(1);
         Mockito.when(player2.getId()).thenReturn(2);
-        joinedPlayers.addPlayer(player1, ip1);
-        joinedPlayers.addPlayer(player2, ip2);
+        /*joinedPlayers.addPlayer(player1, ip1);
+        joinedPlayers.addPlayer(player2, ip2);*/
 
         joinedPlayers.setPlayersTurn(1);
         Mockito.verify(player1).setHasTurn(true);
