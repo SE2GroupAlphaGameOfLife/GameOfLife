@@ -272,7 +272,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     isSpinning = true;
                 }
             }
-
         };
 
         //btnRollDice.addListener(btnRollDiceListener);
@@ -670,6 +669,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
+        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     /**
@@ -677,7 +677,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
-
     }
 
     @Override
