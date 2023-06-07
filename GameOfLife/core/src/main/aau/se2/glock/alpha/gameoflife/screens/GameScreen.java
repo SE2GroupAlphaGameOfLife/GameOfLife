@@ -35,9 +35,9 @@ import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
-import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 
 /**
  *
