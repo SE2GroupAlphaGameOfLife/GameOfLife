@@ -157,7 +157,7 @@ public class EventCardsTest {
 
     @Test
     public void testSetText() {
-        assertEquals("Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhÃ¤ltst du 200 LP.", e1.getText());
+        assertEquals("Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhaeltst du 200 LP.", e1.getText());
         e1.setText("Erhalte 200 LP.");
         e1.setLp(200);
         assertEquals("Erhalte 200 LP.", e1.getText());
