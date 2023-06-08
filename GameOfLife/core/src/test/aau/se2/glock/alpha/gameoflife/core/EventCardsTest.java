@@ -47,10 +47,10 @@ public class EventCardsTest {
         String relativePath = "GameOfLife/assets/Events.json";
         String absolutePath = Paths.get("../../").toAbsolutePath() + "/" + relativePath;
         byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
-        String jobsString = new String(bytes);
+        String eventsString = new String(bytes);
 
-        f1 = new EventData(jobsString);
-        s1 = new Stack(jobsString);
+        f1 = new EventData(eventsString);
+        s1 = Stack.getINSTANCE(eventsString);
         e1 = f1.getEventList().get(0);
         e2 = f1.getEventList().get(1);
         e3 = f1.getEventList().get(2);
