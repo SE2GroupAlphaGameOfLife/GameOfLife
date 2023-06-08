@@ -35,9 +35,9 @@ import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
-import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 
 /**
  *
@@ -272,7 +272,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     isSpinning = true;
                 }
             }
-
         };
 
         //btnRollDice.addListener(btnRollDiceListener);
@@ -661,6 +660,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
+        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     /**
@@ -668,7 +668,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
-
     }
 
     @Override

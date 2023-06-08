@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 
 /**
@@ -21,7 +21,7 @@ public class GameOfLife extends Game {
     /**
      * File name of the Event and Job json files located in the assets folder
      */
-    public static final String fileJobJson = "Jobs.json", fileEventJson = "Events.json";
+    public static final String FILE_JOB_JSON = "Jobs.json", FILE_EVENT_JSON = "Events.json";
 
     /**
      *

@@ -101,11 +101,11 @@ public class StartGameScreen extends BasicScreen {
 
                     /*
                     THIS IS FOR TESTING ONLY AND HAS TO BE REMOVED ON FINAL VERSION
-                     *//*
+                     */
                     btnStartGame.setVisible(false);
                     Gdx.app.log("StartGameScreen", "StartGame button pressed!");
                     GameOfLife.client.sendMessageToServerTCP(GameOfLife.startGamePayload);
-                    *//*
+                    /*
                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                      */
                     if ((GameOfLife.players.size() >= 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {

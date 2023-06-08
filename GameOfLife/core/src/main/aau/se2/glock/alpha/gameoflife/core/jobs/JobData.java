@@ -1,11 +1,13 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class JobData {
@@ -19,28 +21,23 @@ public class JobData {
      *
      */
     public ArrayList<Job> jobList;
+
+    /**
+     *
+     */
     int countCard;
 
+    /**
+     *
+     */
+    private JsonFileReader jsonFileReader;
+
     private JobData(String jsonString) {
-        // Parsing the json so we can use it
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonValue = jsonReader.parse(jsonString);
-
-        ArrayList<Job> jobs = new ArrayList<>();
-
-        // Read the values and create a list of gameFields
-        for (JsonValue jsonField : jsonValue) {
-            ArrayList<Integer> nextPositions = new ArrayList<>();
-            for (int i : jsonField.get("gehaltsListe").asIntArray()) {
-                nextPositions.add(i);
-            }
-
-            Job job = new Job(jsonField.getString("Bezeichnung"), nextPositions);
-            jobs.add(job);
-        }
-        jobList = jobs;
-
+        this.jsonFileReader = new JsonFileReader();
         this.countCard = 0;
+        this.jobList = new ArrayList<Job>();
+        this.parseJobsJson();
+        Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
     }
 
     public static JobData getInstance() {
@@ -60,9 +57,9 @@ public class JobData {
     /**
      *
      */
-    /*public void parseJobsJson() {
+    public void parseJobsJson() {
         try {
-            this.jsonFileReader.readJson(GameOfLife.fileJobJson, Job.class, new JsonCallback<Job>() {
+            this.jsonFileReader.readJson(GameOfLife.FILE_JOB_JSON, Job.class, new JsonCallback<Job>() {
                 @Override
                 public void onJsonRead(ArrayList<Job> result) {
                     jobList = result;
@@ -71,15 +68,7 @@ public class JobData {
         } catch (SerializationException e) {
             Gdx.app.log("JobData", e.getMessage());
         }
-    }*/
-
-    /**
-     * Fills jobList with 20 Jobs.
-     */
-    /*public void fillJobList() {
-        this.parseJobsJson();
-        Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
-    }*/
+    }
 
     /**
      * Returns any amount of jobs and increment the countCard.
