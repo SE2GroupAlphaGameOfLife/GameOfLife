@@ -108,7 +108,7 @@ public class StartGameScreen extends BasicScreen {
                     *//*
                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                      */
-                    if ((GameOfLife.players.size() > 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {
+                    if ((GameOfLife.players.size() >= 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {
                         //Broadcast, game started
                         btnStartGame.setVisible(false);
                         Gdx.app.log("StartGameScreen", "StartGame button pressed!");
