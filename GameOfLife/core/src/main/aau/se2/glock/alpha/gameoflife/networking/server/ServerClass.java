@@ -19,11 +19,16 @@ import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
+import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-import aau.se2.glock.alpha.gameoflife.networking.packages.TCPCommands;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
 
 /**
  *
@@ -104,6 +109,9 @@ public class ServerClass implements Listener {
         kryo.register(Player.class);
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
 
         players = new JoinedPlayers();
 
@@ -243,27 +251,12 @@ public class ServerClass implements Listener {
                 this.sendMessageToAll(payload);
             }
             sendPlayersObjectToAll();
-        } else if(object instanceof String){ //This is for the cheating functionality
-            String command = ((String) object).split("#")[0];
-            int playerId = Integer.parseInt(((String) object).split("#")[1]);
+        } else if(object instanceof TcpMessage){ //This is for the cheating functionality
+            TcpMessageVisitor reportVisitor = new ReportPlayerVisitor();
+            TcpMessageVisitor cheatingVisitor = new CheatingVisitor();
 
-            if(command.equals(TCPCommands.REPORTED)){ //if someone reports a player the server has to check if this player has cheated in the last few rounds
-                for (PlayerCheated playerCheated : playerCheatedList) {
-                    if(playerCheated.getPlayerId() == playerId){
-                        Player player = players.getPlayers().get(playerId);
-                        if(player.getAge() <= playerCheated.getCheatedAtAge() + 5){
-                            player.setPosition(player.getPosition() - playerCheated.getAmountCheated());
-                            this.sendPlayersObjectToAll();
-
-                            return;
-                        }
-                    }
-                }
-            } else if(command.equals(TCPCommands.CHEATED)){ //When a player has cheated, the server is notified, so we can save the event
-                int cheatedAmount = Integer.parseInt(((String) object).split("#")[2]);
-                Player player = players.getPlayers().get(playerId);
-                playerCheatedList.add(new PlayerCheated(player.getAge(), player.getId(), cheatedAmount));
-            }
+            ((TcpMessage) object).accept(reportVisitor);
+            ((TcpMessage) object).accept(cheatingVisitor);
         }
     }
 
@@ -333,5 +326,13 @@ public class ServerClass implements Listener {
     //For testing only
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    public List<PlayerCheated> getPlayerCheatedList() {
+        return playerCheatedList;
+    }
+
+    public void setPlayerCheatedList(List<PlayerCheated> playerCheatedList) {
+        this.playerCheatedList = playerCheatedList;
     }
 }
