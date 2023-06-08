@@ -30,7 +30,7 @@ import aau.se2.glock.alpha.gameoflife.core.Player;
  */
 public class MainMenuScreen extends BasicScreen {
 
-    private TextButton btnStartGame, btnJoinGame;
+    private TextButton btnHostGame, btnJoinGame;
     private TextButtonStyle textButtonStyle;
     private TextFieldStyle textFieldStyle;
     private TextField usernameInput;
@@ -113,16 +113,16 @@ public class MainMenuScreen extends BasicScreen {
         textButtonStyle.fontColor = Color.WHITE; // Set the font color
 
         //Create a Start Game Button
-        btnStartGame = new TextButton("Start Game", textButtonStyle); // Create the text button with the text and style
-        btnStartGame.setPosition(buttonPosition.x, buttonPosition.y); // Set the position of the button
-        btnStartGame.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        btnHostGame = new TextButton("Host Game", textButtonStyle); // Create the text button with the text and style
+        btnHostGame.setPosition(buttonPosition.x, buttonPosition.y); // Set the position of the button
+        btnHostGame.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
         //Create a Join Game Button
         btnJoinGame = new TextButton("Join Game", textButtonStyle); // Create the text button with the text and style
         btnJoinGame.setPosition(buttonPosition.x, (float) (buttonPosition.y - (buttonHeight * 1.25)));
         btnJoinGame.setSize(buttonWidth, buttonHeight);
 
-        stage.addActor(btnStartGame); // Add the button to the stage
+        stage.addActor(btnHostGame); // Add the button to the stage
         stage.addActor(btnJoinGame);
 
         btnJoinGame.addListener(new ClickListener() {
@@ -141,7 +141,7 @@ public class MainMenuScreen extends BasicScreen {
 
         //Create a ClickListener
         //When there is no input in the usernameInput then we show an error
-        btnStartGame.addListener(new ClickListener() {
+        btnHostGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (validateInput(usernameInput)) {
