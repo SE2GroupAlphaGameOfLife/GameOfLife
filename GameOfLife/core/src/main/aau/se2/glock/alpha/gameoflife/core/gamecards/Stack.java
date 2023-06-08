@@ -33,6 +33,15 @@ public class Stack {
     }
 
     /**
+     * for testing only
+     * @param eventDataJsonString
+     */
+    public Stack(String eventDataJsonString) {
+        buildStack(eventDataJsonString);
+        mixCards();
+    }
+
+    /**
      * @return
      */
     public static Stack getINSTANCE() {
@@ -68,6 +77,12 @@ public class Stack {
     public void buildStack() {
         EventData eventData = new EventData();
         eventData.fillEventList();
+        eventData.fillCardList();
+        addCards(eventData.getCardList());
+    }
+
+    public void buildStack(String eventDataJsonString) {
+        EventData eventData = new EventData(eventDataJsonString);
         eventData.fillCardList();
         addCards(eventData.getCardList());
     }
