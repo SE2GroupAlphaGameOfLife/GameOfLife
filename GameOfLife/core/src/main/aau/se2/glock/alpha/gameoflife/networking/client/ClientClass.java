@@ -21,12 +21,12 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserver;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserverSubject;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-import aau.se2.glock.alpha.gameoflife.networking.packages.TCPCommands;
-import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
-import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
 /**
@@ -88,13 +88,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        //kryo.register(ServerInformation.class);
-        kryo.register(SecureRandom.class);
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
+        registerClasses(kryo);
     }
 
     /**
@@ -109,6 +103,11 @@ public class ClientClass implements Listener, ClientObserverSubject {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
+        registerClasses(kryo);
+    }
+
+
+    public void registerClasses(Kryo kryo) {
         //kryo.register(ServerInformation.class);
         kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
@@ -116,6 +115,9 @@ public class ClientClass implements Listener, ClientObserverSubject {
         kryo.register(Player.class);
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
     }
 
     public void sendMessageToServerTCP(String message) {
@@ -210,14 +212,14 @@ public class ClientClass implements Listener, ClientObserverSubject {
     }
 
 
-
     /**
      * Sends a Player object over TCP to the server.
      *
      * @param player Player object to be sent to server.
      */
     public void sendReportPlayerTCP(Player player) {
-        this.client.sendTCP(TCPCommands.REPORTED +"#" + player.getId());
+        ReportPlayerMessage reportPlayerMessage = new ReportPlayerMessage(Integer.toString(player.getId()));
+        this.client.sendTCP(reportPlayerMessage);
     }
 
     /**
@@ -226,7 +228,8 @@ public class ClientClass implements Listener, ClientObserverSubject {
      * @param player Player object to be sent to server.
      */
     public void sendPlayerCheatedTCP(Player player, int cheatedAmount) {
-        this.client.sendTCP(TCPCommands.CHEATED +"#" +  player.getId() + "#" + cheatedAmount);
+        CheatingMessage cheatingMessage = new CheatingMessage(Integer.toString(player.getId()) + "#" + Integer.toString(player.getAge()) + "#" + Integer.toString(cheatedAmount));
+        this.client.sendTCP(cheatingMessage);
     }
 
     /**
