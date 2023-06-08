@@ -2,22 +2,31 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.EventData;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
+import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class EventCardsTest {
 
     Card c1, c2, c3, c4, c5;
 
     Event e1, e2, e3, e4, e5;
+
     Stack s1;
     ArrayList<Card> cardList;
     ArrayList<Event> eventList1;
@@ -25,7 +34,7 @@ public class EventCardsTest {
 
 
     @Before
-    public void setup() {
+    public void setup() throws IOException {
         c1 = new Card();
         c2 = new Card();
         c3 = new Card();
@@ -35,16 +44,18 @@ public class EventCardsTest {
         cardList = new ArrayList<>();
         eventList1 = new ArrayList<>();
 
-        s1 = new Stack();
+        String relativePath = "GameOfLife/assets/Events.json";
+        String absolutePath = Paths.get("../../").toAbsolutePath() + "/" + relativePath;
+        byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
+        String jobsString = new String(bytes);
 
-        e1 = new Event(100, 0, "Erhalte 100 LP.");
-        e2 = new Event(200, 0, "Erhalte 200 LP.");
-        e3 = new Event(0, 1000, "Erhalte € 1.000.");
-        e4 = new Event(0, 2000, "Erhalte € 2.000.");
-        e5 = new Event(300, 0, "Erhalte 300 LP.");
-
-        f1 = new EventData();
-
+        f1 = new EventData(jobsString);
+        s1 = new Stack(jobsString);
+        e1 = f1.getEventList().get(0);
+        e2 = f1.getEventList().get(1);
+        e3 = f1.getEventList().get(2);
+        e4 = f1.getEventList().get(3);
+        e5 = f1.getEventList().get(4);
     }
 
     /**
@@ -52,8 +63,6 @@ public class EventCardsTest {
      */
     @Test
     public void testFillData() {
-        assertEquals(0, f1.getEventList().size());
-        f1.fillEventList();
         assertEquals(100, f1.getEventList().size());
     }
 
@@ -62,7 +71,6 @@ public class EventCardsTest {
      */
     @Test
     public void testFillCardList() {
-        f1.fillEventList();
         f1.fillCardList();
         assertEquals(f1.getEventList().size() / 4, f1.getCardList().size());
     }
@@ -82,8 +90,7 @@ public class EventCardsTest {
 
     @Test
     public void testFillEvents() {
-        f1.fillEventList();
-        f1.fillCardList();
+        //f1.fillCardList();
         //assertEquals(4,c1.fillEvents.size());
     }
 
@@ -143,14 +150,14 @@ public class EventCardsTest {
 
     @Test
     public void testGetAndSetLp() {
-        assertEquals(100, e1.getLp());
+        assertEquals(200, e1.getLp());
         e1.setLp(1000);
         assertEquals(1000, e1.getLp());
     }
 
     @Test
     public void testSetText() {
-        assertEquals("Erhalte 100 LP.", e1.getText());
+        assertEquals("Du liest ein Lexikon von A bis Z durch. Weil du danach ziemlich schlau bist, erhÃ¤ltst du 200 LP.", e1.getText());
         e1.setText("Erhalte 200 LP.");
         e1.setLp(200);
         assertEquals("Erhalte 200 LP.", e1.getText());
