@@ -22,4 +22,13 @@ public class PlayerCheated {
     public int getAmountCheated() {
         return amountCheated;
     }
+
+    @Override
+    public String toString() {
+        return "PlayerCheated{" +
+                "cheatedAtAge=" + cheatedAtAge +
+                ", playerId=" + playerId +
+                ", amountCheated=" + amountCheated +
+                '}';
+    }
 }
