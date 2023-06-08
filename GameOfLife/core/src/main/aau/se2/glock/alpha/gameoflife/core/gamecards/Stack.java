@@ -27,7 +27,7 @@ public class Stack {
     /**
      *
      */
-    public Stack() {
+    private Stack() {
         buildStack();
         mixCards();
     }
@@ -36,7 +36,7 @@ public class Stack {
      * for testing only
      * @param eventDataJsonString
      */
-    public Stack(String eventDataJsonString) {
+    private Stack(String eventDataJsonString) {
         buildStack(eventDataJsonString);
         mixCards();
     }
@@ -49,6 +49,16 @@ public class Stack {
             return INSTANCE;
         } else
             return INSTANCE = new Stack();
+    }
+
+    /**
+     * @return
+     */
+    public static Stack getINSTANCE(String eventDataJsonString) {
+        if (INSTANCE != null) {
+            return INSTANCE;
+        } else
+            return INSTANCE = new Stack(eventDataJsonString);
     }
 
     /**
