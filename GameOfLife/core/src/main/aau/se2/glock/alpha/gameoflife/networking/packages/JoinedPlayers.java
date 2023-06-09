@@ -24,7 +24,7 @@ public class JoinedPlayers {
 
     /**
      * @param player
-     * @param ipaddress
+     * @param connectionId
      * @return
      */
     public boolean addPlayer(Player player, Integer connectionId) {
@@ -35,7 +35,7 @@ public class JoinedPlayers {
     }
 
     /**
-     * @param ipaddress
+     * @param connectionId
      */
     public boolean removePlayerWithConnectionID(Integer connectionId) {
         return this.players.remove(connectionId) != null;
@@ -60,6 +60,9 @@ public class JoinedPlayers {
      */
     public void setPlayersTurn(int playerId) {
         playerId = playerId > this.players.size() ? 1 : playerId;
+        if(this.players.size() <= 1){
+            return;
+        }
         for (Player player : this.players.values()) {
             player.setHasTurn(false);
             if (player.getId() == playerId) {
