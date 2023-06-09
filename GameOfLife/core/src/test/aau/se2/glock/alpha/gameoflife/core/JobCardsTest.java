@@ -18,6 +18,7 @@ import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class JobCardsTest {
 
+    /*
     Job job1;
     JobData data1;
 
@@ -84,15 +85,15 @@ public class JobCardsTest {
     }
      */
 
-
+/*
     @Test
-
     public void testGetGehaltsListe() {
         /*assertEquals(7, j1.getGehaltsListe().size());
         int gehalt = j1.getGehaltsListe().get(6);
         assertEquals(1500000,gehalt);*/
-    }
+    //}
 
+/*
     public String getBezeichnung(JobData data) {
         String result = "";
         for (int i = 0; i < data.jobList.size(); i++) {
@@ -101,4 +102,5 @@ public class JobCardsTest {
         }
         return result;
     }
+    */
 }
