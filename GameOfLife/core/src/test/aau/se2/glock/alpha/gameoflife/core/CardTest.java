@@ -7,7 +7,7 @@ import org.junit.Test;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
 import aau.se2.glock.alpha.gameoflife.core.special.CarType;
 
-public class CarTest {
+public class CardTest {
 
     int price = 50000;
     int lp = 1234;
