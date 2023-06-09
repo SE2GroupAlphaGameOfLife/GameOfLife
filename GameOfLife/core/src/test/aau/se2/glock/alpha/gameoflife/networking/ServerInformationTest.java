@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
-public class TestServerInformation {
+public class ServerInformationTest {
     @Test
     public void testDefaultConstructor() {
         ServerInformation serverInfo = new ServerInformation();

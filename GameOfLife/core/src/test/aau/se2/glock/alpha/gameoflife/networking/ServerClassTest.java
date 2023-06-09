@@ -1,5 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking;
 
-public class TestServer {
+public class ServerClassTest {
 
 }
