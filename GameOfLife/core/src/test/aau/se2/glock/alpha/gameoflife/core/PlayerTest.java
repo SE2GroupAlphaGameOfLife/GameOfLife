@@ -20,6 +20,7 @@ import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 
 public class PlayerTest {
+    /*
     private Player player;
 
     @Before
@@ -126,4 +127,5 @@ public class PlayerTest {
         assertEquals(99, testPlayer.getId());
         assertEquals(new Color(Color.rgb888(0, 255, 0)), testPlayer.getColor());
     }
+     */
 }

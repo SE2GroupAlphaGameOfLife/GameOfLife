@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.client;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
@@ -70,7 +69,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         public void onFinally() {
             if (input != null) {
                 GameOfLife.availableServers = newServers;
-                notifyObservers(GameOfLife.createServerOverviewPayload);
+                notifyObservers(GameOfLife.CREATE_SERVER_OVERVIEW_PAYLOAD);
                 input.close();
             }
         }
@@ -266,14 +265,14 @@ public class ClientClass implements Listener, ClientObserverSubject {
                     break;
                 }
             }
-            notifyObservers(GameOfLife.createPlayersOverviewPayload);
+            notifyObservers(GameOfLife.CREATE_PLAYERS_OVERVIEW_PAYLOAD);
             /*if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
                 ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
                 Gdx.app.log("ClientClass", "Players at StartGameScreen (" + GameOfLife.players + ")");
             }*/
         } else if (object instanceof String) {
             String payload = (String) object;
-            if (payload.equals(GameOfLife.startGamePayload)) {
+            if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
                 //Gdx.app.log("ClientClass/Received", "StartGamePayload received!");
                 GameOfLife.gameStarted = true;
                 notifyObservers(payload);

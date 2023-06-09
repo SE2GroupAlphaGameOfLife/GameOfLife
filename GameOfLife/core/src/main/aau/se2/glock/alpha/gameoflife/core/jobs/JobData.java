@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
@@ -20,7 +22,7 @@ public class JobData {
     /**
      *
      */
-    public ArrayList<Job> jobList;
+    private ArrayList<Job> jobList;
 
     /**
      *
@@ -32,24 +34,33 @@ public class JobData {
      */
     private JsonFileReader jsonFileReader;
 
-    private JobData(String jsonString) {
+    /**
+     *
+     */
+    private String jobDataJson;
+
+    private JobData() {
+        this.jobDataJson = GameOfLife.FILE_JOB_JSON;
         this.jsonFileReader = new JsonFileReader();
         this.countCard = 0;
         this.jobList = new ArrayList<Job>();
-        this.parseJobsJson();
-        Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
+        //Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
+    }
+
+    /**
+     * FOR TESTING ONLY!!
+     * @param jsonFileReader
+     */
+    public JobData(JsonFileReader jsonFileReader) {
+        this.jsonFileReader = jsonFileReader;
+        this.jobDataJson = GameOfLife.FILE_JOB_JSON;
+        this.countCard = 0;
+        this.jobList = new ArrayList<Job>();
     }
 
     public static JobData getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new JobData(new JsonFileReader().loadJsonFile("Jobs.json"));
-        }
-        return INSTANCE;
-    }
-
-    public static JobData getInstance(String jsonString) {
-        if (INSTANCE == null) {
-            INSTANCE = new JobData(jsonString);
+            INSTANCE = new JobData();
         }
         return INSTANCE;
     }
@@ -59,14 +70,14 @@ public class JobData {
      */
     public void parseJobsJson() {
         try {
-            this.jsonFileReader.readJson(GameOfLife.FILE_JOB_JSON, Job.class, new JsonCallback<Job>() {
+            this.jsonFileReader.readJson(this.jobDataJson, Job.class, new JsonCallback<Job>() {
                 @Override
                 public void onJsonRead(ArrayList<Job> result) {
                     jobList = result;
                 }
             });
         } catch (SerializationException e) {
-            Gdx.app.log("JobData", e.getMessage());
+            //Gdx.app.log("JobData", e.getMessage());
         }
     }
 
@@ -103,5 +114,9 @@ public class JobData {
      */
     public ArrayList<Job> getJobList() {
         return jobList;
+    }
+
+    public void fillJobList() {
+        this.parseJobsJson();
     }
 }

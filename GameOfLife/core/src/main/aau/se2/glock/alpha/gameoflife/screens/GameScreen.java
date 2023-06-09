@@ -87,6 +87,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     public GameScreen() {
 
         jobSelection = JobData.getInstance();
+        jobSelection.fillJobList();
         GameOfLife.proximitySensorInterface.setProximityListener(this);
 
         gameCamera = new OrthographicCamera();
@@ -534,6 +535,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private void chooseJobWindow() {
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
         jobSelection = JobData.getInstance();
+        jobSelection.fillJobList();
 
         final Window window = new Window("", uiSkin);
         window.setSize(600, 450);

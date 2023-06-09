@@ -51,7 +51,6 @@ public class EventDataTest {
     public void testParseEventsJson() {
         when(mockFileHandle.readString()).thenReturn("[{\"lp\":1,\"cash\":100,\"text\":\"Test\"}]");
         jsonFileReader = spy(new TestJsonFileReader());
-        //doReturn(mockFileHandle).when(jsonFileReader).getFileHandle(any(String.class));
         eventData = new EventData(jsonFileReader);
         eventData.parseEventsJson();
         verify(jsonFileReader).readJson(any(String.class), eq(Event.class), callbackCaptor.capture());

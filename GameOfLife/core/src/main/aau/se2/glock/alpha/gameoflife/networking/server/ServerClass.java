@@ -10,7 +10,6 @@ import com.esotericsoftware.kryonet.ServerDiscoveryHandler;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
@@ -251,7 +250,7 @@ public class ServerClass implements Listener {
             this.sendPlayersObjectToAll();
         } else if (object instanceof String) {
             String payload = (String) object;
-            if (payload.equals(GameOfLife.startGamePayload)) {
+            if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
                 Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
                 this.sendMessageToAll(payload);
             }

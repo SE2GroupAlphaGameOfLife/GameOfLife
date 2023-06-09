@@ -151,7 +151,7 @@ public class ClientClassTest {
 
     @Test
     public void testReceivedWithString() {
-        String startGamePayload = GameOfLife.startGamePayload;
+        String startGamePayload = GameOfLife.START_GAME_PAYLOAD;
         clientUnderTest.received(mockConnection, startGamePayload);
 
         // Verify that the GameOfLife.gameStarted flag has been set to true

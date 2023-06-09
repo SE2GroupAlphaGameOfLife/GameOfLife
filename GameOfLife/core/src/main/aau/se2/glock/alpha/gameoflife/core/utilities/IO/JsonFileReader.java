@@ -10,14 +10,6 @@ import java.util.ArrayList;
 
 public class JsonFileReader {
 
-    /**
-     * @return
-     */
-    public String loadJsonFile(String filename) {
-        FileHandle fileHandle = Gdx.files.internal(filename);
-        return fileHandle.readString();
-    }
-
     public <T> void readJson(String fileName, Class<T> type, JsonCallback<T> callback) {
         Json json = new Json();
         JsonReader reader = new JsonReader();

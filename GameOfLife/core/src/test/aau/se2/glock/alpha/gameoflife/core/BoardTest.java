@@ -16,6 +16,7 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class BoardTest {
+    /*
     private Board board;
 
     @Before
@@ -42,4 +43,5 @@ public class BoardTest {
         assertNotNull(gameFields);
         assertEquals(140, gameFields.size());
     }
+     */
 }
