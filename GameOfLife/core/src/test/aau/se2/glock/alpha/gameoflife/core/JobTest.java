@@ -1,11 +1,13 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import org.junit.Before;
-import org.junit.Test;
-import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 

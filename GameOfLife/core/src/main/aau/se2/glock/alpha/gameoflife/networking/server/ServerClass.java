@@ -9,12 +9,12 @@ import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.kryonet.ServerDiscoveryHandler;
 
 import java.io.IOException;
-import java.util.List;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
@@ -168,20 +168,6 @@ public class ServerClass implements Listener {
     }
 
     /**
-     * @return
-     */
-    public int getTCPport() {
-        return this.TCPPORT;
-    }
-
-    /**
-     * @return
-     */
-    public int getUDPport() {
-        return this.UDPPORT;
-    }
-
-    /**
      * @param connection
      */
     @Override
@@ -213,7 +199,7 @@ public class ServerClass implements Listener {
             player.setOnline(false);
             player.setJoning(true);
             this.players.addPlayer(player, connection.getID());
-            if (player.hasTurn()){
+            if (player.hasTurn()) {
                 this.players.setPlayersTurn(player.getId() + 1);
             }
             sendPlayersObjectToAll();
@@ -255,7 +241,7 @@ public class ServerClass implements Listener {
                 this.sendMessageToAll(payload);
             }
             sendPlayersObjectToAll();
-        } else if(object instanceof TcpMessage){ //This is for the cheating functionality
+        } else if (object instanceof TcpMessage) { //This is for the cheating functionality
             TcpMessageVisitor reportVisitor = new ReportPlayerVisitor();
             TcpMessageVisitor cheatingVisitor = new CheatingVisitor();
 

@@ -1,19 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
-import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
-
 public class LogicalFieldTest {
     /*
     LogicalField logicalField;

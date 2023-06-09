@@ -1,9 +1,12 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
-import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -23,11 +26,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JobDataTest {
@@ -49,7 +51,7 @@ public class JobDataTest {
     }
 
     @Test
-    public void testGetInstance(){
+    public void testGetInstance() {
         assertTrue(JobData.getInstance() instanceof JobData);
     }
 
@@ -60,15 +62,15 @@ public class JobDataTest {
         jobData = new JobData(jsonFileReader);
         jobData.fillJobList();
         verify(jsonFileReader).readJson(any(String.class), eq(Job.class), callbackCaptor.capture());
-        callbackCaptor.getValue().onJsonRead(new ArrayList<>(Collections.singletonList(new Job("Test", new ArrayList<>(Arrays.asList(100,200,300))))));
+        callbackCaptor.getValue().onJsonRead(new ArrayList<>(Collections.singletonList(new Job("Test", new ArrayList<>(Arrays.asList(100, 200, 300))))));
         assertEquals(1, jobData.getJobList().size());
     }
 
     @Test
     public void testGetJobsToSelect() {
         ArrayList<Job> jobs = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            jobs.add(new Job("Test " + i, new ArrayList<>(Arrays.asList(i*100, i*200, i*300))));
+        for (int i = 0; i < 4; i++) {
+            jobs.add(new Job("Test " + i, new ArrayList<>(Arrays.asList(i * 100, i * 200, i * 300))));
         }
         jobData.getJobList().addAll(jobs);
         Job[] selectedJobs = jobData.getJobsToSelect(3);
@@ -79,8 +81,8 @@ public class JobDataTest {
     @Test
     public void testMixCards() {
         ArrayList<Job> jobs = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            ArrayList<Integer> salaryList = new ArrayList<>(Arrays.asList(i*100, i*200, i*300, i*400, i*500, i*600));
+        for (int i = 0; i < 4; i++) {
+            ArrayList<Integer> salaryList = new ArrayList<>(Arrays.asList(i * 100, i * 200, i * 300, i * 400, i * 500, i * 600));
             jobs.add(new Job("TestJob " + i, salaryList));
         }
         jobData.getJobList().addAll(jobs);
@@ -94,7 +96,7 @@ public class JobDataTest {
         assertEquals(copyOfJobs.size(), jobData.getJobList().size());
 
         // Check that lists contain the same elements
-        for(Job job: copyOfJobs){
+        for (Job job : copyOfJobs) {
             assertTrue(jobData.getJobList().contains(job));
         }
     }
