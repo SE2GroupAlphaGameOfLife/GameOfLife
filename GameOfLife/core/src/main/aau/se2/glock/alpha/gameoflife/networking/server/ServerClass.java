@@ -9,6 +9,8 @@ import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.kryonet.ServerDiscoveryHandler;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
@@ -17,9 +19,16 @@ import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
 
 /**
  *
@@ -56,6 +65,11 @@ public class ServerClass implements Listener {
      */
     private String hostname;
 
+    /**
+     *
+     */
+    private List<PlayerCheated> playerCheatedList;
+
     private ServerDiscoveryHandler serverDiscoveryHandler = new ServerDiscoveryHandler() {
         @Override
         public boolean onDiscoverHost(DatagramChannel datagramChannel, InetSocketAddress fromAddress) throws IOException {
@@ -72,6 +86,7 @@ public class ServerClass implements Listener {
             return true;
         }
     };
+
 
     /**
      * @param TCPPORT
@@ -94,6 +109,9 @@ public class ServerClass implements Listener {
         kryo.register(Player.class);
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
 
         players = new JoinedPlayers();
 
@@ -231,6 +249,13 @@ public class ServerClass implements Listener {
                 Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
                 this.sendMessageToAll(payload);
             }
+            sendPlayersObjectToAll();
+        } else if(object instanceof TcpMessage){ //This is for the cheating functionality
+            TcpMessageVisitor reportVisitor = new ReportPlayerVisitor();
+            TcpMessageVisitor cheatingVisitor = new CheatingVisitor();
+
+            ((TcpMessage) object).accept(reportVisitor);
+            ((TcpMessage) object).accept(cheatingVisitor);
         }
     }
 
@@ -300,5 +325,13 @@ public class ServerClass implements Listener {
     //For testing only
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    public List<PlayerCheated> getPlayerCheatedList() {
+        return playerCheatedList;
+    }
+
+    public void setPlayerCheatedList(List<PlayerCheated> playerCheatedList) {
+        this.playerCheatedList = playerCheatedList;
     }
 }

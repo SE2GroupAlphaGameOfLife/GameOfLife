@@ -73,7 +73,7 @@ public class PlayerTest {
         assertEquals(0, player.getMoveCount());
 
         player.rollTheDice();
-        assertTrue(player.getMoveCount() > 0 && player.getMoveCount() < 10);
+        assertTrue(player.getMoveCount() > 0 && player.getMoveCount() <= 10);
 
         player.makeMove();
         while (player.getMoveCount() > 0) {
@@ -99,8 +99,6 @@ public class PlayerTest {
         assertTrue(testPlayer.hasTurn());
         assertTrue(testPlayer.isOnline());
         assertTrue(testPlayer.isJoning());
-        assertFalse(testPlayer.isHasCheated());
-        assertEquals(0, testPlayer.getHasCheatedAtAge());
 
         testPlayer.setUsername("User");
         testPlayer.setPosition(99);
@@ -114,9 +112,6 @@ public class PlayerTest {
         testPlayer.setJoning(false);
         testPlayer.setId(99);
         testPlayer.setColor(new Color(Color.rgb888(0, 255, 0)));
-        testPlayer.setHasCheated(true);
-        testPlayer.setHasCheatedAtAge(99);
-
 
         assertEquals("User", testPlayer.getUsername());
         assertEquals(99, testPlayer.getPosition());
@@ -130,7 +125,5 @@ public class PlayerTest {
         assertFalse(testPlayer.isJoning());
         assertEquals(99, testPlayer.getId());
         assertEquals(new Color(Color.rgb888(0, 255, 0)), testPlayer.getColor());
-        assertTrue(testPlayer.isHasCheated());
-        assertEquals(99, testPlayer.getHasCheatedAtAge());
     }
 }

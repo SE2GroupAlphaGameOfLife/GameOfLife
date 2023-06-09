@@ -27,8 +27,17 @@ public class Stack {
     /**
      *
      */
-    public Stack() {
+    private Stack() {
         buildStack();
+        mixCards();
+    }
+
+    /**
+     * for testing only
+     * @param eventDataJsonString
+     */
+    private Stack(String eventDataJsonString) {
+        buildStack(eventDataJsonString);
         mixCards();
     }
 
@@ -40,6 +49,16 @@ public class Stack {
             return INSTANCE;
         } else
             return INSTANCE = new Stack();
+    }
+
+    /**
+     * @return
+     */
+    public static Stack getINSTANCE(String eventDataJsonString) {
+        if (INSTANCE != null) {
+            return INSTANCE;
+        } else
+            return INSTANCE = new Stack(eventDataJsonString);
     }
 
     /**
@@ -68,6 +87,12 @@ public class Stack {
     public void buildStack() {
         EventData eventData = new EventData();
         eventData.fillEventList();
+        eventData.fillCardList();
+        addCards(eventData.getCardList());
+    }
+
+    public void buildStack(String eventDataJsonString) {
+        EventData eventData = new EventData(eventDataJsonString);
         eventData.fillCardList();
         addCards(eventData.getCardList());
     }

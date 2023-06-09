@@ -76,7 +76,7 @@ public class MainMenuScreen extends BasicScreen {
         // Set the placeholder text
         usernameInput.setMessageText("Enter username"); // Set the placeholder text
 
-        if (GameOfLife.self != null && !GameOfLife.self.getUsername().isEmpty()) {
+        if (GameOfLife.self != null && GameOfLife.self.getUsername() != null && !GameOfLife.self.getUsername().isEmpty()) {
             usernameInput.setText(GameOfLife.self.getUsername());
         }
 
