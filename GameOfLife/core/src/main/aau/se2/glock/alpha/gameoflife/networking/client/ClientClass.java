@@ -190,9 +190,9 @@ public class ClientClass implements Listener, ClientObserverSubject {
     @Override
     public void connected(Connection connection) {
 
-        Gdx.app.log("Client", "Verbunden mit Server! ");
+        //Gdx.app.log("Client", "Verbunden mit Server! ");
 
-        if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
+        if (GameOfLife.getInstance().getScreen() instanceof StartGameScreen) {
             this.sendPlayerTCP(GameOfLife.self);
         }
     }
@@ -214,7 +214,8 @@ public class ClientClass implements Listener, ClientObserverSubject {
      */
     @Override
     public void disconnected(Connection connection) {
-        Gdx.app.log("Client", "Verbindung getrennt!");
+        //Gdx.app.log("Client", "Verbindung getrennt!");
+        connection.close();
     }
 
     /**
@@ -229,7 +230,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof JoinedPlayers) {
-            Gdx.app.log("ClientClass", "Received JoinedPlayers object (" + ((JoinedPlayers) object) + ")");
+            //Gdx.app.log("ClientClass", "Received JoinedPlayers object (" + ((JoinedPlayers) object) + ")");
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
             for (Player p : GameOfLife.players) {
                 if (p.getUsername().equals(GameOfLife.self.getUsername())) {
@@ -245,7 +246,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         } else if (object instanceof String) {
             String payload = (String) object;
             if (payload.equals(GameOfLife.startGamePayload)) {
-                Gdx.app.log("ClientClass/Received", "StartGamePayload received!");
+                //Gdx.app.log("ClientClass/Received", "StartGamePayload received!");
                 GameOfLife.gameStarted = true;
                 notifyObservers(payload);
             }
