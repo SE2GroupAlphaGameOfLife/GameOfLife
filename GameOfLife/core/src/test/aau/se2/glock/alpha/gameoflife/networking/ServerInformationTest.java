@@ -36,6 +36,9 @@ public class ServerInformationTest {
 
         serverInfo.setAddress(address);
         assertEquals(address, serverInfo.getAddress());
+
+        serverInfo = new ServerInformation("localhost", address);
+        assertEquals(address, serverInfo.getAddress());
     }
 
     @Test
