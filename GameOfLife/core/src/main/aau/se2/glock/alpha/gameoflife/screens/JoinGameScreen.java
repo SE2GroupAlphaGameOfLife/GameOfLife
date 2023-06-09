@@ -372,7 +372,7 @@ public class JoinGameScreen extends BasicScreen {
 
     @Override
     public void update(String payload) {
-        if (payload.equals(GameOfLife.createServerOverviewPayload)) {
+        if (payload.equals(GameOfLife.CREATE_SERVER_OVERVIEW_PAYLOAD)) {
             this.createServerOverview();
         }
     }
