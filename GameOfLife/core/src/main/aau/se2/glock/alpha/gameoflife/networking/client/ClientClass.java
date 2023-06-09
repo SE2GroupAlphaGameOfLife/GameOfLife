@@ -19,6 +19,7 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserver;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserverSubject;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
@@ -113,6 +114,8 @@ public class ClientClass implements Listener, ClientObserverSubject {
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(Job.class);
+        kryo.register(java.util.ArrayList.class);
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
         kryo.register(TcpMessage.class);

@@ -93,6 +93,7 @@ public class Stack {
 
     public void buildStack(String eventDataJsonString) {
         EventData eventData = new EventData(eventDataJsonString);
+        eventData.fillEventList();
         eventData.fillCardList();
         addCards(eventData.getCardList());
     }

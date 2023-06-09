@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
@@ -102,20 +103,26 @@ public class ServerClass implements Listener {
         this.server.setDiscoveryHandler(serverDiscoveryHandler);
 
         Kryo kryo = this.server.getKryo();
+        this.registerClasses(kryo);
+
+        players = new JoinedPlayers();
+
+        this.serverStarted = false;
+    }
+
+    public void registerClasses(Kryo kryo) {
         //kryo.register(ServerInformation.class);
         kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
+        kryo.register(Job.class);
+        kryo.register(java.util.ArrayList.class);
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
         kryo.register(TcpMessage.class);
         kryo.register(ReportPlayerMessage.class);
         kryo.register(CheatingMessage.class);
-
-        players = new JoinedPlayers();
-
-        this.serverStarted = false;
     }
 
     /**
