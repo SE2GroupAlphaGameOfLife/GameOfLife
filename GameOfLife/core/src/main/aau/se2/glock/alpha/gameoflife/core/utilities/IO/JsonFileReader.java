@@ -21,7 +21,7 @@ public class JsonFileReader {
     public <T> void readJson(String fileName, Class<T> type, JsonCallback<T> callback) {
         Json json = new Json();
         JsonReader reader = new JsonReader();
-        JsonValue base = reader.parse(Gdx.files.internal(fileName));
+        JsonValue base = reader.parse(getFileHandle(fileName));
 
         ArrayList<T> result = new ArrayList<>();
         for (JsonValue val : base) {
@@ -29,5 +29,10 @@ public class JsonFileReader {
         }
 
         callback.onJsonRead(result);
+    }
+
+    // New method that could be overridden
+    public FileHandle getFileHandle(String fileName) {
+        return Gdx.files.internal(fileName);
     }
 }
