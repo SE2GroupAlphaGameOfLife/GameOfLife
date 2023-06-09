@@ -39,9 +39,13 @@ public class EventData {
         this.cardList = new ArrayList<Card>();
     }
 
-    public EventData(String eventDataJsonString) {
-        this.eventDataJson = eventDataJsonString;
-        this.jsonFileReader = new JsonFileReader();
+    /**
+     * FOR TESTING ONLY!!
+     * @param jsonFileReader
+     */
+    public EventData(JsonFileReader jsonFileReader) {
+        this.jsonFileReader = jsonFileReader;
+        this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
         this.eventList = new ArrayList<Event>();
         this.cardList = new ArrayList<Card>();
     }
@@ -58,7 +62,7 @@ public class EventData {
                 }
             });
         } catch (SerializationException e) {
-            Gdx.app.log("EventData", e.getMessage());
+            //Gdx.app.log("EventData", e.getMessage());
         }
     }
 
@@ -67,7 +71,7 @@ public class EventData {
      */
     public void fillEventList() {
         this.parseEventsJson();
-        Gdx.app.log("EventData", "Read from JSON: " + this.eventList);
+        //Gdx.app.log("EventData", "Read from JSON: " + this.eventList);
     }
 
     /**
