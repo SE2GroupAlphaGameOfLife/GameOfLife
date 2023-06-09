@@ -1,14 +1,11 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
@@ -18,17 +15,14 @@ public class JobData {
      *
      */
     private static JobData INSTANCE;
-
-    /**
-     *
-     */
-    private ArrayList<Job> jobList;
-
     /**
      *
      */
     int countCard;
-
+    /**
+     *
+     */
+    private ArrayList<Job> jobList;
     /**
      *
      */
@@ -49,6 +43,7 @@ public class JobData {
 
     /**
      * FOR TESTING ONLY!!
+     *
      * @param jsonFileReader
      */
     public JobData(JsonFileReader jsonFileReader) {

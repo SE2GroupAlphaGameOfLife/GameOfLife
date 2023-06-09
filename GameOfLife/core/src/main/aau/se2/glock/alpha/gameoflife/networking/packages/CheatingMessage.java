@@ -4,9 +4,10 @@ public class CheatingMessage implements TcpMessage {
     private String payload;
     private String command;
 
-    public CheatingMessage(){
+    public CheatingMessage() {
 
     }
+
     public CheatingMessage(String payload) {
         this.payload = payload;
         this.command = "CHEAT";

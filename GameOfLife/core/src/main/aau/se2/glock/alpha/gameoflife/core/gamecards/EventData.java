@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ public class EventData {
 
     /**
      * FOR TESTING ONLY!!
+     *
      * @param jsonFileReader
      */
     public EventData(JsonFileReader jsonFileReader) {

@@ -30,6 +30,7 @@ public class Card {
 
     /**
      * Needed for testing
+     *
      * @return
      */
     public List<Event> getEvents() {

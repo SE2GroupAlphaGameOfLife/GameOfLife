@@ -1,9 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking.packages;
 
-import java.util.List;
-
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 
 public class CheatingVisitor implements TcpMessageVisitor {

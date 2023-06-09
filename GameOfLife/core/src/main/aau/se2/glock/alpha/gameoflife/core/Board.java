@@ -1,17 +1,12 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
@@ -44,6 +39,16 @@ public class Board {
     }
 
     /**
+     * FOR TESTING ONLY!!
+     *
+     * @param jsonFileReader
+     */
+    public Board(JsonFileReader jsonFileReader) {
+        this.jsonFileReader = jsonFileReader;
+        this.parseJobsJson();
+    }
+
+    /**
      * @return
      */
     public static Board getInstance() {
@@ -55,15 +60,7 @@ public class Board {
 
     /**
      * FOR TESTING ONLY!!
-     * @param jsonFileReader
-     */
-    public Board(JsonFileReader jsonFileReader) {
-        this.jsonFileReader = jsonFileReader;
-        this.parseJobsJson();
-    }
-
-    /**
-     * FOR TESTING ONLY!!
+     *
      * @param jsonFileReader
      * @return
      */
