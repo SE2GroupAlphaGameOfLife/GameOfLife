@@ -3,20 +3,8 @@ package aau.se2.glock.alpha.gameoflife.core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
-import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
-
-public class JobCardsTest {
+public class JobDataTest {
 
     /*
     Job job1;
