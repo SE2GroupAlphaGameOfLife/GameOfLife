@@ -1,9 +1,10 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;

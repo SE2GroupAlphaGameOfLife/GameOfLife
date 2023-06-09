@@ -1,15 +1,18 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.EventData;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
-import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,15 +21,14 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.EventData;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventDataTest {
@@ -77,8 +79,8 @@ public class EventDataTest {
     @Test
     public void testFillCardList() {
         ArrayList<Event> events = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            events.add(new Event(i, i*100, "Test " + i));
+        for (int i = 0; i < 4; i++) {
+            events.add(new Event(i, i * 100, "Test " + i));
         }
         eventData.getEventList().addAll(events);
         eventData.fillCardList();

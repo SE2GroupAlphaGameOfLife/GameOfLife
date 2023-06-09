@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
 
 /**
@@ -32,7 +31,7 @@ public class GameField {
     /**
      * For serialization needed!
      */
-    public GameField(){
+    public GameField() {
         this.logicalField = new LogicalField(this);
         this.position = null;
         this.indexOfNextGameFields = null;

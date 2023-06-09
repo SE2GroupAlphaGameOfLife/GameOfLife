@@ -11,7 +11,7 @@ import java.util.HashMap;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 
-public class JoinedPlayersTest{
+public class JoinedPlayersTest {
 
     private JoinedPlayers joinedPlayers;
     private HashMap<Integer, Player> oldList;
@@ -33,18 +33,18 @@ public class JoinedPlayersTest{
     }
 
     @Test
-    public void addNewPlayerTest(){
+    public void addNewPlayerTest() {
         assertTrue(joinedPlayers.addPlayer(p1, pId1));
     }
 
     @Test
-    public void addExistingPlayerTest(){
+    public void addExistingPlayerTest() {
         assertTrue(joinedPlayers.addPlayer(p1, pId1));
         assertFalse(joinedPlayers.addPlayer(p1, pId1));
     }
 
     @Test
-    public void removeExistingPlayerWithConnectionIDTest(){
+    public void removeExistingPlayerWithConnectionIDTest() {
         assertTrue(joinedPlayers.addPlayer(p1, pId1));
         assertTrue(joinedPlayers.addPlayer(p2, pId2));
         assertTrue(joinedPlayers.removePlayerWithConnectionID(pId1));
@@ -53,13 +53,13 @@ public class JoinedPlayersTest{
     }
 
     @Test
-    public void removeNewPlayerWithConnectionIDTest(){
+    public void removeNewPlayerWithConnectionIDTest() {
         assertTrue(joinedPlayers.addPlayer(p1, pId1));
         assertFalse(joinedPlayers.removePlayerWithConnectionID(pId2));
     }
 
     @Test
-    public void getPlayersTest(){
+    public void getPlayersTest() {
         oldList.put(pId1, p1);
         oldList.put(pId2, p2);
 
@@ -70,7 +70,7 @@ public class JoinedPlayersTest{
     }
 
     @Test
-    public void getPlayerCountTest(){
+    public void getPlayerCountTest() {
         oldList.put(pId1, p1);
         oldList.put(pId2, p2);
 
@@ -82,12 +82,12 @@ public class JoinedPlayersTest{
     }
 
     @Test
-    public void setPlayersTurnTest(){
+    public void setPlayersTurnTest() {
         p1.setHasTurn(false);
         p2.setHasTurn(false);
         Player p3 = new Player();
         p3.setHasTurn(true);
-        int pId3 = pId2+1;
+        int pId3 = pId2 + 1;
         p3.setId(pId3);
         p3.setOnline(true);
 
@@ -107,7 +107,7 @@ public class JoinedPlayersTest{
         assertTrue(joinedPlayers.getPlayers().get(pId3).hasTurn());
         assertFalse(joinedPlayers.getPlayers().get(pId1).hasTurn());
         assertFalse(joinedPlayers.getPlayers().get(pId2).hasTurn());
-        joinedPlayers.setPlayersTurn(pId3+1);
+        joinedPlayers.setPlayersTurn(pId3 + 1);
         assertTrue(joinedPlayers.getPlayers().get(pId1).hasTurn());
         assertFalse(joinedPlayers.getPlayers().get(pId2).hasTurn());
         assertFalse(joinedPlayers.getPlayers().get(pId3).hasTurn());

@@ -5,7 +5,7 @@ public class PlayerCheated {
     private int playerId;
     private int amountCheated;
 
-    public PlayerCheated(int cheatedAtAge, int playerId, int amountCheated){
+    public PlayerCheated(int cheatedAtAge, int playerId, int amountCheated) {
         this.amountCheated = amountCheated;
         this.cheatedAtAge = cheatedAtAge;
         this.playerId = playerId;

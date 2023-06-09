@@ -60,7 +60,7 @@ public class JoinedPlayers {
      */
     public void setPlayersTurn(int playerId) {
         playerId = playerId > this.players.size() ? 1 : playerId;
-        if(this.players.size() <= 1){
+        if (this.players.size() <= 1) {
             return;
         }
         for (Player player : this.players.values()) {
