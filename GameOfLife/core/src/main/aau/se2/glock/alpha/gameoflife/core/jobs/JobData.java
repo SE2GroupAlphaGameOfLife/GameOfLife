@@ -1,8 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.core.jobs;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
@@ -34,30 +32,12 @@ public class JobData {
      */
     private JsonFileReader jsonFileReader;
 
-    /**
-     * Needed for testing, if changed, please make sure that tests are running!
-     * @param jsonString
-     */
     private JobData(String jsonString) {
-        // Parsing the json so we can use it
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonValue = jsonReader.parse(jsonString);
-
-        ArrayList<Job> jobs = new ArrayList<>();
-
-        // Read the values and create a list of gameFields
-        for (JsonValue jsonField : jsonValue) {
-            ArrayList<Integer> nextPositions = new ArrayList<>();
-            for (int i : jsonField.get("gehaltsListe").asIntArray()) {
-                nextPositions.add(i);
-            }
-
-            Job job = new Job(jsonField.getString("Bezeichnung"), nextPositions);
-            jobs.add(job);
-        }
-        jobList = jobs;
-
+        this.jsonFileReader = new JsonFileReader();
         this.countCard = 0;
+        this.jobList = new ArrayList<Job>();
+        this.parseJobsJson();
+        Gdx.app.log("JobData", "Read from JSON: " + this.jobList);
     }
 
     public static JobData getInstance() {
