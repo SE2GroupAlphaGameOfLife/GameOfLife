@@ -207,14 +207,17 @@ public class ServerClass implements Listener {
             Player player = this.players.getPlayers().get(connection.getID());
             player.setOnline(false);
             player.setJoning(true);
-            player.setHasTurn(false);
             this.players.addPlayer(player, connection.getID());
-            this.players.setPlayersTurn(player.getId() + 1);
+            if (player.hasTurn()){
+                this.players.setPlayersTurn(player.getId() + 1);
+            }
             sendPlayersObjectToAll();
+            return;
         } else if ((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())) {
             players.removePlayerWithConnectionID(connection.getID());
             sendPlayersObjectToAll();
         }
+        connection.close();
         Gdx.app.log("Server", "Client hat Verbindung getrennt!");
     }
 
@@ -234,7 +237,7 @@ public class ServerClass implements Listener {
                 //return;
             }
             if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
-                player.setHasTurn(false);
+                //player.setHasTurn(false);
                 this.players.setPlayersTurn(player.getId() + 1);
                 this.players.addPlayer(player, connection.getID());
                 //return;

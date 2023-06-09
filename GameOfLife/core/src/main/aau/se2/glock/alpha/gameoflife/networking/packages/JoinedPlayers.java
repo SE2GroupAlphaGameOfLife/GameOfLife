@@ -23,13 +23,6 @@ public class JoinedPlayers {
     }
 
     /**
-     * @param players
-     */
-    public JoinedPlayers(HashMap<Integer, Player> players) {
-        this.players = players;
-    }
-
-    /**
      * @param player
      * @param ipaddress
      * @return
@@ -37,15 +30,15 @@ public class JoinedPlayers {
     public boolean addPlayer(Player player, Integer connectionId) {
         if (this.players.containsKey(connectionId))
             return false;
-        this.players.put(connectionId, player);
-        return true;
+
+        return this.players.put(connectionId, player) == null;
     }
 
     /**
      * @param ipaddress
      */
-    public void removePlayerWithConnectionID(Integer connectionId) {
-        this.players.remove(connectionId);
+    public boolean removePlayerWithConnectionID(Integer connectionId) {
+        return this.players.remove(connectionId) != null;
     }
 
     /**
@@ -53,13 +46,6 @@ public class JoinedPlayers {
      */
     public HashMap<Integer, Player> getPlayers() {
         return this.players;
-    }
-
-    /**
-     * @param players
-     */
-    public void setPlayers(HashMap<Integer, Player> players) {
-        this.players = players;
     }
 
     /**
@@ -75,9 +61,11 @@ public class JoinedPlayers {
     public void setPlayersTurn(int playerId) {
         playerId = playerId > this.players.size() ? 1 : playerId;
         for (Player player : this.players.values()) {
+            player.setHasTurn(false);
             if (player.getId() == playerId) {
                 if (player.isOnline() == false) {
                     setPlayersTurn(playerId + 1);
+                    break;
                 }
                 player.setHasTurn(true);
             }
