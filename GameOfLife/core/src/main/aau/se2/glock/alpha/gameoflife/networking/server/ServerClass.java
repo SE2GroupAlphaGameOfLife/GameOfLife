@@ -111,7 +111,6 @@ public class ServerClass implements Listener {
     }
 
     public void registerClasses(Kryo kryo) {
-        //kryo.register(ServerInformation.class);
         kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
