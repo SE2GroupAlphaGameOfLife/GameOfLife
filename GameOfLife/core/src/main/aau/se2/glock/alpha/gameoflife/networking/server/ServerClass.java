@@ -111,7 +111,39 @@ public class ServerClass implements Listener {
         this.serverStarted = false;
     }
 
-    public void registerClasses(Kryo kryo) {
+    /**
+     * For testing only
+     * @param TCPPORT
+     * @param UDPPORT
+     */
+    public ServerClass(int TCPPORT, int UDPPORT, boolean test) {
+        this.server = new Server();
+
+        this.TCPPORT = TCPPORT;
+        this.UDPPORT = UDPPORT;
+
+        this.server.addListener(this);
+        this.server.setDiscoveryHandler(serverDiscoveryHandler);
+
+        Kryo kryo = this.server.getKryo();
+
+        kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
+        kryo.register(Player.class);
+        kryo.register(Job.class);
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
+
+        players = new JoinedPlayers();
+
+        this.serverStarted = false;
+    }
+
+    private void registerClasses(Kryo kryo) {
         kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
