@@ -3,6 +3,7 @@ package aau.se2.glock.alpha.gameoflife.networking.server;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -26,7 +27,6 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacke
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
 
@@ -36,32 +36,32 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
 public class ServerClass implements Listener {
 
     /**
-     *
+     *  The port used for UDP connection
      */
     private final int UDPPORT;
 
     /**
-     *
+     *  The port used for TCP connection
      */
     private final int TCPPORT;
 
     /**
-     *
+     *  Kryonet server object, for networking
      */
     private Server server;
 
     /**
-     *
+     *  Indicates if server is running on specified ports
      */
     private boolean serverStarted;
 
     /**
-     *
+     *  All players currently in the game
      */
     private JoinedPlayers players;
 
     /**
-     *
+     *  Name of the player hosting the game
      */
     private String hostname;
 
@@ -70,6 +70,13 @@ public class ServerClass implements Listener {
      */
     private List<PlayerCheated> playerCheatedList;
 
+    protected Client getClient() {
+        return GameOfLife.client.getClient();
+    }
+
+    /**
+     * Custom UDP broadcast discovery answer. Returns hostname
+     */
     private ServerDiscoveryHandler serverDiscoveryHandler = new ServerDiscoveryHandler() {
         @Override
         public boolean onDiscoverHost(DatagramChannel datagramChannel, InetSocketAddress fromAddress) throws IOException {
@@ -78,7 +85,7 @@ public class ServerClass implements Listener {
             packet.hostname = hostname;
 
             ByteBuffer buffer = ByteBuffer.allocate(256);
-            GameOfLife.client.getClient().getSerialization().write(null, buffer, packet);
+            getClient().getSerialization().write(null, buffer, packet);
             buffer.flip();
 
             datagramChannel.send(buffer, fromAddress);
@@ -86,7 +93,6 @@ public class ServerClass implements Listener {
             return true;
         }
     };
-
 
     /**
      * @param TCPPORT
@@ -109,7 +115,37 @@ public class ServerClass implements Listener {
         this.serverStarted = false;
     }
 
-    public void registerClasses(Kryo kryo) {
+    /**
+     * For testing only
+     * @param TCPPORT
+     * @param UDPPORT
+     */
+    public ServerClass(int TCPPORT, int UDPPORT, Server test) {
+
+        this.server = test;
+        this.server.setDiscoveryHandler(this.serverDiscoveryHandler);
+
+        this.TCPPORT = TCPPORT;
+        this.UDPPORT = UDPPORT;
+
+        Kryo kryo = this.server.getKryo();
+        kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
+        kryo.register(Player.class);
+        kryo.register(Job.class);
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
+
+        players = new JoinedPlayers();
+
+        this.serverStarted = false;
+    }
+
+    private void registerClasses(Kryo kryo) {
         kryo.register(SecureRandom.class);
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
@@ -134,7 +170,6 @@ public class ServerClass implements Listener {
                 this.server.start();
 
                 this.serverStarted = true;
-                //sendServerInfoToAllTCP();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -142,10 +177,11 @@ public class ServerClass implements Listener {
     }
 
     /**
-     *
+     * For testing only
+     * @return
      */
-    private void sendServerInfoToAllTCP() {
-        this.server.sendToAllTCP(new ServerInformation(this.hostname, this.TCPPORT));
+    public ServerDiscoveryHandler getServerDiscoveryHandler() {
+        return serverDiscoveryHandler;
     }
 
     /**
@@ -159,11 +195,11 @@ public class ServerClass implements Listener {
     /**
      *
      */
-    private void sendPlayersObjectToAll() {
+    public void sendPlayersObjectToAll() {
         this.server.sendToAllTCP(this.players);
     }
 
-    private void sendMessageToAll(String message) {
+    public void sendMessageToAll(String message) {
         this.server.sendToAllTCP(message);
     }
 
@@ -178,14 +214,14 @@ public class ServerClass implements Listener {
                 player.setOnline(true);
                 player.setJoning(false);
                 this.players.addPlayer(player, connection.getID());
-                Gdx.app.log("Server", "Client wiederverbunden!");
+                //Gdx.app.log("Server", "Client wiederverbunden!");
                 sendPlayersObjectToAll();
             } else {
-                Gdx.app.log("Server", "Client Verbindung abgelehnt da Spiel bereits läuft!");
+                //Gdx.app.log("Server", "Client Verbindung abgelehnt da Spiel bereits läuft!");
                 connection.close();
             }
         } else {
-            Gdx.app.log("Server", "Client verbunden!");
+            //Gdx.app.log("Server", "Client verbunden!");
         }
     }
 
@@ -209,7 +245,7 @@ public class ServerClass implements Listener {
             sendPlayersObjectToAll();
         }
         connection.close();
-        Gdx.app.log("Server", "Client hat Verbindung getrennt!");
+        //Gdx.app.log("Server", "Client hat Verbindung getrennt!");
     }
 
     /**
@@ -220,24 +256,22 @@ public class ServerClass implements Listener {
     public void received(Connection connection, Object object) {
         if (object instanceof Player) {
             Player player = (Player) object;
-            Gdx.app.log("ServerClass", "Received Player object (" + player + ")");
+            //Gdx.app.log("ServerClass", "Received Player object (" + player + ")");
             if (!GameOfLife.gameStarted && player.isJoning()) {
                 player.setJoning(false);
                 player.setId(this.players.getPlayerCount() + 1);
                 this.players.addPlayer(player, connection.getID());
-                //return;
             }
             if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
                 //player.setHasTurn(false);
                 this.players.setPlayersTurn(player.getId() + 1);
                 this.players.addPlayer(player, connection.getID());
-                //return;
             }
             this.sendPlayersObjectToAll();
         } else if (object instanceof String) {
             String payload = (String) object;
             if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
-                Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
+                //Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
                 this.sendMessageToAll(payload);
             }
             sendPlayersObjectToAll();
