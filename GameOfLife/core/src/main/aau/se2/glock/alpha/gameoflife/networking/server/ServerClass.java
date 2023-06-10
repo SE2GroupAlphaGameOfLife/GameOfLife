@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.server;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
@@ -36,32 +35,32 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
 public class ServerClass implements Listener {
 
     /**
-     *  The port used for UDP connection
+     * The port used for UDP connection
      */
     private final int UDPPORT;
 
     /**
-     *  The port used for TCP connection
+     * The port used for TCP connection
      */
     private final int TCPPORT;
 
     /**
-     *  Kryonet server object, for networking
+     * Kryonet server object, for networking
      */
     private Server server;
 
     /**
-     *  Indicates if server is running on specified ports
+     * Indicates if server is running on specified ports
      */
     private boolean serverStarted;
 
     /**
-     *  All players currently in the game
+     * All players currently in the game
      */
     private JoinedPlayers players;
 
     /**
-     *  Name of the player hosting the game
+     * Name of the player hosting the game
      */
     private String hostname;
 
@@ -69,11 +68,6 @@ public class ServerClass implements Listener {
      *
      */
     private List<PlayerCheated> playerCheatedList;
-
-    protected Client getClient() {
-        return GameOfLife.client.getClient();
-    }
-
     /**
      * Custom UDP broadcast discovery answer. Returns hostname
      */
@@ -117,6 +111,7 @@ public class ServerClass implements Listener {
 
     /**
      * For testing only
+     *
      * @param TCPPORT
      * @param UDPPORT
      */
@@ -143,6 +138,10 @@ public class ServerClass implements Listener {
         players = new JoinedPlayers();
 
         this.serverStarted = false;
+    }
+
+    protected Client getClient() {
+        return GameOfLife.client.getClient();
     }
 
     private void registerClasses(Kryo kryo) {
@@ -178,6 +177,7 @@ public class ServerClass implements Listener {
 
     /**
      * For testing only
+     *
      * @return
      */
     public ServerDiscoveryHandler getServerDiscoveryHandler() {
