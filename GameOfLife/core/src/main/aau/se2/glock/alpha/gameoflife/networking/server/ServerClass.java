@@ -3,6 +3,7 @@ package aau.se2.glock.alpha.gameoflife.networking.server;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -69,6 +70,10 @@ public class ServerClass implements Listener {
      */
     private List<PlayerCheated> playerCheatedList;
 
+    protected Client getClient() {
+        return GameOfLife.client.getClient();
+    }
+
     /**
      * Custom UDP broadcast discovery answer. Returns hostname
      */
@@ -80,7 +85,7 @@ public class ServerClass implements Listener {
             packet.hostname = hostname;
 
             ByteBuffer buffer = ByteBuffer.allocate(256);
-            GameOfLife.client.getClient().getSerialization().write(null, buffer, packet);
+            getClient().getSerialization().write(null, buffer, packet);
             buffer.flip();
 
             datagramChannel.send(buffer, fromAddress);
@@ -88,7 +93,6 @@ public class ServerClass implements Listener {
             return true;
         }
     };
-
 
     /**
      * @param TCPPORT
@@ -116,17 +120,15 @@ public class ServerClass implements Listener {
      * @param TCPPORT
      * @param UDPPORT
      */
-    public ServerClass(int TCPPORT, int UDPPORT, boolean test) {
-        this.server = new Server();
+    public ServerClass(int TCPPORT, int UDPPORT, Server test) {
+
+        this.server = test;
+        this.server.setDiscoveryHandler(this.serverDiscoveryHandler);
 
         this.TCPPORT = TCPPORT;
         this.UDPPORT = UDPPORT;
 
-        this.server.addListener(this);
-        this.server.setDiscoveryHandler(serverDiscoveryHandler);
-
         Kryo kryo = this.server.getKryo();
-
         kryo.register(JoinedPlayers.class);
         kryo.register(Color.class);
         kryo.register(Player.class);
