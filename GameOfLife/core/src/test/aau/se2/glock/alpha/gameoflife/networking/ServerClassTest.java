@@ -1,13 +1,18 @@
 package aau.se2.glock.alpha.gameoflife.networking;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import com.esotericsoftware.kryonet.ServerDiscoveryHandler;
 import com.esotericsoftware.kryonet.serialization.Serialization;
 
 import org.junit.Before;
@@ -15,14 +20,11 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.verification.Times;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
@@ -69,6 +71,7 @@ public class ServerClassTest {
         GameOfLife.gameStarted = false;
         GameOfLife.players = new ArrayList<Player>();
     }
+
     @Test
     public void testStartServer() {
         serverUnderTest.start("localhost");
