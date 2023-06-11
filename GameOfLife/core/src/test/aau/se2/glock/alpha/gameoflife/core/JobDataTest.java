@@ -101,6 +101,16 @@ public class JobDataTest {
         }
     }
 
+    @Test
+    public void testGetOneJob(){
+        ArrayList<Job> jobs = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            jobs.add(new Job("Test " + i, new ArrayList<>(Arrays.asList(i * 100, i * 200, i * 300))));
+        }
+        jobData.getJobList().addAll(jobs);
+        Job oneJob = jobData.getOneJob();
+        assertEquals(0, oneJob.getGehaltsStufe());
+    }
 
     class TestJsonFileReader extends JsonFileReader {
 
