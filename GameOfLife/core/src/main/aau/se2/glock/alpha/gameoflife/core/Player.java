@@ -102,16 +102,16 @@ public class Player {
     /**
      * @return
      */
-    /*public String getGender() {
+    public String getGender() {
         return gender;
-    }*/
+    }
 
     /**
      * @param gender
      */
-    /*public void setGender(String gender) {
+    public void setGender(String gender) {
         this.gender = gender;
-    }*/
+    }
 
     /**
      * @return
@@ -207,7 +207,7 @@ public class Player {
     /**
      * @param host
      */
-    public void setHost(boolean host) {
+    public void setIsHost(boolean host) {
         isHost = host;
     }
 

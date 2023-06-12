@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -107,13 +108,17 @@ public abstract class BasicScreen implements Screen, ClientObserver {
      * Initializes the fonts used in the UI elements.
      */
     protected void initFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Accuratist.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(getFileHandle("Accuratist.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 36;
         standardFont = generator.generateFont(parameter);
         parameter.size = 128;
         bigFont = generator.generateFont(parameter);
         generator.dispose();
+    }
+
+    public FileHandle getFileHandle(String fileName) {
+        return Gdx.files.internal(fileName);
     }
 
     /**
