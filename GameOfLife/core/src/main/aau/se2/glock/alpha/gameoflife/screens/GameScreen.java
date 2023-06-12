@@ -684,13 +684,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             //SpecialEventCode here
             currentSpecialEvent = (SpecialEvent) event;
             showSpecialEventPopup();
-        }
+        }else
         showEventPopUp(player.getEvent().getText());
     }
     private void showSpecialEventPopup(){
         createSpecialEventPopup();
-
-
     }
 
     private void createSpecialEventPopup() {
@@ -726,7 +724,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         });
 
-        job2Btn.addListener(new ClickListener() {
+        optionBButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 currentSpecialEvent.eventOptionB();
