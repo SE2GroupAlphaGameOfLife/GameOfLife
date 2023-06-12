@@ -2,7 +2,6 @@ package aau.se2.glock.alpha.gameoflife.core.logic;
 
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
 
 /**
@@ -33,7 +32,9 @@ public class LogicalField {
     /**
      *
      */
-    private int type;
+    private String type;
+
+    private int section;
 
     /**
      *
@@ -45,18 +46,30 @@ public class LogicalField {
      */
     public LogicalField(GameField field) {
         this.field = field;
+
+        this.section = 0;
+        if(type.equals("empty")||type.equals("intersection")){
+            this.isSpecial = false;
+        }else{
+            this.isSpecial = true;
+            buildSpecialEvent();
+        }
     }
 
     /**
      * @return
      */
     public Event getEvent() {
+        System.out.println("EVENT:!!!!! ");
         if (this.isSpecial) {
-            return null;
-            //TODO Return Special event when they have been implemented
+           return this.specialEvent;
         } else {
             Card c = Stack.getINSTANCE().getTopCard();
-            return c.getEvent(type);
+            return c.getEvent(section);
         }
+    }
+    private void buildSpecialEvent(){
+        this.specialEvent = new SpecialEvent(type);
+
     }
 }

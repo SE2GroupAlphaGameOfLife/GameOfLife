@@ -25,19 +25,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.EventData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EventDataTest {
+public class NormalEventDataTest {
 
     @Mock
     FileHandle mockFileHandle;
 
     @Captor
-    private ArgumentCaptor<JsonCallback<Event>> callbackCaptor;
+    private ArgumentCaptor<JsonCallback<NormalEvent>> callbackCaptor;
 
     private TestJsonFileReader jsonFileReader;
 
@@ -55,22 +55,22 @@ public class EventDataTest {
         jsonFileReader = spy(new TestJsonFileReader());
         eventData = new EventData(jsonFileReader);
         eventData.parseEventsJson();
-        verify(jsonFileReader).readJson(any(String.class), eq(Event.class), callbackCaptor.capture());
-        callbackCaptor.getValue().onJsonRead(new ArrayList<>(Collections.singletonList(new Event(1, 100, "Test"))));
+        verify(jsonFileReader).readJson(any(String.class), eq(NormalEvent.class), callbackCaptor.capture());
+        callbackCaptor.getValue().onJsonRead(new ArrayList<>(Collections.singletonList(new NormalEvent(1, 100, "Test"))));
         assertEquals(1, eventData.getEventList().size());
     }
 
     @Test
     public void testFillEventList() {
-        List<Event> mockEvents = new ArrayList<>();
-        mockEvents.add(new Event(1, 100, "Test"));
+        List<NormalEvent> mockNormalEvents = new ArrayList<>();
+        mockNormalEvents.add(new NormalEvent(1, 100, "Test"));
         when(mockFileHandle.readString()).thenReturn("[{\"lp\":1,\"cash\":100,\"text\":\"Test\"}]");
         jsonFileReader = spy(new TestJsonFileReader());
         //doReturn(mockFileHandle).when(jsonFileReader).getFileHandle(any(String.class));
         eventData = new EventData(jsonFileReader);
         eventData.parseEventsJson();
-        verify(jsonFileReader).readJson(any(String.class), eq(Event.class), callbackCaptor.capture());
-        callbackCaptor.getValue().onJsonRead((ArrayList<Event>) mockEvents);
+        verify(jsonFileReader).readJson(any(String.class), eq(NormalEvent.class), callbackCaptor.capture());
+        callbackCaptor.getValue().onJsonRead((ArrayList<NormalEvent>) mockNormalEvents);
         eventData.fillEventList();
         assertEquals(1, eventData.getEventList().size());
     }
@@ -78,11 +78,11 @@ public class EventDataTest {
 
     @Test
     public void testFillCardList() {
-        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<NormalEvent> normalEvents = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            events.add(new Event(i, i * 100, "Test " + i));
+            normalEvents.add(new NormalEvent(i, i * 100, "Test " + i));
         }
-        eventData.getEventList().addAll(events);
+        eventData.getEventList().addAll(normalEvents);
         eventData.fillCardList();
         assertEquals(1, eventData.getCardList().size());
         assertEquals(300, eventData.getCardList().get(0).getEvent(3).getCash());

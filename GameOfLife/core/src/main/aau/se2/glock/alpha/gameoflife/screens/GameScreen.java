@@ -35,6 +35,8 @@ import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
+import aau.se2.glock.alpha.gameoflife.core.logic.Event;
+import aau.se2.glock.alpha.gameoflife.core.logic.SpecialEvent;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
@@ -58,8 +60,12 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Button closeBtn;
     private Button job1Btn;
     private Button job2Btn;
+    private Button optionAButton;
+    private Button optionBButton;
     private Label job1Description;
     private Label job2Description;
+    private Label optionTextA;
+    private Label optionTextB;
     private Group nextFieldButtonGroup; // Create a Group to hold actors
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
@@ -82,6 +88,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private float spinAngle = 0f;
     private Image arrowImage;
     private JobData jobSelection;
+
+    private SpecialEvent currentSpecialEvent;
     private Job[] jobs;
 
     public GameScreen() {
@@ -414,7 +422,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
         if (player.getMoveCount() == 0) {
-            showEventPopUp(player.getEvent().getText());
+            handleEvent(player);
             //GameOfLife.client.sendPlayerTCP(GameOfLife.self);
         }
     }
@@ -442,7 +450,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             } else {
                 if (player.getMoveCount() == 0) {
                     Gdx.app.log("Zeile", "673");
-                    showEventPopUp(player.getEvent().getText());
+                    handleEvent(player);
+
                 }
             }
         }
@@ -568,8 +577,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 Gdx.app.log("JobSelection", "Job 1 chosen");
             }
 
-            ;
-
         });
 
         job2Btn.addListener(new ClickListener() {
@@ -670,6 +677,68 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
+    }
+    private void handleEvent(Player player){
+        Event event = player.getEvent();
+        if(event.getClass()== SpecialEvent.class){
+            //SpecialEventCode here
+            currentSpecialEvent = (SpecialEvent) event;
+            showSpecialEventPopup();
+        }
+        showEventPopUp(player.getEvent().getText());
+    }
+    private void showSpecialEventPopup(){
+        createSpecialEventPopup();
+
+
+    }
+
+    private void createSpecialEventPopup() {
+        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+
+
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
+
+        optionAButton = new TextButton("OptionA", textButtonStyle);
+        optionBButton = new TextButton("OptionB", textButtonStyle);
+
+
+        optionTextA = new Label(currentSpecialEvent.getText(),uiSkin);
+        optionTextB = new Label(currentSpecialEvent.getText(), uiSkin);
+
+        window.add(optionTextA).pad(10, 0, 0, 0).colspan(1);
+        window.add(optionTextB).pad(10, 50, 0, 0).colspan(0).row();
+        window.add(optionAButton).pad(0, 0, 0, 0).colspan(1);
+        window.add(optionBButton).pad(0, 50, 0, 0).row();
+        window.setScale(2F);
+
+        optionAButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                currentSpecialEvent.eventOptionA();
+                window.remove();
+                Gdx.app.log("SpecialEvent", "Option A chosen");
+            }
+
+            ;
+
+        });
+
+        job2Btn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                currentSpecialEvent.eventOptionB();
+                window.remove();
+                Gdx.app.log("SpecialEvent", "Option B chosen");
+
+            }
+
+            ;
+        });
+
+        stage.addActor(window);
     }
 
     @Override

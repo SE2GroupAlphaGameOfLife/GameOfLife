@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import java.security.SecureRandom;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.logic.Event;
 
 /**
  *
@@ -289,9 +289,12 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
+        randomNumber = 5;
         this.moveCount = randomNumber;
 
         return randomNumber;
+
+
     }
 
     /**
