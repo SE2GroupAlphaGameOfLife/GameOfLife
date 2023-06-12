@@ -1,23 +1,21 @@
 package aau.se2.glock.alpha.gameoflife;
 
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
@@ -25,9 +23,9 @@ import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 public class GameOfLifeTest {
 
     @Mock
-    private ProximitySensorInterface mockProximitySensorInterface;
-    @Mock
     private static ClientClass mockClientClass;
+    @Mock
+    private ProximitySensorInterface mockProximitySensorInterface;
     @Mock
     private FreeTypeFontGenerator mockFreeTypeFontGenerator;
 

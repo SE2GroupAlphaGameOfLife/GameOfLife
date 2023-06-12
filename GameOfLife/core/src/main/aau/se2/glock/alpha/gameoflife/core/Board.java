@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
@@ -59,6 +58,15 @@ public class Board {
     }
 
     /**
+     * For testing only!
+     *
+     * @param instance The instance of the Board to set.
+     */
+    public static void setInstance(Board instance) {
+        INSTANCE = instance;
+    }
+
+    /**
      * FOR TESTING ONLY!!
      *
      * @param jsonFileReader
@@ -86,15 +94,6 @@ public class Board {
         } catch (SerializationException e) {
             //Gdx.app.log("JobData", e.getMessage());
         }
-    }
-
-    /**
-     * For testing only!
-     *
-     * @param instance The instance of the Board to set.
-     */
-    public static void setInstance(Board instance) {
-        INSTANCE = instance;
     }
 
     /**
