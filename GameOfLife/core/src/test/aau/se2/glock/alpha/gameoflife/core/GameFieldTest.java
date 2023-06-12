@@ -38,7 +38,31 @@ public class GameFieldTest {
     }
 
     @Test
-    public void testGetGamefield(){
+    public void testGetGamefield() {
         assertNotNull(gameField.getLogicalField());
+    }
+
+    @Test
+    public void testConstructorLogicalField() {
+        LogicalField f = new LogicalField(gameField);
+        gameField = new GameField(f);
+        assertEquals(gameField.getLogicalField(), f);
+    }
+
+    @Test
+    public void testAddIndexOfNextGameField() {
+        assertEquals(gameField.getIndexOfNextGameFields().size(), 3);
+        gameField.addIndexOfNextGameField(9);
+        nextIndices.add(9);
+        assertEquals(gameField.getIndexOfNextGameFields(), nextIndices);
+    }
+
+    @Test
+    public void testDefaultConstructor() {
+        gameField = new GameField();
+        assertTrue(gameField.getLogicalField() instanceof LogicalField);
+        assertTrue(gameField.getPosition() == null);
+        assertTrue(gameField.getIndexOfNextGameFields() instanceof ArrayList);
+        assertTrue(gameField.getType() == null);
     }
 }

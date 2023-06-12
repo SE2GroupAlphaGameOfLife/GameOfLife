@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
@@ -34,6 +35,18 @@ public class GameField {
     public GameField() {
         this.logicalField = new LogicalField(this);
         this.position = null;
+        this.indexOfNextGameFields = new ArrayList<>();
+        this.type = null;
+    }
+
+    /**
+     * FOR TESTING ONLY!
+     *
+     * @param logicalField
+     */
+    public GameField(LogicalField logicalField) {
+        this.logicalField = logicalField;
+        this.position = null;
         this.indexOfNextGameFields = null;
         this.type = null;
     }
@@ -49,6 +62,10 @@ public class GameField {
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
         logicalField = new LogicalField(this);
+    }
+
+    public String getType() {
+        return type;
     }
 
     /**
@@ -74,5 +91,14 @@ public class GameField {
      */
     public LogicalField getLogicalField() {
         return this.logicalField;
+    }
+
+    /**
+     * FOR TESTING ONLY
+     *
+     * @param index
+     */
+    public void addIndexOfNextGameField(int index) {
+        indexOfNextGameFields.add(index);
     }
 }

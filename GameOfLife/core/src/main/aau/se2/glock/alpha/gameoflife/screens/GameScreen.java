@@ -85,7 +85,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Job[] jobs;
 
     public GameScreen() {
-
         jobSelection = JobData.getInstance();
         jobSelection.fillJobList();
         GameOfLife.proximitySensorInterface.setProximityListener(this);
@@ -260,9 +259,9 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     // This method will be called when the TextButton is clicked
                     boolean isInTurn = true;
 
-                    Player player = GameOfLife.self;
-                    player.setAge(player.getAge() + 1);
-                    int moveCount = player.rollTheDice();
+                    //Player player = GameOfLife.self;
+                    GameOfLife.self.setAge(GameOfLife.self.getAge() + 1);
+                    int moveCount = GameOfLife.self.rollTheDice();
                     Gdx.app.log("moveCount", moveCount + "");
 
                     //calculating the angle that the arrow has to spin, so that it stops at the correct number
@@ -313,9 +312,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnCheat1FieldListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Player self = GameOfLife.self;
 
-                self.cheat(1);
+                GameOfLife.self.cheat(1);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -326,9 +324,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnCheat2FieldsListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Player self = GameOfLife.self;
 
-                self.cheat(2);
+                GameOfLife.self.cheat(2);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -339,9 +336,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnCheat3FieldsListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Player self = GameOfLife.self;
 
-                self.cheat(3);
+                GameOfLife.self.cheat(3);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -403,19 +399,19 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void stepChoosen(int index) {
         // Update player's choice and position
-        Player player = GameOfLife.self;
-        player.chooseDirection(index);
+        //Player player = GameOfLife.self;
+        GameOfLife.self.chooseDirection(index);
         nextFieldButtonGroup.clearChildren();
 
         //Check if player can still move
-        GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
-        if (!player.makeMove()) {
-            gameField = Board.getInstance().getGameFields().get(player.getPosition());
+        GameField gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
+        if (!GameOfLife.self.makeMove()) {
+            gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
             chooseNextStep(gameField);
         }
 
-        if (player.getMoveCount() == 0) {
-            showEventPopUp(player.getEvent().getText());
+        if (GameOfLife.self.getMoveCount() == 0) {
+            showEventPopUp(GameOfLife.self.getEvent().getText());
             //GameOfLife.client.sendPlayerTCP(GameOfLife.self);
         }
     }
@@ -434,16 +430,16 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             spinSpeed = 0f;
             isSpinning = false;
 
-            Player player = GameOfLife.self;
-            GameField gameField = Board.getInstance().getGameFields().get(player.getPosition());
-            if (!player.makeMove()) {
-                gameField = Board.getInstance().getGameFields().get(player.getPosition());
+            //Player player = GameOfLife.self;
+            GameField gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
+            if (!GameOfLife.self.makeMove()) {
+                gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
 
                 chooseNextStep(gameField);
             } else {
-                if (player.getMoveCount() == 0) {
+                if (GameOfLife.self.getMoveCount() == 0) {
                     Gdx.app.log("Zeile", "673");
-                    showEventPopUp(player.getEvent().getText());
+                    showEventPopUp(GameOfLife.self.getEvent().getText());
                 }
             }
         }
@@ -655,7 +651,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         eventDialog.button(new TextButton("Bestätigen", textButtonStyle));
         stage.addActor(eventDialog);
         hideEventPopup();
-
     }
 
     /**
@@ -665,7 +660,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     /**
@@ -673,6 +667,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
+        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     @Override

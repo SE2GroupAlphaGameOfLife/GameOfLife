@@ -153,7 +153,11 @@ public class GameOfLife extends Game {
     @Override
     public void create() {
         proximitySensorInterface.registerSensor();
-        setScreen(new MainMenuScreen());
+        setScreen(getNewMainMenuScreen());
+    }
+
+    public MainMenuScreen getNewMainMenuScreen() {
+        return new MainMenuScreen();
     }
 
     @Override
