@@ -213,6 +213,7 @@ public class ServerClass implements Listener {
                 Player player = this.players.getPlayers().get(connection.getID());
                 player.setOnline(true);
                 player.setJoning(false);
+                player.setHasTurn(false);
                 this.players.addPlayer(player, connection.getID());
                 //Gdx.app.log("Server", "Client wiederverbunden!");
                 sendPlayersObjectToAll();
@@ -241,7 +242,7 @@ public class ServerClass implements Listener {
             sendPlayersObjectToAll();
             return;
         } else if ((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())) {
-            players.removePlayerWithConnectionID(connection.getID());
+            this.players.removePlayerWithConnectionID(connection.getID());
             sendPlayersObjectToAll();
         }
         connection.close();
@@ -264,8 +265,9 @@ public class ServerClass implements Listener {
             }
             if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
                 //player.setHasTurn(false);
-                this.players.setPlayersTurn(player.getId() + 1);
                 this.players.addPlayer(player, connection.getID());
+                this.players.setPlayersTurn(player.getId() + 1);
+                //this.players.addPlayer(player, connection.getID());
             }
             this.sendPlayersObjectToAll();
         } else if (object instanceof String) {
