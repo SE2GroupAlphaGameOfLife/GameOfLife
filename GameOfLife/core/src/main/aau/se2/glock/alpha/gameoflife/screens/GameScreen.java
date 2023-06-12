@@ -103,6 +103,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         refreshPlayerHUD();
         createJobButton();
+        chooseJobWindow();
     }
 
     /**
@@ -512,7 +513,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         closeBtn = new TextButton("Close", textButtonStyle);
 
         job1Description = new Label(GameOfLife.self.getCurrentJob().getBezeichnung(), uiSkin);
-        //TODO Exception einfügen falls noch kein Job ausgewählt wurde
 
         window.add(job1Description).pad(10, 0, 0, 0).colspan(0).row();
 
@@ -556,7 +556,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         window.add(job2Description).pad(10, 50, 0, 0).colspan(0).row();
         window.add(job1Btn).pad(0, 0, 0, 0).colspan(1);
         window.add(job2Btn).pad(0, 50, 0, 0).row();
-        window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
+        //window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
 
         window.setScale(2F);
 
@@ -566,6 +566,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 GameOfLife.self.setCurrentJob(jobs[0]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 1 chosen");
+                window.remove();
             }
 
             ;
@@ -578,12 +579,12 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
-
+                window.remove();
             }
 
             ;
         });
-
+        /*
         closeBtn.addListener(new ChangeListener() {
             // This method is called whenever the actor is clicked. We override its behavior here.
             @Override
@@ -592,6 +593,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 window.remove();
             }
         });
+
+         */
 
         stage.addActor(window);
     }
