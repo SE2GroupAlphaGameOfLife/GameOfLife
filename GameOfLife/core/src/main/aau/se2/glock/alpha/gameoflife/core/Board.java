@@ -1,12 +1,13 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 /**
@@ -22,32 +23,29 @@ public class Board {
     /**
      *
      */
-    private final List<GameField> gameFields; // The list of gameFields on the board
+    private List<GameField> gameFields; // The list of gameFields on the board
 
     /**
      *
      */
-    public Board(String jsonString) {
-        // Parsing the json so we can use it
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonValue = jsonReader.parse(jsonString);
+    private JsonFileReader jsonFileReader;
 
-        List<GameField> gameFields = new ArrayList<>();
+    /**
+     *
+     */
+    public Board() {
+        this.jsonFileReader = new JsonFileReader();
+        this.parseJobsJson();
+    }
 
-        // Read the values and create a list of gameFields
-        for (JsonValue jsonField : jsonValue) {
-            List<Integer> nextPositions = new ArrayList<>();
-            for (int i : jsonField.get("nextPositions").asIntArray()) {
-                nextPositions.add(i);
-            }
-
-            GameField gameField = new GameField(
-                    new Vector2(jsonField.get("position").getInt("x"), jsonField.get("position").getInt("y")),
-                    nextPositions
-            );
-            gameFields.add(gameField);
-        }
-        this.gameFields = gameFields;
+    /**
+     * FOR TESTING ONLY!!
+     *
+     * @param jsonFileReader
+     */
+    public Board(JsonFileReader jsonFileReader) {
+        this.jsonFileReader = jsonFileReader;
+        this.parseJobsJson();
     }
 
     /**
@@ -55,16 +53,39 @@ public class Board {
      */
     public static Board getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Board(new JsonFileReader().loadJsonFile("gameboard.json"));
+            INSTANCE = new Board();
         }
         return INSTANCE;
     }
 
-    public static Board getInstance(String jsonString) {
+    /**
+     * FOR TESTING ONLY!!
+     *
+     * @param jsonFileReader
+     * @return
+     */
+    public static Board getInstance(JsonFileReader jsonFileReader) {
         if (INSTANCE == null) {
-            INSTANCE = new Board(jsonString);
+            INSTANCE = new Board(jsonFileReader);
         }
         return INSTANCE;
+    }
+
+    /**
+     *
+     */
+    public void parseJobsJson() {
+        try {
+            this.jsonFileReader.readJson(GameOfLife.FILE_GAMEFIELD_JSON, GameField.class, new JsonCallback<GameField>() {
+                @Override
+                public void onJsonRead(ArrayList<GameField> result) {
+                    gameFields = result;
+                    System.out.println(result);
+                }
+            });
+        } catch (SerializationException e) {
+            Gdx.app.log("JobData", e.getMessage());
+        }
     }
 
     /**

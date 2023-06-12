@@ -26,13 +26,26 @@ public class GameField {
      */
     private final LogicalField logicalField;  //Logical field which has Information on events
 
+    private final String type;
+
+    /**
+     * For serialization needed!
+     */
+    public GameField() {
+        this.logicalField = new LogicalField(this);
+        this.position = null;
+        this.indexOfNextGameFields = null;
+        this.type = null;
+    }
+
     /**
      * Constructs a new GameField object with the specified position and next gameFields.
      *
      * @param position              The position of the gameField.
      * @param indexOfNextGameFields The list of next possible gameFields for the gameField.
      */
-    public GameField(Vector2 position, List<Integer> indexOfNextGameFields) {
+    public GameField(Vector2 position, List<Integer> indexOfNextGameFields, String type) {
+        this.type = type;
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
         logicalField = new LogicalField(this);

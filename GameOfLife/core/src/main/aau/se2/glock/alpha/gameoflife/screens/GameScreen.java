@@ -87,6 +87,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     public GameScreen() {
 
         jobSelection = JobData.getInstance();
+        jobSelection.fillJobList();
         GameOfLife.proximitySensorInterface.setProximityListener(this);
 
         gameCamera = new OrthographicCamera();
@@ -272,7 +273,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     isSpinning = true;
                 }
             }
-
         };
 
         //btnRollDice.addListener(btnRollDiceListener);
@@ -314,10 +314,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 Player self = GameOfLife.self;
 
-                // This method will be called when the TextButton is clicked
-                self.setMoveCount(self.getMoveCount() + 1);
-                self.setHasCheated(true);
-                self.setHasCheatedAtAge(self.getAge());
+                self.cheat(1);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -330,10 +327,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 Player self = GameOfLife.self;
 
-                // This method will be called when the TextButton is clicked
-                self.setMoveCount(self.getMoveCount() + 2);
-                self.setHasCheated(true);
-                self.setHasCheatedAtAge(self.getAge());
+                self.cheat(2);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -346,10 +340,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             public void clicked(InputEvent event, float x, float y) {
                 Player self = GameOfLife.self;
 
-                // This method will be called when the TextButton is clicked
-                self.setMoveCount(self.getMoveCount() + 3);
-                self.setHasCheated(true);
-                self.setHasCheatedAtAge(self.getAge());
+                self.cheat(3);
 
                 cheatingButtonGroup.clearChildren();
             }
@@ -544,6 +535,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private void chooseJobWindow() {
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
         jobSelection = JobData.getInstance();
+        jobSelection.fillJobList();
 
         final Window window = new Window("", uiSkin);
         window.setSize(600, 450);
@@ -670,6 +662,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
+        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     /**
@@ -677,7 +670,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void hideEventPopup() {
         eventDialog.hide();
-
     }
 
     @Override

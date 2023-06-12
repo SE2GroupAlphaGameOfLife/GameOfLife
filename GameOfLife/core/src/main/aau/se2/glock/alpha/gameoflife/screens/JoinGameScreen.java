@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -121,7 +123,7 @@ public class JoinGameScreen extends BasicScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Check if the length of the text is greater than 0
-                if (validateInput(ipInput.getText())) {
+                if (validateInput(ipInput)) {
                     // Set the font color to light gray
                     ipInput.setColor(Color.LIGHT_GRAY);
                     ipInput.getStyle().fontColor = Color.LIGHT_GRAY;
@@ -133,16 +135,46 @@ public class JoinGameScreen extends BasicScreen {
     }
 
     /**
-     * @param ipAddress
+     * @param txtField
      * @return
      */
-    private boolean validateInput(String ipAddress) {
+    private boolean validateInput(TextField txtField) {
+        if (txtField.getText().length() < 1) {
+            txtField.setColor(Color.RED);
+            txtField.getStyle().messageFontColor = Color.RED;
+            return false;
+        }
         try {
-            InetAddress inetAddress = InetAddress.getByName(ipAddress);
+            InetAddress inetAddress = InetAddress.getByName(txtField.getText());
             return inetAddress instanceof Inet4Address;
         } catch (UnknownHostException ex) {
             return false;
         }
+    }
+
+    /**
+     * @param ipAddress
+     */
+    public void showPopup(String ipAddress) {
+        // Create a new skin (or use an existing one)
+        Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        // Create the dialog
+        Dialog dialog = new Dialog("Server Connection Error", skin) {
+            protected void result(Object object) {
+                // this method is called when the OK button is clicked.
+                // Close the dialog here
+                this.hide();
+            }
+        };
+
+        // Set the dialog text
+        dialog.text("The server with the " + ipAddress + " could not be reached, please check your input!");
+
+        dialog.button("OK", true); // the boolean value here is the object passed into "result(Object object)"
+
+        // Show the dialog
+        dialog.show(stage);
     }
 
     /**
@@ -169,7 +201,7 @@ public class JoinGameScreen extends BasicScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("JoinGameScreen", "Join Button pressed");
-                if (validateInput(ipInput.getText())) {
+                if (validateInput(ipInput)) {
                     for (ServerInformation s : GameOfLife.availableServers) {
                         try {
                             if (s.getAddress().equals(InetAddress.getByName(ipInput.getText()))) {
@@ -192,6 +224,7 @@ public class JoinGameScreen extends BasicScreen {
                         }
                     }
                     //Here what should happen, if tipped ip address not in GameOfLife.availableServers
+                    showPopup(ipInput.getText());
                     Gdx.app.log("JoinGameScreen", "IP address format correct, but not in availableServers list.");
                 }
             }
@@ -372,7 +405,7 @@ public class JoinGameScreen extends BasicScreen {
 
     @Override
     public void update(String payload) {
-        if (payload.equals(GameOfLife.createServerOverviewPayload)) {
+        if (payload.equals(GameOfLife.CREATE_SERVER_OVERVIEW_PAYLOAD)) {
             this.createServerOverview();
         }
     }

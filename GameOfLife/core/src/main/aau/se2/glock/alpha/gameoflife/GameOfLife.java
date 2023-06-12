@@ -19,10 +19,19 @@ import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 public class GameOfLife extends Game {
 
     /**
-     * File name of the Event and Job json files located in the assets folder
+     * File name of the Job json file located in the assets folder
      */
-    public static final String fileJobJson = "Jobs.json", fileEventJson = "Events.json";
+    public static final String FILE_JOB_JSON = "Jobs.json";
 
+    /**
+     * File name of the Event json file located in the assets folder
+     */
+    public static final String FILE_EVENT_JSON = "Events.json";
+
+    /**
+     *
+     */
+    public static final String FILE_GAMEFIELD_JSON = "Gameboard.json";
     /**
      *
      */
@@ -33,7 +42,24 @@ public class GameOfLife extends Game {
      */
     public static final int UDPPORT = 54777;
 
-    public static final String startGamePayload = "START_GAME", createServerOverviewPayload = "CREATE_SERVER_OVERVIEW", createPlayersOverviewPayload = "CREATE_PLAYERS_OVERVIEW", clientConnectingFailed = "CLIENT_CONNECTION_FAILED";
+    /**
+     *
+     */
+    public static final String START_GAME_PAYLOAD = "START_GAME";
+
+    /**
+     *
+     */
+    public static final String CREATE_SERVER_OVERVIEW_PAYLOAD = "CREATE_SERVER_OVERVIEW";
+
+    /**
+     *
+     */
+    public static final String CREATE_PLAYERS_OVERVIEW_PAYLOAD = "CREATE_PLAYERS_OVERVIEW", clientConnectingFailed = "CLIENT_CONNECTION_FAILED";
+
+    /**
+     *
+     */
     public static ProximitySensorInterface proximitySensorInterface;
 
     /**

@@ -101,18 +101,18 @@ public class StartGameScreen extends BasicScreen {
 
                     /*
                     THIS IS FOR TESTING ONLY AND HAS TO BE REMOVED ON FINAL VERSION
-                     *//*
+                     */
                     btnStartGame.setVisible(false);
                     Gdx.app.log("StartGameScreen", "StartGame button pressed!");
-                    GameOfLife.client.sendMessageToServerTCP(GameOfLife.startGamePayload);
-                    *//*
+                    GameOfLife.client.sendMessageToServerTCP(GameOfLife.START_GAME_PAYLOAD);
+                    /*
                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                      */
-                    if ((GameOfLife.players.size() > 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {
+                    if ((GameOfLife.players.size() >= 1) && (GameOfLife.players.size() == GameOfLife.server.getPlayers().getPlayerCount())) {
                         //Broadcast, game started
                         btnStartGame.setVisible(false);
                         Gdx.app.log("StartGameScreen", "StartGame button pressed!");
-                        GameOfLife.client.sendMessageToServerTCP(GameOfLife.startGamePayload);
+                        GameOfLife.client.sendMessageToServerTCP(GameOfLife.START_GAME_PAYLOAD);
                     } else {
                         //Should be shown to user, that at least 2 players have to have joined or that some player joining is in progress
                     }
@@ -168,7 +168,7 @@ public class StartGameScreen extends BasicScreen {
 
     @Override
     public void update(String payload) {
-        if (payload.equals(GameOfLife.startGamePayload)) {
+        if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
             Gdx.app.log("StartGameScreen/update", "StartGamePayload received!");
             Gdx.app.postRunnable(new Runnable() {
                 @Override
@@ -177,7 +177,7 @@ public class StartGameScreen extends BasicScreen {
                     GameOfLife.changeScreen(new GameScreen());
                 }
             });
-        } else if (payload.equals(GameOfLife.createPlayersOverviewPayload)) {
+        } else if (payload.equals(GameOfLife.CREATE_PLAYERS_OVERVIEW_PAYLOAD)) {
             this.createPlayersOverview();
         } else if (payload.equals(GameOfLife.clientConnectingFailed)) {
             Gdx.app.postRunnable(new Runnable() {
