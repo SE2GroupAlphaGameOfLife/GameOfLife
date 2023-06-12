@@ -311,7 +311,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnCheat1FieldListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Player self = GameOfLife.self;
 
                 GameOfLife.self.cheat(1);
 
@@ -324,7 +323,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnCheat2FieldsListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Player self = GameOfLife.self;
 
                 GameOfLife.self.cheat(2);
 
@@ -337,7 +335,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         ClickListener btnCheat3FieldsListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Player self = GameOfLife.self;
 
                 GameOfLife.self.cheat(3);
 
@@ -651,7 +648,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         eventDialog.button(new TextButton("Bestätigen", textButtonStyle));
         stage.addActor(eventDialog);
         hideEventPopup();
-        //GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     /**
@@ -661,7 +657,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         eventDialog.text(eventText, labelStyle);
         eventDialog.show(stage);
-        //GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     /**
