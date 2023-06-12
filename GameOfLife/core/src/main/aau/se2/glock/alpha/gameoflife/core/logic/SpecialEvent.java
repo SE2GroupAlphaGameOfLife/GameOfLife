@@ -13,6 +13,14 @@ public class SpecialEvent implements Event {
 
     private int cash;
 
+    private String optionA;
+
+    private String optionB;
+
+    public SpecialEvent(){
+
+    }
+
     public SpecialEvent(String type) {
         this.lp = 0;
         this.cash = 0;
