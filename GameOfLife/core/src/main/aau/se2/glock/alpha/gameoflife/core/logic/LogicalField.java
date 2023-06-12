@@ -46,7 +46,7 @@ public class LogicalField {
      */
     public LogicalField(GameField field) {
         this.field = field;
-
+        this.type = "";
         this.section = 0;
         if(type.equals("empty")||type.equals("intersection")){
             this.isSpecial = false;
@@ -71,5 +71,17 @@ public class LogicalField {
     private void buildSpecialEvent(){
         this.specialEvent = new SpecialEvent(type);
 
+    }
+
+    public void setSpecial(boolean b) {
+        this.isSpecial = b;
+    }
+
+    public int getSection() {
+        return  this.section;
+    }
+
+    public void setSection(int i) {
+        this.section = i;
     }
 }
