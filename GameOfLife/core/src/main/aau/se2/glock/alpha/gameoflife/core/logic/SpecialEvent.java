@@ -24,7 +24,7 @@ public class SpecialEvent implements Event {
         this.lp = 0;
         this.cash = 0;
         this.type = type;
-        setBasicStats();
+        //setBasicStats();
     }
 
     public SpecialEvent(String type, int lp, int cash, String optionA, String optionB,String message) {
@@ -35,7 +35,7 @@ public class SpecialEvent implements Event {
         this.optionA = optionA;
         this.optionB = optionB;
     }
-
+/*
     private void setBasicStats() {
         switch (type) {
             case "get15tLP":
@@ -65,13 +65,14 @@ public class SpecialEvent implements Event {
 
         }
 
-    }
+    }*/
     public void eventOptionA(){
+        //TODO Switch case and call appropriate method
 
     }
 
     public void eventOptionB(){
-
+        //TODO Switch case and call appropriate method
     }
 
     @Override
@@ -87,6 +88,18 @@ public class SpecialEvent implements Event {
     @Override
     public int getCash() {
         return this.cash;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getOptionA() {
+        return optionA;
+    }
+
+    public String getOptionB() {
+        return optionB;
     }
 
     public String getType(){

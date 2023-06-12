@@ -52,7 +52,7 @@ public class LogicalField {
             this.isSpecial = false;
         }else{
             this.isSpecial = true;
-            buildSpecialEvent();
+            retrieveSpecialEvent();
         }
     }
 
@@ -69,9 +69,9 @@ public class LogicalField {
             return c.getEvent(section);
         }
     }
-    private void buildSpecialEvent(){
-        System.out.println("Builder called");
-        this.specialEvent = new SpecialEvent(type);
+    private void retrieveSpecialEvent(){
+        SpecialEventHandler specialEventHandler = new SpecialEventHandler(type);
+        this.specialEvent = specialEventHandler.getCorrectSpecialEvent();
 
     }
 

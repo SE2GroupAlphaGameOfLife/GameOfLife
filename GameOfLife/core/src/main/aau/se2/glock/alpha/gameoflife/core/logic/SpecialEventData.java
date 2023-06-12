@@ -10,6 +10,8 @@ import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
 public class SpecialEventData {
+
+    private static SpecialEventData INSTANCE;
     private List<SpecialEvent> specialEventList;
     private JsonFileReader jsonFileReader;
 
@@ -19,12 +21,20 @@ public class SpecialEventData {
         return specialEventList;
     }
 
+    /**
+     * Needed For Serialisation
+     */
     public SpecialEventData() {
         this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
         this.jsonFileReader = new JsonFileReader();
         this.specialEventList = new ArrayList<SpecialEvent>();
+        fillSpecialEventList();
     }
 
+    /**
+     * For Testing
+     * @param jsonFileReader
+     */
     public SpecialEventData(JsonFileReader jsonFileReader) {
         this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
         this.jsonFileReader = jsonFileReader;
@@ -43,6 +53,15 @@ public class SpecialEventData {
            // Gdx.app.log("SpecialEventData", e.getMessage());
         }
     }
+
+    public SpecialEventData getINSTANCE(){
+        if(INSTANCE!=null){
+            return  INSTANCE;
+        }else return INSTANCE = new SpecialEventData();
+
+
+    }
+
     public void fillSpecialEventList() {
         this.parseSpecialEventsJson();
     }
