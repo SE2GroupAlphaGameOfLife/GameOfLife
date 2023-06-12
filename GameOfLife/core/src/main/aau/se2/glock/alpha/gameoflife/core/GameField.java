@@ -41,9 +41,10 @@ public class GameField {
 
     /**
      * FOR TESTING ONLY!
+     *
      * @param logicalField
      */
-    public GameField(LogicalField logicalField){
+    public GameField(LogicalField logicalField) {
         this.logicalField = logicalField;
         this.position = null;
         this.indexOfNextGameFields = null;
@@ -94,6 +95,7 @@ public class GameField {
 
     /**
      * FOR TESTING ONLY
+     *
      * @param index
      */
     public void addIndexOfNextGameField(int index) {

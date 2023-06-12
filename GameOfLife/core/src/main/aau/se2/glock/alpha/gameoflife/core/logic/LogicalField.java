@@ -66,6 +66,7 @@ public class LogicalField {
 
     /**
      * For testing only!
+     *
      * @return
      */
     public int getType() {
@@ -74,9 +75,10 @@ public class LogicalField {
 
     /**
      * For testing only!
+     *
      * @param type
      */
-    public void setType(int type){
+    public void setType(int type) {
         this.type = type;
     }
 }

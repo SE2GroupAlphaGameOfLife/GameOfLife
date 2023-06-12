@@ -1,24 +1,28 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import aau.se2.glock.alpha.gameoflife.core.GameField;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
-import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
+import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
 
 public class LogicalFieldTest {
 

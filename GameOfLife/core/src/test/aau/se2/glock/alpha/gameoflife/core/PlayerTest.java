@@ -2,13 +2,10 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.Files;
@@ -19,19 +16,13 @@ import com.badlogic.gdx.graphics.Color;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
-import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
 
 public class PlayerTest {
     private Player player;
@@ -40,7 +31,7 @@ public class PlayerTest {
     private Board board;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         Board.setInstance(board);
 

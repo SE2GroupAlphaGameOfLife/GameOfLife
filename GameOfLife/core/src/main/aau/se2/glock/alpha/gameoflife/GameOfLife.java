@@ -156,7 +156,7 @@ public class GameOfLife extends Game {
         setScreen(getNewMainMenuScreen());
     }
 
-    public MainMenuScreen getNewMainMenuScreen(){
+    public MainMenuScreen getNewMainMenuScreen() {
         return new MainMenuScreen();
     }
 
