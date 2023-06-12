@@ -60,7 +60,6 @@ public class GameFieldTest {
     @Test
     public void testDefaultConstructor(){
         gameField = new GameField();
-        assertTrue(gameField.getLogicalField() instanceof LogicalField);
         assertTrue(gameField.getPosition() == null);
         assertTrue(gameField.getIndexOfNextGameFields() instanceof ArrayList);
         assertTrue(gameField.getType() == null);

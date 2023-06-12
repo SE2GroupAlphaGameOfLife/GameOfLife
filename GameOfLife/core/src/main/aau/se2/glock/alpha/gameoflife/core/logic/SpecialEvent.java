@@ -18,7 +18,6 @@ public class SpecialEvent implements Event {
     private String optionB;
 
     public SpecialEvent(){
-
     }
 
     public SpecialEvent(String type) {
@@ -26,6 +25,15 @@ public class SpecialEvent implements Event {
         this.cash = 0;
         this.type = type;
         setBasicStats();
+    }
+
+    public SpecialEvent(String type, int lp, int cash, String optionA, String optionB,String message) {
+        this.message = message;
+        this.type = type;
+        this.lp = lp;
+        this.cash = cash;
+        this.optionA = optionA;
+        this.optionB = optionB;
     }
 
     private void setBasicStats() {
