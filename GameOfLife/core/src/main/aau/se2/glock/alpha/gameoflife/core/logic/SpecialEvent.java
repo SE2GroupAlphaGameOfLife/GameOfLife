@@ -41,6 +41,12 @@ public class SpecialEvent implements Event {
             case "get3tLP":
                 this.message = "Du gehst mit Delfinen schwimmen:3.000LP";
                 this.lp = 3000;
+                break;
+            case "pay20t":
+                    this.message = "STUDIENGEBÜHREN 20.000 LOL";
+                    this.cash=-20000;
+                    break;
+
         }
 
     }
@@ -66,4 +72,19 @@ public class SpecialEvent implements Event {
     public int getCash() {
         return this.cash;
     }
+
+    public String getType(){
+        return this.type;
+    }
+
+    @Override
+    public String toString() {
+        return "SpecialEvent{" +
+                "message='" + message + '\'' +
+                ", type='" + type + '\'' +
+                ", lp=" + lp +
+                ", cash=" + cash +
+                '}';
+    }
 }
+

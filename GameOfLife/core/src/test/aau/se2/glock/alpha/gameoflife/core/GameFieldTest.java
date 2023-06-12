@@ -9,13 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
-import jdk.internal.net.http.common.Log;
 
 public class GameFieldTest {
     private GameField gameField;
@@ -46,7 +44,7 @@ public class GameFieldTest {
 
     @Test
     public void testConstructorLogicalField(){
-        LogicalField f = new LogicalField(gameField);
+        LogicalField f = new LogicalField(gameField,"empty");
         gameField = new GameField(f);
         assertEquals(gameField.getLogicalField(), f);
     }

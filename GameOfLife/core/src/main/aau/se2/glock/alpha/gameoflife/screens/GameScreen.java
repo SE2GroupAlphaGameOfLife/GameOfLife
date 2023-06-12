@@ -681,11 +681,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private void handleEvent(Player player){
         Event event = player.getEvent();
         if(event.getClass()== SpecialEvent.class){
+            System.out.println("EVENT:"+ ((SpecialEvent) event).getType());
             //SpecialEventCode here
             currentSpecialEvent = (SpecialEvent) event;
             showSpecialEventPopup();
-        }else
+        }else{
         showEventPopUp(player.getEvent().getText());
+        }
     }
     private void showSpecialEventPopup(){
         createSpecialEventPopup();

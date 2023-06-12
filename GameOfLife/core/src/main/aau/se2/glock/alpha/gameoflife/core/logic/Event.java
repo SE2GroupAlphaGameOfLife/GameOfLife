@@ -4,4 +4,5 @@ public interface Event {
     String getText();
     int getLp();
     int getCash();
+
 }

@@ -25,7 +25,7 @@ public class GameField {
     /**
      *
      */
-    private final LogicalField logicalField;  //Logical field which has Information on events
+    private LogicalField logicalField;  //Logical field which has Information on events
 
     private final String type;
 
@@ -33,7 +33,7 @@ public class GameField {
      * For serialization needed!
      */
     public GameField() {
-        this.logicalField = new LogicalField(this);
+        this.logicalField = null;
         this.position = null;
         this.indexOfNextGameFields = new ArrayList<>();
         this.type = null;
@@ -60,7 +60,7 @@ public class GameField {
         this.type = type;
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
-        logicalField = new LogicalField(this);
+        this.logicalField = new LogicalField(this,type);
     }
 
     public String getType() {
@@ -90,6 +90,10 @@ public class GameField {
      */
     public LogicalField getLogicalField() {
         return this.logicalField;
+    }
+
+    public void setLogicalField(LogicalField logicalField) {
+        this.logicalField = logicalField;
     }
 
     /**
