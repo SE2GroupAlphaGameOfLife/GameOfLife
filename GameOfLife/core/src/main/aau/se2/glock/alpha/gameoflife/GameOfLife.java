@@ -29,8 +29,9 @@ public class GameOfLife extends Game {
     public static final String FILE_EVENT_JSON = "Events.json";
 
     /**
-     *
+     *File name for Special Events json located in the Assets Folder
      */
+    public static final String FILE_SPECIAL_EVENT_JSON = "SpecialEvents.json";
     public static final String FILE_GAMEFIELD_JSON = "Gameboard.json";
     /**
      *
