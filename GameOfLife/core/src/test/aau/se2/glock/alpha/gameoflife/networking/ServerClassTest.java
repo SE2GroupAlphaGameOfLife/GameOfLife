@@ -130,6 +130,8 @@ public class ServerClassTest {
         j.addPlayer(mockPlayer, mockConnection.getID());
         serverUnderTest.setPlayers(j);
 
+        assertEquals(serverUnderTest.getPlayers(), j);
+
         serverUnderTest.connected(mockConnection);
 
         ArgumentCaptor<JoinedPlayers> argument = ArgumentCaptor.forClass(JoinedPlayers.class);
@@ -315,13 +317,6 @@ public class ServerClassTest {
         // Use the capturedArguments list as needed for assertions or verifications
     }
 
-
-
-
-
-
-
-
     @Test
     public void testReceivedWithTcpMessage() {
         TcpMessage mockTcpMessage = mock(TcpMessage.class);
@@ -331,7 +326,6 @@ public class ServerClassTest {
         verify(mockTcpMessage, times(1)).accept(any(ReportPlayerVisitor.class));
         verify(mockTcpMessage, times(1)).accept(any(CheatingVisitor.class));
     }
-
 
     @Test
     public void testGetUDPPORT() {
