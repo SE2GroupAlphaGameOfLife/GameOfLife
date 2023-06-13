@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

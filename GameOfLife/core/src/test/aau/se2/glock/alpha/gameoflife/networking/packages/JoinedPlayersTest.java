@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.networking;
+package aau.se2.glock.alpha.gameoflife.networking.packages;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
