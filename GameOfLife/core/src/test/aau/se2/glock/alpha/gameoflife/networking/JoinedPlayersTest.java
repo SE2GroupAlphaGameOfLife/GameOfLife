@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -66,7 +67,7 @@ public class JoinedPlayersTest {
         assertTrue(joinedPlayers.addPlayer(p1, pId1));
         assertTrue(joinedPlayers.addPlayer(p2, pId2));
 
-        assertTrue(joinedPlayers.getPlayers().equals(oldList));
+        assertEquals(joinedPlayers.getPlayers(), oldList);
     }
 
     @Test
@@ -77,8 +78,8 @@ public class JoinedPlayersTest {
         assertTrue(joinedPlayers.addPlayer(p1, pId1));
         assertTrue(joinedPlayers.addPlayer(p2, pId2));
 
-        assertTrue(joinedPlayers.getPlayers().size() == oldList.size());
-        assertTrue(joinedPlayers.getPlayerCount() == joinedPlayers.getPlayers().size());
+        assertEquals(joinedPlayers.getPlayers().size(), oldList.size());
+        assertEquals(joinedPlayers.getPlayerCount(), joinedPlayers.getPlayers().size());
     }
 
     @Test

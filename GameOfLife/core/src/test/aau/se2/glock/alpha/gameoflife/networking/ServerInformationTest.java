@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.networking;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -54,8 +55,8 @@ public class ServerInformationTest {
         serverInfo2.setAddress(address1);
         serverInfo3.setAddress(address2);
 
-        assertTrue(serverInfo1.equals(serverInfo2));
-        assertFalse(serverInfo1.equals(serverInfo3));
+        assertEquals(serverInfo1, serverInfo2);
+        assertNotEquals(serverInfo1, serverInfo3);
     }
 
     @Test
