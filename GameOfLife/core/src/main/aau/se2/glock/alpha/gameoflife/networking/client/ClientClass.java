@@ -246,10 +246,6 @@ public class ClientClass implements Listener, ClientObserverSubject {
                 }
             }
             notifyObservers(GameOfLife.CREATE_PLAYERS_OVERVIEW_PAYLOAD);
-            /*if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
-                ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
-                Gdx.app.log("ClientClass", "Players at StartGameScreen (" + GameOfLife.players + ")");
-            }*/
         } else if (object instanceof String) {
             String payload = (String) object;
             if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
@@ -262,6 +258,10 @@ public class ClientClass implements Listener, ClientObserverSubject {
 
     public Client getClient() {
         return client;
+    }
+
+    public List<ClientObserver> getClientObservers() {
+        return clientObservers;
     }
 
     @Override
