@@ -157,6 +157,22 @@ public class GameOfLife extends Game {
         return gameStarted;
     }
 
+    public static void registerClasses(Kryo kryo, boolean isUnitTest) {
+        if (!isUnitTest) {
+            kryo.register(SecureRandom.class);
+        }
+        kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
+        kryo.register(Player.class);
+        kryo.register(Job.class);
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
+    }
+
     /**
      *
      */
@@ -174,21 +190,5 @@ public class GameOfLife extends Game {
     public void dispose() {
         proximitySensorInterface.unregisterSensor();
         super.dispose();
-    }
-
-    public static void registerClasses(Kryo kryo, boolean isUnitTest) {
-        if (!isUnitTest) {
-            kryo.register(SecureRandom.class);
-        }
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
     }
 }

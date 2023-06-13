@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.server;
 
-import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -12,19 +11,14 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
-import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
