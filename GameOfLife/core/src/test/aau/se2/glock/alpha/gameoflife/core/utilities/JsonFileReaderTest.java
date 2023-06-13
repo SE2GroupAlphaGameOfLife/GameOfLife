@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.utilities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

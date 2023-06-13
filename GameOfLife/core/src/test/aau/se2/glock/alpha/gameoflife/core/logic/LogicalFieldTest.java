@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
