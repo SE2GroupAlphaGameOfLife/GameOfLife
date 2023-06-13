@@ -10,6 +10,13 @@ import java.util.ArrayList;
 
 public class JsonFileReader {
 
+    /**
+     * For testing only!
+     */
+    public JsonFileReader(){
+
+    }
+
     public <T> void readJson(String fileName, Class<T> type, JsonCallback<T> callback) {
         Json json = new Json();
         JsonReader reader = new JsonReader();
