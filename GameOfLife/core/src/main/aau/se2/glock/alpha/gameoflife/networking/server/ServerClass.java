@@ -102,7 +102,7 @@ public class ServerClass implements Listener {
         this.server.setDiscoveryHandler(serverDiscoveryHandler);
 
         Kryo kryo = this.server.getKryo();
-        this.registerClasses(kryo);
+        GameOfLife.registerClasses(kryo, false);
 
         players = new JoinedPlayers();
 
@@ -124,16 +124,7 @@ public class ServerClass implements Listener {
         this.UDPPORT = UDPPORT;
 
         Kryo kryo = this.server.getKryo();
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
+        GameOfLife.registerClasses(kryo, true);
 
         players = new JoinedPlayers();
 
@@ -142,20 +133,6 @@ public class ServerClass implements Listener {
 
     protected Client getClient() {
         return GameOfLife.client.getClient();
-    }
-
-    private void registerClasses(Kryo kryo) {
-        kryo.register(SecureRandom.class);
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
     }
 
     /**
@@ -190,8 +167,6 @@ public class ServerClass implements Listener {
     public void close() {
         this.server.close();
         this.serverStarted = false;
-
-        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
     }
 
     /**

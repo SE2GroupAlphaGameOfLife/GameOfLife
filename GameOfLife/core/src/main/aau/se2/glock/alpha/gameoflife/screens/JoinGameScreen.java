@@ -327,6 +327,7 @@ public class JoinGameScreen extends BasicScreen {
                     @Override
                     public void run() {
                         GameOfLife.client.disconnect();
+                        GameOfLife.client = new ClientClass();
                     }
                 }).start();
                 GameOfLife.changeScreen(new MainMenuScreen());

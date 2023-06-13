@@ -88,7 +88,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        registerClasses(kryo);
+        GameOfLife.registerClasses(kryo, false);
     }
 
     /**
@@ -103,22 +103,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        registerClasses(kryo);
-    }
-
-
-    public void registerClasses(Kryo kryo) {
-        kryo.register(SecureRandom.class);
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
+        GameOfLife.registerClasses(kryo, false);
     }
 
     public void sendMessageToServerTCP(String message) {
@@ -167,8 +152,6 @@ public class ClientClass implements Listener, ClientObserverSubject {
      */
     public void disconnect() {
         this.client.close();
-        
-        GameOfLife.client = new ClientClass();
     }
 
     /**

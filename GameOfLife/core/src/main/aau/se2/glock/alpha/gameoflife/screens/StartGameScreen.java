@@ -141,8 +141,10 @@ public class StartGameScreen extends BasicScreen {
                     public void run() {
                         if (GameOfLife.self.isHost()) {
                             GameOfLife.server.close();
+                            GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                         } else {
                             GameOfLife.client.disconnect();
+                            GameOfLife.client = new ClientClass();
                         }
                     }
                 }).start();
