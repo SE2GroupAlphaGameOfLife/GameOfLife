@@ -167,6 +167,8 @@ public class ClientClass implements Listener, ClientObserverSubject {
      */
     public void disconnect() {
         this.client.close();
+        
+        GameOfLife.client = new ClientClass();
     }
 
     /**

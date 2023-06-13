@@ -49,7 +49,7 @@ public class StartGameScreen extends BasicScreen {
         createGameOfLifeTitle();
         createPlayersOverview();
         createStartGameButton();
-        createBackButton();
+        createQuitButton();
         createInfoLabel();
     }
 
@@ -123,7 +123,7 @@ public class StartGameScreen extends BasicScreen {
         }
     }
 
-    private void createBackButton() {
+    private void createQuitButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
         btnBack.setSize(buttonWidth, buttonHeight); // Set the size of the button
@@ -141,10 +141,8 @@ public class StartGameScreen extends BasicScreen {
                     public void run() {
                         if (GameOfLife.self.isHost()) {
                             GameOfLife.server.close();
-                            GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                         } else {
                             GameOfLife.client.disconnect();
-                            GameOfLife.client = new ClientClass();
                         }
                     }
                 }).start();

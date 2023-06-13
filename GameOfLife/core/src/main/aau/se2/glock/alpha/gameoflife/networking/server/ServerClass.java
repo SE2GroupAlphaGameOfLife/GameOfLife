@@ -190,6 +190,8 @@ public class ServerClass implements Listener {
     public void close() {
         this.server.close();
         this.serverStarted = false;
+
+        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
     }
 
     /**
