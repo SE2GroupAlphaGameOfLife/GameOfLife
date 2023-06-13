@@ -89,7 +89,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     public GameScreen() {
         jobSelection = JobData.getInstance();
         jobSelection.fillJobList();
-        GameOfLife.proximitySensorInterface.setProximityListener(this);
+        GameOfLife.getProximitySensorInterface().setProximityListener(this);
 
         gameCamera = new OrthographicCamera();
         gameViewPort = new StretchViewport(800, 400, gameCamera);

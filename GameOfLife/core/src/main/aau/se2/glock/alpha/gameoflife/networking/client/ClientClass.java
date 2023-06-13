@@ -119,7 +119,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
             } catch (IOException e) {
                 //throw new RuntimeException(e);
                 e.printStackTrace();
-                notifyObservers(GameOfLife.clientConnectingFailed);
+                notifyObservers(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD);
             }
         }
     }
@@ -137,7 +137,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
                 this.client.connect(5000, address, tcpPort, udpPort);
             } catch (IOException e) {
                 e.printStackTrace();
-                notifyObservers(GameOfLife.clientConnectingFailed);
+                notifyObservers(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD);
             }
         }
     }
