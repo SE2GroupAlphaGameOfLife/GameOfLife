@@ -24,10 +24,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Board;
@@ -72,6 +74,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Label lbUsernameAge;
     private Label lbMoney;
     private Label lbLifepoints;
+    private Label lbPlayersOverview;
+    private List<Label> lbJoinedPlayers;
     private Label.LabelStyle labelStyle;
     private Dialog eventDialog;
     private boolean isSpinning = false;
@@ -236,9 +240,9 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      * Create Button for rolling the dice.
      */
     private void createSpinTheWheelButton() {
-        Vector3 v3Wheel = new Vector3(-50, -50, 0);
-        Vector3 v3Arrow = new Vector3(-30, -50, 0);
-        Vector3 v3Center = new Vector3(0, 0, 0);
+        Vector3 v3Wheel = new Vector3(-35, -35, 0);
+        Vector3 v3Arrow = new Vector3(-15, -35, 0);
+        Vector3 v3Center = new Vector3(5, 4, 0);
         gameCamera.project(v3Wheel);
         gameCamera.project(v3Center);
         gameCamera.project(v3Arrow);
@@ -450,7 +454,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private void createQuitButton() {
         //Create a Back Button
         btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
-        btnQuit.setSize(buttonWidth, buttonHeight); // Set the size of the button
+        btnQuit.setSize((buttonWidth*5)/7, buttonHeight); // Set the size of the button
         btnQuit.setPosition(30, 30); // Set the position of the button
 
         stage.addActor(btnQuit); // Add the button to the stage
@@ -463,7 +467,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     @Override
                     public void run() {
                         GameOfLife.server.close();
-                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     }
                 }).start();
                 GameOfLife.gameStarted = false;
@@ -481,8 +484,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void createJobButton() {
         btnJob = new TextButton("Job", textButtonStyle);
-        btnJob.setSize(buttonWidth, buttonHeight);
-        btnJob.setPosition(Gdx.graphics.getWidth() - buttonWidth - 10f, Gdx.graphics.getHeight() - buttonHeight - 10f);
+        btnJob.setSize((buttonWidth*5)/7, buttonHeight);
+        btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth*5)/7 - 30f, Gdx.graphics.getHeight() - buttonHeight - 30f);
 
         stage.addActor(btnJob);
 
@@ -600,13 +603,48 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
 
+        lbPlayersOverview = new Label("Players ("+GameOfLife.players.size()+"):", labelStyle);
+
+        lbJoinedPlayers = new ArrayList<>();
+        fillJoinedPlayers();
+
         lbUsernameAge.setPosition(10, screenHeight - lbUsernameAge.getHeight() - 10);
-        lbMoney.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - 20);
-        lbLifepoints.setPosition(10, screenHeight - lbUsernameAge.getHeight() - lbMoney.getHeight() - lbLifepoints.getHeight() - 30);
+        lbMoney.setPosition(10, lbUsernameAge.getY() - lbMoney.getHeight() - 10);
+        lbLifepoints.setPosition(10, lbMoney.getY() - lbLifepoints.getHeight() - 10);
+
+        lbPlayersOverview.setPosition(10, lbLifepoints.getY() - lbPlayersOverview.getHeight() - 200);
 
         stage.addActor(lbUsernameAge);
         stage.addActor(lbMoney);
         stage.addActor(lbLifepoints);
+        stage.addActor(lbPlayersOverview);
+    }
+
+    private void fillJoinedPlayers(){
+        for(Label l : lbJoinedPlayers){
+            l.remove();
+        }
+        lbJoinedPlayers.clear();
+
+        StringBuilder b = new StringBuilder();
+
+        for(int i = 1; i <= GameOfLife.players.size(); i++){
+            Player p = GameOfLife.players.get(i-1);
+            b.append(p.getUsername()).append(", ").append(p.getAge());
+            if(p.getCurrentJob() != null){
+                b.append(", ").append(p.getCurrentJob().getBezeichnung());
+            }
+            if(p.hasTurn()){
+                b.append(" (turn)");
+            }else if(!p.isOnline()){
+                b.append(" (offline)");
+            }
+            Label l = new Label(b.toString(), labelStyle);
+            l.setPosition(20, lbPlayersOverview.getY() - i*l.getHeight() - 10);
+            stage.addActor(l);
+            lbJoinedPlayers.add(l);
+            b.clear();
+        }
     }
 
     /**
@@ -618,12 +656,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                /*for (Player p : GameOfLife.players) {
-                    if (p.hasTurn()) {
-                        fillPlayerHUD(p);
-                        break;
-                    }
-                }*/
+                fillJoinedPlayers();
                 fillPlayerHUD(GameOfLife.self);
             }
         }, 0, time);
