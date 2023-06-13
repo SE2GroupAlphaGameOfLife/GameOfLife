@@ -11,12 +11,12 @@ public class SpecialEventTest {
     private SpecialEvent specialEvent;
 
     @Before
-    public void setup(){
+    public void setup() {
         specialEvent = new SpecialEvent();
     }
 
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         assertTrue(specialEvent instanceof SpecialEvent);
     }
 }

@@ -7,9 +7,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -139,11 +137,32 @@ public class ServerClassTest {
         assertEquals(mockPlayer, argument.getValue().getPlayers().get(mockConnection.getID()));
     }
 
+    @Test
+    public void testDisconnectedPlayerHasTurn() {
+        Player mockPlayer = mock(Player.class);
+        when(mockPlayer.hasTurn()).thenReturn(true);
+        int nextPlayerId = mockPlayer.getId() + 1;
+        GameOfLife.players.add(mockPlayer);
+
+        JoinedPlayers j = new JoinedPlayers();
+        j.addPlayer(mockPlayer, mockConnection.getID());
+        serverUnderTest.setPlayers(j);
+
+        serverUnderTest.disconnected(mockConnection);
+
+        for (Player p : serverUnderTest.getPlayers().getPlayers().values()) {
+            if (p.hasTurn()) {
+                assertEquals(p.getId(), nextPlayerId);
+                break;
+            }
+        }
+    }
 
     @Test
     public void testDisconnected() {
         GameOfLife.gameStarted = true;
         Player mockPlayer = mock(Player.class);
+        mockPlayer.setHasTurn(true);
         GameOfLife.players.add(mockPlayer);
 
         JoinedPlayers j = new JoinedPlayers();
@@ -155,6 +174,33 @@ public class ServerClassTest {
         ArgumentCaptor<JoinedPlayers> argument = ArgumentCaptor.forClass(JoinedPlayers.class);
         verify(mockServer, times(1)).sendToAllTCP(argument.capture());
         assertEquals(mockPlayer, argument.getValue().getPlayers().get(mockConnection.getID()));
+    }
+
+    @Test
+    public void testReceivedWithJoiningPlayerWhenGameNotStarted() {
+        GameOfLife.gameStarted = false;
+        Player mockPlayer = mock(Player.class);
+        when(mockPlayer.isJoning()).thenReturn(true);
+
+        serverUnderTest.received(mockConnection, mockPlayer);
+
+        ArgumentCaptor<JoinedPlayers> argument = ArgumentCaptor.forClass(JoinedPlayers.class);
+        verify(mockServer, times(1)).sendToAllTCP(argument.capture());
+        assertTrue(argument.getValue().getPlayers().containsKey(mockConnection.getID()));
+    }
+
+    @Test
+    public void testReceivedWithOnlinePlayerHavingTurnWhenGameStarted() {
+        GameOfLife.gameStarted = true;
+        Player mockPlayer = mock(Player.class);
+        when(mockPlayer.hasTurn()).thenReturn(true);
+        when(mockPlayer.isOnline()).thenReturn(true);
+
+        serverUnderTest.received(mockConnection, mockPlayer);
+
+        ArgumentCaptor<JoinedPlayers> argument = ArgumentCaptor.forClass(JoinedPlayers.class);
+        verify(mockServer, times(1)).sendToAllTCP(argument.capture());
+        assertTrue(argument.getValue().getPlayers().containsKey(mockConnection.getID()));
     }
 
     @Test
