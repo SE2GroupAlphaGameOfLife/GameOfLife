@@ -61,20 +61,20 @@ public class GameOfLifeTest {
         doAnswer(invocation -> null).when(spiedInstance).getNewMainMenuScreen();
 
         GameOfLife.setInstance(spiedInstance);
-        GameOfLife.proximitySensorInterface = mockProximitySensorInterface;
+        GameOfLife.setProximitySensorInterface(mockProximitySensorInterface);
         GameOfLife.client = mockClientClass;
     }
 
     @Test
     public void testCreate() {
         GameOfLife.getInstance().create();
-        verify(GameOfLife.proximitySensorInterface, times(1)).registerSensor();
+        verify(GameOfLife.getProximitySensorInterface(), times(1)).registerSensor();
     }
 
     @Test
     public void testDispose() {
         GameOfLife.getInstance().dispose();
-        verify(GameOfLife.proximitySensorInterface, times(1)).unregisterSensor();
+        verify(GameOfLife.getProximitySensorInterface(), times(1)).unregisterSensor();
     }
 
     @Test

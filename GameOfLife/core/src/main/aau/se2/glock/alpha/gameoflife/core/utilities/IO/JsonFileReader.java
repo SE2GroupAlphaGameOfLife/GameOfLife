@@ -13,7 +13,7 @@ public class JsonFileReader {
     /**
      * For testing only!
      */
-    public JsonFileReader(){
+    public JsonFileReader() {
 
     }
 

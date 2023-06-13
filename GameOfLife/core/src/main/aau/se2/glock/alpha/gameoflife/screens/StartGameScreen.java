@@ -179,7 +179,7 @@ public class StartGameScreen extends BasicScreen {
             });
         } else if (payload.equals(GameOfLife.CREATE_PLAYERS_OVERVIEW_PAYLOAD)) {
             this.createPlayersOverview();
-        } else if (payload.equals(GameOfLife.clientConnectingFailed)) {
+        } else if (payload.equals(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD)) {
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {
