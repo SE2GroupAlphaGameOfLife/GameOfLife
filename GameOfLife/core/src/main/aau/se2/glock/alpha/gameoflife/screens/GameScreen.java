@@ -193,8 +193,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
 
     protected void initStage() {
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        super.initStage();
+
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
 
         nextFieldButtonGroup = new Group();
@@ -205,24 +205,14 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(cheatingButtonGroup);
         stage.addActor(spinTheWheelGroup);
         stage.addActor(playersGroup);
-        skin = new Skin();
+        //skin = new Skin();
     }
 
     /**
      * Initializes the textures used for UI elements.
      */
     protected void initTextures() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.LIGHT_GRAY);
-        pixmap.fill();
-        lightGrayTexture = new Texture(pixmap);
-
-        pixmap.setColor(Color.GRAY);
-        pixmap.fill();
-        grayTextrue = new Texture(pixmap);
-
-        pixmap.dispose();
+        super.initTextures();
 
         background = new Texture(Gdx.files.internal("board.png"));
         skateboard = new Texture(Gdx.files.internal("skateboard.png"));
@@ -468,6 +458,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     @Override
                     public void run() {
                         GameOfLife.server.close();
+                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     }
                 }).start();
                 GameOfLife.gameStarted = false;
