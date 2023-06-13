@@ -485,7 +485,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void createJobButton() {
         btnJob = new TextButton("Job", textButtonStyle);
-        btnJob.setSize((buttonWidth*5)/7f, buttonHeight*1f);
+        btnJob.setSize((buttonWidth*5)/7f, buttonHeight);
         btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth*5)/7f - 30f, Gdx.graphics.getHeight() - buttonHeight - 30f);
 
         stage.addActor(btnJob);
