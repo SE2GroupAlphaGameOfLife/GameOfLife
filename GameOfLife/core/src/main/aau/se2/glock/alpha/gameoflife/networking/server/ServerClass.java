@@ -274,15 +274,14 @@ public class ServerClass implements Listener {
     /**
      * @return
      */
-    //For testing only
     public boolean isServerStarted() {
         return serverStarted;
     }
 
     /**
+     *
      * @return
      */
-    //For testing only
     public JoinedPlayers getPlayers() {
         return players;
     }
