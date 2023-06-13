@@ -65,43 +65,40 @@ public class GameOfLife extends Game {
     /**
      *
      */
-    public static final String CREATE_PLAYERS_OVERVIEW_PAYLOAD = "CREATE_PLAYERS_OVERVIEW", clientConnectingFailed = "CLIENT_CONNECTION_FAILED";
+    public static final String CREATE_PLAYERS_OVERVIEW_PAYLOAD = "CREATE_PLAYERS_OVERVIEW";
 
     /**
      *
      */
-    public static ProximitySensorInterface proximitySensorInterface;
-
+    public static final String CLIENT_CONNECTION_FAILED_PAYLOAD = "CLIENT_CONNECTION_FAILED";
     /**
      * Player-Entity of the current device
      */
     public static Player self;
-
     /**
      *
      */
     public static boolean gameStarted = false;
-
     /**
      *
      */
     public static ServerClass server;
-
     /**
      *
      */
     public static ClientClass client;
-
     /**
      *
      */
     public static List<Player> players = new ArrayList<>();
-
     /**
      *
      */
     public static List<ServerInformation> availableServers = new ArrayList<>();
-
+    /**
+     *
+     */
+    private static ProximitySensorInterface proximitySensorInterface;
     /**
      *
      */
@@ -132,6 +129,36 @@ public class GameOfLife extends Game {
      */
     public static void setInstance(GameOfLife gameOfLifeMock) {
         INSTANCE = gameOfLifeMock;
+    }
+
+    public static GameOfLife getInstance(ProximitySensorInterface sensorInterface) {
+        if (INSTANCE == null) {
+            INSTANCE = new GameOfLife();
+
+            proximitySensorInterface = sensorInterface;
+
+            players = new ArrayList<>();
+            server = new ServerClass(TCPPORT, UDPPORT);
+            client = new ClientClass();
+
+            gameStarted = false;
+            availableServers = new ArrayList<>();
+        }
+
+        return INSTANCE;
+    }
+
+    public static ProximitySensorInterface getProximitySensorInterface() {
+        return proximitySensorInterface;
+    }
+
+    /**
+     * FOR TESTING ONLY!
+     *
+     * @param proximitySensorInterface
+     */
+    public static void setProximitySensorInterface(ProximitySensorInterface proximitySensorInterface) {
+        GameOfLife.proximitySensorInterface = proximitySensorInterface;
     }
 
     /**

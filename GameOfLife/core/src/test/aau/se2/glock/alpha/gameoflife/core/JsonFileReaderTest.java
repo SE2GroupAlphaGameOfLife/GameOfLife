@@ -1,6 +1,12 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.when;
+
 import com.badlogic.gdx.files.FileHandle;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,10 +16,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
@@ -67,7 +69,8 @@ public class JsonFileReaderTest {
     public static class MockClass {
         private String mock;
 
-        public MockClass() {}
+        public MockClass() {
+        }
 
         public String getMock() {
             return mock;
