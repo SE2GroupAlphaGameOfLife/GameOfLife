@@ -552,7 +552,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         window.add(job2Description).pad(10, 50, 0, 0).colspan(0).row();
         window.add(job1Btn).pad(0, 0, 0, 0).colspan(1);
         window.add(job2Btn).pad(0, 50, 0, 0).row();
-        //window.add(closeBtn).pad(150, 0, 0, 0).colspan(2);
 
         window.setScale(2F);
 
@@ -580,17 +579,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
             ;
         });
-        /*
-        closeBtn.addListener(new ChangeListener() {
-            // This method is called whenever the actor is clicked. We override its behavior here.
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                // This is where we remove the window.
-                window.remove();
-            }
-        });
-
-         */
 
         stage.addActor(window);
     }
