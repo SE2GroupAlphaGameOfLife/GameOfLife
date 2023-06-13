@@ -279,7 +279,6 @@ public class ServerClass implements Listener {
     }
 
     /**
-     *
      * @return
      */
     public JoinedPlayers getPlayers() {

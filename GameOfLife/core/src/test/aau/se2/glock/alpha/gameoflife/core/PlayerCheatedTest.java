@@ -1,9 +1,11 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 
 public class PlayerCheatedTest {
 
