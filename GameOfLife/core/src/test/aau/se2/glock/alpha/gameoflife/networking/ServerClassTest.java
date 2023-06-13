@@ -7,9 +7,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -152,8 +150,8 @@ public class ServerClassTest {
 
         serverUnderTest.disconnected(mockConnection);
 
-        for(Player p : serverUnderTest.getPlayers().getPlayers().values()){
-            if(p.hasTurn()){
+        for (Player p : serverUnderTest.getPlayers().getPlayers().values()) {
+            if (p.hasTurn()) {
                 assertEquals(p.getId(), nextPlayerId);
                 break;
             }
