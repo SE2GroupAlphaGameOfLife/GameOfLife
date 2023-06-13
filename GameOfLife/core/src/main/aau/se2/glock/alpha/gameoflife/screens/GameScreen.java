@@ -455,7 +455,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private void createQuitButton() {
         //Create a Back Button
         btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
-        btnQuit.setSize((buttonWidth*5)/7, buttonHeight); // Set the size of the button
+        btnQuit.setSize((buttonWidth*5)/7f, buttonHeight); // Set the size of the button
         btnQuit.setPosition(30, 30); // Set the position of the button
 
         stage.addActor(btnQuit); // Add the button to the stage
@@ -485,8 +485,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void createJobButton() {
         btnJob = new TextButton("Job", textButtonStyle);
-        btnJob.setSize((buttonWidth*5)/7, buttonHeight);
-        btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth*5)/7 - 30f, Gdx.graphics.getHeight() - buttonHeight - 30f);
+        btnJob.setSize((buttonWidth*5)/7f, buttonHeight*1f);
+        btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth*5)/7f - 30f, Gdx.graphics.getHeight() - buttonHeight - 30f);
 
         stage.addActor(btnJob);
 
