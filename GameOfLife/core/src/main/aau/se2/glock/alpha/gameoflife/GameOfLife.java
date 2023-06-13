@@ -2,14 +2,24 @@ package aau.se2.glock.alpha.gameoflife;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.esotericsoftware.kryo.Kryo;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
+import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 import aau.se2.glock.alpha.gameoflife.screens.MainMenuScreen;
 
@@ -145,6 +155,22 @@ public class GameOfLife extends Game {
     //For testing only
     public static boolean isGameStarted() {
         return gameStarted;
+    }
+
+    public static void registerClasses(Kryo kryo, boolean isUnitTest) {
+        if (!isUnitTest) {
+            kryo.register(SecureRandom.class);
+        }
+        kryo.register(JoinedPlayers.class);
+        kryo.register(Color.class);
+        kryo.register(Player.class);
+        kryo.register(Job.class);
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(HashMap.class);
+        kryo.register(DiscoveryResponsePacket.class);
+        kryo.register(TcpMessage.class);
+        kryo.register(ReportPlayerMessage.class);
+        kryo.register(CheatingMessage.class);
     }
 
     /**

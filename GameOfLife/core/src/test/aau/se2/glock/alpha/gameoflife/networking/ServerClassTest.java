@@ -187,7 +187,7 @@ public class ServerClassTest {
     }
 
     public class TestServerClass extends ServerClass {
-        private Client mockClient;
+        private final Client mockClient;
 
         public TestServerClass(Client mockClient) {
             super(2000, 3000, mockServer);

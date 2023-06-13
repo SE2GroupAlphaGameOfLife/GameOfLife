@@ -3,14 +3,12 @@ package aau.se2.glock.alpha.gameoflife.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -193,8 +191,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
 
     protected void initStage() {
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        super.initStage();
+
         stage.getBatch().setProjectionMatrix(gameCamera.combined);
 
         nextFieldButtonGroup = new Group();
@@ -205,24 +203,14 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(cheatingButtonGroup);
         stage.addActor(spinTheWheelGroup);
         stage.addActor(playersGroup);
-        skin = new Skin();
+        //skin = new Skin();
     }
 
     /**
      * Initializes the textures used for UI elements.
      */
     protected void initTextures() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.LIGHT_GRAY);
-        pixmap.fill();
-        lightGrayTexture = new Texture(pixmap);
-
-        pixmap.setColor(Color.GRAY);
-        pixmap.fill();
-        grayTextrue = new Texture(pixmap);
-
-        pixmap.dispose();
+        super.initTextures();
 
         background = new Texture(Gdx.files.internal("board.png"));
         skateboard = new Texture(Gdx.files.internal("skateboard.png"));
@@ -455,7 +443,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private void createQuitButton() {
         //Create a Back Button
         btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
-        btnQuit.setSize((buttonWidth*5)/7, buttonHeight); // Set the size of the button
+        btnQuit.setSize((buttonWidth * 5) / 7f, buttonHeight); // Set the size of the button
         btnQuit.setPosition(30, 30); // Set the position of the button
 
         stage.addActor(btnQuit); // Add the button to the stage
@@ -468,6 +456,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     @Override
                     public void run() {
                         GameOfLife.server.close();
+                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     }
                 }).start();
                 GameOfLife.gameStarted = false;
@@ -485,8 +474,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void createJobButton() {
         btnJob = new TextButton("Job", textButtonStyle);
-        btnJob.setSize((buttonWidth*5)/7, buttonHeight);
-        btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth*5)/7 - 30f, Gdx.graphics.getHeight() - buttonHeight - 30f);
+        btnJob.setSize((buttonWidth * 5) / 7f, buttonHeight);
+        btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth * 5) / 7f - 30f, Gdx.graphics.getHeight() - buttonHeight - 30f);
 
         stage.addActor(btnJob);
 
@@ -594,7 +583,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
 
-        lbPlayersOverview = new Label("Players ("+GameOfLife.players.size()+"):", labelStyle);
+        lbPlayersOverview = new Label("Players (" + GameOfLife.players.size() + "):", labelStyle);
 
         lbJoinedPlayers = new ArrayList<>();
         fillJoinedPlayers();
@@ -611,27 +600,27 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(lbPlayersOverview);
     }
 
-    private void fillJoinedPlayers(){
-        for(Label l : lbJoinedPlayers){
+    private void fillJoinedPlayers() {
+        for (Label l : lbJoinedPlayers) {
             l.remove();
         }
         lbJoinedPlayers.clear();
 
         StringBuilder b = new StringBuilder();
 
-        for(int i = 1; i <= GameOfLife.players.size(); i++){
-            Player p = GameOfLife.players.get(i-1);
+        for (int i = 1; i <= GameOfLife.players.size(); i++) {
+            Player p = GameOfLife.players.get(i - 1);
             b.append(p.getUsername()).append(", ").append(p.getAge());
-            if(p.getCurrentJob() != null){
+            if (p.getCurrentJob() != null) {
                 b.append(", ").append(p.getCurrentJob().getBezeichnung());
             }
-            if(p.hasTurn()){
+            if (p.hasTurn()) {
                 b.append(" (turn)");
-            }else if(!p.isOnline()){
+            } else if (!p.isOnline()) {
                 b.append(" (offline)");
             }
             Label l = new Label(b.toString(), labelStyle);
-            l.setPosition(20, lbPlayersOverview.getY() - i*l.getHeight() - 10);
+            l.setPosition(20, lbPlayersOverview.getY() - i * l.getHeight() - 10);
             stage.addActor(l);
             lbJoinedPlayers.add(l);
             b.clear();

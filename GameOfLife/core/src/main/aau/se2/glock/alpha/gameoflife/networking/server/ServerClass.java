@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.server;
 
-import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -12,19 +11,14 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
-import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
@@ -102,7 +96,7 @@ public class ServerClass implements Listener {
         this.server.setDiscoveryHandler(serverDiscoveryHandler);
 
         Kryo kryo = this.server.getKryo();
-        this.registerClasses(kryo);
+        GameOfLife.registerClasses(kryo, false);
 
         players = new JoinedPlayers();
 
@@ -124,16 +118,7 @@ public class ServerClass implements Listener {
         this.UDPPORT = UDPPORT;
 
         Kryo kryo = this.server.getKryo();
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
+        GameOfLife.registerClasses(kryo, true);
 
         players = new JoinedPlayers();
 
@@ -142,20 +127,6 @@ public class ServerClass implements Listener {
 
     protected Client getClient() {
         return GameOfLife.client.getClient();
-    }
-
-    private void registerClasses(Kryo kryo) {
-        kryo.register(SecureRandom.class);
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
     }
 
     /**
@@ -190,8 +161,6 @@ public class ServerClass implements Listener {
     public void close() {
         this.server.close();
         this.serverStarted = false;
-
-        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
     }
 
     /**
