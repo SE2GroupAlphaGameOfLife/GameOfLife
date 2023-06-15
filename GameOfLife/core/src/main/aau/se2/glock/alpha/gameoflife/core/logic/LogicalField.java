@@ -61,8 +61,6 @@ public class LogicalField {
      */
     public Event getEvent() {
         if (this.isSpecial) {
-            System.out.println("EVENT: "+specialEvent.toString());
-
            return this.specialEvent;
         } else {
             Card c = Stack.getINSTANCE().getTopCard();

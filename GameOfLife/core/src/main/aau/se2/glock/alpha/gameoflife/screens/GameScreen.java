@@ -66,6 +66,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Label job2Description;
     private Label optionTextA;
     private Label optionTextB;
+    private Label specialEventText;
     private Group nextFieldButtonGroup; // Create a Group to hold actors
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
@@ -705,9 +706,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         optionBButton = new TextButton("OptionB", textButtonStyle);
 
 
-        optionTextA = new Label(currentSpecialEvent.getText(),uiSkin);
-        optionTextB = new Label(currentSpecialEvent.getText(), uiSkin);
+        optionTextA = new Label(currentSpecialEvent.getOptionA(),uiSkin);
+        optionTextB = new Label(currentSpecialEvent.getOptionB(), uiSkin);
+        specialEventText = new Label(currentSpecialEvent.getMessage(), uiSkin);
 
+        window.add(specialEventText).row();
         window.add(optionTextA).pad(10, 0, 0, 0).colspan(1);
         window.add(optionTextB).pad(10, 50, 0, 0).colspan(0).row();
         window.add(optionAButton).pad(0, 0, 0, 0).colspan(1);

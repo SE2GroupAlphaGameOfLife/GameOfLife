@@ -313,7 +313,7 @@ public class Player {
         Board board = Board.getInstance();
         GameField field = board.getGameFields().get(this.position);
         Event event = field.getLogicalField().getEvent();
-        System.out.println("Event triggered:" + event.getText());
+        //System.out.println("Event triggered:" + event.getText());
         this.money = this.money + event.getCash();
         this.lifepoints = this.lifepoints + event.getLp();
         return event;
@@ -337,6 +337,10 @@ public class Player {
         }
         //we finished moving return true
         return true;
+    }
+    public void changeBalance(int money, int lifepoints){
+        this.lifepoints = this.lifepoints-lifepoints;
+        this.money = this.money-money;
     }
 
     @Override

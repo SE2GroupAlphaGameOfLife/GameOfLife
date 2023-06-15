@@ -11,14 +11,14 @@ public class SpecialEventHandler {
 
     public SpecialEventHandler(String type){
         this.type = type;
-        specialEventData = specialEventData.getINSTANCE();
+        specialEventData = SpecialEventData.getINSTANCE();
     }
 
     public SpecialEvent getCorrectSpecialEvent() {
         List<SpecialEvent> specialEventList = new ArrayList();
         specialEventList = specialEventData.getSpecialEventList();
         for (SpecialEvent specialEvent : specialEventList) {
-            if (specialEvent.getType() == type) {
+            if (specialEvent.getType().equals(type)) {
                 return specialEvent;
             }
         }

@@ -25,7 +25,7 @@ public class SpecialEventData {
      * Needed For Serialisation
      */
     public SpecialEventData() {
-        this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
+        this.eventDataJson = GameOfLife.FILE_SPECIAL_EVENT_JSON;
         this.jsonFileReader = new JsonFileReader();
         this.specialEventList = new ArrayList<SpecialEvent>();
         fillSpecialEventList();
@@ -36,7 +36,7 @@ public class SpecialEventData {
      * @param jsonFileReader
      */
     public SpecialEventData(JsonFileReader jsonFileReader) {
-        this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
+        this.eventDataJson = GameOfLife.FILE_SPECIAL_EVENT_JSON;
         this.jsonFileReader = jsonFileReader;
         this.specialEventList = new ArrayList<SpecialEvent>();
     }
@@ -54,7 +54,7 @@ public class SpecialEventData {
         }
     }
 
-    public SpecialEventData getINSTANCE(){
+    public static SpecialEventData getINSTANCE(){
         if(INSTANCE!=null){
             return  INSTANCE;
         }else return INSTANCE = new SpecialEventData();

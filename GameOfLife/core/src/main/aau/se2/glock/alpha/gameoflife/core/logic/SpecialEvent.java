@@ -68,6 +68,10 @@ public class SpecialEvent implements Event {
     }*/
     public void eventOptionA(){
         //TODO Switch case and call appropriate method
+        switch (this.type){
+            case "get15LP":
+
+        }
 
     }
 
