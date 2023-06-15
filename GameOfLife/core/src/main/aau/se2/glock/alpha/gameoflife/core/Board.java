@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
@@ -88,6 +89,7 @@ public class Board {
                 @Override
                 public void onJsonRead(ArrayList<GameField> result) {
                     gameFields = result;
+                    attachLogicalFields();
                     System.out.println(result);
                 }
             });
@@ -104,4 +106,13 @@ public class Board {
     public List<GameField> getGameFields() {
         return gameFields;
     }
+    private void attachLogicalFields(){
+        for (GameField gameField:this.gameFields) {
+            gameField.setLogicalField(new LogicalField(gameField,gameField.getType()));
+
+
+        }
+}
+
+
 }

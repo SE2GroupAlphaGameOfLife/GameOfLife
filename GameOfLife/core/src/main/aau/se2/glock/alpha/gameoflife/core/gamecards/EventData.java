@@ -22,7 +22,7 @@ public class EventData {
     /**
      *
      */
-    private List<Event> eventList;
+    private List<NormalEvent> normalEventList;
 
     /**
      *
@@ -34,7 +34,7 @@ public class EventData {
     public EventData() {
         this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
         this.jsonFileReader = new JsonFileReader();
-        this.eventList = new ArrayList<Event>();
+        this.normalEventList = new ArrayList<NormalEvent>();
         this.cardList = new ArrayList<Card>();
     }
 
@@ -46,7 +46,7 @@ public class EventData {
     public EventData(JsonFileReader jsonFileReader) {
         this.jsonFileReader = jsonFileReader;
         this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
-        this.eventList = new ArrayList<Event>();
+        this.normalEventList = new ArrayList<NormalEvent>();
         this.cardList = new ArrayList<Card>();
     }
 
@@ -55,10 +55,10 @@ public class EventData {
      */
     public void parseEventsJson() {
         try {
-            this.jsonFileReader.readJson(this.eventDataJson, Event.class, new JsonCallback<Event>() {
+            this.jsonFileReader.readJson(this.eventDataJson, NormalEvent.class, new JsonCallback<NormalEvent>() {
                 @Override
-                public void onJsonRead(ArrayList<Event> result) {
-                    eventList = result;
+                public void onJsonRead(ArrayList<NormalEvent> result) {
+                    normalEventList = result;
                 }
             });
         } catch (SerializationException e) {
@@ -77,8 +77,8 @@ public class EventData {
     /**
      * @return
      */
-    public List<Event> getEventList() {
-        return eventList;
+    public List<NormalEvent> getEventList() {
+        return normalEventList;
     }
 
     /**
@@ -86,7 +86,7 @@ public class EventData {
      * fills up card list for further implementations.
      */
     private void fillPseudoCard() {
-        for (int i = 0; i < eventList.size() / 4; i++) {
+        for (int i = 0; i < normalEventList.size() / 4; i++) {
             cardList.add(new Card());
             cardList.get(i).fillEvents();
         }
@@ -101,7 +101,7 @@ public class EventData {
         int index = 0;
         for (int i = 0; i < cardList.size(); i++) {
             for (int j = 0; j < 4; j++) {
-                cardList.get(i).setEvent(j, eventList.get(index + j));
+                cardList.get(i).setEvent(j, normalEventList.get(index + j));
             }
             index = index + 4;
         }

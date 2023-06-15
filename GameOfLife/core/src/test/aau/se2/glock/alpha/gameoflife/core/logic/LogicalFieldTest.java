@@ -21,9 +21,8 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
-import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
 
 public class LogicalFieldTest {
 
@@ -45,25 +44,25 @@ public class LogicalFieldTest {
 
     @Test
     public void testGetEventWhenSpecialField() {
-        LogicalField logicalField = new LogicalField(gameField);
+        LogicalField logicalField = new LogicalField(gameField,"special");
         logicalField.setSpecial(true);
 
-        Event event = logicalField.getEvent();
+        Event event =  (SpecialEvent)logicalField.getEvent();
 
         assertNull(event);
     }
 
     @Test
     public void testGetEventWhenNonSpecialField() {
-        LogicalField logicalField = new LogicalField(gameField);
+        LogicalField logicalField = new LogicalField(gameField,"empty");
         logicalField.setSpecial(false);
 
-        logicalField.setType(3);
-        assertEquals(logicalField.getType(), 3);
+        logicalField.setSection(3);
+        assertEquals(logicalField.getSection(), 3);
 
         // Mock the Card object
         Card card = mock(Card.class);
-        Event expectedEvent = mock(Event.class);
+        NormalEvent expectedEvent = mock(NormalEvent.class);
         when(card.getEvent(anyInt())).thenReturn(expectedEvent);
 
         // Initialize cardList with some elements
@@ -79,11 +78,11 @@ public class LogicalFieldTest {
         Stack.INSTANCE.addCards(cardList);
 
         // Call the method under test
-        Event event = logicalField.getEvent();
+        NormalEvent event = (NormalEvent) logicalField.getEvent();
 
         // Assert the result
         assertSame(expectedEvent, event);
-        verify(card).getEvent(logicalField.getType());
+        verify(card).getEvent(logicalField.getSection());
         verify(stack).getTopCard();
     }
 }
