@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.jobs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -102,7 +102,7 @@ public class JobDataTest {
     }
 
     @Test
-    public void testGetOneJob(){
+    public void testGetOneJob() {
         ArrayList<Job> jobs = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             jobs.add(new Job("Test " + i, new ArrayList<>(Arrays.asList(i * 100, i * 200, i * 300))));

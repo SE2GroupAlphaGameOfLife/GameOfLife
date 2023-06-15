@@ -1,5 +1,7 @@
-package aau.se2.glock.alpha.gameoflife.networking;
+package aau.se2.glock.alpha.gameoflife.networking.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -13,6 +15,7 @@ import com.esotericsoftware.kryonet.Connection;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -26,7 +29,9 @@ import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserver;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.screens.JoinGameScreen;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
@@ -82,14 +87,6 @@ public class ClientClassTest {
         clientUnderTest.disconnect();
 
         verify(mockClient).close();
-    }
-
-    @Test
-    public void testDiscoverServers() {
-        /*clientUnderTest.discoverServers(GameOfLife.UDPPORT);
-
-        verify(mockClient, atLeastOnce()).start();
-        verify(mockClient, atLeastOnce()).discoverHosts(GameOfLife.UDPPORT, 5000);*/
     }
 
     @Test
@@ -172,4 +169,75 @@ public class ClientClassTest {
 
         verify(mockObserver, times(1)).update(anyString()); //should still be one, because observer was removed
     }
+
+    @Test
+    public void testDiscoverServers() {
+        clientUnderTest.discoverServers(GameOfLife.UDPPORT);
+        verify(mockClient).discoverHosts(GameOfLife.UDPPORT, 3000);
+    }
+
+    /*
+    @Test
+    public void testSendReportPlayerTCP() {
+        Player player = new Player("John Doe", true);
+        clientUnderTest.sendReportPlayerTCP(player);
+        verify(mockClient).sendTCP(any(ReportPlayerMessage.class));
+    }
+
+    @Test
+    public void testSendPlayerCheatedTCP() {
+        Player player = new Player("John Doe", true);
+        int cheatedAmount = 50;
+        clientUnderTest.sendPlayerCheatedTCP(player, cheatedAmount);
+        verify(mockClient).sendTCP(any(CheatingMessage.class));
+    }*/
+
+    @Test
+    public void testSendPlayerCheatedTCP() {
+        Player mockPlayer = mock(Player.class);
+        int cheatedAmount = 5;
+
+        when(mockPlayer.getId()).thenReturn(1);
+        when(mockPlayer.getAge()).thenReturn(10);
+
+        clientUnderTest.sendPlayerCheatedTCP(mockPlayer, cheatedAmount);
+
+        ArgumentCaptor<CheatingMessage> argumentCaptor = ArgumentCaptor.forClass(CheatingMessage.class);
+        verify(mockClient).sendTCP(argumentCaptor.capture());
+        CheatingMessage sentMessage = argumentCaptor.getValue();
+        assertEquals("1#10#5", sentMessage.getPayload());
+    }
+
+    @Test
+    public void testSendReportPlayerTCP() {
+        Player mockPlayer = mock(Player.class);
+
+        when(mockPlayer.getId()).thenReturn(1);
+
+        // When
+        clientUnderTest.sendReportPlayerTCP(mockPlayer);
+
+        // Then
+        ArgumentCaptor<ReportPlayerMessage> argumentCaptor = ArgumentCaptor.forClass(ReportPlayerMessage.class);
+        verify(mockClient).sendTCP(argumentCaptor.capture());
+        ReportPlayerMessage sentMessage = argumentCaptor.getValue();
+        assertEquals("1", sentMessage.getPayload());
+    }
+
+
+    @Test
+    public void testGetClient() {
+        assertEquals(mockClient, clientUnderTest.getClient());
+    }
+
+    @Test
+    public void testObserverSubjectMethods() {
+        ClientObserver mockObserver = mock(ClientObserver.class);
+        clientUnderTest.registerObserver(mockObserver);
+        assertTrue(clientUnderTest.getClientObservers().contains(mockObserver));
+        clientUnderTest.removeObserver(mockObserver);
+        assertFalse(clientUnderTest.getClientObservers().contains(mockObserver));
+    }
+
+
 }

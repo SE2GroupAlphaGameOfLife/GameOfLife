@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.EventData;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 

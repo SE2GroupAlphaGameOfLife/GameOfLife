@@ -59,6 +59,15 @@ public class Board {
     }
 
     /**
+     * For testing only!
+     *
+     * @param instance The instance of the Board to set.
+     */
+    public static void setInstance(Board instance) {
+        INSTANCE = instance;
+    }
+
+    /**
      * FOR TESTING ONLY!!
      *
      * @param jsonFileReader
@@ -87,15 +96,6 @@ public class Board {
         } catch (SerializationException e) {
             //Gdx.app.log("JobData", e.getMessage());
         }
-    }
-
-    /**
-     * For testing only!
-     *
-     * @param instance The instance of the Board to set.
-     */
-    public static void setInstance(Board instance) {
-        INSTANCE = instance;
     }
 
     /**

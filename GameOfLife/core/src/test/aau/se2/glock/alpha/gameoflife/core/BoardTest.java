@@ -1,32 +1,39 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
+import org.junit.Before;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
+
 public class BoardTest {
-    /*
+    @Mock
+    private JsonFileReader jsonFileReader;
+
     private Board board;
 
     @Before
-    public void setUp() throws IOException {
-        String relativePath = "GameOfLife/assets/gameboard.json";
-        String absolutePath = Paths.get("../../").toAbsolutePath().toString() + "/" + relativePath;
-        byte[] bytes = Files.readAllBytes(Paths.get(absolutePath));
-        String boardString = new String(bytes);
-
-        JsonFileReader jsonLoader = mock(JsonFileReader.class);
-        when(jsonLoader.loadJsonFile("gameboard.json")).thenReturn(boardString);
-        Board.getInstance(jsonLoader.loadJsonFile("gameboard.json"));
-        board = Board.getInstance();
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        Board.setInstance(null);
+        this.board = Board.getInstance(jsonFileReader);
     }
 
-    @Test
-    public void testGetInstance() {
-        assertNotNull(board);
-    }
+   /* @Test
+    public void testParseJobsJson() {
+        GameField mockField = mock(GameField.class);
+        List<GameField> mockFields = new ArrayList<>();
+        mockFields.add(mockField);
 
-    @Test
-    public void testGetGameFields() {
+        doAnswer(invocation -> {
+            ((JsonCallback<GameField>) invocation.getArgument(2)).onJsonRead((ArrayList<GameField>) mockFields);
+            return null;
+        }).when(jsonFileReader).readJson(anyString(), eq(GameField.class), any(JsonCallback.class));
+
+        board.parseJobsJson();
         List<GameField> gameFields = board.getGameFields();
         assertNotNull(gameFields);
-        assertEquals(140, gameFields.size());
-    }
-     */
+        assertFalse(gameFields.isEmpty());
+        assertSame(mockField, gameFields.get(0));
+    }*/
 }

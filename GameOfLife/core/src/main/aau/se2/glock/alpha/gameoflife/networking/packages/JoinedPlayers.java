@@ -28,8 +28,8 @@ public class JoinedPlayers {
      * @return
      */
     public boolean addPlayer(Player player, Integer connectionId) {
-        if (this.players.containsKey(connectionId))
-            return false;
+        /*if (this.players.containsKey(connectionId))
+            return false;*/
 
         return this.players.put(connectionId, player) == null;
     }

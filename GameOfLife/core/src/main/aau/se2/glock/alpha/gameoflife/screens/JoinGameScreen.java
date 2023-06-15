@@ -73,7 +73,7 @@ public class JoinGameScreen extends BasicScreen {
         createServerTextField();
         createJoinGameButton();
         this.createServerOverview();
-        createBackButton();
+        createQuitButton();
 
         Texture refreshIconTexture = new Texture("refresh.png");
         refreshIcon = new TextureRegion(refreshIconTexture);
@@ -309,7 +309,7 @@ public class JoinGameScreen extends BasicScreen {
     /**
      *
      */
-    private void createBackButton() {
+    private void createQuitButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
         btnBack.setSize(buttonWidth, buttonHeight); // Set the size of the button

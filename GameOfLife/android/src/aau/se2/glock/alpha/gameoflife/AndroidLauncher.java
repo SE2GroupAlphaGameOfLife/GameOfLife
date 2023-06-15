@@ -18,8 +18,7 @@ public class AndroidLauncher extends AndroidApplication {
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sensorListener = new SensorListener(this, null);
-        GameOfLife.proximitySensorInterface = sensorListener;
-        initialize(GameOfLife.getInstance(), config);
+        initialize(GameOfLife.getInstance(sensorListener), config);
     }
 
     @Override

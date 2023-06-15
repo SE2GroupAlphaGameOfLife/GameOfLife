@@ -31,7 +31,7 @@ public class PlayerTest {
     private Board board;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         Board.setInstance(board);
 

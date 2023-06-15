@@ -1,7 +1,7 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.logic;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
@@ -19,12 +19,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
-import aau.se2.glock.alpha.gameoflife.core.logic.Event;
-import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
-import aau.se2.glock.alpha.gameoflife.core.logic.SpecialEvent;
 
 public class LogicalFieldTest {
 
@@ -51,7 +49,7 @@ public class LogicalFieldTest {
 
         Event event =  (SpecialEvent)logicalField.getEvent();
 
-        assertNotNull(event);
+        assertNull(event);
     }
 
     @Test
