@@ -50,7 +50,7 @@ public class Player {
     /**
      * Tells if the server is only and or the player joining.
      */
-    private boolean isJoning, isOnline;
+    private boolean isJoning, isOnline, diploma,doctor;
 
 
     /**
@@ -78,11 +78,29 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = 0;
+        this.diploma = false;
+        this.doctor = false;
     }
 
     public void cheat(int amount) {
         this.setMoveCount(this.getMoveCount() + amount);
         GameOfLife.client.sendPlayerCheatedTCP(this, amount);
+    }
+
+    public boolean isDiploma() {
+        return diploma;
+    }
+
+    public boolean isDoctor() {
+        return doctor;
+    }
+
+    public void setDiploma(boolean hasDiploma) {
+        this.diploma = hasDiploma;
+    }
+
+    public void setDoctor(boolean hasDoctor) {
+        this.doctor = hasDoctor;
     }
 
     /**
@@ -289,7 +307,7 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
-        randomNumber = 5;
+        randomNumber = 1;
         this.moveCount = randomNumber;
 
         return randomNumber;

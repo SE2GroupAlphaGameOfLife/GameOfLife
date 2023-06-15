@@ -35,48 +35,84 @@ public class SpecialEvent implements Event {
         this.optionA = optionA;
         this.optionB = optionB;
     }
-/*
-    private void setBasicStats() {
-        switch (type) {
-            case "get15tLP":
-                this.message = "Du gehst Bungee-Springen und erhälst 1.500LP";
-                this. lp =1500;
-                break;
-            case "car":
-                this.message = "Du hast die Möglichkeit ein Auto zu kaufen";
-                break;
-            case "house":
-                this.message = "Du hast die Möglichkeit ein Haus zu kaufen";
-                break;
-            case "lottery":
-                this.message = "Du spielst Lotto";
-                break;
-            case "casino":
-                this.message = "Du gehst ins Casino";
-                break;
-            case "get3tLP":
-                this.message = "Du gehst mit Delfinen schwimmen:3.000LP";
-                this.lp = 3000;
-                break;
-            case "pay20t":
-                    this.message = "STUDIENGEBÜHREN 20.000 LOL";
-                    this.cash=-20000;
-                    break;
 
-        }
-
-    }*/
-    public void eventOptionA(){
-        //TODO Switch case and call appropriate method
+    public String eventOptionA(){
         switch (this.type){
             case "get15LP":
-
+                return EventFunctions.evAddLP(this.lp);
+            case "pay20t":
+                return EventFunctions.evPayMoney(this.cash);
+            case "house":
+                return EventFunctions.evBuyHouse();
+            case "car":
+                return EventFunctions.evBuyCar();
+            case "lottery":
+                return EventFunctions.evLottery();
+            case "casino":
+                return EventFunctions.evCasino();
+            case "get3tLP":
+                return EventFunctions.evAddLP(3000);
+            case "get3.5":
+                return EventFunctions.evAddLP(3500);
+            case "pay10tEUR":
+                return EventFunctions.evPayMoney(10000);
+            case "get200tEUR":
+                return EventFunctions.evGetMoney(200000);
+            case "diploma":
+                return EventFunctions.evDiploma();
+            case "doctor":
+                return EventFunctions.evDoctor();
+            case "promotion":
+                return EventFunctions.evPromotion(1);
+            case "newcompany":
+                return EventFunctions.evNewCompany();
+            case "promotion2x":
+                return EventFunctions.evPromotion(2);
+            case "shares100tEUR":
+                return EventFunctions.evGetMoney(100000);
+            default:
+                return "Event not implemented";
         }
 
     }
 
-    public void eventOptionB(){
-        //TODO Switch case and call appropriate method
+    public String eventOptionB(){
+        switch (this.type){
+            case "get15LP":
+                return EventFunctions.evAddLP(this.lp);
+            case "pay20t":
+                return EventFunctions.evPayMoney(this.cash);
+            case "house":
+                return "Du entscheidest dich kein Haus zu kaufen";
+            case "car":
+                return "Du entscheidest dich kein Auto zu kaufen";
+            case "lottery":
+                return "Du entscheidest dich kein Los zu kaufen";
+            case "casino":
+                return "Du entscheidest gehst lieber kein Risiko ein";
+            case "get3tLP":
+                return EventFunctions.evAddLP(3000);
+            case "get3.5":
+                return EventFunctions.evAddLP(3500);
+            case "pay10tEUR":
+                return EventFunctions.evPayMoney(10000);
+            case "get200tEUR":
+                return EventFunctions.evGetMoney(200000);
+            case "diploma":
+                return EventFunctions.evDiploma();
+            case "doctor":
+                return EventFunctions.evDoctor();
+            case "promotion":
+                return EventFunctions.evPromotion(1);
+            case "newcompany":
+                return EventFunctions.evNewCompany();
+            case "promotion2x":
+                return EventFunctions.evPromotion(2);
+            case "shares100tEUR":
+                return EventFunctions.evGetMoney(100000);
+            default:
+                return "Event not implemented";
+        }
     }
 
     @Override

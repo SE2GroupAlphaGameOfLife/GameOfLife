@@ -50,6 +50,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
+    private TextButton btnConfirm;
     private TextButton.TextButtonStyle textButtonStyle;
     private TextButton btnJob;
     private Skin uiSkin;
@@ -586,10 +587,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 GameOfLife.self.setCurrentJob(jobs[1]);
                 window.remove();
                 Gdx.app.log("JobSelection", "Job 2 chosen");
-
             }
-
-            ;
         });
 
         closeBtn.addListener(new ChangeListener() {
@@ -687,7 +685,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             currentSpecialEvent = (SpecialEvent) event;
             showSpecialEventPopup();
         }else{
-        showEventPopUp(player.getEvent().getText());
+            player.changeBalance(event.getCash(),event.getLp());
+        showEventPopUp(event.getText());
         }
     }
     private void showSpecialEventPopup(){
@@ -704,36 +703,56 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         optionAButton = new TextButton("OptionA", textButtonStyle);
         optionBButton = new TextButton("OptionB", textButtonStyle);
-
+        btnConfirm = new TextButton("Bestätigen",textButtonStyle);
 
         optionTextA = new Label(currentSpecialEvent.getOptionA(),uiSkin);
         optionTextB = new Label(currentSpecialEvent.getOptionB(), uiSkin);
         specialEventText = new Label(currentSpecialEvent.getMessage(), uiSkin);
 
-        window.add(specialEventText).row();
+
         window.add(optionTextA).pad(10, 0, 0, 0).colspan(1);
         window.add(optionTextB).pad(10, 50, 0, 0).colspan(0).row();
         window.add(optionAButton).pad(0, 0, 0, 0).colspan(1);
         window.add(optionBButton).pad(0, 50, 0, 0).row();
+        window.add(specialEventText).pad(30,0,0,0);
         window.setScale(2F);
 
         optionAButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                currentSpecialEvent.eventOptionA();
-                window.remove();
+                String evtReturnText = currentSpecialEvent.eventOptionA();
+                window.removeActor(optionAButton);
+                window.removeActor(optionBButton);
+                window.removeActor(optionTextA);
+                window.removeActor(optionTextB);
+                specialEventText.setText(evtReturnText);
+                window.add(btnConfirm);
+                btnConfirm.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        window.remove();
+                    }
+                });
                 Gdx.app.log("SpecialEvent", "Option A chosen");
             }
-
-            ;
-
         });
 
         optionBButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                currentSpecialEvent.eventOptionB();
-                window.remove();
+                String evtReturnText = currentSpecialEvent.eventOptionB();
+                window.removeActor(optionAButton);
+                window.removeActor(optionBButton);
+                window.removeActor(optionTextA);
+                window.removeActor(optionTextB);
+                specialEventText.setText(evtReturnText);
+                window.add(btnConfirm);
+                btnConfirm.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        window.remove();
+                    }
+                });
                 Gdx.app.log("SpecialEvent", "Option B chosen");
 
             }
@@ -748,4 +767,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     public void update(String payload) {
 
     }
+
+
+
 }
