@@ -39,8 +39,11 @@ public class SpecialEvent implements Event {
     public String eventOptionA(){
         switch (this.type){
             case "get15LP":
+            case "get3tLP":
+            case "get3.5":
                 return EventFunctions.evAddLP(this.lp);
             case "pay20t":
+            case "pay10tEUR":
                 return EventFunctions.evPayMoney(this.cash);
             case "house":
                 return EventFunctions.evBuyHouse();
@@ -50,14 +53,8 @@ public class SpecialEvent implements Event {
                 return EventFunctions.evLottery();
             case "casino":
                 return EventFunctions.evCasino();
-            case "get3tLP":
-                return EventFunctions.evAddLP(3000);
-            case "get3.5":
-                return EventFunctions.evAddLP(3500);
-            case "pay10tEUR":
-                return EventFunctions.evPayMoney(10000);
             case "get200tEUR":
-                return EventFunctions.evGetMoney(200000);
+                return EventFunctions.evGetMoney(this.cash);
             case "diploma":
                 return EventFunctions.evDiploma();
             case "doctor":
@@ -70,6 +67,8 @@ public class SpecialEvent implements Event {
                 return EventFunctions.evPromotion(2);
             case "shares100tEUR":
                 return EventFunctions.evGetMoney(100000);
+            case "changecareer":
+                return EventFunctions.evCareer();
             default:
                 return "Event not implemented";
         }
@@ -79,8 +78,11 @@ public class SpecialEvent implements Event {
     public String eventOptionB(){
         switch (this.type){
             case "get15LP":
+            case "get3tLP":
+            case "get3.5":
                 return EventFunctions.evAddLP(this.lp);
             case "pay20t":
+            case "pay10tEUR":
                 return EventFunctions.evPayMoney(this.cash);
             case "house":
                 return "Du entscheidest dich kein Haus zu kaufen";
@@ -90,14 +92,8 @@ public class SpecialEvent implements Event {
                 return "Du entscheidest dich kein Los zu kaufen";
             case "casino":
                 return "Du entscheidest gehst lieber kein Risiko ein";
-            case "get3tLP":
-                return EventFunctions.evAddLP(3000);
-            case "get3.5":
-                return EventFunctions.evAddLP(3500);
-            case "pay10tEUR":
-                return EventFunctions.evPayMoney(10000);
             case "get200tEUR":
-                return EventFunctions.evGetMoney(200000);
+                return EventFunctions.evGetMoney(this.cash);
             case "diploma":
                 return EventFunctions.evDiploma();
             case "doctor":
@@ -110,6 +106,8 @@ public class SpecialEvent implements Event {
                 return EventFunctions.evPromotion(2);
             case "shares100tEUR":
                 return EventFunctions.evGetMoney(100000);
+            case "changecareer":
+                return "Du behälst deinen derzeitigen Job bei";
             default:
                 return "Event not implemented";
         }
