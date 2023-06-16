@@ -47,6 +47,9 @@ import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 public class GameScreen extends BasicScreen implements ProximityListener {
 
     private TextButton btnQuit;
+    private final String buyCarCond = "buyCar";
+    private final String buyHouseCond = "buyHouse";
+    private final String changeCareerCond ="changeCareer";
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
@@ -698,7 +701,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             showSpecialEventPopup();
         }else{
             player.changeBalance(event.getCash(),event.getLp());
-        showEventPopUp(event.getText());
+        showEventPopUp(addLineBreak(event.getText()));
         }
     }
     private void showSpecialEventPopup(){
@@ -733,6 +736,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 String evtReturnText = currentSpecialEvent.eventOptionA();
+                if(evtReturnText.equals(buyCarCond)){
+                    openCarShop();
+                }else if(evtReturnText.equals(buyHouseCond)){
+                    openHouseShop();
+                }else if(evtReturnText.equals(changeCareerCond)){
+                    chooseJobWindow();
+                }
                 window.removeActor(optionAButton);
                 window.removeActor(optionBButton);
                 window.removeActor(optionTextA);
@@ -774,11 +784,30 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         stage.addActor(window);
     }
+    private void openCarShop(){
+        //TODO Car Shop code here
+        Gdx.app.log("Car Shop:","open");
+    }
+    private void openHouseShop(){
+        //TODO House Shop code here
+        Gdx.app.log("House Shop:","open");
+    }
+    private String addLineBreak(String input){
+        String result  = "";
+        String[] split = input.split("\\.");
+        for (int i = 0;i<split.length-1;i++) {
+            result+=split[i]+"\n";
+        }
+        result+=split[split.length-1];
+        return result;
+    }
 
     @Override
     public void update(String payload) {
 
     }
+
+
 
 
 
