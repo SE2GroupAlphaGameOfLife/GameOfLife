@@ -7,7 +7,6 @@ import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 public class ReportPlayerVisitor implements TcpMessageVisitor {
     @Override
     public void visit(ReportPlayerMessage message) {
-        System.out.println("Processing ReportPlayerMessage with payload: " + message.getPayload());
         int playerId = Integer.parseInt(message.getPayload());
 
         Player player = null;
@@ -28,7 +27,6 @@ public class ReportPlayerVisitor implements TcpMessageVisitor {
                 return;
             }
         }
-        System.out.println("Player has not cheated in the last 5 rounds");
     }
 
     @Override
