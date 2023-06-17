@@ -1,8 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.SerializationException;
 
 import java.util.ArrayList;
@@ -32,35 +29,25 @@ public class EventData {
      */
     private List<Card> cardList;
 
+    private String eventDataJson;
+
     public EventData() {
+        this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
         this.jsonFileReader = new JsonFileReader();
         this.eventList = new ArrayList<Event>();
         this.cardList = new ArrayList<Card>();
     }
 
     /**
-     * For Testing only
-     * @param jsonString
+     * FOR TESTING ONLY!!
+     *
+     * @param jsonFileReader
      */
-    public EventData(String jsonString) {
-        // Parsing the json so we can use it
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonValue = jsonReader.parse(jsonString);
-
-        ArrayList<Event> events = new ArrayList<>();
-
-        // Read the values and create a list of gameFields
-        for (JsonValue jsonField : jsonValue) {
-            int lp = jsonField.getInt("lp");
-            int cash = jsonField.getInt("cash");
-            String text = jsonField.getString("text");
-
-            Event event = new Event(lp, cash, text);
-            events.add(event);
-        }
-
+    public EventData(JsonFileReader jsonFileReader) {
+        this.jsonFileReader = jsonFileReader;
+        this.eventDataJson = GameOfLife.FILE_EVENT_JSON;
+        this.eventList = new ArrayList<Event>();
         this.cardList = new ArrayList<Card>();
-        this.eventList = events;
     }
 
     /**
@@ -68,14 +55,14 @@ public class EventData {
      */
     public void parseEventsJson() {
         try {
-            this.jsonFileReader.readJson(GameOfLife.FILE_EVENT_JSON, Event.class, new JsonCallback<Event>() {
+            this.jsonFileReader.readJson(this.eventDataJson, Event.class, new JsonCallback<Event>() {
                 @Override
                 public void onJsonRead(ArrayList<Event> result) {
                     eventList = result;
                 }
             });
         } catch (SerializationException e) {
-            Gdx.app.log("EventData", e.getMessage());
+            //Gdx.app.log("EventData", e.getMessage());
         }
     }
 
@@ -84,7 +71,7 @@ public class EventData {
      */
     public void fillEventList() {
         this.parseEventsJson();
-        Gdx.app.log("EventData", "Read from JSON: " + this.eventList);
+        //Gdx.app.log("EventData", "Read from JSON: " + this.eventList);
     }
 
     /**

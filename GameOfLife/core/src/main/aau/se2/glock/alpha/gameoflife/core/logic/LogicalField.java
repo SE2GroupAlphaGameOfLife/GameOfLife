@@ -59,4 +59,26 @@ public class LogicalField {
             return c.getEvent(type);
         }
     }
+
+    public void setSpecial(boolean special) {
+        isSpecial = special;
+    }
+
+    /**
+     * For testing only!
+     *
+     * @return
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * For testing only!
+     *
+     * @param type
+     */
+    public void setType(int type) {
+        this.type = type;
+    }
 }

@@ -3,9 +3,13 @@ package aau.se2.glock.alpha.gameoflife.networking.packages;
 public class ReportPlayerMessage implements TcpMessage {
     private String payload;
 
-    public ReportPlayerMessage(){
+    /**
+     * For serialization needed!
+     */
+    public ReportPlayerMessage() {
 
     }
+
     public ReportPlayerMessage(String payload) {
         this.payload = payload;
     }

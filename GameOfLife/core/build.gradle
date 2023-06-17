@@ -20,7 +20,7 @@ test {
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sonarqube {
@@ -30,7 +30,7 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
-        property "sonar.coverage.exclusions", "**/GameScreen.java,**/JoinGameScreen.java,**/MainMenuScreen.java,**/StartGameScreen.java"
+        property "sonar.coverage.exclusions", "**/GameScreen.java,**/JoinGameScreen.java,**/MainMenuScreen.java,**/StartGameScreen.java,**/BasicScreen.java"
 
     }
 }

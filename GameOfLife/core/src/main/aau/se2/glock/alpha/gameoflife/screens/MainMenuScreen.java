@@ -192,7 +192,7 @@ public class MainMenuScreen extends BasicScreen {
 
     @Override
     public void update(String payload) {
-        if (payload.equals(GameOfLife.clientConnectingFailed)) {
+        if (payload.equals(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD)) {
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {

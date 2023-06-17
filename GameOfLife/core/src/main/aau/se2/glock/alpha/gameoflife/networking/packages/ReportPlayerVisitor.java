@@ -12,19 +12,19 @@ public class ReportPlayerVisitor implements TcpMessageVisitor {
 
         Player player = null;
         for (Player tempPlayer : GameOfLife.players) {
-            if(tempPlayer.getId() == playerId){
+            if (tempPlayer.getId() == playerId) {
                 player = tempPlayer;
                 break;
             }
         }
 
-        if(player == null){
+        if (player == null) {
             return;
         }
 
-        for(PlayerCheated playerCheated : GameOfLife.server.getPlayerCheatedList()){
-            if(playerCheated.getPlayerId() == playerId && playerCheated.getCheatedAtAge() >= player.getAge() - 5){
-                player.setPosition(player.getPosition()-playerCheated.getAmountCheated());
+        for (PlayerCheated playerCheated : GameOfLife.server.getPlayerCheatedList()) {
+            if (playerCheated.getPlayerId() == playerId && playerCheated.getCheatedAtAge() >= player.getAge() - 5) {
+                player.setPosition(player.getPosition() - playerCheated.getAmountCheated());
                 return;
             }
         }

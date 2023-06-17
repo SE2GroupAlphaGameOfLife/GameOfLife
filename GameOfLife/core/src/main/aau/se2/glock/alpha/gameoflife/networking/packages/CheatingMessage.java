@@ -4,9 +4,11 @@ public class CheatingMessage implements TcpMessage {
     private String payload;
     private String command;
 
-    public CheatingMessage(){
+    /**
+     * For serialization needed!
+     */
+    public CheatingMessage(){}
 
-    }
     public CheatingMessage(String payload) {
         this.payload = payload;
         this.command = "CHEAT";
@@ -14,10 +16,6 @@ public class CheatingMessage implements TcpMessage {
 
     public String getPayload() {
         return payload;
-    }
-
-    public String getCommand() {
-        return command;
     }
 
     @Override
