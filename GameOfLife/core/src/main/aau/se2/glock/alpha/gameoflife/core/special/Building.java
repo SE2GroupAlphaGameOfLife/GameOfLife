@@ -21,6 +21,14 @@ public class Building {
         return type;
     }
 
+    @Override
+    public String toString() {
+        return "Building{" +
+                "price=" + price +
+                ", type=" + type +
+                '}';
+    }
+
     public void setType(BuildingType type) {
         this.type = type;
     }

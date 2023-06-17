@@ -31,7 +31,17 @@ public class Car {
         return type;
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "price=" + price +
+                ", lp=" + lp +
+                ", type=" + type +
+                '}';
+    }
+
     public void setType(CarType type) {
         this.type = type;
     }
 }
+

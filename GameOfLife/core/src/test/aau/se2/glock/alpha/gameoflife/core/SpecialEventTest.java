@@ -41,3 +41,4 @@ public class SpecialEventTest {
         assertEquals("test",specialEvent.getMessage());
     }
 }
+
