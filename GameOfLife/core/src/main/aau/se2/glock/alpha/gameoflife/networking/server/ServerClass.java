@@ -181,11 +181,8 @@ public class ServerClass implements Listener {
                 //Gdx.app.log("Server", "Client wiederverbunden!");
                 sendPlayersObjectToAll();
             } else {
-                //Gdx.app.log("Server", "Client Verbindung abgelehnt da Spiel bereits läuft!");
                 connection.close();
             }
-        } else {
-            //Gdx.app.log("Server", "Client verbunden!");
         }
     }
 
