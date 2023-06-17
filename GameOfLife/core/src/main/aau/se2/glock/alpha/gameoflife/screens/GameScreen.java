@@ -35,6 +35,8 @@ import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
+import aau.se2.glock.alpha.gameoflife.core.logic.Event;
+import aau.se2.glock.alpha.gameoflife.core.logic.SpecialEvent;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
@@ -48,6 +50,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
+    private TextButton btnConfirm;
     private TextButton.TextButtonStyle textButtonStyle;
     private TextButton btnJob;
     private Skin uiSkin;
@@ -58,8 +61,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Button closeBtn;
     private Button job1Btn;
     private Button job2Btn;
+    private Button optionAButton;
+    private Button optionBButton;
     private Label job1Description;
     private Label job2Description;
+    private Label optionTextA;
+    private Label optionTextB;
+    private Label specialEventText;
     private Group nextFieldButtonGroup; // Create a Group to hold actors
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
@@ -84,6 +92,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private float spinAngle = 0f;
     private Image arrowImage;
     private JobData jobSelection;
+
+    private SpecialEvent currentSpecialEvent;
     private Job[] jobs;
 
     public GameScreen() {
@@ -403,7 +413,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
         if (GameOfLife.self.getMoveCount() == 0) {
-            showEventPopUp(GameOfLife.self.getEvent().getText());
+            handleEvent(GameOfLife.self);
             //GameOfLife.client.sendPlayerTCP(GameOfLife.self);
         }
     }
@@ -431,7 +441,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             } else {
                 if (GameOfLife.self.getMoveCount() == 0) {
                     Gdx.app.log("Zeile", "673");
-                    showEventPopUp(GameOfLife.self.getEvent().getText());
+                    handleEvent(GameOfLife.self);
+
                 }
             }
         }
@@ -679,9 +690,96 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         eventDialog.hide();
         GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
+    private void handleEvent(Player player){
+        Event event = player.getEvent();
+        if(event instanceof SpecialEvent){
+            System.out.println("EVENT:"+ ((SpecialEvent) event).getType());
+            currentSpecialEvent = (SpecialEvent) event;
+            showSpecialEventPopup();
+        }else{
+            player.changeBalance(event.getCash(),event.getLp());
+        showEventPopUp(event.getText());
+        }
+    }
+    private void showSpecialEventPopup(){
+        createSpecialEventPopup();
+    }
+
+    private void createSpecialEventPopup() {
+        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+
+
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
+
+        optionAButton = new TextButton("OptionA", textButtonStyle);
+        optionBButton = new TextButton("OptionB", textButtonStyle);
+        btnConfirm = new TextButton("Bestätigen",textButtonStyle);
+
+        optionTextA = new Label(currentSpecialEvent.getOptionA(),uiSkin);
+        optionTextB = new Label(currentSpecialEvent.getOptionB(), uiSkin);
+        specialEventText = new Label(currentSpecialEvent.getMessage(), uiSkin);
+
+
+        window.add(optionTextA).pad(10, 0, 0, 0).colspan(1);
+        window.add(optionTextB).pad(10, 50, 0, 0).colspan(0).row();
+        window.add(optionAButton).pad(0, 0, 0, 0).colspan(1);
+        window.add(optionBButton).pad(0, 50, 0, 0).row();
+        window.add(specialEventText).pad(30,0,0,0);
+        window.setScale(2F);
+
+        optionAButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String evtReturnText = currentSpecialEvent.eventOptionA();
+                window.removeActor(optionAButton);
+                window.removeActor(optionBButton);
+                window.removeActor(optionTextA);
+                window.removeActor(optionTextB);
+                specialEventText.setText(evtReturnText);
+                window.add(btnConfirm);
+                btnConfirm.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        window.remove();
+                    }
+                });
+                Gdx.app.log("SpecialEvent", "Option A chosen");
+            }
+        });
+
+        optionBButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String evtReturnText = currentSpecialEvent.eventOptionB();
+                window.removeActor(optionAButton);
+                window.removeActor(optionBButton);
+                window.removeActor(optionTextA);
+                window.removeActor(optionTextB);
+                specialEventText.setText(evtReturnText);
+                window.add(btnConfirm);
+                btnConfirm.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        window.remove();
+                    }
+                });
+                Gdx.app.log("SpecialEvent", "Option B chosen");
+
+            }
+
+            ;
+        });
+
+        stage.addActor(window);
+    }
 
     @Override
     public void update(String payload) {
 
     }
+
+
+
 }

@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 
 public class CardTest {
 
@@ -31,9 +31,9 @@ public class CardTest {
 
     @Test
     public void testSetEvent() {
-        Event event = new Event(10, 200, "Test Event");
+        NormalEvent normalEvent = new NormalEvent(10, 200, "Test Event");
         card.fillEvents();
-        card.setEvent(1, event);
+        card.setEvent(1, normalEvent);
         assertEquals("Test Event", card.getEvent(1).getText());
         assertEquals(10, card.getEvent(1).getLp());
         assertEquals(200, card.getEvent(1).getCash());
@@ -42,16 +42,16 @@ public class CardTest {
     @Test
     public void testGetEvent() {
         card.fillEvents();
-        Event event = new Event(10, 200, "Test Event");
-        card.setEvent(2, event);
-        Event retrievedEvent = card.getEvent(2);
-        assertEquals(event, retrievedEvent);
+        NormalEvent normalEvent = new NormalEvent(10, 200, "Test Event");
+        card.setEvent(2, normalEvent);
+        NormalEvent retrievedNormalEvent = card.getEvent(2);
+        assertEquals(normalEvent, retrievedNormalEvent);
     }
 
     @Test
     public void testGetEventOutOfBounds() {
         card.fillEvents();
-        Event event = card.getEvent(5);
-        assertNull(event);
+        NormalEvent normalEvent = card.getEvent(5);
+        assertNull(normalEvent);
     }
 }
