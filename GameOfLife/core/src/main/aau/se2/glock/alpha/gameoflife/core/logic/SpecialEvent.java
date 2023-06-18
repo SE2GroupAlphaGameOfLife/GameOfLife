@@ -1,33 +1,40 @@
 package aau.se2.glock.alpha.gameoflife.core.logic;
 
-/**
- *
- */
 public class SpecialEvent implements Event {
 
+    private static final String GET_15_LP = "get15LP";
+    private static final String PAY_20T = "pay20t";
+    private static final String HOUSE = "house";
+    private static final String CAR = "car";
+    private static final String LOTTERY = "lottery";
+    private static final String CASINO = "casino";
+    private static final String GET_3T_LP = "get3tLP";
+    private static final String GET_3_5 = "get3.5";
+    private static final String PAY_10T_EUR = "pay10tEUR";
+    private static final String GET_200T_EUR = "get200tEUR";
+    private static final String DIPLOMA = "diploma";
+    private static final String DOCTOR = "doctor";
+    private static final String PROMOTION = "promotion";
+    private static final String NEW_COMPANY = "newcompany";
+    private static final String PROMOTION_2X = "promotion2x";
+    private static final String SHARES_100T_EUR = "shares100tEUR";
+    private static final String EVENT_NOT_IMPLEMENTED = "Event not implemented";
+
     private String message;
-
     private String type;
-
     private int lp;
-
     private int cash;
-
     private String optionA;
-
     private String optionB;
 
-    public SpecialEvent(){
+    public SpecialEvent() {
     }
 
     public SpecialEvent(String type) {
-        this.lp = 0;
-        this.cash = 0;
-        this.type = type;
-        //setBasicStats();
+        this(type, 0, 0, null, null, null);
     }
 
-    public SpecialEvent(String type, int lp, int cash, String optionA, String optionB,String message) {
+    public SpecialEvent(String type, int lp, int cash, String optionA, String optionB, String message) {
         this.message = message;
         this.type = type;
         this.lp = lp;
@@ -36,82 +43,81 @@ public class SpecialEvent implements Event {
         this.optionB = optionB;
     }
 
-    public String eventOptionA(){
-        switch (this.type){
-            case "get15LP":
+    public String eventOptionA() {
+        switch (this.type) {
+            case GET_15_LP:
                 return EventFunctions.evAddLP(this.lp);
-            case "pay20t":
+            case PAY_20T:
                 return EventFunctions.evPayMoney(this.cash);
-            case "house":
+            case HOUSE:
                 return EventFunctions.evBuyHouse();
-            case "car":
+            case CAR:
                 return EventFunctions.evBuyCar();
-            case "lottery":
+            case LOTTERY:
                 return EventFunctions.evLottery();
-            case "casino":
+            case CASINO:
                 return EventFunctions.evCasino();
-            case "get3tLP":
+            case GET_3T_LP:
                 return EventFunctions.evAddLP(3000);
-            case "get3.5":
+            case GET_3_5:
                 return EventFunctions.evAddLP(3500);
-            case "pay10tEUR":
+            case PAY_10T_EUR:
                 return EventFunctions.evPayMoney(10000);
-            case "get200tEUR":
+            case GET_200T_EUR:
                 return EventFunctions.evGetMoney(200000);
-            case "diploma":
+            case DIPLOMA:
                 return EventFunctions.evDiploma();
-            case "doctor":
+            case DOCTOR:
                 return EventFunctions.evDoctor();
-            case "promotion":
+            case PROMOTION:
                 return EventFunctions.evPromotion(1);
-            case "newcompany":
+            case NEW_COMPANY:
                 return EventFunctions.evNewCompany();
-            case "promotion2x":
+            case PROMOTION_2X:
                 return EventFunctions.evPromotion(2);
-            case "shares100tEUR":
+            case SHARES_100T_EUR:
                 return EventFunctions.evGetMoney(100000);
             default:
-                return "Event not implemented";
+                return EVENT_NOT_IMPLEMENTED;
         }
-
     }
 
-    public String eventOptionB(){
-        switch (this.type){
-            case "get15LP":
+    public String eventOptionB() {
+        switch (this.type) {
+            case GET_15_LP:
                 return EventFunctions.evAddLP(this.lp);
-            case "pay20t":
+            case PAY_20T:
                 return EventFunctions.evPayMoney(this.cash);
-            case "house":
+            case HOUSE:
                 return "Du entscheidest dich kein Haus zu kaufen";
-            case "car":
+            case CAR:
                 return "Du entscheidest dich kein Auto zu kaufen";
-            case "lottery":
+            case LOTTERY:
                 return "Du entscheidest dich kein Los zu kaufen";
-            case "casino":
+            case CASINO:
                 return "Du entscheidest gehst lieber kein Risiko ein";
-            case "get3tLP":
+            case GET_3T_LP:
                 return EventFunctions.evAddLP(3000);
-            case "get3.5":
+            case GET_3_5:
                 return EventFunctions.evAddLP(3500);
-            case "pay10tEUR":
+            case PAY_10T_EUR:
                 return EventFunctions.evPayMoney(10000);
-            case "get200tEUR":
+            case GET_200T_EUR:
                 return EventFunctions.evGetMoney(200000);
-            case "diploma":
+            case DIPLOMA:
                 return EventFunctions.evDiploma();
-            case "doctor":
+            case DOCTOR:
                 return EventFunctions.evDoctor();
-            case "promotion":
+            case PROMOTION:
                 return EventFunctions.evPromotion(1);
-            case "newcompany":
+            case NEW_COMPANY:
                 return EventFunctions.evNewCompany();
-            case "promotion2x":
+            case PROMOTION_2X:
                 return EventFunctions.evPromotion(2);
-            case "shares100tEUR":
+            case SHARES_100T_EUR:
                 return EventFunctions.evGetMoney(100000);
             default:
-                return "Event not implemented";
+                return EVENT_NOT_IMPLEMENTED;
         }
     }
 
@@ -142,7 +148,7 @@ public class SpecialEvent implements Event {
         return optionB;
     }
 
-    public String getType(){
+    public String getType() {
         return this.type;
     }
 
@@ -156,4 +162,3 @@ public class SpecialEvent implements Event {
                 '}';
     }
 }
-
