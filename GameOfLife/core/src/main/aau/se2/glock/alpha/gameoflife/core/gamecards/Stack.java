@@ -56,13 +56,6 @@ public class Stack {
     }
 
     /**
-     * Removes all cards from the Stack
-     */
-    public void wipeStack() {
-        cardList.clear();
-    }
-
-    /**
      * Fills Stack with new Cards
      */
     public void buildStack() {

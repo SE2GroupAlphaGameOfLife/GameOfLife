@@ -49,7 +49,7 @@ public class StartGameScreen extends BasicScreen {
         createGameOfLifeTitle();
         createPlayersOverview();
         createStartGameButton();
-        createBackButton();
+        createQuitButton();
         createInfoLabel();
     }
 
@@ -123,7 +123,7 @@ public class StartGameScreen extends BasicScreen {
         }
     }
 
-    private void createBackButton() {
+    private void createQuitButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
         btnBack.setSize(buttonWidth, buttonHeight); // Set the size of the button
@@ -179,7 +179,7 @@ public class StartGameScreen extends BasicScreen {
             });
         } else if (payload.equals(GameOfLife.CREATE_PLAYERS_OVERVIEW_PAYLOAD)) {
             this.createPlayersOverview();
-        } else if (payload.equals(GameOfLife.clientConnectingFailed)) {
+        } else if (payload.equals(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD)) {
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {

@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -30,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
-import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 
@@ -76,7 +73,7 @@ public class JoinGameScreen extends BasicScreen {
         createServerTextField();
         createJoinGameButton();
         this.createServerOverview();
-        createBackButton();
+        createQuitButton();
 
         Texture refreshIconTexture = new Texture("refresh.png");
         refreshIcon = new TextureRegion(refreshIconTexture);
@@ -156,7 +153,6 @@ public class JoinGameScreen extends BasicScreen {
     }
 
     /**
-     *
      * @param ipAddress
      */
     public void showPopup(String ipAddress) {
@@ -313,7 +309,7 @@ public class JoinGameScreen extends BasicScreen {
     /**
      *
      */
-    private void createBackButton() {
+    private void createQuitButton() {
         //Create a Back Button
         btnBack = new TextButton("back", textButtonStyle); // Create the text button with the text and style
         btnBack.setSize(buttonWidth, buttonHeight); // Set the size of the button

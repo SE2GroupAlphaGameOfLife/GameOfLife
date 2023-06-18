@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.client;
 
-import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryonet.Client;
@@ -11,14 +10,11 @@ import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserver;
 import aau.se2.glock.alpha.gameoflife.networking.observer.ClientObserverSubject;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
@@ -26,7 +22,6 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacke
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessage;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
 import aau.se2.glock.alpha.gameoflife.screens.StartGameScreen;
 
 /**
@@ -88,7 +83,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        registerClasses(kryo);
+        GameOfLife.registerClasses(kryo, false);
     }
 
     /**
@@ -103,22 +98,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
         this.client.addListener(this);
 
         Kryo kryo = client.getKryo();
-        registerClasses(kryo);
-    }
-
-
-    public void registerClasses(Kryo kryo) {
-        kryo.register(SecureRandom.class);
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(Job.class);
-        kryo.register(java.util.ArrayList.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
-        kryo.register(TcpMessage.class);
-        kryo.register(ReportPlayerMessage.class);
-        kryo.register(CheatingMessage.class);
+        GameOfLife.registerClasses(kryo, false);
     }
 
     public void sendMessageToServerTCP(String message) {
@@ -139,7 +119,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
             } catch (IOException e) {
                 //throw new RuntimeException(e);
                 e.printStackTrace();
-                notifyObservers(GameOfLife.clientConnectingFailed);
+                notifyObservers(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD);
             }
         }
     }
@@ -157,7 +137,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
                 this.client.connect(5000, address, tcpPort, udpPort);
             } catch (IOException e) {
                 e.printStackTrace();
-                notifyObservers(GameOfLife.clientConnectingFailed);
+                notifyObservers(GameOfLife.CLIENT_CONNECTION_FAILED_PAYLOAD);
             }
         }
     }
@@ -266,10 +246,6 @@ public class ClientClass implements Listener, ClientObserverSubject {
                 }
             }
             notifyObservers(GameOfLife.CREATE_PLAYERS_OVERVIEW_PAYLOAD);
-            /*if (GameOfLife.getInstance().getScreen().getClass().equals(StartGameScreen.class)) {
-                ((StartGameScreen) GameOfLife.getInstance().getScreen()).createPlayersOverview();
-                Gdx.app.log("ClientClass", "Players at StartGameScreen (" + GameOfLife.players + ")");
-            }*/
         } else if (object instanceof String) {
             String payload = (String) object;
             if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
@@ -282,6 +258,10 @@ public class ClientClass implements Listener, ClientObserverSubject {
 
     public Client getClient() {
         return client;
+    }
+
+    public List<ClientObserver> getClientObservers() {
+        return clientObservers;
     }
 
     @Override

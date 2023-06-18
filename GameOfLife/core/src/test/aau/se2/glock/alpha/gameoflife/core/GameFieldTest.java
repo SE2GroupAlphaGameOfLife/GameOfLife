@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.math.Vector2;
@@ -38,7 +39,31 @@ public class GameFieldTest {
     }
 
     @Test
-    public void testGetGamefield(){
+    public void testGetGamefield() {
         assertNotNull(gameField.getLogicalField());
+    }
+
+    @Test
+    public void testConstructorLogicalField() {
+        LogicalField f = new LogicalField(gameField);
+        gameField = new GameField(f);
+        assertEquals(gameField.getLogicalField(), f);
+    }
+
+    @Test
+    public void testAddIndexOfNextGameField() {
+        assertEquals(gameField.getIndexOfNextGameFields().size(), 3);
+        gameField.addIndexOfNextGameField(9);
+        nextIndices.add(9);
+        assertEquals(gameField.getIndexOfNextGameFields(), nextIndices);
+    }
+
+    @Test
+    public void testDefaultConstructor() {
+        gameField = new GameField();
+        assertTrue(gameField.getLogicalField() instanceof LogicalField);
+        assertNull(gameField.getPosition());
+        assertTrue(gameField.getIndexOfNextGameFields() instanceof ArrayList);
+        assertNull(gameField.getType());
     }
 }
