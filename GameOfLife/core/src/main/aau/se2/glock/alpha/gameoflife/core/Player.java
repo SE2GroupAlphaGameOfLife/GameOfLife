@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import java.security.SecureRandom;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.logic.Event;
 
 /**
  *
@@ -50,7 +50,7 @@ public class Player {
     /**
      * Tells if the server is only and or the player joining.
      */
-    private boolean isJoning, isOnline;
+    private boolean isJoning, isOnline, diploma,doctor;
 
 
     /**
@@ -78,11 +78,29 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = 0;
+        this.diploma = false;
+        this.doctor = false;
     }
 
     public void cheat(int amount) {
         this.setMoveCount(this.getMoveCount() + amount);
         GameOfLife.client.sendPlayerCheatedTCP(this, amount);
+    }
+
+    public boolean isDiploma() {
+        return diploma;
+    }
+
+    public boolean isDoctor() {
+        return doctor;
+    }
+
+    public void setDiploma(boolean hasDiploma) {
+        this.diploma = hasDiploma;
+    }
+
+    public void setDoctor(boolean hasDoctor) {
+        this.doctor = hasDoctor;
     }
 
     /**
@@ -289,9 +307,12 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
+        randomNumber = 1;
         this.moveCount = randomNumber;
 
         return randomNumber;
+
+
     }
 
     /**
@@ -310,9 +331,6 @@ public class Player {
         Board board = Board.getInstance();
         GameField field = board.getGameFields().get(this.position);
         Event event = field.getLogicalField().getEvent();
-        System.out.println("Event triggered:" + event.getText());
-        this.money = this.money + event.getCash();
-        this.lifepoints = this.lifepoints + event.getLp();
         return event;
     }
 
@@ -334,6 +352,10 @@ public class Player {
         }
         //we finished moving return true
         return true;
+    }
+    public void changeBalance(int money, int lifepoints){
+        this.lifepoints = this.lifepoints+lifepoints;
+        this.money = this.money+money;
     }
 
     @Override
