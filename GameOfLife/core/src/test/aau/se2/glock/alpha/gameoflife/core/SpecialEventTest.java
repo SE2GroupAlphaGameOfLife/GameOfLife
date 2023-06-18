@@ -21,16 +21,16 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionAGet15LP() {
-        SpecialEvent event = new SpecialEvent("get15LP", 15, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get15tLP", 1500, 0, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du erhälst15LP!", result);
+        assertEquals("Du erhälst 1500LP!", result);
     }
 
     @Test
     public void testEventOptionAPay20t() {
-        SpecialEvent event = new SpecialEvent("pay20t", 0, 20, null, null, null);
+        SpecialEvent event = new SpecialEvent("pay20t", 0, -20000, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du verlierst20€!", result);
+        assertEquals("Du verlierst -20000€!", result);
     }
 
     @Test
@@ -49,30 +49,30 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionAGet3tLP() {
-        SpecialEvent event = new SpecialEvent("get3tLP", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get3tLP", 3000, 0, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du erhälst3000LP!", result);
+        assertEquals("Du erhälst 3000LP!", result);
     }
 
     @Test
     public void testEventOptionAGet3_5() {
-        SpecialEvent event = new SpecialEvent("get3.5", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get3.5", 3500, 0, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du erhälst3500LP!", result);
+        assertEquals("Du erhälst 3500LP!", result);
     }
 
     @Test
     public void testEventOptionAPay10tEUR() {
-        SpecialEvent event = new SpecialEvent("pay10tEUR", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("pay10tEUR", 0, -10000, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du verlierst10000€!", result);
+        assertEquals("Du verlierst -10000€!", result);
     }
 
     @Test
     public void testEventOptionAGet200tEUR() {
-        SpecialEvent event = new SpecialEvent("get200tEUR", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get200tEUR", 0, 200000, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du erhälst200000€!", result);
+        assertEquals("Du erhälst 200000€!", result);
     }
 
     @Test
@@ -98,9 +98,9 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionAShares100tEUR() {
-        SpecialEvent event = new SpecialEvent("shares100tEUR", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("shares100tEUR", 0, 100000, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du erhälst100000€!", result);
+        assertEquals("Du erhälst 100000€!", result);
     }
 
     @Test
@@ -112,16 +112,16 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionBGet15LP() {
-        SpecialEvent event = new SpecialEvent("get15LP", 15, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get15tLP", 1500, 0, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du erhälst15LP!", result);
+        assertEquals("Du erhälst 1500LP!", result);
     }
 
     @Test
     public void testEventOptionBPay20t() {
-        SpecialEvent event = new SpecialEvent("pay20t", 0, 20, null, null, null);
+        SpecialEvent event = new SpecialEvent("pay20t", 0, -20000, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du verlierst20€!", result);
+        assertEquals("Du verlierst -20000€!", result);
     }
 
     @Test
@@ -154,30 +154,30 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionBGet3tLP() {
-        SpecialEvent event = new SpecialEvent("get3tLP", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get3tLP", 3000, 0, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du erhälst3000LP!", result);
+        assertEquals("Du erhälst 3000LP!", result);
     }
 
     @Test
     public void testEventOptionBGet3_5() {
-        SpecialEvent event = new SpecialEvent("get3.5", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get3.5", 3500, 0, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du erhälst3500LP!", result);
+        assertEquals("Du erhälst 3500LP!", result);
     }
 
     @Test
     public void testEventOptionBPay10tEUR() {
-        SpecialEvent event = new SpecialEvent("pay10tEUR", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("pay10tEUR", 0, -10000, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du verlierst10000€!", result);
+        assertEquals("Du verlierst -10000€!", result);
     }
 
     @Test
     public void testEventOptionBGet200tEUR() {
-        SpecialEvent event = new SpecialEvent("get200tEUR", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get200tEUR", 0, 200000, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du erhälst200000€!", result);
+        assertEquals("Du erhälst 200000€!", result);
     }
 
     @Test
@@ -203,9 +203,9 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionBShares100tEUR() {
-        SpecialEvent event = new SpecialEvent("shares100tEUR", 0, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("shares100tEUR", 0, 100000, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du erhälst100000€!", result);
+        assertEquals("Du erhälst 100000€!", result);
     }
 
     @Test
@@ -271,3 +271,4 @@ public class SpecialEventTest {
         assertEquals("SpecialEvent{message='Test Message', type='test', lp=0, cash=0}", result);
     }
 }
+

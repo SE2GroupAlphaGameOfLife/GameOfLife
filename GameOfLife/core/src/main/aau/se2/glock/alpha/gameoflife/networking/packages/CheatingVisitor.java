@@ -10,7 +10,6 @@ public class CheatingVisitor implements TcpMessageVisitor {
 
     @Override
     public void visit(CheatingMessage message) {
-        System.out.println("Processing CheatingMessage with payload: " + message.getPayload());
         String[] payload = message.getPayload().split("#");
         int cheatedPlayerId = Integer.parseInt(payload[0]);
         int cheatedPlayerAge = Integer.parseInt(payload[1]);

@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.networking.server;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
@@ -320,6 +322,10 @@ public class ServerClass implements Listener {
     }
 
     public List<PlayerCheated> getPlayerCheatedList() {
+        if(playerCheatedList == null){
+            playerCheatedList = new ArrayList<>();
+        }
+
         return playerCheatedList;
     }
 

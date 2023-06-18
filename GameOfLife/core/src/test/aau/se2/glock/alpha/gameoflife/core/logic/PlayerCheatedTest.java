@@ -13,7 +13,7 @@ public class PlayerCheatedTest {
 
     @Before
     public void setUp() {
-        playerCheated = new PlayerCheated(10, 1, 1000);
+        playerCheated = new PlayerCheated(1, 10, 1000);
     }
 
     @Test
