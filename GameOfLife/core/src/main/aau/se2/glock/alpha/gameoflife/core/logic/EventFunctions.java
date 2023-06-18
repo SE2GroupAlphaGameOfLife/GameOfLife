@@ -14,7 +14,7 @@ public class EventFunctions {
         return("Du erhälst"+amount+"LP!");
     }
     public static String evPayMoney(int amount){
-        GameOfLife.self.changeBalance(-amount,0);
+        GameOfLife.self.changeBalance(amount,0);
         return("Du verlierst"+amount+"€!");
     }
 

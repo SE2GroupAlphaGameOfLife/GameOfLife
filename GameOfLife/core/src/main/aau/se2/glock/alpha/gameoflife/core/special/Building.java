@@ -23,10 +23,8 @@ public class Building {
 
     @Override
     public String toString() {
-        return "Building{" +
-                "price=" + price +
-                ", type=" + type +
-                '}';
+        return  "Preis: " + price +
+                "\n typ: " + type;
     }
 
     public void setType(BuildingType type) {

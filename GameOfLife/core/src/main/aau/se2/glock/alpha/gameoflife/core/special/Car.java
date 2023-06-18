@@ -33,11 +33,9 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "price=" + price +
-                ", lp=" + lp +
-                ", type=" + type +
-                '}';
+        return "Preis: " + price +
+                "\nlp: " + lp +
+                "\ntype " + type;
     }
 
     public void setType(CarType type) {
