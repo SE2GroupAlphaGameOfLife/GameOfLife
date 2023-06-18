@@ -71,32 +71,23 @@ public class ClientClass implements Listener, ClientObserverSubject {
     };
 
     /**
-     * Constructor only for mock-testing purpose
-     *
-     * @param client Kryonet Client object, needed to override internal client parameter with mocked object.
+     * @param client
+     * Only for testing
      */
     public ClientClass(Client client) {
         this.client = client;
-        this.client.setDiscoveryHandler(clientDiscoveryHandler);
-        this.client.start();
-
-        this.client.addListener(this);
-
-        Kryo kryo = client.getKryo();
-        GameOfLife.registerClasses(kryo, false);
+        initializeClient();
     }
 
-    /**
-     * Default constructor used to create and start Kryonet client object,
-     * add ClientClass as Listener and register classes to be serialized for network transfer.
-     */
     public ClientClass() {
         this.client = new Client();
+        initializeClient();
+    }
+
+    private void initializeClient() {
         this.client.setDiscoveryHandler(clientDiscoveryHandler);
         this.client.start();
-
         this.client.addListener(this);
-
         Kryo kryo = client.getKryo();
         GameOfLife.registerClasses(kryo, false);
     }
@@ -221,7 +212,6 @@ public class ClientClass implements Listener, ClientObserverSubject {
      */
     @Override
     public void disconnected(Connection connection) {
-        //Gdx.app.log("Client", "Verbindung getrennt!");
         connection.close();
     }
 
@@ -237,7 +227,6 @@ public class ClientClass implements Listener, ClientObserverSubject {
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof JoinedPlayers) {
-            //Gdx.app.log("ClientClass", "Received JoinedPlayers object (" + ((JoinedPlayers) object) + ")");
             GameOfLife.players = new ArrayList<>(((JoinedPlayers) object).getPlayers().values());
             for (Player p : GameOfLife.players) {
                 if (p.getUsername().equals(GameOfLife.self.getUsername())) {
@@ -249,7 +238,6 @@ public class ClientClass implements Listener, ClientObserverSubject {
         } else if (object instanceof String) {
             String payload = (String) object;
             if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
-                //Gdx.app.log("ClientClass/Received", "StartGamePayload received!");
                 GameOfLife.gameStarted = true;
                 notifyObservers(payload);
             }

@@ -1,5 +1,7 @@
 package aau.se2.glock.alpha.gameoflife.networking.packages;
 
+import com.badlogic.gdx.Gdx;
+
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
@@ -7,7 +9,6 @@ import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
 public class ReportPlayerVisitor implements TcpMessageVisitor {
     @Override
     public void visit(ReportPlayerMessage message) {
-        System.out.println("Processing ReportPlayerMessage with payload: " + message.getPayload());
         int playerId = Integer.parseInt(message.getPayload());
 
         Player player = null;
@@ -25,10 +26,12 @@ public class ReportPlayerVisitor implements TcpMessageVisitor {
         for (PlayerCheated playerCheated : GameOfLife.server.getPlayerCheatedList()) {
             if (playerCheated.getPlayerId() == playerId && playerCheated.getCheatedAtAge() >= player.getAge() - 5) {
                 player.setPosition(player.getPosition() - playerCheated.getAmountCheated());
+                player.setMoney(player.getMoney() - (player.getMoney() / 10));
+                player.setLifepoints(player.getLifepoints() - (player.getLifepoints() / 10));
+                GameOfLife.server.getPlayerCheatedList().remove(playerCheated);
                 return;
             }
         }
-        System.out.println("Player has not cheated in the last 5 rounds");
     }
 
     @Override

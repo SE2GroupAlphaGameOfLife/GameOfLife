@@ -318,8 +318,6 @@ public class Player {
         this.moveCount = randomNumber;
 
         return randomNumber;
-
-
     }
 
     /**
