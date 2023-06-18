@@ -41,7 +41,7 @@ public class ReportPlayerVisitorTest {
         GameOfLife.players = players;
 
         List<PlayerCheated> playerCheatedList = new ArrayList<>();
-        playerCheatedList.add(new PlayerCheated(21, 1, 3)); // Player 1 cheated 4 rounds ago
+        playerCheatedList.add(new PlayerCheated(1, 21, 3)); // Player 1 cheated 4 rounds ago
 
         when(server.getPlayerCheatedList()).thenReturn(playerCheatedList);
 
