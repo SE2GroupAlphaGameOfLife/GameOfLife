@@ -115,7 +115,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         refreshPlayerHUD();
         createJobButton();
-        chooseJobWindow();
+        //chooseJobWindow();
     }
 
     /**
