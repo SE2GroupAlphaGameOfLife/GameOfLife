@@ -38,7 +38,7 @@ public class SpecialEvent implements Event {
 
     public String eventOptionA(){
         switch (this.type){
-            case "get15LP":
+            case "get15tLP":
             case "get3tLP":
             case "get3.5":
                 return EventFunctions.evAddLP(this.lp);
@@ -77,7 +77,7 @@ public class SpecialEvent implements Event {
 
     public String eventOptionB(){
         switch (this.type){
-            case "get15LP":
+            case "get15tLP":
             case "get3tLP":
             case "get3.5":
                 return EventFunctions.evAddLP(this.lp);

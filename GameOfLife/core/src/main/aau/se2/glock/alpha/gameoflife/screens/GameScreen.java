@@ -879,6 +879,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         specialWindow.removeActor(optionBButton);
         specialWindow.removeActor(optionTextA);
         specialWindow.removeActor(optionTextB);
+        specialWindow.removeActor(specialEventText);
+        specialWindow.add(specialEventText).row();
         specialEventText.setText(evtReturnText);
         specialWindow.add(btnConfirm);
         btnConfirm.addListener(new ClickListener(){
