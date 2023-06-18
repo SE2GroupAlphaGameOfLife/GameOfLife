@@ -3,10 +3,14 @@ package aau.se2.glock.alpha.gameoflife.core;
 import com.badlogic.gdx.graphics.Color;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.logic.Event;
+import aau.se2.glock.alpha.gameoflife.core.special.Building;
+import aau.se2.glock.alpha.gameoflife.core.special.Car;
 
 /**
  *
@@ -51,6 +55,8 @@ public class Player {
      * Tells if the server is only and or the player joining.
      */
     private boolean isJoning, isOnline, diploma,doctor;
+    private List<Car> carList;
+    private List<Building> buildingList;
 
 
     /**
@@ -80,6 +86,8 @@ public class Player {
         this.id = 0;
         this.diploma = false;
         this.doctor = false;
+        this.buildingList = new ArrayList<>();
+        this.carList = new ArrayList<>();
     }
 
     public void cheat(int amount) {
@@ -353,6 +361,25 @@ public class Player {
     public void changeBalance(int money, int lifepoints){
         this.lifepoints = this.lifepoints+lifepoints;
         this.money = this.money+money;
+    }
+
+    public boolean isHasTurn() {
+        return hasTurn;
+    }
+
+    public List<Car> getCarList() {
+        return carList;
+    }
+
+    public List<Building> getBuildingList() {
+        return buildingList;
+    }
+
+    public void addCar(Car car){
+        carList.add(car);
+    }
+    public void addBuilding(Building building){
+        buildingList.add(building);
     }
 
     @Override
