@@ -72,6 +72,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Group cheatingButtonGroup;
     private Group spinTheWheelGroup;
     private Group playersGroup;
+    private Group reportWindowGroup;
     private Texture wheelTexture;
     private Drawable wheelDrawable;
     private ImageButton wheelImageButton;
@@ -92,7 +93,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private float spinAngle = 0f;
     private Image arrowImage;
     private JobData jobSelection;
-
     private SpecialEvent currentSpecialEvent;
     private Job[] jobs;
 
@@ -114,6 +114,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         createEventPopup();
         refreshPlayerHUD();
         createJobButton();
+        createReportButton();
         chooseJobWindow();
     }
 
@@ -143,16 +144,25 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         stage.getBatch().draw(background, -gameCamera.viewportWidth / 3, -gameCamera.viewportHeight / 2, gameCamera.viewportWidth / 3 * 2, gameCamera.viewportHeight);
         playersGroup.clearChildren();
+
         for (Player player : GameOfLife.players) {
             GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
             Vector3 v3 = new Vector3(currentField.getPosition().x - 20, currentField.getPosition().y - 20, 0);
             gameCamera.project(v3);
             ImageButton playerButton = new ImageButton(new TextureRegionDrawable(skateboard));
+
+            ClickListener playerClickListener = new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    Gdx.app.log("Button Clicked", "Button was clicked!");
+                }
+            };
+            playerButton.addListener(playerClickListener);
+
             playerButton.setPosition(v3.x, v3.y);
             playerButton.setSize(100, 100);
             playersGroup.addActor(playerButton);
         }
-
 
         if (GameOfLife.self.hasTurn()) {
             createSpinTheWheelButton();
@@ -165,7 +175,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 spinTheWheelGroup.addActor(wheelImageButton);
                 spinTheWheelGroup.addActor(arrowImageButton);
             }
-
 
             if (isSpinning) {
                 spinTheWheel(delta);
@@ -209,11 +218,12 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         cheatingButtonGroup = new Group();
         spinTheWheelGroup = new Group();
         playersGroup = new Group();
+        reportWindowGroup = new Group();
         stage.addActor(nextFieldButtonGroup);
         stage.addActor(cheatingButtonGroup);
         stage.addActor(spinTheWheelGroup);
         stage.addActor(playersGroup);
-        //skin = new Skin();
+        stage.addActor(reportWindowGroup);
     }
 
     /**
@@ -277,7 +287,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             }
         };
 
-        //btnRollDice.addListener(btnRollDiceListener);
         wheelImageButton.addListener(btnRollDiceListener);
         arrowImageButton.addListener(btnRollDiceListener);
     }
@@ -442,7 +451,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 if (GameOfLife.self.getMoveCount() == 0) {
                     Gdx.app.log("Zeile", "673");
                     handleEvent(GameOfLife.self);
-
                 }
             }
         }
@@ -501,6 +509,24 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         btnJob.addListener(btnJobListener);
     }
 
+    /**
+     *
+     */
+    private void createReportButton() {
+        btnJob = new TextButton("Report", textButtonStyle);
+        btnJob.setSize((buttonWidth * 5) / 7f, buttonHeight);
+        btnJob.setPosition(Gdx.graphics.getWidth() - (buttonWidth * 5) / 7f - 30f, 30f);
+        stage.addActor(btnJob);
+
+        ClickListener btnJobListener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                reportPlayerWindow();
+            }
+        };
+
+        btnJob.addListener(btnJobListener);
+    }
 
     private void createJobWindow() {
         //loads uiSkin from files
@@ -586,6 +612,47 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(window);
     }
 
+    private void reportPlayerWindow() {
+        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        jobSelection = JobData.getInstance();
+        jobSelection.fillJobList();
+
+        final Window window = new Window("", uiSkin);
+        window.setSize(600, 450);
+        window.setPosition(Gdx.graphics.getWidth() / 2f - window.getWidth() / 2, Gdx.graphics.getHeight() / 2f - window.getHeight() / 2);
+
+        for (Player player : GameOfLife.players) {
+            if(player == GameOfLife.self){
+                continue;
+            }
+
+            String username = player.getUsername();
+            Label usernameLabel = new Label(username, labelStyle);
+            TextButton playerButton = new TextButton("Report", textButtonStyle);
+            playerButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    GameOfLife.client.sendReportPlayerTCP(player);
+                    reportWindowGroup.clearChildren();
+                }
+            });
+
+            window.add(usernameLabel).padTop(10);
+            window.add(playerButton).padLeft(10).padTop(10).row();
+        }
+
+        closeBtn = new TextButton("Close", textButtonStyle);
+        closeBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                reportWindowGroup.clearChildren();
+            }
+        });
+        window.add(closeBtn).padTop(10).colspan(2).row();
+
+        reportWindowGroup.addActor(window);
+    }
+
     /**
      *
      */
@@ -661,7 +728,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         lbMoney.setText("Money: " + p.getMoney());
         lbLifepoints.setText("Lifepoints: " + p.getLifepoints());
     }
-
 
     /**
      *
