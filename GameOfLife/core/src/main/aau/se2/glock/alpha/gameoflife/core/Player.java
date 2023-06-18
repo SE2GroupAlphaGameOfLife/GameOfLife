@@ -315,7 +315,6 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
-        randomNumber = 14;
         this.moveCount = randomNumber;
 
         return randomNumber;
