@@ -21,19 +21,10 @@ import aau.se2.glock.alpha.gameoflife.core.special.CarTest;
 import aau.se2.glock.alpha.gameoflife.core.special.SpecialDataTest;
 import aau.se2.glock.alpha.gameoflife.core.utilities.JsonFileReaderTest;
 import aau.se2.glock.alpha.gameoflife.networking.NetworkTest;
-import aau.se2.glock.alpha.gameoflife.networking.client.ClientClassTest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
-import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessageTest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitorTest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayersTest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerMessageTest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitorTest;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformationTest;
-import aau.se2.glock.alpha.gameoflife.networking.server.ServerClassTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        StackTest.class,
+        //StackTest.class,          //No tests
         CardTest.class,
         JobDataTest.class,
         JobTest.class,
@@ -44,8 +35,8 @@ import aau.se2.glock.alpha.gameoflife.networking.server.ServerClassTest;
         CarTest.class,
         SpecialDataTest.class,
         JsonFileReaderTest.class,
-        BoardTest.class,
-        GameFieldTest.class,
+        //BoardTest.class,          //No tests
+        //GameFieldTest.class,      //No tests
         NormalEventDataTest.class,
         NormalEventTest.class,
         PlayerTest.class,
