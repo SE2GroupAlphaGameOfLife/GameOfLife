@@ -11,16 +11,16 @@ public class EventFunctions {
 
     public static String evAddLP(int amount){
         GameOfLife.self.changeBalance(0,amount);
-        return("Du erhälst"+amount+"LP!");
+        return("Du erhälst "+amount+"LP!");
     }
     public static String evPayMoney(int amount){
         GameOfLife.self.changeBalance(amount,0);
-        return("Du verlierst"+amount+"€!");
+        return("Du verlierst "+amount+"€!");
     }
 
     public static String evGetMoney(int amount){
         GameOfLife.self.changeBalance(amount,0);
-        return("Du erhälst"+amount+"€!");
+        return("Du erhälst "+amount+"€!");
     }
 
     public static String evBuyCar(){
