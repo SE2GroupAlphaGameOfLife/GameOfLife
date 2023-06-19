@@ -22,6 +22,7 @@ public class GameField {
      */
     private final List<Integer> indexOfNextGameFields; // The list of next gameFields for the game field
     private final String type;
+
     /**
      *
      */

@@ -110,10 +110,6 @@ public class Board {
     private void attachLogicalFields() {
         for (GameField gameField : this.gameFields) {
             gameField.setLogicalField(new LogicalField(gameField, gameField.getType()));
-
-
         }
     }
-
-
 }
