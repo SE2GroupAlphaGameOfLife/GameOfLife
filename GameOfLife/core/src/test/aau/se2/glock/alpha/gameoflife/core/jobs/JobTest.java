@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
-
 public class JobTest {
 
     private Job job;

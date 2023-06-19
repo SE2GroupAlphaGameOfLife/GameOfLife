@@ -106,13 +106,10 @@ public class Board {
     public List<GameField> getGameFields() {
         return gameFields;
     }
-    private void attachLogicalFields(){
-        for (GameField gameField:this.gameFields) {
-            gameField.setLogicalField(new LogicalField(gameField,gameField.getType()));
 
-
+    private void attachLogicalFields() {
+        for (GameField gameField : this.gameFields) {
+            gameField.setLogicalField(new LogicalField(gameField, gameField.getType()));
         }
-}
-
-
+    }
 }

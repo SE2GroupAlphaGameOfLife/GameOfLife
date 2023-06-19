@@ -31,15 +31,15 @@ public class Car {
         return type;
     }
 
+    public void setType(CarType type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Preis: " + price +
                 "\nlp: " + lp +
                 "\ntype " + type;
-    }
-
-    public void setType(CarType type) {
-        this.type = type;
     }
 }
 

@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import aau.se2.glock.alpha.gameoflife.core.special.Car;
-import aau.se2.glock.alpha.gameoflife.core.special.CarType;
-
 public class CarTest {
 
     int price = 50000;

@@ -11,6 +11,7 @@ import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.logic.Event;
 import aau.se2.glock.alpha.gameoflife.core.special.Building;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 
 /**
  *
@@ -42,7 +43,7 @@ public class Player {
     /**
      * Color of the player displayed on the board.
      */
-    private Color color;
+    private PlayerColor color;
     /**
      * Tells if the player is the game's host.
      */
@@ -54,7 +55,7 @@ public class Player {
     /**
      * Tells if the server is only and or the player joining.
      */
-    private boolean isJoning, isOnline, diploma,doctor;
+    private boolean isJoning, isOnline, diploma, doctor;
     private List<Car> carList;
     private List<Building> buildingList;
 
@@ -76,7 +77,7 @@ public class Player {
         this.age = 18;
         this.money = 10000;
         this.lifepoints = 0;
-        this.color = new Color(Color.rgb888(255, 0, 0));
+        this.color = PlayerColor.BLUE;
         this.isHost = isHost;
         this.isJoning = true;
         this.hasTurn = isHost;
@@ -99,12 +100,12 @@ public class Player {
         return diploma;
     }
 
-    public boolean isDoctor() {
-        return doctor;
-    }
-
     public void setDiploma(boolean hasDiploma) {
         this.diploma = hasDiploma;
+    }
+
+    public boolean isDoctor() {
+        return doctor;
     }
 
     public void setDoctor(boolean hasDoctor) {
@@ -156,14 +157,14 @@ public class Player {
     /**
      * @return
      */
-    public Color getColor() {
+    public PlayerColor getColor() {
         return color;
     }
 
     /**
      * @param color
      */
-    public void setColor(Color color) {
+    public void setColor(PlayerColor color) {
         this.color = color;
     }
 
@@ -245,13 +246,6 @@ public class Player {
     }
 
     /**
-     * @param hasTurn
-     */
-    public void setHasTurn(boolean hasTurn) {
-        this.hasTurn = hasTurn;
-    }
-
-    /**
      * @return
      */
     public boolean isJoning() {
@@ -315,6 +309,7 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
+        randomNumber = 1;
         this.moveCount = randomNumber;
 
         return randomNumber;
@@ -358,13 +353,21 @@ public class Player {
         //we finished moving return true
         return true;
     }
-    public void changeBalance(int money, int lifepoints){
-        this.lifepoints = this.lifepoints+lifepoints;
-        this.money = this.money+money;
+
+    public void changeBalance(int money, int lifepoints) {
+        this.lifepoints = this.lifepoints + lifepoints;
+        this.money = this.money + money;
     }
 
     public boolean isHasTurn() {
         return hasTurn;
+    }
+
+    /**
+     * @param hasTurn
+     */
+    public void setHasTurn(boolean hasTurn) {
+        this.hasTurn = hasTurn;
     }
 
     public List<Car> getCarList() {
@@ -375,10 +378,11 @@ public class Player {
         return buildingList;
     }
 
-    public void addCar(Car car){
+    public void addCar(Car car) {
         carList.add(car);
     }
-    public void addBuilding(Building building){
+
+    public void addBuilding(Building building) {
         buildingList.add(building);
     }
 

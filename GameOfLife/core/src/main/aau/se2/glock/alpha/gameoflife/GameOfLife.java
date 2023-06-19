@@ -1,7 +1,6 @@
 package aau.se2.glock.alpha.gameoflife;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
@@ -13,6 +12,8 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
+import aau.se2.glock.alpha.gameoflife.core.special.Building;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
 import aau.se2.glock.alpha.gameoflife.core.special.CarType;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
@@ -42,7 +43,7 @@ public class GameOfLife extends Game {
     public static final String FILE_EVENT_JSON = "Events.json";
 
     /**
-     *File name for Special Events json located in the Assets Folder
+     * File name for Special Events json located in the Assets Folder
      */
     public static final String FILE_SPECIAL_EVENT_JSON = "SpecialEvents.json";
     public static final String FILE_GAMEFIELD_JSON = "Gameboard.json";
@@ -158,20 +159,6 @@ public class GameOfLife extends Game {
         return proximitySensorInterface;
     }
 
-    public static boolean checkIfGameOver() {
-        for (Player player : GameOfLife.players) {
-            //End if no player has moves to make
-            //and all player are the same age
-            //and if host has turn
-            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())){
-                return false;
-            }
-        }
-
-
-        return true;
-    }
-
     /**
      * FOR TESTING ONLY!
      *
@@ -179,6 +166,20 @@ public class GameOfLife extends Game {
      */
     public static void setProximitySensorInterface(ProximitySensorInterface proximitySensorInterface) {
         GameOfLife.proximitySensorInterface = proximitySensorInterface;
+    }
+
+    public static boolean checkIfGameOver() {
+        for (Player player : GameOfLife.players) {
+            //End if no player has moves to make
+            //and all player are the same age
+            //and if host has turn
+            if (player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())) {
+                return false;
+            }
+        }
+
+
+        return true;
     }
 
     /**
@@ -212,14 +213,20 @@ public class GameOfLife extends Game {
         kryo.register(Color.class);
         kryo.register(Player.class);
         kryo.register(Job.class);
+        kryo.register(Building.class);
         kryo.register(java.util.ArrayList.class);
         kryo.register(HashMap.class);
         kryo.register(DiscoveryResponsePacket.class);
         kryo.register(TcpMessage.class);
         kryo.register(ReportPlayerMessage.class);
         kryo.register(CheatingMessage.class);
+        kryo.register(PlayerColor.class);
         kryo.register(Car.class);
         kryo.register(CarType.class);
+    }
+
+    public static int getEndOfGameAge() {
+        return EndOfGameAge;
     }
 
     /**
@@ -239,9 +246,5 @@ public class GameOfLife extends Game {
     public void dispose() {
         proximitySensorInterface.unregisterSensor();
         super.dispose();
-    }
-
-    public static int getEndOfGameAge() {
-        return EndOfGameAge;
     }
 }

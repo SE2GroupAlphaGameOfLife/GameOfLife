@@ -1,17 +1,20 @@
 package aau.se2.glock.alpha.gameoflife.networking.packages;
 
-import aau.se2.glock.alpha.gameoflife.GameOfLife;
-import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
-import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
+
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
+import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
+import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 public class ReportPlayerVisitorTest {
 
