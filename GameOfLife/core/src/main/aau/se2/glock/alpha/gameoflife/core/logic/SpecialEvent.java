@@ -28,7 +28,7 @@ public class SpecialEvent implements Event {
     private String optionA;
     private String optionB;
 
-    public SpecialEvent(){
+    public SpecialEvent() {
     }
 
     public SpecialEvent(String type) {

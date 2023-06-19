@@ -1,6 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -52,11 +51,11 @@ import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
  */
 public class GameScreen extends BasicScreen implements ProximityListener {
 
-    private TextButton btnQuit;
-    private ClickListener btnQuitListener;
     private final String buyCarCond = "buyCar";
     private final String buyHouseCond = "buyHouse";
     private final String changeCareerCond = "changeCareer";
+    private TextButton btnQuit;
+    private ClickListener btnQuitListener;
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
@@ -784,7 +783,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                if(GameOfLife.checkIfGameOver()){
+                if (GameOfLife.checkIfGameOver()) {
                     showWinningWindow();
                 }
                 fillJoinedPlayers();

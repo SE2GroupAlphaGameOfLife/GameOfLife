@@ -5,12 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import aau.se2.glock.alpha.gameoflife.core.special.Building;
-import aau.se2.glock.alpha.gameoflife.core.special.BuildingType;
-import aau.se2.glock.alpha.gameoflife.core.special.Car;
-import aau.se2.glock.alpha.gameoflife.core.special.CarType;
-import aau.se2.glock.alpha.gameoflife.core.special.SpecialData;
-
 public class SpecialDataTest {
 
     private SpecialData data;

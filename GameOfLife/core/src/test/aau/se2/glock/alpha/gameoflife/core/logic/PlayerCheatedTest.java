@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
-
 public class PlayerCheatedTest {
 
     private PlayerCheated playerCheated;

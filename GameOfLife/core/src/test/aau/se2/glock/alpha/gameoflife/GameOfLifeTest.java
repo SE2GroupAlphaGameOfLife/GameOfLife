@@ -11,7 +11,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.esotericsoftware.kryo.Kryo;
 
 import org.junit.Before;
@@ -43,8 +42,6 @@ public class GameOfLifeTest {
     private static ClientClass mockClientClass;
     @Mock
     private ProximitySensorInterface mockProximitySensorInterface;
-    @Mock
-    private FreeTypeFontGenerator mockFreeTypeFontGenerator;
 
     @BeforeClass
     public static void setUpClass() {
@@ -154,7 +151,7 @@ public class GameOfLifeTest {
 
     @Test
     public void testGameOver_AllPlayersSameAgeAndHostHasTurn_ReturnsFalse() {
-        List<Player> players =new ArrayList<>();
+        List<Player> players = new ArrayList<>();
         Player host = new Player("Player1", true);
         Player player2 = new Player("Player2", false);
         Player player3 = new Player("Player3", false);
@@ -174,7 +171,7 @@ public class GameOfLifeTest {
 
     @Test
     public void testGameOver_NotAllPlayersSameAge_ReturnsFalse() {
-        List<Player> players =new ArrayList<>();
+        List<Player> players = new ArrayList<>();
         Player host = new Player("Player1", true);
         Player player2 = new Player("Player2", false);
         Player player3 = new Player("Player3", false);
@@ -195,7 +192,7 @@ public class GameOfLifeTest {
     @Test
     public void testGameOver_AllPlayersSameAgeAndHostHasNoTurn_ReturnsFalse() {
         // Create a test scenario where all players have the same age but the host has no turn
-        List<Player> players =new ArrayList<>();
+        List<Player> players = new ArrayList<>();
         Player host = new Player("Player1", true);
         Player player2 = new Player("Player2", false);
         Player player3 = new Player("Player3", false);
@@ -216,7 +213,7 @@ public class GameOfLifeTest {
     @Test
     public void testGameOver_AllPlayersSameAgeAndHostHasTurn_ReturnsTrue() {
         // Create a test scenario where all players have the same age and the host has the turn
-        List<Player> players =new ArrayList<>();
+        List<Player> players = new ArrayList<>();
         Player host = new Player("Player1", true);
         Player player2 = new Player("Player2", false);
         Player player3 = new Player("Player3", false);

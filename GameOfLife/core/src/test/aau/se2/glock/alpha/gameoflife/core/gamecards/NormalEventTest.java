@@ -1,11 +1,9 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import aau.se2.glock.alpha.gameoflife.core.gamecards.NormalEvent;
 
 public class NormalEventTest {
 

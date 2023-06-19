@@ -7,7 +7,8 @@ public class CheatingMessage implements TcpMessage {
     /**
      * For serialization needed!
      */
-    public CheatingMessage(){}
+    public CheatingMessage() {
+    }
 
     public CheatingMessage(String payload) {
         this.payload = payload;
