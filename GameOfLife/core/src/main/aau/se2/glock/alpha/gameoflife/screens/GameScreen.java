@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -492,8 +493,10 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        GameOfLife.server.close();
-                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                        if (GameOfLife.self.isHost()) {
+                            GameOfLife.server.close();
+                            GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
+                        }
                     }
                 }).start();
                 GameOfLife.gameStarted = false;
@@ -781,6 +784,9 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
+                if(GameOfLife.checkIfGameOver()){
+                    showWinningWindow();
+                }
                 fillJoinedPlayers();
                 fillPlayerHUD(GameOfLife.self);
             }
@@ -842,7 +848,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
     private void createSpecialEventPopup() {
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
-
 
         specialWindow = new Window("", uiSkin);
         specialWindow.setSize(600, 450);
@@ -1022,16 +1027,12 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void showRoundSummary() {
-        if (GameOfLife.self.getAge() >= 21) {
-            showWinningWindow();
-        } else {
-            int wage = recieveWage();
-            String summary = generateSummaryString(wage);
-            createEventPopup();
-            eventDialog.text(summary, labelStyle);
-            eventDialog.show(stage);
-            GameOfLife.client.sendPlayerTCP(GameOfLife.self);
-        }
+        int wage = recieveWage();
+        String summary = generateSummaryString(wage);
+        createEventPopup();
+        eventDialog.text(summary, labelStyle);
+        eventDialog.show(stage);
+        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     String generateSummaryString(int wage) {
