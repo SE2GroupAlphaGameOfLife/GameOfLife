@@ -165,6 +165,8 @@ public class GameOfLifeTest {
 
         player2.setMoveCount(1);
 
+        GameOfLife.players = players;
+
         boolean result = GameOfLife.checkIfGameOver();
 
         assertFalse(result);

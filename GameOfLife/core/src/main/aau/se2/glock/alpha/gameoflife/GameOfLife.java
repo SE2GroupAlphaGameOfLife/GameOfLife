@@ -162,7 +162,7 @@ public class GameOfLife extends Game {
             //End if no player has moves to make
             //and all player are the same age
             //and if host has turn
-            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || player.isHost() && !player.hasTurn()){
+            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())){
                 return false;
             }
         }
