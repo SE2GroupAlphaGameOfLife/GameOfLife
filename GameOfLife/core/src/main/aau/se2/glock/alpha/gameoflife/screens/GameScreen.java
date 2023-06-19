@@ -708,14 +708,18 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
         GameOfLife.players.sort((o1, o2) -> o2.getLifepoints() - o1.getLifepoints());
+        Label winningWindowHeading = new Label("Resultat", labelStyle);
+        winningWindow.add(winningWindowHeading).row();
 
+        int place = 1;
         for (Player player : GameOfLife.players) {
             String username = player.getUsername();
-            Label usernameLabel = new Label(username, labelStyle);
+            Label usernameLabel = new Label(place + ". " +username, labelStyle);
             Label lifepointsLabel = new Label(player.getLifepoints() + "", labelStyle);
 
             winningWindow.add(usernameLabel).padTop(10);
             winningWindow.add(lifepointsLabel).padLeft(10).padTop(10).row();
+            place++;
         }
 
         closeBtn = new TextButton("Close", textButtonStyle);

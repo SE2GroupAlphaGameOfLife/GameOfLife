@@ -15,6 +15,7 @@ import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.core.special.Building;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
+import aau.se2.glock.alpha.gameoflife.core.special.CarType;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
@@ -108,7 +109,7 @@ public class GameOfLife extends Game {
      */
     private static GameOfLife INSTANCE;
 
-    private static int EndOfGameAge = 28;
+    private static int EndOfGameAge = 20;
 
     /**
      * @return
@@ -221,6 +222,7 @@ public class GameOfLife extends Game {
         kryo.register(CheatingMessage.class);
         kryo.register(PlayerColor.class);
         kryo.register(Car.class);
+        kryo.register(CarType.class);
     }
 
     public static int getEndOfGameAge() {
