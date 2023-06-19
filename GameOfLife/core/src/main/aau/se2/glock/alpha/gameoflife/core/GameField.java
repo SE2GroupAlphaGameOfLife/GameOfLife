@@ -21,13 +21,11 @@ public class GameField {
      *
      */
     private final List<Integer> indexOfNextGameFields; // The list of next gameFields for the game field
-
+    private final String type;
     /**
      *
      */
     private LogicalField logicalField;  //Logical field which has Information on events
-
-    private final String type;
 
     /**
      * For serialization needed!
@@ -61,7 +59,7 @@ public class GameField {
         this.type = type;
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
-        this.logicalField = new LogicalField(this,type);
+        this.logicalField = new LogicalField(this, type);
     }
 
     public String getType() {

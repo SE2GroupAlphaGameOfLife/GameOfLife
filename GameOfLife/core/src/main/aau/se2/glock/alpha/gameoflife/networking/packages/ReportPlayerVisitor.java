@@ -1,7 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.networking.packages;
 
-import com.badlogic.gdx.Gdx;
-
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;

@@ -42,7 +42,6 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
-import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 
 public class ServerClassTest {
 

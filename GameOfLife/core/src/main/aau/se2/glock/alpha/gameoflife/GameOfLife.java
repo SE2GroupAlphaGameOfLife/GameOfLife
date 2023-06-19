@@ -13,6 +13,7 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
+import aau.se2.glock.alpha.gameoflife.core.special.Car;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
@@ -40,7 +41,7 @@ public class GameOfLife extends Game {
     public static final String FILE_EVENT_JSON = "Events.json";
 
     /**
-     *File name for Special Events json located in the Assets Folder
+     * File name for Special Events json located in the Assets Folder
      */
     public static final String FILE_SPECIAL_EVENT_JSON = "SpecialEvents.json";
     public static final String FILE_GAMEFIELD_JSON = "Gameboard.json";
@@ -106,6 +107,8 @@ public class GameOfLife extends Game {
      */
     private static GameOfLife INSTANCE;
 
+    private static int EndOfGameAge = 28;
+
     /**
      * @return
      */
@@ -163,6 +166,20 @@ public class GameOfLife extends Game {
         GameOfLife.proximitySensorInterface = proximitySensorInterface;
     }
 
+    public static boolean checkIfGameOver() {
+        for (Player player : GameOfLife.players) {
+            //End if no player has moves to make
+            //and all player are the same age
+            //and if host has turn
+            if (player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())) {
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
     /**
      * @param screen
      */
@@ -201,6 +218,11 @@ public class GameOfLife extends Game {
         kryo.register(ReportPlayerMessage.class);
         kryo.register(CheatingMessage.class);
         kryo.register(PlayerColor.class);
+        kryo.register(Car.class);
+    }
+
+    public static int getEndOfGameAge() {
+        return EndOfGameAge;
     }
 
     /**

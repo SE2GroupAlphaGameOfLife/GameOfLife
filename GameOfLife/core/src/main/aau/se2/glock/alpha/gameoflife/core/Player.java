@@ -55,7 +55,7 @@ public class Player {
     /**
      * Tells if the server is only and or the player joining.
      */
-    private boolean isJoning, isOnline, diploma,doctor;
+    private boolean isJoning, isOnline, diploma, doctor;
     private List<Car> carList;
     private List<Building> buildingList;
 
@@ -100,12 +100,12 @@ public class Player {
         return diploma;
     }
 
-    public boolean isDoctor() {
-        return doctor;
-    }
-
     public void setDiploma(boolean hasDiploma) {
         this.diploma = hasDiploma;
+    }
+
+    public boolean isDoctor() {
+        return doctor;
     }
 
     public void setDoctor(boolean hasDoctor) {
@@ -246,13 +246,6 @@ public class Player {
     }
 
     /**
-     * @param hasTurn
-     */
-    public void setHasTurn(boolean hasTurn) {
-        this.hasTurn = hasTurn;
-    }
-
-    /**
      * @return
      */
     public boolean isJoning() {
@@ -360,13 +353,21 @@ public class Player {
         //we finished moving return true
         return true;
     }
-    public void changeBalance(int money, int lifepoints){
-        this.lifepoints = this.lifepoints+lifepoints;
-        this.money = this.money+money;
+
+    public void changeBalance(int money, int lifepoints) {
+        this.lifepoints = this.lifepoints + lifepoints;
+        this.money = this.money + money;
     }
 
     public boolean isHasTurn() {
         return hasTurn;
+    }
+
+    /**
+     * @param hasTurn
+     */
+    public void setHasTurn(boolean hasTurn) {
+        this.hasTurn = hasTurn;
     }
 
     public List<Car> getCarList() {
@@ -377,10 +378,11 @@ public class Player {
         return buildingList;
     }
 
-    public void addCar(Car car){
+    public void addCar(Car car) {
         carList.add(car);
     }
-    public void addBuilding(Building building){
+
+    public void addBuilding(Building building) {
         buildingList.add(building);
     }
 

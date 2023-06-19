@@ -334,7 +334,7 @@ public class ServerClass implements Listener {
     }
 
     public List<PlayerCheated> getPlayerCheatedList() {
-        if(playerCheatedList == null){
+        if (playerCheatedList == null) {
             playerCheatedList = new ArrayList<>();
         }
 

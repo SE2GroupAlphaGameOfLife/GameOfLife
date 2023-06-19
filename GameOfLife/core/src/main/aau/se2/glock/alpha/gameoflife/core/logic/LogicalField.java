@@ -44,13 +44,13 @@ public class LogicalField {
     /**
      * @param field
      */
-    public LogicalField(GameField field,String type) {
+    public LogicalField(GameField field, String type) {
         this.field = field;
         this.type = type;
         this.section = 0;
-        if(type.equals("empty")||type.equals("intersection")){
+        if (type.equals("empty") || type.equals("intersection")) {
             this.isSpecial = false;
-        }else{
+        } else {
             this.isSpecial = true;
             retrieveSpecialEvent();
         }
@@ -61,13 +61,14 @@ public class LogicalField {
      */
     public Event getEvent() {
         if (this.isSpecial) {
-           return this.specialEvent;
+            return this.specialEvent;
         } else {
             Card c = Stack.getINSTANCE().getTopCard();
             return c.getEvent(section);
         }
     }
-    private void retrieveSpecialEvent(){
+
+    private void retrieveSpecialEvent() {
         SpecialEventHandler specialEventHandler = new SpecialEventHandler(type);
         this.specialEvent = specialEventHandler.getCorrectSpecialEvent();
 
@@ -78,7 +79,7 @@ public class LogicalField {
     }
 
     public int getSection() {
-        return  this.section;
+        return this.section;
     }
 
     public void setSection(int i) {

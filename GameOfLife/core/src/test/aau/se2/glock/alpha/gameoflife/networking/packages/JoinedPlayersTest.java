@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.HashMap;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
-import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
 
 public class JoinedPlayersTest {
 

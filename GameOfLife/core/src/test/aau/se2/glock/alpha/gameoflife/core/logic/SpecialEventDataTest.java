@@ -1,4 +1,4 @@
-package aau.se2.glock.alpha.gameoflife.core;
+package aau.se2.glock.alpha.gameoflife.core.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.JobData;
-import aau.se2.glock.alpha.gameoflife.core.logic.SpecialEvent;
-import aau.se2.glock.alpha.gameoflife.core.logic.SpecialEventData;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
 
@@ -62,7 +60,7 @@ public class SpecialEventDataTest {
         specialEventData = new SpecialEventData(jsonFileReader);
         specialEventData.fillSpecialEventList();
         verify(jsonFileReader).readJson(any(String.class), eq(SpecialEvent.class), callbackCaptor.capture());
-        callbackCaptor.getValue().onJsonRead(new ArrayList<>(Collections.singletonList(new SpecialEvent("test",0,0,"test","test","test"))));
+        callbackCaptor.getValue().onJsonRead(new ArrayList<>(Collections.singletonList(new SpecialEvent("test", 0, 0, "test", "test", "test"))));
         assertEquals(1, specialEventData.getSpecialEventList().size());
     }
 

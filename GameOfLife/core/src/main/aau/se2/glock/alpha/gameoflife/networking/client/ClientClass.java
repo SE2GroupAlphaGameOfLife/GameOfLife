@@ -71,8 +71,7 @@ public class ClientClass implements Listener, ClientObserverSubject {
     };
 
     /**
-     * @param client
-     * Only for testing
+     * @param client Only for testing
      */
     public ClientClass(Client client) {
         this.client = client;

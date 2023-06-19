@@ -44,17 +44,17 @@ public class LogicalFieldTest {
 
     @Test
     public void testGetEventWhenSpecialField() {
-        LogicalField logicalField = new LogicalField(gameField,"special");
+        LogicalField logicalField = new LogicalField(gameField, "special");
         logicalField.setSpecial(true);
 
-        Event event =  (SpecialEvent)logicalField.getEvent();
+        Event event = (SpecialEvent) logicalField.getEvent();
 
         assertNull(event);
     }
 
     @Test
     public void testGetEventWhenNonSpecialField() {
-        LogicalField logicalField = new LogicalField(gameField,"empty");
+        LogicalField logicalField = new LogicalField(gameField, "empty");
         logicalField.setSpecial(false);
 
         logicalField.setSection(3);

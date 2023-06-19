@@ -9,8 +9,6 @@ import org.junit.Test;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-
 public class ServerInformationTest {
     @Test
     public void testDefaultConstructor() {

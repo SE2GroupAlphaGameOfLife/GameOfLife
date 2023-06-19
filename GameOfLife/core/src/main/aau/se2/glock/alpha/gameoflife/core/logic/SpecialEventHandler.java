@@ -9,7 +9,7 @@ public class SpecialEventHandler {
 
     private SpecialEventData specialEventData;
 
-    public SpecialEventHandler(String type){
+    public SpecialEventHandler(String type) {
         this.type = type;
         specialEventData = SpecialEventData.getINSTANCE();
     }
