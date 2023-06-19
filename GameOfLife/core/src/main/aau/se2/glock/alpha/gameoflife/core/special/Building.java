@@ -7,6 +7,7 @@ public class Building {
     public Building() {
 
     }
+
     public Building(int price, BuildingType type) {
         this.price = price;
         this.type = type;
