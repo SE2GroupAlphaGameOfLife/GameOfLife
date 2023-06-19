@@ -11,7 +11,6 @@ import static org.mockito.Mockito.when;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 
 public class PlayerTest {
     private Player player;
@@ -139,7 +139,7 @@ public class PlayerTest {
         assertEquals(18, testPlayer.getAge());
         assertEquals(0, testPlayer.getMoveCount());
         assertEquals(0, testPlayer.getId());
-        assertEquals(new Color(Color.rgb888(255, 0, 0)), testPlayer.getColor());
+        assertEquals(PlayerColor.BLUE, testPlayer.getColor());
         assertTrue(testPlayer.isHost());
         assertTrue(testPlayer.hasTurn());
         assertTrue(testPlayer.isOnline());
@@ -156,7 +156,7 @@ public class PlayerTest {
         testPlayer.setOnline(false);
         testPlayer.setJoning(false);
         testPlayer.setId(99);
-        testPlayer.setColor(new Color(Color.rgb888(0, 255, 0)));
+        testPlayer.setColor(PlayerColor.BLUE);
 
         assertEquals("User", testPlayer.getUsername());
         assertEquals(99, testPlayer.getPosition());
@@ -169,7 +169,7 @@ public class PlayerTest {
         assertFalse(testPlayer.isOnline());
         assertFalse(testPlayer.isJoning());
         assertEquals(99, testPlayer.getId());
-        assertEquals(new Color(Color.rgb888(0, 255, 0)), testPlayer.getColor());
+        assertEquals(PlayerColor.BLUE, testPlayer.getColor());
     }
 
     @Test

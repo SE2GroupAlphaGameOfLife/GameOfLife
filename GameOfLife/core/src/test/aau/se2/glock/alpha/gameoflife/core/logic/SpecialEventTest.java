@@ -36,7 +36,7 @@ public class SpecialEventTest {
     public void testEventOptionAPay20t() {
         SpecialEvent event = new SpecialEvent("pay20t", 0, -20000, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du verlierst -20000€!", result);
+        assertEquals("Du verlierst 20000€!", result);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class SpecialEventTest {
     public void testEventOptionAPay10tEUR() {
         SpecialEvent event = new SpecialEvent("pay10tEUR", 0, -10000, null, null, null);
         String result = event.eventOptionA();
-        assertEquals("Du verlierst -10000€!", result);
+        assertEquals("Du verlierst 10000€!", result);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class SpecialEventTest {
     public void testEventOptionBPay20t() {
         SpecialEvent event = new SpecialEvent("pay20t", 0, -20000, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du verlierst -20000€!", result);
+        assertEquals("Du verlierst 20000€!", result);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class SpecialEventTest {
     public void testEventOptionBPay10tEUR() {
         SpecialEvent event = new SpecialEvent("pay10tEUR", 0, -10000, null, null, null);
         String result = event.eventOptionB();
-        assertEquals("Du verlierst -10000€!", result);
+        assertEquals("Du verlierst 10000€!", result);
     }
 
     @Test

@@ -1,5 +1,10 @@
 package aau.se2.glock.alpha.gameoflife.screens;
 
+import static aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor.BLUE;
+import static aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor.GREEN;
+import static aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor.PURPLE;
+import static aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor.YELLOW;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,6 +47,7 @@ import aau.se2.glock.alpha.gameoflife.core.special.BuildingType;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
 import aau.se2.glock.alpha.gameoflife.core.special.CarType;
 import aau.se2.glock.alpha.gameoflife.core.special.SpecialData;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
@@ -59,6 +65,12 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Skin uiSkin;
     private Texture background;
     private Texture skateboard;
+    private Texture skateBoardBlue;
+    private Texture skateBoardPurple;
+    private Texture skateBoardGreen;
+    private Texture skateBoardYellow;
+    private Button nextFieldButton1;
+    private Button nextFieldButton2;
     private Button closeBtn;
     private Button optionAButton;
     private Button optionBButton;
@@ -146,7 +158,20 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             GameField currentField = Board.getInstance().getGameFields().get(player.getPosition());
             Vector3 v3 = new Vector3(currentField.getPosition().x - 20, currentField.getPosition().y - 20, 0);
             gameCamera.project(v3);
-            ImageButton playerButton = new ImageButton(new TextureRegionDrawable(skateboard));
+            ImageButton playerButton;
+            PlayerColor playerColor = player.getColor();
+            if(playerColor==BLUE)
+                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardBlue));
+            else if(playerColor==PURPLE)
+                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardPurple));
+            else if(playerColor==GREEN)
+                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardGreen));
+            else if(playerColor==YELLOW)
+                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardYellow));
+            else
+                playerButton = new ImageButton(new TextureRegionDrawable(skateboard));
+
+
 
             ClickListener playerClickListener = new ClickListener() {
                 @Override
@@ -235,6 +260,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         background = new Texture(Gdx.files.internal("board.png"));
         skateboard = new Texture(Gdx.files.internal("skateboard.png"));
+        skateBoardBlue = new Texture(Gdx.files.internal("skateboard_blue.png"));
+        skateBoardPurple = new Texture(Gdx.files.internal("skateboard_purple.png"));
+        skateBoardGreen = new Texture(Gdx.files.internal("skateboard_green.png"));
+        skateBoardYellow = new Texture(Gdx.files.internal("skateboard_yellow.png"));
+
 
         Texture wheelTexture = new Texture("wheel.png");
         Texture arrowTexture = new Texture("arrow.png");
@@ -1010,8 +1040,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     String generateSummaryString(int wage) {
-        String summary = "Round ended:\n";
-        summary += "You receive your paycheck: " + wage + " €";
+        String summary = "Rundenende:\n";
+        summary += "Du erhälst dein Gehalt: " + wage + " €";
         return summary;
     }
 
