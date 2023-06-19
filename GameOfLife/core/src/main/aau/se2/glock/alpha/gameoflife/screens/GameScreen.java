@@ -52,9 +52,10 @@ import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
 public class GameScreen extends BasicScreen implements ProximityListener {
 
     private TextButton btnQuit;
+    private ClickListener btnQuitListener;
     private final String buyCarCond = "buyCar";
     private final String buyHouseCond = "buyHouse";
-    private final String changeCareerCond ="changeCareer";
+    private final String changeCareerCond = "changeCareer";
     private TextButton btnCheat1Field;
     private TextButton btnCheat2Fields;
     private TextButton btnCheat3Fields;
@@ -82,6 +83,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Group spinTheWheelGroup;
     private Group playersGroup;
     private Group reportWindowGroup;
+    private Group winningWindowGroup;
     private Texture wheelTexture;
     private Drawable wheelDrawable;
     private ImageButton wheelImageButton;
@@ -233,11 +235,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         spinTheWheelGroup = new Group();
         playersGroup = new Group();
         reportWindowGroup = new Group();
+        winningWindowGroup = new Group();
         stage.addActor(nextFieldButtonGroup);
         stage.addActor(cheatingButtonGroup);
         stage.addActor(spinTheWheelGroup);
         stage.addActor(playersGroup);
         stage.addActor(reportWindowGroup);
+        stage.addActor(winningWindowGroup);
     }
 
     /**
@@ -482,7 +486,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(btnQuit); // Add the button to the stage
 
         // Create a ClickListener
-        ClickListener btnQuitListener = new ClickListener() {
+        btnQuitListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 new Thread(new Runnable() {
@@ -516,7 +520,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("ShowsCurrentJob", "Works");
-                if(jobChosen){
+                if (jobChosen) {
                     showCurrentJob();
                 }
             }
@@ -619,10 +623,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 Gdx.app.log("JobSelection", "Job 1 chosen");
                 jobChosen = true;
                 window.remove();
-                if(GameOfLife.self.getAge()>18){
+                if (GameOfLife.self.getAge() > 18) {
                     specialWindow.remove();
                     showRoundSummary();
                 }
+                GameOfLife.client.sendPlayerTCP(GameOfLife.self);
             }
         });
 
@@ -633,10 +638,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 Gdx.app.log("JobSelection", "Job 2 chosen");
                 jobChosen = true;
                 window.remove();
-                if(GameOfLife.self.getAge()>18){
+                if (GameOfLife.self.getAge() > 18) {
                     specialWindow.remove();
                     showRoundSummary();
                 }
+                GameOfLife.client.sendPlayerTCP(GameOfLife.self);
             }
         });
         stage.addActor(window);
@@ -652,7 +658,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         window.setPosition(Gdx.graphics.getWidth() / 2f - window.getWidth() / 2, Gdx.graphics.getHeight() / 2f - window.getHeight() / 2);
 
         for (Player player : GameOfLife.players) {
-            if(player == GameOfLife.self){
+            if (player == GameOfLife.self) {
                 continue;
             }
 
@@ -672,7 +678,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
         closeBtn = new TextButton("Close", textButtonStyle);
-        closeBtn.addListener(new ClickListener(){
+        closeBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 reportWindowGroup.clearChildren();
@@ -682,6 +688,37 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         reportWindowGroup.addActor(window);
     }
+
+    private void showWinningWindow() {
+        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        Window winningWindow = new Window("", uiSkin);
+        winningWindow.setSize(600, 450);
+        winningWindow.setPosition(Gdx.graphics.getWidth() / 2f - winningWindow.getWidth() / 2, Gdx.graphics.getHeight() / 2f - winningWindow.getHeight() / 2);
+
+        for (Player player : GameOfLife.players) {
+            player.setLifepoints(player.getLifepoints() + (player.getMoney() / 1000));
+            player.setMoney(0);
+        }
+
+        GameOfLife.players.sort((o1, o2) -> o2.getLifepoints() - o1.getLifepoints());
+
+        for (Player player : GameOfLife.players) {
+            String username = player.getUsername();
+            Label usernameLabel = new Label(username, labelStyle);
+            Label lifepointsLabel = new Label(player.getLifepoints() + "", labelStyle);
+
+            winningWindow.add(usernameLabel).padTop(10);
+            winningWindow.add(lifepointsLabel).padLeft(10).padTop(10).row();
+        }
+
+        closeBtn = new TextButton("Close", textButtonStyle);
+        closeBtn.addListener(btnQuitListener);
+        winningWindow.add(closeBtn).padTop(10).colspan(2).row();
+
+        winningWindowGroup.addActor(winningWindow);
+    }
+
 
     /**
      *
@@ -749,6 +786,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             }
         }, 0, time);
     }
+
     /**
      * @param p
      */
@@ -774,7 +812,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void showEventPopUp(String eventText) {
         createEventPopup();
-        eventDialog.text(eventText+"\n"+generateSummaryString(recieveWage()), labelStyle);
+        eventDialog.text(eventText + "\n" + generateSummaryString(recieveWage()), labelStyle);
         eventDialog.show(stage);
     }
 
@@ -785,18 +823,20 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         eventDialog.hide();
         GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
-    private void handleEvent(Player player){
+
+    private void handleEvent(Player player) {
         Event event = player.getEvent();
-        if(event instanceof SpecialEvent){
-            System.out.println("EVENT:"+ ((SpecialEvent) event).getType());
+        if (event instanceof SpecialEvent) {
+            System.out.println("EVENT:" + ((SpecialEvent) event).getType());
             currentSpecialEvent = (SpecialEvent) event;
             showSpecialEventPopup();
-        }else{
-            player.changeBalance(event.getCash(),event.getLp());
-        showEventPopUp(addLineBreak(event.getText()));
+        } else {
+            player.changeBalance(event.getCash(), event.getLp());
+            showEventPopUp(addLineBreak(event.getText()));
         }
     }
-    private void showSpecialEventPopup(){
+
+    private void showSpecialEventPopup() {
         createSpecialEventPopup();
     }
 
@@ -810,9 +850,9 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         optionAButton = new TextButton("OptionA", textButtonStyle);
         optionBButton = new TextButton("OptionB", textButtonStyle);
-        btnConfirm = new TextButton("Bestätigen",textButtonStyle);
+        btnConfirm = new TextButton("Bestätigen", textButtonStyle);
 
-        optionTextA = new Label(currentSpecialEvent.getOptionA(),uiSkin);
+        optionTextA = new Label(currentSpecialEvent.getOptionA(), uiSkin);
         optionTextB = new Label(currentSpecialEvent.getOptionB(), uiSkin);
         specialEventText = new Label(currentSpecialEvent.getMessage(), uiSkin);
 
@@ -820,7 +860,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         specialWindow.add(optionTextB).pad(10, 50, 0, 0).colspan(0).row();
         specialWindow.add(optionAButton).pad(0, 0, 0, 0).colspan(1);
         specialWindow.add(optionBButton).pad(0, 50, 0, 0).row();
-        specialWindow.add(specialEventText).pad(30,0,0,0);
+        specialWindow.add(specialEventText).pad(30, 0, 0, 0);
         specialWindow.setScale(2F);
 
         optionAButton.addListener(new ClickListener() {
@@ -845,30 +885,31 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         stage.addActor(specialWindow);
     }
-    private void openCarShop(){
+
+    private void openCarShop() {
         //TODO Car Shop code here
-        SpecialData specialData= new SpecialData();
+        SpecialData specialData = new SpecialData();
         Car car1 = specialData.selectCar(CarType.HATCHBACK);
         Car car2 = specialData.selectCar(CarType.SPORTSCAR);
         optionTextA.setText(car1.toString());
         optionTextB.setText(car2.toString());
         specialEventText.setText("Such dir ein Auto aus");
         optionAButton.clearListeners();
-        optionAButton.addListener(new ClickListener(){
+        optionAButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.addCar(car1);
-                Gdx.app.log("Car Shop:","Car1 Selected");
+                Gdx.app.log("Car Shop:", "Car1 Selected");
                 specialWindow.remove();
                 showRoundSummary();
             }
         });
         optionBButton.clearListeners();
-        optionBButton.addListener(new ClickListener(){
+        optionBButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.addCar(car2);
-                Gdx.app.log("Car Shop:","Car2 Selected");
+                Gdx.app.log("Car Shop:", "Car2 Selected");
                 specialWindow.remove();
                 showRoundSummary();
             }
@@ -876,50 +917,51 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
 
     }
-    private void openHouseShop(){
+
+    private void openHouseShop() {
         SpecialData specialData = new SpecialData();
         Building house1 = specialData.selectHouse(BuildingType.SINGLEHOUSE);
         Building house2 = specialData.selectHouse(BuildingType.FAMILYHOUSE);
         Building house3 = specialData.selectHouse(BuildingType.VILLA);
-        optionCButton = new TextButton("OptionC",textButtonStyle);
-        optionTextC = new Label(house3.toString(),uiSkin);
+        optionCButton = new TextButton("OptionC", textButtonStyle);
+        optionTextC = new Label(house3.toString(), uiSkin);
         optionTextA.setText(house1.toString());
         optionTextB.setText(house2.toString());
         rearrangeButtonsForHouseShop();
         optionAButton.clearListeners();
         optionBButton.clearListeners();
         optionCButton.clearListeners();
-        optionAButton.addListener(new ClickListener(){
+        optionAButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.changeBalance(-house1.getPrice(), 0);
                 GameOfLife.self.addBuilding(house1);
-                Gdx.app.log("Building:","Singlehouse bought");
+                Gdx.app.log("Building:", "Singlehouse bought");
                 specialWindow.remove();
                 showRoundSummary();
             }
         });
-        optionBButton.addListener(new ClickListener(){
+        optionBButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.changeBalance(-house2.getPrice(), 0);
                 GameOfLife.self.addBuilding(house2);
-                Gdx.app.log("Car Shop:","FamilyHouse bought");
+                Gdx.app.log("Car Shop:", "FamilyHouse bought");
                 specialWindow.remove();
                 showRoundSummary();
             }
         });
-        optionCButton.addListener(new ClickListener(){
+        optionCButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameOfLife.self.changeBalance(-house3.getPrice(), 0);
                 GameOfLife.self.addBuilding(house3);
-                Gdx.app.log("Car Shop:","Villa bought");
+                Gdx.app.log("Car Shop:", "Villa bought");
                 specialWindow.remove();
                 showRoundSummary();
             }
         });
-        Gdx.app.log("House Shop:","open");
+        Gdx.app.log("House Shop:", "open");
     }
 
     private void rearrangeButtonsForHouseShop() {
@@ -935,26 +977,29 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         specialWindow.add(optionBButton);
         specialWindow.add(optionCButton).row();
     }
-    private String addLineBreak(String input){
-        String result  = "";
+
+    private String addLineBreak(String input) {
+        String result = "";
         String[] split = input.split("\\. ");
-        for (int i = 0;i<split.length-1;i++) {
-            result+=split[i]+"\n";
+        for (int i = 0; i < split.length - 1; i++) {
+            result += split[i] + "\n";
         }
-        result+=split[split.length-1];
+        result += split[split.length - 1];
         return result;
     }
+
     void checkforEventType(String evtReturnText) {
-        if(evtReturnText.equals(buyCarCond)){
+        if (evtReturnText.equals(buyCarCond)) {
             openCarShop();
-        }else if(evtReturnText.equals(buyHouseCond)){
+        } else if (evtReturnText.equals(buyHouseCond)) {
             openHouseShop();
-        }else if(evtReturnText.equals(changeCareerCond)){
+        } else if (evtReturnText.equals(changeCareerCond)) {
             specialWindow.remove();
             chooseJobWindow();
-        }else openConfirmWindow(evtReturnText);
+        } else openConfirmWindow(evtReturnText);
     }
-    void openConfirmWindow(String evtReturnText){
+
+    void openConfirmWindow(String evtReturnText) {
         specialWindow.removeActor(optionAButton);
         specialWindow.removeActor(optionBButton);
         specialWindow.removeActor(optionTextA);
@@ -963,7 +1008,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         specialWindow.add(specialEventText).row();
         specialEventText.setText(evtReturnText);
         specialWindow.add(btnConfirm);
-        btnConfirm.addListener(new ClickListener(){
+        btnConfirm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 specialWindow.remove();
@@ -971,30 +1016,35 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             }
         });
     }
+
     @Override
     public void update(String payload) {
     }
 
-    private void showRoundSummary(){
-        int wage = recieveWage();
-        String summary = generateSummaryString(wage);
-        createEventPopup();
-        eventDialog.text(summary,labelStyle);
-        eventDialog.show(stage);
-        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
+    private void showRoundSummary() {
+        if (GameOfLife.self.getAge() >= 21) {
+            showWinningWindow();
+        } else {
+            int wage = recieveWage();
+            String summary = generateSummaryString(wage);
+            createEventPopup();
+            eventDialog.text(summary, labelStyle);
+            eventDialog.show(stage);
+            GameOfLife.client.sendPlayerTCP(GameOfLife.self);
+        }
     }
 
-    String generateSummaryString(int wage){
-        String summary ="Runde zu Ende:\n";
-        summary+="Du ehälst durch deinen Job "+wage+"€";
+    String generateSummaryString(int wage) {
+        String summary = "Round ended:\n";
+        summary += "You receive your paycheck: " + wage + " €";
         return summary;
     }
 
-    private int recieveWage(){
-       Job job = GameOfLife.self.getCurrentJob();
-       int wage = job.getGehaltsListe().get(job.getGehaltsStufe());
-       GameOfLife.self.changeBalance(wage,0);
-       return wage;
+    private int recieveWage() {
+        Job job = GameOfLife.self.getCurrentJob();
+        int wage = job.getGehaltsListe().get(job.getGehaltsStufe());
+        GameOfLife.self.changeBalance(wage, 0);
+        return wage;
     }
 
 }
