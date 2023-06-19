@@ -51,14 +51,7 @@ import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
  */
 public class GameScreen extends BasicScreen implements ProximityListener {
 
-    private final String buyCarCond = "buyCar";
-    private final String buyHouseCond = "buyHouse";
-    private final String changeCareerCond = "changeCareer";
-    private TextButton btnQuit;
     private ClickListener btnQuitListener;
-    private TextButton btnCheat1Field;
-    private TextButton btnCheat2Fields;
-    private TextButton btnCheat3Fields;
     private TextButton optionCButton;
     private TextButton btnConfirm;
     private TextButton.TextButtonStyle textButtonStyle;
@@ -66,15 +59,10 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Skin uiSkin;
     private Texture background;
     private Texture skateboard;
-    private Button nextFieldButton1;
-    private Button nextFieldButton2;
     private Button closeBtn;
-    private Button job1Btn;
-    private Button job2Btn;
     private Button optionAButton;
     private Button optionBButton;
     private Label job1Description;
-    private Label job2Description;
     private Label optionTextA;
     private Label optionTextB;
     private Label specialEventText;
@@ -84,11 +72,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Group playersGroup;
     private Group reportWindowGroup;
     private Group winningWindowGroup;
-    private Texture wheelTexture;
-    private Drawable wheelDrawable;
     private ImageButton wheelImageButton;
     private ImageButton arrowImageButton;
-    private Texture arrowTexture;
     private Label lbUsernameAge;
     private Label lbMoney;
     private Label lbLifepoints;
@@ -98,18 +83,14 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Label.LabelStyle labelStyle;
     private Dialog eventDialog;
     private boolean isSpinning = false;
-    private float arrowRotation = 216f; //216 is starting point
     private float spinSpeed = 360f;
-    private float maxSpinDuration = 2f;
+    private final float maxSpinDuration = 2f;
     private float spinDuration = 0f;
     private float spinAngle = 0f;
     private Image arrowImage;
     private JobData jobSelection;
     private Window specialWindow;
-    private Event event;
-
     private SpecialEvent currentSpecialEvent;
-    private Job[] jobs;
     private boolean jobChosen = false;
 
     public GameScreen() {
@@ -184,6 +165,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             createSpinTheWheelButton();
 
             if (isSpinning) {
+                //216 is starting point
+                float arrowRotation = 216f;
                 arrowImage.setRotation(((float) spinAngle + arrowRotation));
             }
 
@@ -253,12 +236,12 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         background = new Texture(Gdx.files.internal("board.png"));
         skateboard = new Texture(Gdx.files.internal("skateboard.png"));
 
-        wheelTexture = new Texture("wheel.png");
-        arrowTexture = new Texture("arrow.png");
+        Texture wheelTexture = new Texture("wheel.png");
+        Texture arrowTexture = new Texture("arrow.png");
 
         arrowImage = new Image(arrowTexture);
 
-        wheelDrawable = new TextureRegionDrawable(new TextureRegion(wheelTexture));
+        Drawable wheelDrawable = new TextureRegionDrawable(new TextureRegion(wheelTexture));
         wheelImageButton = new ImageButton(wheelDrawable);
         arrowImageButton = new ImageButton(new TextureRegionDrawable(arrowTexture));
     }
@@ -286,10 +269,11 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() == 0) {
-                    // This method will be called when the TextButton is clicked
-                    boolean isInTurn = true;
+                    /*
+                     This method will be called when the TextButton is clicked
+                    Player player = GameOfLife.self;
+                    */
 
-                    //Player player = GameOfLife.self;
                     GameOfLife.self.setAge(GameOfLife.self.getAge() + 1);
                     int moveCount = GameOfLife.self.rollTheDice();
                     Gdx.app.log("moveCount", moveCount + "");
@@ -317,21 +301,21 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void createMenuCheating() {
         //Create a Start Game Button
-        btnCheat1Field = new TextButton("+1 Feld", textButtonStyle); // Create the text button with the text and style
+        TextButton btnCheat1Field = new TextButton("+1 Feld", textButtonStyle); // Create the text button with the text and style
         btnCheat1Field.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25))); // Set the position of the button
         btnCheat1Field.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
         cheatingButtonGroup.addActor(btnCheat1Field);
 
         //Create a Start Game Button
-        btnCheat2Fields = new TextButton("+2 Felder", textButtonStyle); // Create the text button with the text and style
+        TextButton btnCheat2Fields = new TextButton("+2 Felder", textButtonStyle); // Create the text button with the text and style
         btnCheat2Fields.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25 * 2))); // Set the position of the button
         btnCheat2Fields.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
         cheatingButtonGroup.addActor(btnCheat2Fields);
 
         //Create a Start Game Button
-        btnCheat3Fields = new TextButton("+3 Felder", textButtonStyle); // Create the text button with the text and style
+        TextButton btnCheat3Fields = new TextButton("+3 Felder", textButtonStyle); // Create the text button with the text and style
         btnCheat3Fields.setPosition(buttonPosition.x, (float) (buttonPosition.y + (buttonHeight * 1.25 * 3))); // Set the position of the button
         btnCheat3Fields.setSize(buttonWidth, buttonHeight); // Set the size of the button
 
@@ -385,7 +369,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         GameField nextGameField1 = Board.getInstance().getGameFields().get(gameField.getIndexOfNextGameFields().get(0));
 
         //Create and configure the button to choose first of the possible next steps
-        nextFieldButton1 = new TextButton("Hier", textButtonStyle);
+        Button nextFieldButton1 = new TextButton("Hier", textButtonStyle);
         nextFieldButtonGroup.addActor(nextFieldButton1);
         nextFieldButton1.setSize(100, 50);
         Vector3 v3 = new Vector3(nextGameField1.getPosition().x, nextGameField1.getPosition().y - 5, 0);
@@ -404,7 +388,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         GameField nextGameField2 = Board.getInstance().getGameFields().get(gameField.getIndexOfNextGameFields().get(1));
 
         //Create and configure the button to choose second of the possible next steps
-        nextFieldButton2 = new TextButton("Hier", textButtonStyle);
+        Button nextFieldButton2 = new TextButton("Hier", textButtonStyle);
         nextFieldButtonGroup.addActor(nextFieldButton2);
         nextFieldButton2.setSize(100, 50);
         v3 = new Vector3(nextGameField2.getPosition().x, nextGameField2.getPosition().y - 5, 0);
@@ -433,9 +417,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         nextFieldButtonGroup.clearChildren();
 
         //Check if player can still move
-        GameField gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
         if (!GameOfLife.self.makeMove()) {
-            gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
+            GameField gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
             chooseNextStep(gameField);
         }
 
@@ -460,9 +443,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             isSpinning = false;
 
             //Player player = GameOfLife.self;
-            GameField gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
             if (!GameOfLife.self.makeMove()) {
-                gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
+                GameField gameField = Board.getInstance().getGameFields().get(GameOfLife.self.getPosition());
 
                 chooseNextStep(gameField);
             } else {
@@ -479,7 +461,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void createQuitButton() {
         //Create a Back Button
-        btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
+        TextButton btnQuit = new TextButton("quit", textButtonStyle); // Create the text button with the text and style
         btnQuit.setSize((buttonWidth * 5) / 7f, buttonHeight); // Set the size of the button
         btnQuit.setPosition(30, 30); // Set the position of the button
 
@@ -489,13 +471,10 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         btnQuitListener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (GameOfLife.self.isHost()) {
-                            GameOfLife.server.close();
-                            GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
-                        }
+                new Thread(() -> {
+                    if (GameOfLife.self.isHost()) {
+                        GameOfLife.server.close();
+                        GameOfLife.server = new ServerClass(GameOfLife.TCPPORT, GameOfLife.UDPPORT);
                     }
                 }).start();
                 GameOfLife.gameStarted = false;
@@ -589,10 +568,9 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         window.setPosition(Gdx.graphics.getWidth() / 2F - window.getWidth() / 2, Gdx.graphics.getHeight() / 2F - window.getHeight() / 2);
 
         closeBtn = new TextButton("Close", textButtonStyle);
-        job1Btn = new TextButton("Auswählen", textButtonStyle);
-        job2Btn = new TextButton("Auswählen", textButtonStyle);
+        Button job1Btn = new TextButton("Auswählen", textButtonStyle);
+        Button job2Btn = new TextButton("Auswählen", textButtonStyle);
 
-        jobs = new Job[2];
         jobSelection.mixCards();
         final Job[] jobs = jobSelection.getJobsToSelect(2);
 
@@ -609,7 +587,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
         job1Description = new Label(jobs[0].getBezeichnung() + "\n" + job1Text, uiSkin);
-        job2Description = new Label(jobs[1].getBezeichnung() + "\n" + job2Text, uiSkin);
+        Label job2Description = new Label(jobs[1].getBezeichnung() + "\n" + job2Text, uiSkin);
 
         window.add(job1Description).pad(10, 0, 0, 0).colspan(1);
         window.add(job2Description).pad(10, 50, 0, 0).colspan(0).row();
@@ -793,7 +771,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     /**
-     * @param p
      */
     private void fillPlayerHUD(Player p) {
         lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
@@ -891,7 +868,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void openCarShop() {
-        //TODO Car Shop code here
         SpecialData specialData = new SpecialData();
         Car car1 = specialData.selectCar(CarType.HATCHBACK);
         Car car2 = specialData.selectCar(CarType.SPORTSCAR);
@@ -983,16 +959,19 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private String addLineBreak(String input) {
-        String result = "";
+        java.lang.StringBuilder result = new java.lang.StringBuilder();
         String[] split = input.split("\\. ");
         for (int i = 0; i < split.length - 1; i++) {
-            result += split[i] + "\n";
+            result.append(split[i]).append("\n");
         }
-        result += split[split.length - 1];
-        return result;
+        result.append(split[split.length - 1]);
+        return result.toString();
     }
 
     void checkforEventType(String evtReturnText) {
+        String buyHouseCond = "buyHouse";
+        String buyCarCond = "buyCar";
+        String changeCareerCond = "changeCareer";
         if (evtReturnText.equals(buyCarCond)) {
             openCarShop();
         } else if (evtReturnText.equals(buyHouseCond)) {
