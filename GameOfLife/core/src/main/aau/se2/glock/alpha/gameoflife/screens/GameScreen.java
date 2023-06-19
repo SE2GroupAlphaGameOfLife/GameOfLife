@@ -969,17 +969,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void rearrangeButtonsForHouseShop() {
-        specialWindow.removeActor(specialEventText);
-        specialWindow.removeActor(optionTextA);
-        specialWindow.removeActor(optionTextB);
-        specialWindow.removeActor(optionAButton);
-        specialWindow.removeActor(optionBButton);
-        specialWindow.add(optionTextA);
+        specialWindow.clearChildren();
+        specialWindow.add(optionTextA).colspan(1);
         specialWindow.add(optionTextB).colspan(1);
-        specialWindow.add(optionTextC).row();
-        specialWindow.add(optionAButton);
-        specialWindow.add(optionBButton);
-        specialWindow.add(optionCButton).row();
+        specialWindow.add(optionTextC).colspan(1).row();
+        specialWindow.add(optionAButton).colspan(1);
+        specialWindow.add(optionBButton).colspan(1);
+        specialWindow.add(optionCButton).colspan(1).row();
     }
 
     private String addLineBreak(String input) {
