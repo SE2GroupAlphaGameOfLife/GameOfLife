@@ -1040,8 +1040,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     String generateSummaryString(int wage) {
-        String summary = "Round ended:\n";
-        summary += "You receive your paycheck: " + wage + " €";
+        String summary = "Rundenende:\n";
+        summary += "Du erhälst dein Gehalt: " + wage + " €";
         return summary;
     }
 
