@@ -5,6 +5,9 @@ public class Car {
     private int lp;
     private CarType type;
 
+    public Car() {
+    }
+
     public Car(int price, int lp, CarType type) {
         this.price = price;
         this.lp = lp;
