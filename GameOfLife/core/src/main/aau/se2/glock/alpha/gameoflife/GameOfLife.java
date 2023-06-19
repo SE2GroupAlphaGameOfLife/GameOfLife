@@ -12,6 +12,7 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
@@ -199,6 +200,7 @@ public class GameOfLife extends Game {
         kryo.register(TcpMessage.class);
         kryo.register(ReportPlayerMessage.class);
         kryo.register(CheatingMessage.class);
+        kryo.register(PlayerColor.class);
     }
 
     /**
