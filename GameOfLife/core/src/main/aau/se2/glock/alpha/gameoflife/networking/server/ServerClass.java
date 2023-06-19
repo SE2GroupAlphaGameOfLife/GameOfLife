@@ -1,8 +1,7 @@
 package aau.se2.glock.alpha.gameoflife.networking.server;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -12,14 +11,19 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.security.SecureRandom;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
+import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
+import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
-import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
+import aau.se2.glock.alpha.gameoflife.networking.packages.ReportPlayerVisitor;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessage;
+import aau.se2.glock.alpha.gameoflife.networking.packages.TcpMessageVisitor;
 
 /**
  *
@@ -27,35 +31,42 @@ import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 public class ServerClass implements Listener {
 
     /**
-     *
+     * The port used for UDP connection
      */
-    private final int UDPPORT;
+    private int UDPPORT;
 
     /**
-     *
+     * The port used for TCP connection
      */
-    private final int TCPPORT;
+    private int TCPPORT;
 
     /**
-     *
+     * Kryonet server object, for networking
      */
     private Server server;
 
     /**
-     *
+     * Indicates if server is running on specified ports
      */
     private boolean serverStarted;
 
     /**
-     *
+     * All players currently in the game
      */
     private JoinedPlayers players;
 
     /**
-     *
+     * Name of the player hosting the game
      */
     private String hostname;
 
+    /**
+     *
+     */
+    private List<PlayerCheated> playerCheatedList;
+    /**
+     * Custom UDP broadcast discovery answer. Returns hostname
+     */
     private ServerDiscoveryHandler serverDiscoveryHandler = new ServerDiscoveryHandler() {
         @Override
         public boolean onDiscoverHost(DatagramChannel datagramChannel, InetSocketAddress fromAddress) throws IOException {
@@ -64,7 +75,7 @@ public class ServerClass implements Listener {
             packet.hostname = hostname;
 
             ByteBuffer buffer = ByteBuffer.allocate(256);
-            GameOfLife.client.getClient().getSerialization().write(null, buffer, packet);
+            getClient().getSerialization().write(null, buffer, packet);
             buffer.flip();
 
             datagramChannel.send(buffer, fromAddress);
@@ -79,7 +90,21 @@ public class ServerClass implements Listener {
      */
     public ServerClass(int TCPPORT, int UDPPORT) {
         this.server = new Server();
+        initializeServer(TCPPORT, UDPPORT, false);
+    }
 
+    /**
+     * For testing only
+     *
+     * @param TCPPORT
+     * @param UDPPORT
+     */
+    public ServerClass(int TCPPORT, int UDPPORT, Server test) {
+        this.server = test;
+        initializeServer(TCPPORT, UDPPORT, true);
+    }
+
+    private void initializeServer(int TCPPORT, int UDPPORT, boolean isTest) {
         this.TCPPORT = TCPPORT;
         this.UDPPORT = UDPPORT;
 
@@ -87,17 +112,15 @@ public class ServerClass implements Listener {
         this.server.setDiscoveryHandler(serverDiscoveryHandler);
 
         Kryo kryo = this.server.getKryo();
-        //kryo.register(ServerInformation.class);
-        kryo.register(SecureRandom.class);
-        kryo.register(JoinedPlayers.class);
-        kryo.register(Color.class);
-        kryo.register(Player.class);
-        kryo.register(HashMap.class);
-        kryo.register(DiscoveryResponsePacket.class);
+        GameOfLife.registerClasses(kryo, isTest);
 
         players = new JoinedPlayers();
 
         this.serverStarted = false;
+    }
+
+    protected Client getClient() {
+        return GameOfLife.client.getClient();
     }
 
     /**
@@ -111,7 +134,6 @@ public class ServerClass implements Listener {
                 this.server.start();
 
                 this.serverStarted = true;
-                //sendServerInfoToAllTCP();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -119,10 +141,12 @@ public class ServerClass implements Listener {
     }
 
     /**
+     * For testing only
      *
+     * @return
      */
-    private void sendServerInfoToAllTCP() {
-        this.server.sendToAllTCP(new ServerInformation(this.hostname, this.TCPPORT));
+    public ServerDiscoveryHandler getServerDiscoveryHandler() {
+        return serverDiscoveryHandler;
     }
 
     /**
@@ -136,26 +160,12 @@ public class ServerClass implements Listener {
     /**
      *
      */
-    private void sendPlayersObjectToAll() {
+    public void sendPlayersObjectToAll() {
         this.server.sendToAllTCP(this.players);
     }
 
-    private void sendMessageToAll(String message) {
+    public void sendMessageToAll(String message) {
         this.server.sendToAllTCP(message);
-    }
-
-    /**
-     * @return
-     */
-    public int getTCPport() {
-        return this.TCPPORT;
-    }
-
-    /**
-     * @return
-     */
-    public int getUDPport() {
-        return this.UDPPORT;
     }
 
     /**
@@ -168,15 +178,13 @@ public class ServerClass implements Listener {
                 Player player = this.players.getPlayers().get(connection.getID());
                 player.setOnline(true);
                 player.setJoning(false);
+                player.setHasTurn(false);
                 this.players.addPlayer(player, connection.getID());
-                Gdx.app.log("Server", "Client wiederverbunden!");
+                //Gdx.app.log("Server", "Client wiederverbunden!");
                 sendPlayersObjectToAll();
             } else {
-                Gdx.app.log("Server", "Client Verbindung abgelehnt da Spiel bereits läuft!");
                 connection.close();
             }
-        } else {
-            Gdx.app.log("Server", "Client verbunden!");
         }
     }
 
@@ -189,19 +197,18 @@ public class ServerClass implements Listener {
             Player player = this.players.getPlayers().get(connection.getID());
             player.setOnline(false);
             player.setJoning(true);
-            player.setHasTurn(false);
             this.players.addPlayer(player, connection.getID());
-            this.players.setPlayersTurn(player.getId() + 1);
+            if (player.hasTurn()) {
+                this.players.setPlayersTurn(player.getId() + 1);
+            }
             sendPlayersObjectToAll();
+            return;
         } else if ((!GameOfLife.gameStarted) && this.players.getPlayers().containsKey(connection.getID())) {
-            System.out.println("GJDGHJDJHD");
-            System.out.println(players.getPlayerCount());
-            players.removePlayerWithConnectionID(connection.getID());
-            System.out.println(players.getPlayerCount());
+            this.players.removePlayerWithConnectionID(connection.getID());
             sendPlayersObjectToAll();
         }
-        Gdx.app.log("Server", "Client hat Verbindung getrennt!");
-        //System.out.println("[Server] Client hat Verbindung getrennt!");
+        connection.close();
+        //Gdx.app.log("Server", "Client hat Verbindung getrennt!");
     }
 
     /**
@@ -211,29 +218,59 @@ public class ServerClass implements Listener {
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof Player) {
-            Player player = (Player) object;
-            Gdx.app.log("ServerClass", "Received Player object (" + player + ")");
-            if (!GameOfLife.gameStarted && player.isJoning()) {
-                player.setJoning(false);
-                player.setId(this.players.getPlayerCount() + 1);
-                this.players.addPlayer(player, connection.getID());
-                //return;
-            }
-            if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()/* && this.players.getPlayers().containsKey(connection.getRemoteAddressTCP().getAddress())*/) {
-                player.setHasTurn(false);
-                this.players.setPlayersTurn(player.getId() + 1);
-                this.players.addPlayer(player, connection.getID());
-                //return;
-            }
-            this.sendPlayersObjectToAll();
+            handleReceivedPlayer(connection, (Player) object);
         } else if (object instanceof String) {
-            String payload = (String) object;
-            if (payload.equals(GameOfLife.startGamePayload)) {
-                Gdx.app.log("ServerClass/Received", "StartGamePayload received!");
-                this.sendMessageToAll(payload);
-            }
+            handleReceivedString((String) object);
+        } else if (object instanceof TcpMessage) {
+            handleReceivedTcpMessage((TcpMessage) object);
         }
     }
+
+    private void handleReceivedPlayer(Connection connection, Player player) {
+        if (!GameOfLife.gameStarted && player.isJoning()) {
+            player.setJoning(false);
+            player.setId(this.players.getPlayerCount() + 1);
+            player.setPosition(this.players.getPlayerCount() * 3);
+            switch (this.players.getPlayerCount()) {
+                case 1:
+                    player.setColor(PlayerColor.PURPLE);
+                    break;
+                case 2:
+                    player.setColor(PlayerColor.GREEN);
+                    break;
+                case 3:
+                    player.setColor(PlayerColor.YELLOW);
+                    break;
+                default:
+                    player.setColor(PlayerColor.BLUE);
+                    break;
+            }
+            this.players.addPlayer(player, connection.getID());
+        }
+        if (GameOfLife.gameStarted && player.isOnline()) {
+            this.players.addPlayer(player, connection.getID());
+            if (player.hasTurn()) {
+                this.players.setPlayersTurn(player.getId() + 1);
+            }
+        }
+        this.sendPlayersObjectToAll();
+    }
+
+    private void handleReceivedString(String payload) {
+        if (payload.equals(GameOfLife.START_GAME_PAYLOAD)) {
+            this.sendMessageToAll(payload);
+        }
+        sendPlayersObjectToAll();
+    }
+
+    private void handleReceivedTcpMessage(TcpMessage message) {
+        TcpMessageVisitor reportVisitor = new ReportPlayerVisitor();
+        TcpMessageVisitor cheatingVisitor = new CheatingVisitor();
+
+        message.accept(reportVisitor);
+        message.accept(cheatingVisitor);
+    }
+
 
     /**
      * @return
@@ -252,7 +289,6 @@ public class ServerClass implements Listener {
     /**
      * @return
      */
-    //For testing only
     public boolean isServerStarted() {
         return serverStarted;
     }
@@ -260,7 +296,6 @@ public class ServerClass implements Listener {
     /**
      * @return
      */
-    //For testing only
     public JoinedPlayers getPlayers() {
         return players;
     }
@@ -301,5 +336,17 @@ public class ServerClass implements Listener {
     //For testing only
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    public List<PlayerCheated> getPlayerCheatedList() {
+        if (playerCheatedList == null) {
+            playerCheatedList = new ArrayList<>();
+        }
+
+        return playerCheatedList;
+    }
+
+    public void setPlayerCheatedList(List<PlayerCheated> playerCheatedList) {
+        this.playerCheatedList = playerCheatedList;
     }
 }

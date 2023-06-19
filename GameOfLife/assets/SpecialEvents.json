@@ -1,0 +1,185 @@
+[
+{
+  "type": "house",
+  "lp": 0,
+  "cash": 0,
+  "optionA": "Ja ich will",
+  "optionB": "Na bitte nit",
+  "message": "Willst du ein Haus kaufen?"
+},{
+  "type": "car",
+  "lp": 0,
+  "cash": 0,
+  "optionA": "Ja ich will",
+  "optionB": "Na bitte nit",
+  "message": "Bock auf Auto?"
+},
+  {
+  "type": "get15tLP",
+  "lp": 1500,
+  "cash": 0,
+  "optionA": "War mega",
+  "optionB": "I hob kaka in die Hose gmocht",
+  "message": "Du bist Bungee Jumping gegangen: +1.500LP"
+},
+  {
+  "type": "lottery",
+  "lp": 0,
+  "cash": 0,
+  "optionA": "Ja ich will",
+  "optionB": "Na bitte nit",
+  "message": "Willst du Lotto spielen? :1000$"
+},
+  {
+  "type": "casino",
+  "lp": 0,
+  "cash": 0,
+  "optionA": "Ja ich will",
+  "optionB": "Na bitte nit",
+  "message": "Willst du dein Glück im Casino versuchen?"
+},
+  {
+    "type": "casino",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Ja ich will",
+    "optionB": "Na bitte nit",
+    "message": "Willst du dein Glück im Casino versuchen?"
+  },
+  {
+    "type": "get3tLP",
+    "lp": 3000,
+    "cash": 0,
+    "optionA": "WOW",
+    "optionB": "OK",
+    "message": "Du gehst mit Delfinen schwimmen +3000LP"
+  },
+  {
+    "type": "get3.5tLP",
+    "lp": 3500,
+    "cash": 0,
+    "optionA": "SUPA",
+    "optionB": "SUPA",
+    "message": "Du gehst Bergsteigen"
+  },
+  {
+    "type": "pay10tEUR",
+    "lp": 0,
+    "cash": -10000,
+    "optionA": "WUCHER",
+    "optionB": "Unterm Jörg hätts des nit gebn",
+    "message": "Du must Strandsteuer Zahlen: -10000€"
+  },
+  {
+    "type": "get200tEUR",
+    "lp": 0,
+    "cash": 200000,
+    "optionA": "ARR",
+    "optionB": "Toll",
+    "message": "Du findest einen Vergrabenen Schatz: +200.000€"
+  },
+  {
+    "type": "changecareer",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Ja ich will",
+    "optionB": "Na bitte nit",
+    "message": "Willst du einen neuen Job?"
+  },
+  {
+    "type": "pay20t",
+    "lp": 0,
+    "cash": -20000,
+    "optionA": "I zahl ja schon",
+    "optionB": "WUCHER",
+    "message": "ÖH Beitrag: 20.000€?"
+  },
+  {
+    "type": "diploma",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Ja endlich",
+    "optionB": "Ich bin kluk",
+    "message": "Du bekommst endlich dein Diplom"
+  },
+  {
+    "type": "doctor",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "I bin jetzt super gscheit",
+    "optionB": "Aber wars des wert?",
+    "message": "Du hast endlich den Doktortitel"
+  },
+  {
+    "type": "promotion",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Danke Chef",
+    "optionB": "Supa",
+    "message": "Beförderung x1"
+  },
+  {
+    "type": "newcompany",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Hoffentlich isses da besser",
+    "optionB": "Bitte",
+    "message": "Neue Firma"
+  },
+  {
+    "type": "promotion2x",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Danke Chef 2x",
+    "optionB": "Supa 2x",
+    "message": "Beförderung x2?"
+  },
+  {
+    "type": "shares100tEUR",
+    "lp": 0,
+    "cash": 100000,
+    "optionA": "Danke Elon",
+    "optionB": "Danke Jeffy",
+    "message": "Aktien +100.000"
+  },
+  {
+    "type": "stopwedding",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Hoffentlich is bald die Scheidung",
+    "optionB": "Bis der Tod uns scheidet",
+    "message": "HALT! Hochzeit!"
+  },
+  {
+    "type": "twins",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Double Trouble",
+    "optionB": "Warum?",
+    "message": "Du bekommst Zwillinge"
+  },
+  {
+    "type": "son",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Ein würdiger Erbe",
+    "optionB": "Der Bua is deppat",
+    "message": "Du bekommst einen Sohn"
+  },
+  {
+    "type": "daughter",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Mein kleine Prinzessin",
+    "optionB": "Schluchz",
+    "message": "Du bekommst eine Tochter"
+  },
+  {
+    "type": "stopoffspring",
+    "lp": 0,
+    "cash": 0,
+    "optionA": "Nicht noch ein Schreihals!",
+    "optionB": ".....",
+    "message": "Nachwuchs!"
+  }
+]

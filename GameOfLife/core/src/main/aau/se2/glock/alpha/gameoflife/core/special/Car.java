@@ -5,6 +5,12 @@ public class Car {
     private int lp;
     private CarType type;
 
+    /**
+     * For serialization needed!
+     */
+    public Car() {
+    }
+
     public Car(int price, int lp, CarType type) {
         this.price = price;
         this.lp = lp;
@@ -34,4 +40,12 @@ public class Car {
     public void setType(CarType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Preis: " + price +
+                "\nlp: " + lp +
+                "\ntype " + type;
+    }
 }
+

@@ -27,7 +27,7 @@ public class Stack {
     /**
      *
      */
-    public Stack() {
+    private Stack() {
         buildStack();
         mixCards();
     }
@@ -53,13 +53,6 @@ public class Stack {
             mixCards();
         }
         return cardList.get(countCard++);
-    }
-
-    /**
-     * Removes all cards from the Stack
-     */
-    public void wipeStack() {
-        cardList.clear();
     }
 
     /**

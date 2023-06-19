@@ -1,18 +1,15 @@
-package aau.se2.glock.alpha.gameoflife.networking;
+package aau.se2.glock.alpha.gameoflife.networking.packages;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
-
-public class TestServerInformation {
+public class ServerInformationTest {
     @Test
     public void testDefaultConstructor() {
         ServerInformation serverInfo = new ServerInformation();
@@ -36,6 +33,9 @@ public class TestServerInformation {
 
         serverInfo.setAddress(address);
         assertEquals(address, serverInfo.getAddress());
+
+        serverInfo = new ServerInformation("localhost", address);
+        assertEquals(address, serverInfo.getAddress());
     }
 
     @Test
@@ -51,8 +51,8 @@ public class TestServerInformation {
         serverInfo2.setAddress(address1);
         serverInfo3.setAddress(address2);
 
-        assertTrue(serverInfo1.equals(serverInfo2));
-        assertFalse(serverInfo1.equals(serverInfo3));
+        assertEquals(serverInfo1, serverInfo2);
+        assertNotEquals(serverInfo1, serverInfo3);
     }
 
     @Test

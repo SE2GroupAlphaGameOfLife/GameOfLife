@@ -4,6 +4,10 @@ public class Building {
     private int price;
     private BuildingType type;
 
+    public Building() {
+
+    }
+
     public Building(int price, BuildingType type) {
         this.price = price;
         this.type = type;
@@ -23,5 +27,11 @@ public class Building {
 
     public void setType(BuildingType type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Preis: " + price +
+                "\n typ: " + type;
     }
 }

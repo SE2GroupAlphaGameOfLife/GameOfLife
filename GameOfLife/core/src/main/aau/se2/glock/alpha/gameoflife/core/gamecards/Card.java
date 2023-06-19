@@ -9,7 +9,7 @@ public class Card {
     /**
      *
      */
-    private List<Event> events = new ArrayList<>(4);
+    private List<NormalEvent> normalEvents = new ArrayList<>(4);
 
     /**
      * Returns the event at index n.
@@ -19,9 +19,9 @@ public class Card {
      * @param n describes the index
      * @return event at n
      */
-    public Event getEvent(int n) {
+    public NormalEvent getEvent(int n) {
         try {
-            return events.get(n);
+            return normalEvents.get(n);
         } catch (Exception e) {
             System.out.println(e);
             return null;
@@ -29,11 +29,20 @@ public class Card {
     }
 
     /**
+     * Needed for testing
+     *
+     * @return
+     */
+    public List<NormalEvent> getEvents() {
+        return normalEvents;
+    }
+
+    /**
      * Fills up events.
      */
     public void fillEvents() {
         for (int i = 0; i < 4; i++) {
-            events.add(new Event(0, 0, ""));
+            normalEvents.add(new NormalEvent(0, 0, ""));
         }
     }
 /*
@@ -51,8 +60,8 @@ public class Card {
      * @param index index
      * @param e     event
      */
-    public void setEvent(int index, Event e) {
-        events.set(index, e);
+    public void setEvent(int index, NormalEvent e) {
+        normalEvents.set(index, e);
     }
 
 }

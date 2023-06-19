@@ -2,6 +2,7 @@ package aau.se2.glock.alpha.gameoflife.core;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.logic.LogicalField;
@@ -20,11 +21,34 @@ public class GameField {
      *
      */
     private final List<Integer> indexOfNextGameFields; // The list of next gameFields for the game field
+    private final String type;
 
     /**
      *
      */
-    private final LogicalField logicalField;  //Logical field which has Information on events
+    private LogicalField logicalField;  //Logical field which has Information on events
+
+    /**
+     * For serialization needed!
+     */
+    public GameField() {
+        this.logicalField = null;
+        this.position = null;
+        this.indexOfNextGameFields = new ArrayList<>();
+        this.type = null;
+    }
+
+    /**
+     * FOR TESTING ONLY!
+     *
+     * @param logicalField
+     */
+    public GameField(LogicalField logicalField) {
+        this.logicalField = logicalField;
+        this.position = null;
+        this.indexOfNextGameFields = null;
+        this.type = null;
+    }
 
     /**
      * Constructs a new GameField object with the specified position and next gameFields.
@@ -32,10 +56,15 @@ public class GameField {
      * @param position              The position of the gameField.
      * @param indexOfNextGameFields The list of next possible gameFields for the gameField.
      */
-    public GameField(Vector2 position, List<Integer> indexOfNextGameFields) {
+    public GameField(Vector2 position, List<Integer> indexOfNextGameFields, String type) {
+        this.type = type;
         this.position = position; // Initialize the position field with the provided position parameter
         this.indexOfNextGameFields = indexOfNextGameFields; // Initialize the nextPositions field with the provided nextPositions parameter
-        logicalField = new LogicalField(this);
+        this.logicalField = new LogicalField(this, type);
+    }
+
+    public String getType() {
+        return type;
     }
 
     /**
@@ -61,5 +90,18 @@ public class GameField {
      */
     public LogicalField getLogicalField() {
         return this.logicalField;
+    }
+
+    public void setLogicalField(LogicalField logicalField) {
+        this.logicalField = logicalField;
+    }
+
+    /**
+     * FOR TESTING ONLY
+     *
+     * @param index
+     */
+    public void addIndexOfNextGameField(int index) {
+        indexOfNextGameFields.add(index);
     }
 }

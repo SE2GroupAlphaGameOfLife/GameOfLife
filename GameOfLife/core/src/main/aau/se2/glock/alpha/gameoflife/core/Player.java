@@ -1,11 +1,15 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import com.badlogic.gdx.graphics.Color;
-
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
+import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.logic.Event;
+import aau.se2.glock.alpha.gameoflife.core.special.Building;
+import aau.se2.glock.alpha.gameoflife.core.special.Car;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 
 /**
  *
@@ -37,7 +41,7 @@ public class Player {
     /**
      * Color of the player displayed on the board.
      */
-    private Color color;
+    private PlayerColor color;
     /**
      * Tells if the player is the game's host.
      */
@@ -49,10 +53,10 @@ public class Player {
     /**
      * Tells if the server is only and or the player joining.
      */
-    private boolean isJoning, isOnline;
+    private boolean isJoning, isOnline, diploma, doctor;
+    private List<Car> carList;
+    private List<Building> buildingList;
 
-    private boolean hasCheated;
-    private int hasCheatedAtAge;
 
     /**
      * Needed for Kryo Serialization
@@ -71,7 +75,7 @@ public class Player {
         this.age = 18;
         this.money = 10000;
         this.lifepoints = 0;
-        this.color = new Color(Color.rgb888(255, 0, 0));
+        this.color = PlayerColor.BLUE;
         this.isHost = isHost;
         this.isJoning = true;
         this.hasTurn = isHost;
@@ -79,24 +83,31 @@ public class Player {
         this.moveCount = 0;
         this.isOnline = true;
         this.id = 0;
-        this.hasCheated = false;
-        this.hasCheatedAtAge = 0;
+        this.diploma = false;
+        this.doctor = false;
+        this.buildingList = new ArrayList<>();
+        this.carList = new ArrayList<>();
     }
 
-    public int getHasCheatedAtAge() {
-        return hasCheatedAtAge;
+    public void cheat(int amount) {
+        this.setMoveCount(this.getMoveCount() + amount);
+        GameOfLife.client.sendPlayerCheatedTCP(this, amount);
     }
 
-    public void setHasCheatedAtAge(int hasCheatedAtAge) {
-        this.hasCheatedAtAge = hasCheatedAtAge;
+    public boolean isDiploma() {
+        return diploma;
     }
 
-    public boolean isHasCheated() {
-        return hasCheated;
+    public void setDiploma(boolean hasDiploma) {
+        this.diploma = hasDiploma;
     }
 
-    public void setHasCheated(boolean hasCheated) {
-        this.hasCheated = hasCheated;
+    public boolean isDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(boolean hasDoctor) {
+        this.doctor = hasDoctor;
     }
 
     /**
@@ -116,16 +127,16 @@ public class Player {
     /**
      * @return
      */
-    /*public String getGender() {
+    public String getGender() {
         return gender;
-    }*/
+    }
 
     /**
      * @param gender
      */
-    /*public void setGender(String gender) {
+    public void setGender(String gender) {
         this.gender = gender;
-    }*/
+    }
 
     /**
      * @return
@@ -144,14 +155,14 @@ public class Player {
     /**
      * @return
      */
-    public Color getColor() {
+    public PlayerColor getColor() {
         return color;
     }
 
     /**
      * @param color
      */
-    public void setColor(Color color) {
+    public void setColor(PlayerColor color) {
         this.color = color;
     }
 
@@ -221,7 +232,7 @@ public class Player {
     /**
      * @param host
      */
-    public void setHost(boolean host) {
+    public void setIsHost(boolean host) {
         isHost = host;
     }
 
@@ -230,13 +241,6 @@ public class Player {
      */
     public boolean hasTurn() {
         return hasTurn;
-    }
-
-    /**
-     * @param hasTurn
-     */
-    public void setHasTurn(boolean hasTurn) {
-        this.hasTurn = hasTurn;
     }
 
     /**
@@ -324,9 +328,6 @@ public class Player {
         Board board = Board.getInstance();
         GameField field = board.getGameFields().get(this.position);
         Event event = field.getLogicalField().getEvent();
-        System.out.println("Event triggered:" + event.getText());
-        this.money = this.money + event.getCash();
-        this.lifepoints = this.lifepoints + event.getLp();
         return event;
     }
 
@@ -350,6 +351,38 @@ public class Player {
         return true;
     }
 
+    public void changeBalance(int money, int lifepoints) {
+        this.lifepoints = this.lifepoints + lifepoints;
+        this.money = this.money + money;
+    }
+
+    public boolean isHasTurn() {
+        return hasTurn;
+    }
+
+    /**
+     * @param hasTurn
+     */
+    public void setHasTurn(boolean hasTurn) {
+        this.hasTurn = hasTurn;
+    }
+
+    public List<Car> getCarList() {
+        return carList;
+    }
+
+    public List<Building> getBuildingList() {
+        return buildingList;
+    }
+
+    public void addCar(Car car) {
+        carList.add(car);
+    }
+
+    public void addBuilding(Building building) {
+        buildingList.add(building);
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -368,8 +401,6 @@ public class Player {
                 ", hasTurn=" + hasTurn +
                 ", isJoning=" + isJoning +
                 ", isOnline=" + isOnline +
-                ", hasCheated=" + hasCheated +
-                ", hasCheatedAtAge=" + hasCheatedAtAge +
                 '}';
     }
 }

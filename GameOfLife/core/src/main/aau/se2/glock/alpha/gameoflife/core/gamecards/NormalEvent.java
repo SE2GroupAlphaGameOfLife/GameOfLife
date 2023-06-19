@@ -1,6 +1,8 @@
 package aau.se2.glock.alpha.gameoflife.core.gamecards;
 
-public class Event {
+import aau.se2.glock.alpha.gameoflife.core.logic.Event;
+
+public class NormalEvent implements Event {
 
     /**
      *
@@ -20,7 +22,7 @@ public class Event {
     /**
      * Needed for JSON deserialization
      */
-    public Event() {
+    public NormalEvent() {
 
     }
 
@@ -31,7 +33,7 @@ public class Event {
      * @param cash cash which is added or subtracted
      * @param text description of event
      */
-    public Event(int lp, int cash, String text) {
+    public NormalEvent(int lp, int cash, String text) {
         this.lp = lp;
         this.cash = cash;
         this.text = text;

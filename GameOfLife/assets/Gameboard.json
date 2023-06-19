@@ -4,7 +4,7 @@
       "x": 55,
       "y": -8
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       1,43
     ],
     "type" : "intersection"
@@ -14,7 +14,7 @@
       "x": 43,
       "y": -30
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       2
     ],
     "type" : "empty"
@@ -24,7 +24,7 @@
       "x": 15,
       "y": -40
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       3
     ],
     "type" : "empty"
@@ -34,7 +34,7 @@
       "x": -15,
       "y": -30
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       4,75
     ],
     "type" : "intersection"
@@ -44,7 +44,7 @@
       "x": -45,
       "y": -20
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       5
     ],
     "type" : "empty"
@@ -54,7 +54,7 @@
       "x": -55,
       "y": 0
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       6
     ],
     "type" : "empty"
@@ -64,7 +64,7 @@
       "x": -45,
       "y": 25
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       7,107
     ],
     "type" : "intersection"
@@ -74,7 +74,7 @@
       "x": -28,
       "y": 42
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       8
     ],
     "type" : "empty"
@@ -84,7 +84,7 @@
       "x": -8,
       "y": 45
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       9
     ],
     "type" : "empty"
@@ -94,7 +94,7 @@
       "x": 15,
       "y": 45
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       10,12
     ],
     "type" : "intersection"
@@ -104,7 +104,7 @@
       "x": 50,
       "y": 32
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       11
     ],
     "type" : "empty"
@@ -114,7 +114,7 @@
       "x": 60,
       "y": 12
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       0
     ],
     "type" : "empty"
@@ -124,7 +124,7 @@
       "x": 15,
       "y": 65
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       13
     ],
     "type" : "empty"
@@ -134,7 +134,7 @@
       "x": 15,
       "y": 85
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       14
     ],
     "type" : "empty"
@@ -144,7 +144,7 @@
       "x": 35,
       "y": 100
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       15,
       21
     ],
@@ -155,7 +155,7 @@
       "x": 62,
       "y": 103
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       16
     ],
     "type" : "empty"
@@ -165,7 +165,7 @@
       "x": 85,
       "y": 90
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       17
     ],
     "type" : "car"
@@ -175,7 +175,7 @@
       "x": 98,
       "y": 70
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       18
     ],
     "type" : "get15tLP"
@@ -185,7 +185,7 @@
       "x": 110,
       "y": 50
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       19
     ],
     "type" : "empty"
@@ -195,7 +195,7 @@
       "x": 115,
       "y": 32
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       20
     ],
     "type" : "empty"
@@ -205,7 +205,7 @@
       "x": 95,
       "y": 15
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       11
     ],
     "type" : "house"
@@ -215,7 +215,7 @@
       "x": 35,
       "y": 125
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       22
     ],
     "type" : "empty"
@@ -225,7 +225,7 @@
       "x": 40,
       "y": 150
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       23
     ],
     "type" : "empty"
@@ -235,7 +235,7 @@
       "x": 55,
       "y": 165
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       24
     ],
     "type" : "empty"
@@ -245,7 +245,7 @@
       "x": 85,
       "y": 175
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       25
     ],
     "type" : "empty"
@@ -255,7 +255,7 @@
       "x": 115,
       "y": 170
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       26
     ],
     "type" : "empty"
@@ -265,7 +265,7 @@
       "x": 140,
       "y": 145
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       27
     ],
     "type" : "lottery"
@@ -275,7 +275,7 @@
       "x": 155,
       "y": 120
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       28, 34
     ],
     "type" : "intersection"
@@ -285,7 +285,7 @@
       "x": 180,
       "y": 105
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       29
     ],
     "type" : "casino"
@@ -295,7 +295,7 @@
       "x": 197,
       "y": 82
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       30
     ],
     "type" : "empty"
@@ -305,7 +305,7 @@
       "x": 197,
       "y": 65
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       31
     ],
     "type" : "empty"
@@ -315,7 +315,7 @@
       "x": 185,
       "y": 50
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       32
     ],
     "type" : "car"
@@ -325,7 +325,7 @@
       "x": 165,
       "y": 42
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       33
     ],
     "type" : "house"
@@ -335,7 +335,7 @@
       "x": 143,
       "y": 35
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       19
     ],
     "type" : "get3tLP"
@@ -345,7 +345,7 @@
       "x": 165,
       "y": 137
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       35
     ],
     "type" : "empty"
@@ -355,7 +355,7 @@
       "x": 180,
       "y": 153
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       36
     ],
     "type" : "casino"
@@ -365,7 +365,7 @@
       "x": 213,
       "y": 147
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       37
     ],
     "type" : "get3.5tLP"
@@ -375,7 +375,7 @@
       "x": 235,
       "y": 128
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       38
     ],
     "type" : "casino"
@@ -385,7 +385,7 @@
       "x": 240,
       "y": 110
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       39
     ],
     "type" : "pay10tEUR"
@@ -395,7 +395,7 @@
       "x": 247,
       "y": 93
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       40
     ],
     "type" : "empty"
@@ -405,7 +405,7 @@
       "x": 250,
       "y": 75
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       41
     ],
     "type" : "get200tEUR"
@@ -415,7 +415,7 @@
       "x": 235,
       "y": 60
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       42
     ],
     "type" : "empty"
@@ -425,7 +425,7 @@
       "x": 215,
       "y": 58
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       30
     ],
     "type" : "empty"
@@ -435,7 +435,7 @@
       "x": 77,
       "y": -15
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       44
     ],
     "type" : "empty"
@@ -445,7 +445,7 @@
       "x": 100,
       "y": -30
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       45
     ],
     "type" : "empty"
@@ -455,7 +455,7 @@
       "x": 130,
       "y": -35
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       46
     ],
     "type" : "empty"
@@ -465,7 +465,7 @@
       "x": 147,
       "y": -45
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       47,53
     ],
     "type" : "intersection"
@@ -475,7 +475,7 @@
       "x": 143,
       "y": -65
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       48
     ],
     "type" : "empty"
@@ -485,7 +485,7 @@
       "x": 118,
       "y": -85
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       49
     ],
     "type" : "empty"
@@ -495,7 +495,7 @@
       "x": 83,
       "y": -77
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       50
     ],
     "type" : "empty"
@@ -505,7 +505,7 @@
       "x": 53,
       "y": -67
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       51
     ],
     "type" : "changecareer"
@@ -515,7 +515,7 @@
       "x": 30,
       "y": -65
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       52
     ],
     "type" : "empty"
@@ -525,7 +525,7 @@
       "x": 15,
       "y": -50
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       2
     ],
     "type" : "empty"
@@ -535,7 +535,7 @@
       "x": 180,
       "y": -40
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       54
     ],
     "type" : "pay20t"
@@ -545,7 +545,7 @@
       "x": 225,
       "y": -50
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       55
     ],
     "type" : "empty"
@@ -555,7 +555,7 @@
       "x": 245,
       "y": -77
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       56
     ],
     "type" : "empty"
@@ -565,7 +565,7 @@
       "x": 250,
       "y": -100
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       57
     ],
     "type" : "empty"
@@ -575,7 +575,7 @@
       "x": 245,
       "y": -128
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       58
     ],
     "type" : "lottery"
@@ -585,7 +585,7 @@
       "x": 232,
       "y": -148
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       59
     ],
     "type" : "empty"
@@ -595,7 +595,7 @@
       "x": 210,
       "y": -160
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       60
     ],
     "type" : "car"
@@ -605,7 +605,7 @@
       "x": 175,
       "y": -160
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       61
     ],
     "type" : "diploma"
@@ -615,7 +615,7 @@
       "x": 145,
       "y": -140
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       62, 66
     ],
     "type" : "intersection"
@@ -625,7 +625,7 @@
       "x": 110,
       "y": -125
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       63
     ],
     "type" : "house"
@@ -635,7 +635,7 @@
       "x": 80,
       "y": -120
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       64
     ],
     "type" : "empty"
@@ -645,7 +645,7 @@
       "x": 50,
       "y": -108
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       65
     ],
     "type" : "empty"
@@ -655,7 +655,7 @@
       "x": 45,
       "y": -85
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       50
     ],
     "type" : "empty"
@@ -665,7 +665,7 @@
       "x": 140,
       "y": -165
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       67
     ],
     "type" : "empty"
@@ -675,7 +675,7 @@
       "x": 120,
       "y": -175
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       68
     ],
     "type" : "empty"
@@ -685,7 +685,7 @@
       "x": 92,
       "y": -170
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       69
     ],
     "type" : "car"
@@ -695,7 +695,7 @@
       "x": 62,
       "y": -175
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       70
     ],
     "type" : "empty"
@@ -705,7 +705,7 @@
       "x": 35,
       "y": -177
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       71
     ],
     "type" : "empty"
@@ -715,7 +715,7 @@
       "x": 17,
       "y": -168
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       72
     ],
     "type" : "lottery"
@@ -725,7 +725,7 @@
       "x": 10,
       "y": -155
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       73
     ],
     "type" : "empty"
@@ -735,7 +735,7 @@
       "x": 10,
       "y": -140
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       74
     ],
     "type" : "empty"
@@ -745,7 +745,7 @@
       "x": 25,
       "y": -120
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       64
     ],
     "type" : "doctor"
@@ -755,7 +755,7 @@
       "x": -18,
       "y": -52
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       76
     ],
     "type": "empty"
@@ -765,7 +765,7 @@
       "x": -33,
       "y": -62
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       77, 86
     ],
     "type": "intersection"
@@ -775,7 +775,7 @@
       "x": -55,
       "y": -70
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       78
     ],
     "type": "empty"
@@ -785,7 +785,7 @@
       "x": -75,
       "y": -73
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       79
     ],
     "type": "empty"
@@ -795,7 +795,7 @@
       "x": -98,
       "y": -75
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       80
     ],
     "type": "lottery"
@@ -805,7 +805,7 @@
       "x": -125,
       "y": -67
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       81
     ],
     "type": "promotion"
@@ -815,7 +815,7 @@
       "x": -135,
       "y": -45
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       82
     ],
     "type": "empty"
@@ -825,7 +825,7 @@
       "x": -130,
       "y": -30
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       83
     ],
     "type": "empty"
@@ -835,7 +835,7 @@
       "x": -110,
       "y": -20
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       84
     ],
     "type": "car"
@@ -845,7 +845,7 @@
       "x": -92,
       "y": -13
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       85
     ],
     "type": "empty"
@@ -855,7 +855,7 @@
       "x": -75,
       "y": -5
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       5
     ],
     "type": "house"
@@ -865,7 +865,7 @@
       "x": -20,
       "y": -82
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       87
     ],
     "type": "empty"
@@ -875,7 +875,7 @@
       "x": -12,
       "y": -115
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       88
     ],
     "type": "house"
@@ -885,7 +885,7 @@
       "x": -27,
       "y": -140
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       89
     ],
     "type": "empty"
@@ -895,7 +895,7 @@
       "x": -50,
       "y": -155
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       90
     ],
     "type": "lottery"
@@ -905,7 +905,7 @@
       "x": -83,
       "y": -160
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       91
     ],
     "type": "empty"
@@ -915,7 +915,7 @@
       "x": -113,
       "y": -155
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       92
     ],
     "type": "empty"
@@ -925,7 +925,7 @@
       "x": -145,
       "y": -150
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       93
     ],
     "type": "car"
@@ -935,7 +935,7 @@
       "x": -175,
       "y": -140
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       94, 99
     ],
     "type": "intersection"
@@ -945,7 +945,7 @@
       "x": -180,
       "y": -120
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       95
     ],
     "type": "newcompany"
@@ -955,7 +955,7 @@
       "x": -183,
       "y": -100
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       96
     ],
     "type": "house"
@@ -965,7 +965,7 @@
       "x": -190,
       "y": -80
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       97
     ],
     "type": "intersection"
@@ -975,7 +975,7 @@
       "x": -188,
       "y": -57
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       98
     ],
     "type": "car"
@@ -985,7 +985,7 @@
       "x": -165,
       "y": -47
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       81
     ],
     "type": "promotion2x"
@@ -995,7 +995,7 @@
       "x": -185,
       "y": -155
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       100
     ],
     "type": "newcompany"
@@ -1005,7 +1005,7 @@
       "x": -203,
       "y": -175
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       101
     ],
     "type": "house"
@@ -1015,7 +1015,7 @@
       "x": -230,
       "y": -175
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       102
     ],
     "type": "empty"
@@ -1025,7 +1025,7 @@
       "x": -235,
       "y": -150
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       103
     ],
     "type": "promotion1x"
@@ -1035,7 +1035,7 @@
       "x": -240,
       "y": -130
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       104
     ],
     "type": "empty"
@@ -1045,7 +1045,7 @@
       "x": -245,
       "y": -110
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       105
     ],
     "type": "shares100tEUR"
@@ -1055,7 +1055,7 @@
       "x": -235,
       "y": -92
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       106
     ],
     "type": "newcompany"
@@ -1065,7 +1065,7 @@
       "x": -215,
       "y": -80
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       96
     ],
     "type": "promotion1x"
@@ -1075,7 +1075,7 @@
       "x": -75,
       "y": 25
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       108
     ],
     "type": "empty"
@@ -1085,7 +1085,7 @@
       "x": -110,
       "y": 17
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       109
     ],
     "type": "empty"
@@ -1095,7 +1095,7 @@
       "x": -137,
       "y": 27
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       110, 117
     ],
     "type": "intersection"
@@ -1105,7 +1105,7 @@
       "x": -140,
       "y": 45
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       111
     ],
     "type": "car"
@@ -1115,7 +1115,7 @@
       "x": -127,
       "y": 62
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       112
     ],
     "type": "empty"
@@ -1125,7 +1125,7 @@
       "x": -108,
       "y": 70
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       113
     ],
     "type": "lottery"
@@ -1135,7 +1135,7 @@
       "x": -87,
       "y": 68
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       114
     ],
     "type": "empty"
@@ -1145,7 +1145,7 @@
       "x": -63,
       "y": 62
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       115
     ],
     "type": "empty"
@@ -1155,7 +1155,7 @@
       "x": -35,
       "y": 75
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       116
     ],
     "type": "house"
@@ -1165,7 +1165,7 @@
       "x": -10,
       "y": 63
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       8
     ],
     "type": "empty"
@@ -1175,7 +1175,7 @@
       "x": -170,
       "y": 28
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       118
     ],
     "type": "empty"
@@ -1185,7 +1185,7 @@
       "x": -205,
       "y": 43
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       119
     ],
     "type": "empty"
@@ -1195,7 +1195,7 @@
       "x": -225,
       "y": 72
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       120
     ],
     "type": "empty"
@@ -1205,7 +1205,7 @@
       "x": -215,
       "y": 103
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       121
     ],
     "type": "house"
@@ -1215,7 +1215,7 @@
       "x": -225,
       "y": 130
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       122
     ],
     "type": "car"
@@ -1225,7 +1225,7 @@
       "x": -230,
       "y": 160
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       123
     ],
     "type": "lottery"
@@ -1235,7 +1235,7 @@
       "x": -200,
       "y": 173
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       124
     ],
     "type": "house"
@@ -1245,7 +1245,7 @@
       "x": -160,
       "y": 168
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       125
     ],
     "type": "stopwedding"
@@ -1255,7 +1255,7 @@
       "x": -127,
       "y": 153
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       126, 130
     ],
     "type": "intersection"
@@ -1265,7 +1265,7 @@
       "x": -107,
       "y": 138
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       127
     ],
     "type": "empty"
@@ -1275,7 +1275,7 @@
       "x": -97,
       "y": 122
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       128
     ],
     "type": "twins"
@@ -1285,7 +1285,7 @@
       "x": -90,
       "y": 103
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       129
     ],
     "type": "empty"
@@ -1295,7 +1295,7 @@
       "x": -85,
       "y": 85
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       113
     ],
     "type": "car"
@@ -1305,7 +1305,7 @@
       "x": -123,
       "y": 172
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       131
     ],
     "type": "son"
@@ -1315,7 +1315,7 @@
       "x": -105,
       "y": 187
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       132
     ],
     "type": "empty"
@@ -1325,7 +1325,7 @@
       "x": -77,
       "y": 180
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       133
     ],
     "type": "daughter"
@@ -1335,7 +1335,7 @@
       "x": -70,
       "y": 160
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       134
     ],
     "type": "twins"
@@ -1345,7 +1345,7 @@
       "x": -73,
       "y": 140
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       135
     ],
     "type": "house"
@@ -1355,7 +1355,7 @@
       "x": -50,
       "y": 143
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       136
     ],
     "type": "empty"
@@ -1365,7 +1365,7 @@
       "x": -27,
       "y": 143
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       137
     ],
     "type": "son"
@@ -1375,7 +1375,7 @@
       "x": -15,
       "y": 125
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       138
     ],
     "type": "empty"
@@ -1385,7 +1385,7 @@
       "x": -28,
       "y": 108
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       139
     ],
     "type": "daughter"
@@ -1395,7 +1395,7 @@
       "x": -53,
       "y": 102
     },
-    "nextPositions": [
+    "indexOfNextGameFields": [
       128
     ],
     "type": "stopoffspring"

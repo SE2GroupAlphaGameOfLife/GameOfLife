@@ -2,7 +2,6 @@ package aau.se2.glock.alpha.gameoflife.core.logic;
 
 import aau.se2.glock.alpha.gameoflife.core.GameField;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Card;
-import aau.se2.glock.alpha.gameoflife.core.gamecards.Event;
 import aau.se2.glock.alpha.gameoflife.core.gamecards.Stack;
 
 /**
@@ -18,7 +17,7 @@ public class LogicalField {
     /**
      *
      */
-    private SpecialEvent specialEvent; //is null if field NOT special
+    private SpecialEvent specialEvent;
 
     /**
      *
@@ -33,7 +32,9 @@ public class LogicalField {
     /**
      *
      */
-    private int type;
+    private String type;
+
+    private int section;
 
     /**
      *
@@ -43,8 +44,16 @@ public class LogicalField {
     /**
      * @param field
      */
-    public LogicalField(GameField field) {
+    public LogicalField(GameField field, String type) {
         this.field = field;
+        this.type = type;
+        this.section = 0;
+        if (type.equals("empty") || type.equals("intersection")) {
+            this.isSpecial = false;
+        } else {
+            this.isSpecial = true;
+            retrieveSpecialEvent();
+        }
     }
 
     /**
@@ -52,11 +61,28 @@ public class LogicalField {
      */
     public Event getEvent() {
         if (this.isSpecial) {
-            return null;
-            //TODO Return Special event when they have been implemented
+            return this.specialEvent;
         } else {
             Card c = Stack.getINSTANCE().getTopCard();
-            return c.getEvent(type);
+            return c.getEvent(section);
         }
+    }
+
+    private void retrieveSpecialEvent() {
+        SpecialEventHandler specialEventHandler = new SpecialEventHandler(type);
+        this.specialEvent = specialEventHandler.getCorrectSpecialEvent();
+
+    }
+
+    public void setSpecial(boolean b) {
+        this.isSpecial = b;
+    }
+
+    public int getSection() {
+        return this.section;
+    }
+
+    public void setSection(int i) {
+        this.section = i;
     }
 }
