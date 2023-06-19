@@ -1,5 +1,6 @@
 package aau.se2.glock.alpha.gameoflife;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -23,6 +24,7 @@ import org.mockito.MockitoAnnotations;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
@@ -148,5 +150,91 @@ public class GameOfLifeTest {
     public void testGetNewMainMenuScreen() {
         MainMenuScreen screen = GameOfLife.getInstance().getNewMainMenuScreen();
         assertNull(screen);
+    }
+
+    @Test
+    public void testGameOver_AllPlayersSameAgeAndHostHasTurn_ReturnsFalse() {
+        List<Player> players =new ArrayList<>();
+        Player host = new Player("Player1", true);
+        Player player2 = new Player("Player2", false);
+        Player player3 = new Player("Player3", false);
+
+        players.add(host);
+        players.add(player2);
+        players.add(player3);
+
+        player2.setMoveCount(1);
+
+        GameOfLife.players = players;
+
+        boolean result = GameOfLife.checkIfGameOver();
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testGameOver_NotAllPlayersSameAge_ReturnsFalse() {
+        List<Player> players =new ArrayList<>();
+        Player host = new Player("Player1", true);
+        Player player2 = new Player("Player2", false);
+        Player player3 = new Player("Player3", false);
+
+        player2.setAge(99);
+
+        players.add(host);
+        players.add(player2);
+        players.add(player3);
+
+        GameOfLife.players = players;
+
+        boolean result = GameOfLife.checkIfGameOver();
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testGameOver_AllPlayersSameAgeAndHostHasNoTurn_ReturnsFalse() {
+        // Create a test scenario where all players have the same age but the host has no turn
+        List<Player> players =new ArrayList<>();
+        Player host = new Player("Player1", true);
+        Player player2 = new Player("Player2", false);
+        Player player3 = new Player("Player3", false);
+
+        players.add(host);
+        players.add(player2);
+        players.add(player3);
+
+        host.setHasTurn(false);
+
+        GameOfLife.players = players;
+
+        boolean result = GameOfLife.checkIfGameOver();
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testGameOver_AllPlayersSameAgeAndHostHasTurn_ReturnsTrue() {
+        // Create a test scenario where all players have the same age and the host has the turn
+        List<Player> players =new ArrayList<>();
+        Player host = new Player("Player1", true);
+        Player player2 = new Player("Player2", false);
+        Player player3 = new Player("Player3", false);
+
+        players.add(host);
+        players.add(player2);
+        players.add(player3);
+        host.setHasTurn(true);
+
+        int endAge = GameOfLife.getEndOfGameAge();
+        for (Player player : players) {
+            player.setAge(endAge);
+        }
+
+        GameOfLife.players = players;
+
+        boolean result = GameOfLife.checkIfGameOver();
+
+        assertTrue(result);
     }
 }
