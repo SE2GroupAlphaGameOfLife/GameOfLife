@@ -1,7 +1,6 @@
 package aau.se2.glock.alpha.gameoflife;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
@@ -41,7 +40,7 @@ public class GameOfLife extends Game {
     public static final String FILE_EVENT_JSON = "Events.json";
 
     /**
-     *File name for Special Events json located in the Assets Folder
+     * File name for Special Events json located in the Assets Folder
      */
     public static final String FILE_SPECIAL_EVENT_JSON = "SpecialEvents.json";
     public static final String FILE_GAMEFIELD_JSON = "Gameboard.json";
@@ -157,20 +156,6 @@ public class GameOfLife extends Game {
         return proximitySensorInterface;
     }
 
-    public static boolean checkIfGameOver() {
-        for (Player player : GameOfLife.players) {
-            //End if no player has moves to make
-            //and all player are the same age
-            //and if host has turn
-            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())){
-                return false;
-            }
-        }
-
-
-        return true;
-    }
-
     /**
      * FOR TESTING ONLY!
      *
@@ -178,6 +163,20 @@ public class GameOfLife extends Game {
      */
     public static void setProximitySensorInterface(ProximitySensorInterface proximitySensorInterface) {
         GameOfLife.proximitySensorInterface = proximitySensorInterface;
+    }
+
+    public static boolean checkIfGameOver() {
+        for (Player player : GameOfLife.players) {
+            //End if no player has moves to make
+            //and all player are the same age
+            //and if host has turn
+            if (player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())) {
+                return false;
+            }
+        }
+
+
+        return true;
     }
 
     /**
@@ -220,6 +219,10 @@ public class GameOfLife extends Game {
         kryo.register(Car.class);
     }
 
+    public static int getEndOfGameAge() {
+        return EndOfGameAge;
+    }
+
     /**
      *
      */
@@ -237,9 +240,5 @@ public class GameOfLife extends Game {
     public void dispose() {
         proximitySensorInterface.unregisterSensor();
         super.dispose();
-    }
-
-    public static int getEndOfGameAge() {
-        return EndOfGameAge;
     }
 }

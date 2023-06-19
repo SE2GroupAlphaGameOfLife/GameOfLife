@@ -17,10 +17,6 @@ public class SpecialEventData {
 
     private String eventDataJson;
 
-    public List<SpecialEvent> getSpecialEventList() {
-        return specialEventList;
-    }
-
     /**
      * Needed For Serialisation
      */
@@ -33,12 +29,25 @@ public class SpecialEventData {
 
     /**
      * For Testing
+     *
      * @param jsonFileReader
      */
     public SpecialEventData(JsonFileReader jsonFileReader) {
         this.eventDataJson = GameOfLife.FILE_SPECIAL_EVENT_JSON;
         this.jsonFileReader = jsonFileReader;
         this.specialEventList = new ArrayList<SpecialEvent>();
+    }
+
+    public static SpecialEventData getINSTANCE() {
+        if (INSTANCE != null) {
+            return INSTANCE;
+        } else return INSTANCE = new SpecialEventData();
+
+
+    }
+
+    public List<SpecialEvent> getSpecialEventList() {
+        return specialEventList;
     }
 
     public void parseSpecialEventsJson() {
@@ -50,16 +59,8 @@ public class SpecialEventData {
                 }
             });
         } catch (SerializationException e) {
-           // Gdx.app.log("SpecialEventData", e.getMessage());
+            // Gdx.app.log("SpecialEventData", e.getMessage());
         }
-    }
-
-    public static SpecialEventData getINSTANCE(){
-        if(INSTANCE!=null){
-            return  INSTANCE;
-        }else return INSTANCE = new SpecialEventData();
-
-
     }
 
     public void fillSpecialEventList() {
