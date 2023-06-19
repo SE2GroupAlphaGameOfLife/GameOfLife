@@ -249,7 +249,7 @@ public class ServerClass implements Listener {
         }
         if (GameOfLife.gameStarted && player.isOnline()) {
             this.players.addPlayer(player, connection.getID());
-            if(player.hasTurn()) {
+            if (player.hasTurn()) {
                 this.players.setPlayersTurn(player.getId() + 1);
             }
         }
