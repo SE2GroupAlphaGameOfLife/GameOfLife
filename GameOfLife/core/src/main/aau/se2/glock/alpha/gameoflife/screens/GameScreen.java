@@ -629,33 +629,29 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         job1Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.self.setCurrentJob(jobs[0]);
-                Gdx.app.log("JobSelection", "Job 1 chosen");
-                jobChosen = true;
-                window.remove();
-                if (GameOfLife.self.getAge() > 18) {
-                    specialWindow.remove();
-                    showRoundSummary();
-                }
-                GameOfLife.client.sendPlayerTCP(GameOfLife.self);
+
+                initJobBtnListenerContent(jobs, 0, window);
             }
         });
 
         job2Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameOfLife.self.setCurrentJob(jobs[1]);
-                Gdx.app.log("JobSelection", "Job 2 chosen");
-                jobChosen = true;
-                window.remove();
-                if (GameOfLife.self.getAge() > 18) {
-                    specialWindow.remove();
-                    showRoundSummary();
-                }
-                GameOfLife.client.sendPlayerTCP(GameOfLife.self);
+                initJobBtnListenerContent(jobs, 1, window);
             }
         });
         stage.addActor(window);
+    }
+    private void initJobBtnListenerContent(Job[] jobs, int jobsIndex, Window window){
+        GameOfLife.self.setCurrentJob(jobs[jobsIndex]);
+        Gdx.app.log("JobSelection", "Job "+jobsIndex+1+" chosen");
+        jobChosen = true;
+        window.remove();
+        if (GameOfLife.self.getAge() > 18) {
+            specialWindow.remove();
+            showRoundSummary();
+        }
+        GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
     private void reportPlayerWindow() {
