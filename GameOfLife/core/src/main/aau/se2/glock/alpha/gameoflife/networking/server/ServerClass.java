@@ -230,8 +230,8 @@ public class ServerClass implements Listener {
         if (!GameOfLife.gameStarted && player.isJoning()) {
             player.setJoning(false);
             player.setId(this.players.getPlayerCount() + 1);
-            player.setPosition(this.players.getPlayerCount()*3);
-            switch (this.players.getPlayerCount()){
+            player.setPosition(this.players.getPlayerCount() * 3);
+            switch (this.players.getPlayerCount()) {
                 case 1:
                     player.setColor(PlayerColor.PURPLE);
                     break;

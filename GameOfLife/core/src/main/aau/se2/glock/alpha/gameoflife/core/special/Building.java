@@ -4,6 +4,9 @@ public class Building {
     private int price;
     private BuildingType type;
 
+    public Building() {
+
+    }
     public Building(int price, BuildingType type) {
         this.price = price;
         this.type = type;

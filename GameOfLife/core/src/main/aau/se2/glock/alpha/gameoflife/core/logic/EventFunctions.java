@@ -13,9 +13,10 @@ public class EventFunctions {
         GameOfLife.self.changeBalance(0, amount);
         return ("Du erhälst " + amount + "LP!");
     }
-    public static String evPayMoney(int amount){
-        GameOfLife.self.changeBalance(amount,0);
-        return("Du verlierst " + -amount + "€!");
+
+    public static String evPayMoney(int amount) {
+        GameOfLife.self.changeBalance(amount, 0);
+        return ("Du verlierst " + -amount + "€!");
     }
 
     public static String evGetMoney(int amount) {
@@ -46,7 +47,7 @@ public class EventFunctions {
     public static String evCasino() {
         Player player = GameOfLife.self;
         int money = player.getMoney();
-        if(money<0){
+        if (money < 0) {
             return "Du kannst nicht ins Kasino wenn du Schulden hast";
         }
         int gamblingResult = gamble();

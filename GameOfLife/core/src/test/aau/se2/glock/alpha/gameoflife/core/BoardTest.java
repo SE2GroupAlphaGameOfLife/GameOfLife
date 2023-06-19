@@ -20,7 +20,6 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonCallback;
 import aau.se2.glock.alpha.gameoflife.core.utilities.IO.JsonFileReader;
-import sun.jvm.hotspot.gc.shared.GCWhen;
 
 public class BoardTest {
     @Mock
@@ -35,7 +34,7 @@ public class BoardTest {
         this.board = Board.getInstance(jsonFileReader);
     }
 
-   @Test
+    @Test
     public void testParseJobsJson() {
         GameField mockField = mock(GameField.class);
         when(mockField.getType()).thenReturn("intersection");

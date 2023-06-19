@@ -1,7 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import com.badlogic.gdx.graphics.Color;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -309,7 +307,6 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
-        randomNumber = 1;
         this.moveCount = randomNumber;
 
         return randomNumber;
