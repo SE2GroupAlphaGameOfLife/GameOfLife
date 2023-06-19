@@ -12,6 +12,7 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.special.CarType;
 import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.core.special.Building;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
@@ -108,7 +109,7 @@ public class GameOfLife extends Game {
      */
     private static GameOfLife INSTANCE;
 
-    private static int EndOfGameAge = 28;
+    private static int EndOfGameAge = 50;
 
     /**
      * @return
@@ -221,6 +222,7 @@ public class GameOfLife extends Game {
         kryo.register(CheatingMessage.class);
         kryo.register(PlayerColor.class);
         kryo.register(Car.class);
+        kryo.register(CarType.class);
     }
 
     public static int getEndOfGameAge() {
