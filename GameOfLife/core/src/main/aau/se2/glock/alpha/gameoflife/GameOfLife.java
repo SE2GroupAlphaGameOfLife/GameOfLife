@@ -159,18 +159,11 @@ public class GameOfLife extends Game {
 
     public static boolean checkIfGameOver() {
         for (Player player : GameOfLife.players) {
-            //End if all player are the same age
+            //End if no player has moves to make
+            //and all player are the same age
             //and if host has turn
-            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge){
-                Gdx.app.log(player.getUsername()  + " moveCount", player.getMoveCount() + "");
-                Gdx.app.log(player.getUsername()  + "age", player.getAge() + ":" + EndOfGameAge + ":" + (player.getAge() != EndOfGameAge));
+            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || player.isHost() && !player.hasTurn()){
                 return false;
-            }
-            if(player.isHost()){
-                if(!player.hasTurn()){
-                    Gdx.app.log(player.getUsername()  + "isHost", "return false " + player.toString());
-                    return false;
-                }
             }
         }
 
@@ -244,5 +237,9 @@ public class GameOfLife extends Game {
     public void dispose() {
         proximitySensorInterface.unregisterSensor();
         super.dispose();
+    }
+
+    public static int getEndOfGameAge() {
+        return EndOfGameAge;
     }
 }
