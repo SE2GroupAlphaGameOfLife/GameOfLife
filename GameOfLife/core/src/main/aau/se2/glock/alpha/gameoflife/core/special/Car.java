@@ -5,6 +5,9 @@ public class Car {
     private int lp;
     private CarType type;
 
+    /**
+     * For serialization needed!
+     */
     public Car() {
     }
 
