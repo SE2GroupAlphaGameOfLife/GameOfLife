@@ -70,8 +70,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Texture skateBoardPurple;
     private Texture skateBoardGreen;
     private Texture skateBoardYellow;
-    private Button nextFieldButton1;
-    private Button nextFieldButton2;
     private Button closeBtn;
     private Button optionAButton;
     private Button optionBButton;
@@ -928,8 +926,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 showRoundSummary();
             }
         });
-
-
     }
 
     private void openHouseShop() {
@@ -1059,25 +1055,25 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private String recieveBuildingPayout() {
-        String result = "";
+        java.lang.StringBuilder result = new java.lang.StringBuilder();
         List<Building> buildingList = GameOfLife.self.getBuildingList();
         for (Building building : buildingList) {
             int payout = building.getPrice() / 10;
             GameOfLife.self.changeBalance(payout, 0);
-            result += "\nDu erhälst durch " + building.getType() + " " + payout + "€";
+            result.append("\nDu erhälst durch ").append(building.getType()).append(" ").append(payout).append("€");
         }
-        return result;
+        return result.toString();
     }
 
     private String recieveCarLP() {
-        String result = "";
+        java.lang.StringBuilder result = new java.lang.StringBuilder();
         List<Car> carList = GameOfLife.self.getCarList();
         for (Car car : carList) {
             int payout = car.getLp();
             GameOfLife.self.changeBalance(0, payout);
-            result += "\nDu erhälst durch " + car.getType() + " " + payout + "LP";
+            result.append("\nDu erhälst durch ").append(car.getType()).append(" ").append(payout).append("LP");
         }
-        return result;
+        return result.toString();
     }
 
 }
