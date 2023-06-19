@@ -62,7 +62,7 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionAGet3_5() {
-        SpecialEvent event = new SpecialEvent("get3.5", 3500, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get3.5tLP", 3500, 0, null, null, null);
         String result = event.eventOptionA();
         assertEquals("Du erhälst 3500LP!", result);
     }
@@ -167,7 +167,7 @@ public class SpecialEventTest {
 
     @Test
     public void testEventOptionBGet3_5() {
-        SpecialEvent event = new SpecialEvent("get3.5", 3500, 0, null, null, null);
+        SpecialEvent event = new SpecialEvent("get3.5tLP", 3500, 0, null, null, null);
         String result = event.eventOptionB();
         assertEquals("Du erhälst 3500LP!", result);
     }
