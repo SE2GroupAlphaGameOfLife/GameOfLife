@@ -137,6 +137,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
         if (GameOfLife.self.hasTurn() && GameOfLife.self.getMoveCount() != 0) {
             createMenuCheating();
+            spinTheWheelGroup.clearChildren();
         }
     }
 
@@ -186,7 +187,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         }
 
         if (GameOfLife.self.hasTurn()) {
-            createSpinTheWheelButton();
+            if (!cheatingButtonGroup.hasChildren()) {
+                createSpinTheWheelButton();
+                spinTheWheelGroup.addActor(wheelImageButton);
+                spinTheWheelGroup.addActor(arrowImageButton);
+            } else {
+                spinTheWheelGroup.clearChildren();
+            }
 
             if (isSpinning) {
                 //216 is starting point
@@ -194,10 +201,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                 arrowImage.setRotation(((float) spinAngle + arrowRotation));
             }
 
-            if (!spinTheWheelGroup.hasChildren()) {
-                spinTheWheelGroup.addActor(wheelImageButton);
-                spinTheWheelGroup.addActor(arrowImageButton);
-            }
 
             if (isSpinning) {
                 spinTheWheel(delta);
@@ -1055,23 +1058,24 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         return wage;
     }
 
-    private String recieveBuildingPayout(){
+    private String recieveBuildingPayout() {
         String result = "";
         List<Building> buildingList = GameOfLife.self.getBuildingList();
-        for (Building building: buildingList){
-            int payout = building.getPrice()/10;
-            GameOfLife.self.changeBalance(payout,0);
-            result+= "\nDu erhälst durch "+building.getType()+" "+payout+"€";
+        for (Building building : buildingList) {
+            int payout = building.getPrice() / 10;
+            GameOfLife.self.changeBalance(payout, 0);
+            result += "\nDu erhälst durch " + building.getType() + " " + payout + "€";
         }
         return result;
     }
-    private String recieveCarLP(){
+
+    private String recieveCarLP() {
         String result = "";
         List<Car> carList = GameOfLife.self.getCarList();
-        for (Car car: carList){
+        for (Car car : carList) {
             int payout = car.getLp();
-            GameOfLife.self.changeBalance(0,payout);
-            result+= "\nDu erhälst durch "+car.getType()+" "+payout+"LP";
+            GameOfLife.self.changeBalance(0, payout);
+            result += "\nDu erhälst durch " + car.getType() + " " + payout + "LP";
         }
         return result;
     }
