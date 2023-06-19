@@ -560,7 +560,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
     private void showCurrentJob() {
         //loads uiSkin from files
-        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        uiSkin = new Skin(Gdx.files.internal(GameOfLife.FILE_UISKIN_JONS));
 
         final Window window = new Window("", uiSkin);
         window.setSize(600, 450);
@@ -588,7 +588,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void chooseJobWindow() {
-        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        uiSkin = new Skin(Gdx.files.internal(GameOfLife.FILE_UISKIN_JONS));
         jobSelection = JobData.getInstance();
         jobSelection.fillJobList();
 
@@ -655,7 +655,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void reportPlayerWindow() {
-        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        uiSkin = new Skin(Gdx.files.internal(GameOfLife.FILE_UISKIN_JONS));
         jobSelection = JobData.getInstance();
         jobSelection.fillJobList();
 
@@ -696,7 +696,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void showWinningWindow() {
-        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        uiSkin = new Skin(Gdx.files.internal(GameOfLife.FILE_UISKIN_JONS));
 
         Window winningWindow = new Window("", uiSkin);
         winningWindow.setSize(600, 450);
@@ -854,7 +854,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     private void createSpecialEventPopup() {
-        uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        uiSkin = new Skin(Gdx.files.internal(GameOfLife.FILE_UISKIN_JONS));
 
         specialWindow = new Window("", uiSkin);
         specialWindow.setSize(600, 450);

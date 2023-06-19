@@ -48,6 +48,8 @@ public class GameOfLife extends Game {
      */
     public static final String FILE_SPECIAL_EVENT_JSON = "SpecialEvents.json";
     public static final String FILE_GAMEFIELD_JSON = "Gameboard.json";
+    public static final String FILE_UISKIN_JONS = "uiskin.json";
+
     /**
      *
      */
