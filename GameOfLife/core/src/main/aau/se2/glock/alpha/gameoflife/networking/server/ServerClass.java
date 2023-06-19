@@ -241,6 +241,9 @@ public class ServerClass implements Listener {
                 case 3:
                     player.setColor(PlayerColor.YELLOW);
                     break;
+                default:
+                    player.setColor(PlayerColor.BLUE);
+                    break;
             }
             this.players.addPlayer(player, connection.getID());
         }
