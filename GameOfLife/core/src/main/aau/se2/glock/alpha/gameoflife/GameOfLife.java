@@ -110,7 +110,7 @@ public class GameOfLife extends Game {
      */
     private static GameOfLife INSTANCE;
 
-    private static int EndOfGameAge = 20;
+    private static int EndOfGameAge = 28;
 
     /**
      * @return
