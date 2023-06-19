@@ -1,7 +1,5 @@
 package aau.se2.glock.alpha.gameoflife.core;
 
-import com.badlogic.gdx.graphics.Color;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;

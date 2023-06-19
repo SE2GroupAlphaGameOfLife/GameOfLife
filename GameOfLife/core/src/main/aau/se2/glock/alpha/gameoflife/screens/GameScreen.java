@@ -57,6 +57,7 @@ import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
  */
 public class GameScreen extends BasicScreen implements ProximityListener {
 
+    private final float maxSpinDuration = 2f;
     private ClickListener btnQuitListener;
     private TextButton optionCButton;
     private TextButton btnConfirm;
@@ -96,7 +97,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Dialog eventDialog;
     private boolean isSpinning = false;
     private float spinSpeed = 360f;
-    private final float maxSpinDuration = 2f;
     private float spinDuration = 0f;
     private float spinAngle = 0f;
     private Image arrowImage;
@@ -160,17 +160,16 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             gameCamera.project(v3);
             ImageButton playerButton;
             PlayerColor playerColor = player.getColor();
-            if(playerColor==BLUE)
-                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardBlue));
-            else if(playerColor==PURPLE)
-                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardPurple));
-            else if(playerColor==GREEN)
-                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardGreen));
-            else if(playerColor==YELLOW)
-                    playerButton = new ImageButton(new TextureRegionDrawable(skateBoardYellow));
+            if (playerColor == BLUE)
+                playerButton = new ImageButton(new TextureRegionDrawable(skateBoardBlue));
+            else if (playerColor == PURPLE)
+                playerButton = new ImageButton(new TextureRegionDrawable(skateBoardPurple));
+            else if (playerColor == GREEN)
+                playerButton = new ImageButton(new TextureRegionDrawable(skateBoardGreen));
+            else if (playerColor == YELLOW)
+                playerButton = new ImageButton(new TextureRegionDrawable(skateBoardYellow));
             else
                 playerButton = new ImageButton(new TextureRegionDrawable(skateboard));
-
 
 
             ClickListener playerClickListener = new ClickListener() {
@@ -642,9 +641,10 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         });
         stage.addActor(window);
     }
-    private void initJobBtnListenerContent(Job[] jobs, int jobsIndex, Window window){
+
+    private void initJobBtnListenerContent(Job[] jobs, int jobsIndex, Window window) {
         GameOfLife.self.setCurrentJob(jobs[jobsIndex]);
-        Gdx.app.log("JobSelection", "Job "+jobsIndex+1+" chosen");
+        Gdx.app.log("JobSelection", "Job " + jobsIndex + 1 + " chosen");
         jobChosen = true;
         window.remove();
         if (GameOfLife.self.getAge() > 18) {
@@ -714,7 +714,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         int place = 1;
         for (Player player : GameOfLife.players) {
             String username = player.getUsername();
-            Label usernameLabel = new Label(place + ". " +username, labelStyle);
+            Label usernameLabel = new Label(place + ". " + username, labelStyle);
             Label lifepointsLabel = new Label(player.getLifepoints() + "", labelStyle);
 
             winningWindow.add(usernameLabel).padTop(10);
@@ -801,6 +801,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     }
 
     /**
+     *
      */
     private void fillPlayerHUD(Player p) {
         lbUsernameAge.setText(p.getUsername() + ", " + p.getAge());
