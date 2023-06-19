@@ -1,6 +1,7 @@
 package aau.se2.glock.alpha.gameoflife;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.special.Car;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
 import aau.se2.glock.alpha.gameoflife.networking.client.ClientClass;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingMessage;
@@ -105,6 +107,8 @@ public class GameOfLife extends Game {
      */
     private static GameOfLife INSTANCE;
 
+    private static int EndOfGameAge = 28;
+
     /**
      * @return
      */
@@ -153,6 +157,20 @@ public class GameOfLife extends Game {
         return proximitySensorInterface;
     }
 
+    public static boolean checkIfGameOver() {
+        for (Player player : GameOfLife.players) {
+            //End if no player has moves to make
+            //and all player are the same age
+            //and if host has turn
+            if(player.getMoveCount() > 0 || player.getAge() != EndOfGameAge || (player.isHost() && !player.hasTurn())){
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
     /**
      * FOR TESTING ONLY!
      *
@@ -199,6 +217,7 @@ public class GameOfLife extends Game {
         kryo.register(TcpMessage.class);
         kryo.register(ReportPlayerMessage.class);
         kryo.register(CheatingMessage.class);
+        kryo.register(Car.class);
     }
 
     /**
@@ -218,5 +237,9 @@ public class GameOfLife extends Game {
     public void dispose() {
         proximitySensorInterface.unregisterSensor();
         super.dispose();
+    }
+
+    public static int getEndOfGameAge() {
+        return EndOfGameAge;
     }
 }
