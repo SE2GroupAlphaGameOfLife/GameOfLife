@@ -244,9 +244,11 @@ public class ServerClass implements Listener {
             }
             this.players.addPlayer(player, connection.getID());
         }
-        if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()) {
+        if (GameOfLife.gameStarted && player.isOnline()) {
             this.players.addPlayer(player, connection.getID());
-            this.players.setPlayersTurn(player.getId() + 1);
+            if(player.hasTurn()) {
+                this.players.setPlayersTurn(player.getId() + 1);
+            }
         }
         this.sendPlayersObjectToAll();
     }
