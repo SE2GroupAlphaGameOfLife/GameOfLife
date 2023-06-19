@@ -9,7 +9,7 @@ public class SpecialEvent implements Event {
     private static final String LOTTERY = "lottery";
     private static final String CASINO = "casino";
     private static final String GET_3T_LP = "get3tLP";
-    private static final String GET_3_5 = "get3.5";
+    private static final String GET_3_5 = "get3.5tLP";
     private static final String PAY_10T_EUR = "pay10tEUR";
     private static final String GET_200T_EUR = "get200tEUR";
     private static final String DIPLOMA = "diploma";
