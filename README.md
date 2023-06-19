@@ -27,7 +27,6 @@ Our "Das Spiel des Lebens" Android Edition boasts the following features:
 
 - **Intuitive UI:** User-friendly interface that maintains the charm of the original board game.
 - **Multiplayer Support:** Enjoy the game with your friends and family with our multiplayer support.
-- **AI Mode:** Play against AI opponents whenever you want.
 - **Customizable Settings:** Personalize your gaming experience with various settings.
 - **Offline Play:** No internet? No problem. You can enjoy the game offline too.
 
