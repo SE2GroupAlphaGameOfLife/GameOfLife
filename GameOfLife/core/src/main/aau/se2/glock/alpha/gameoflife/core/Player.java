@@ -11,6 +11,7 @@ import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
 import aau.se2.glock.alpha.gameoflife.core.logic.Event;
 import aau.se2.glock.alpha.gameoflife.core.special.Building;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 
 /**
  *
@@ -42,7 +43,7 @@ public class Player {
     /**
      * Color of the player displayed on the board.
      */
-    private Color color;
+    private PlayerColor color;
     /**
      * Tells if the player is the game's host.
      */
@@ -76,7 +77,7 @@ public class Player {
         this.age = 18;
         this.money = 10000;
         this.lifepoints = 0;
-        this.color = new Color(Color.rgb888(255, 0, 0));
+        this.color = PlayerColor.BLUE;
         this.isHost = isHost;
         this.isJoning = true;
         this.hasTurn = isHost;
@@ -156,14 +157,14 @@ public class Player {
     /**
      * @return
      */
-    public Color getColor() {
+    public PlayerColor getColor() {
         return color;
     }
 
     /**
      * @param color
      */
-    public void setColor(Color color) {
+    public void setColor(PlayerColor color) {
         this.color = color;
     }
 
@@ -308,6 +309,7 @@ public class Player {
     public int rollTheDice() {
         random = new SecureRandom();
         int randomNumber = random.nextInt(10) + 1; // Generates a random integer between 0 and 9, then adds 1
+        randomNumber = 1;
         this.moveCount = randomNumber;
 
         return randomNumber;

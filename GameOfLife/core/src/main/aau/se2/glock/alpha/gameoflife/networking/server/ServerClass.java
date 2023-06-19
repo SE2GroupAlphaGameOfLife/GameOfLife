@@ -17,6 +17,7 @@ import java.util.List;
 import aau.se2.glock.alpha.gameoflife.GameOfLife;
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.logic.PlayerCheated;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.CheatingVisitor;
 import aau.se2.glock.alpha.gameoflife.networking.packages.DiscoveryResponsePacket;
 import aau.se2.glock.alpha.gameoflife.networking.packages.JoinedPlayers;
@@ -229,6 +230,18 @@ public class ServerClass implements Listener {
         if (!GameOfLife.gameStarted && player.isJoning()) {
             player.setJoning(false);
             player.setId(this.players.getPlayerCount() + 1);
+            player.setPosition(this.players.getPlayerCount()*3);
+            switch (this.players.getPlayerCount()){
+                case 1:
+                    player.setColor(PlayerColor.PURPLE);
+                    break;
+                case 2:
+                    player.setColor(PlayerColor.GREEN);
+                    break;
+                case 3:
+                    player.setColor(PlayerColor.YELLOW);
+                    break;
+            }
             this.players.addPlayer(player, connection.getID());
         }
         if (GameOfLife.gameStarted && player.hasTurn() && player.isOnline()) {

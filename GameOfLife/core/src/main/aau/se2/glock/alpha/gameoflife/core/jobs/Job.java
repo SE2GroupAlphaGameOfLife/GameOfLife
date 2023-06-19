@@ -11,7 +11,6 @@ public class Job {
      *
      */
     private String Bezeichnung;
-
     /**
      *
      */

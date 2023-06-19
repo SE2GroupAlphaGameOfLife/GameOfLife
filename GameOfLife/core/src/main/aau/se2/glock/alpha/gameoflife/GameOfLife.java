@@ -12,6 +12,7 @@ import java.util.List;
 
 import aau.se2.glock.alpha.gameoflife.core.Player;
 import aau.se2.glock.alpha.gameoflife.core.jobs.Job;
+import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.core.special.Building;
 import aau.se2.glock.alpha.gameoflife.core.special.Car;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximitySensorInterface;
@@ -218,6 +219,7 @@ public class GameOfLife extends Game {
         kryo.register(TcpMessage.class);
         kryo.register(ReportPlayerMessage.class);
         kryo.register(CheatingMessage.class);
+        kryo.register(PlayerColor.class);
         kryo.register(Car.class);
     }
 
