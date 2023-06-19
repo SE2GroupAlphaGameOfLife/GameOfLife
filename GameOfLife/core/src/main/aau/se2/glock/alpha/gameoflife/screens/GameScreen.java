@@ -1043,6 +1043,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     String generateSummaryString(int wage) {
         String summary = "Rundenende:\n";
         summary += "Du erhälst dein Gehalt: " + wage + " €";
+        summary += recieveBuildingPayout();
+        summary += recieveCarLP();
         return summary;
     }
 
@@ -1051,6 +1053,27 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         int wage = job.getGehaltsListe().get(job.getGehaltsStufe());
         GameOfLife.self.changeBalance(wage, 0);
         return wage;
+    }
+
+    private String recieveBuildingPayout(){
+        String result = "";
+        List<Building> buildingList = GameOfLife.self.getBuildingList();
+        for (Building building: buildingList){
+            int payout = building.getPrice()/10;
+            GameOfLife.self.changeBalance(payout,0);
+            result+= "\nDu erhälst durch "+building.getType()+" "+payout+"€";
+        }
+        return result;
+    }
+    private String recieveCarLP(){
+        String result = "";
+        List<Car> carList = GameOfLife.self.getCarList();
+        for (Car car: carList){
+            int payout = car.getLp();
+            GameOfLife.self.changeBalance(0,payout);
+            result+= "\nDu erhälst durch "+car.getType()+" "+payout+"LP";
+        }
+        return result;
     }
 
 }
