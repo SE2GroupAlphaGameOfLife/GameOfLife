@@ -56,6 +56,8 @@ public class Player {
     private boolean isJoning, isOnline, diploma, doctor;
     private List<Car> carList;
     private List<Building> buildingList;
+    private int children;
+    private boolean married;
 
 
     /**
@@ -87,6 +89,8 @@ public class Player {
         this.doctor = false;
         this.buildingList = new ArrayList<>();
         this.carList = new ArrayList<>();
+        this.children = 0;
+        this.married = false;
     }
 
     public void cheat(int amount) {
@@ -297,6 +301,22 @@ public class Player {
      */
     public void setCurrentJob(Job currentJob) {
         this.currentJob = currentJob;
+    }
+
+    public int getChildren() {
+        return children;
+    }
+
+    public void setChildren(int children) {
+        this.children = children;
+    }
+
+    public boolean isMarried() {
+        return married;
+    }
+
+    public void setMarried(boolean married) {
+        this.married = married;
     }
 
     /**

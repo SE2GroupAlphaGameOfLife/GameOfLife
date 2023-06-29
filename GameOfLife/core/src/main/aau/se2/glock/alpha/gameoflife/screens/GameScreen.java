@@ -826,7 +826,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      */
     private void showEventPopUp(String eventText) {
         createEventPopup();
-        eventDialog.text(eventText + "\n" + generateSummaryString(recieveWage()), labelStyle);
+        eventDialog.text(eventText + "\n" + generateSummaryString(recieveWage(),recieveLifePoints()), labelStyle);
         eventDialog.show(stage);
     }
 
@@ -1032,16 +1032,18 @@ public class GameScreen extends BasicScreen implements ProximityListener {
 
     private void showRoundSummary() {
         int wage = recieveWage();
-        String summary = generateSummaryString(wage);
+        int lp = recieveLifePoints();
+        String summary = generateSummaryString(wage,lp);
         createEventPopup();
         eventDialog.text(summary, labelStyle);
         eventDialog.show(stage);
         GameOfLife.client.sendPlayerTCP(GameOfLife.self);
     }
 
-    String generateSummaryString(int wage) {
+    String generateSummaryString(int wage, int lifepoints) {
         String summary = "Rundenende:\n";
         summary += "Du erhälst dein Gehalt: " + wage + " €";
+        summary += "Du erhälst LP: " + lifepoints +" LP";
         summary += recieveBuildingPayout();
         summary += recieveCarLP();
         return summary;
@@ -1050,8 +1052,24 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private int recieveWage() {
         Job job = GameOfLife.self.getCurrentJob();
         int wage = job.getGehaltsListe().get(job.getGehaltsStufe());
+        if(GameOfLife.self.getChildren()>0){
+            double reducedIncome = 1F - (0.1*GameOfLife.self.getChildren());
+            wage = (int)(wage * reducedIncome);
+        }
         GameOfLife.self.changeBalance(wage, 0);
+
         return wage;
+    }
+
+    private int recieveLifePoints(){
+        //350LP per Child
+        int lifePoints = 350 * GameOfLife.self.getChildren();
+        if(GameOfLife.self.isMarried()){
+            lifePoints+= 1500;
+            System.out.println(GameOfLife.self.isMarried());
+        }
+        GameOfLife.self.changeBalance(0,lifePoints);
+        return lifePoints;
     }
 
     private String recieveBuildingPayout() {
@@ -1070,6 +1088,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         List<Car> carList = GameOfLife.self.getCarList();
         for (Car car : carList) {
             int payout = car.getLp();
+            System.out.println(car.getLp());
             GameOfLife.self.changeBalance(0, payout);
             result.append("\nDu erhälst durch ").append(car.getType()).append(" ").append(payout).append("LP");
         }

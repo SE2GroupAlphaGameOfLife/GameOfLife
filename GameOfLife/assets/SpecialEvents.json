@@ -146,8 +146,8 @@
     "type": "stopwedding",
     "lp": 0,
     "cash": 0,
-    "optionA": "Hoffentlich is bald die Scheidung",
-    "optionB": "Bis der Tod uns scheidet",
+    "optionA": "Bis der Tod uns scheidet",
+    "optionB": "Nein, sicher nicht",
     "message": "HALT! Hochzeit!"
   },
   {

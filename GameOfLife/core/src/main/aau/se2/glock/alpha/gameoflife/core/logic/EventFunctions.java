@@ -1,5 +1,7 @@
 package aau.se2.glock.alpha.gameoflife.core.logic;
 
+import com.badlogic.gdx.Game;
+
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -88,12 +90,29 @@ public class EventFunctions {
         return "neue FIRMA?";
     }
 
-    public static String evtWedding() {
-        return "Noch nich impementiert";
+    public static String evWedding(){
+        GameOfLife.self.setMarried(true);
+        //2000, da direkt nach der Hochzeit die Runde berechnet wird und somit 1500 + 2000 = 3500
+        GameOfLife.self.changeBalance(0,2000);
+        return "Willst du?";
     }
 
-    public static String evtChild() {
-        return "Child";
+    public static String evChild(){
+        GameOfLife.self.setChildren(GameOfLife.self.getChildren()+1);
+        //Pro Kind 350LP
+        //GameOfLife.self.changeBalance(0,350);
+        if(GameOfLife.self.getChildren()<=1){
+            return "Du hast ein Kind bekommen!";
+        }else{
+            return "Du hast ein weiteres Kind bekommen!";
+        }
+    }
+
+    public static String evTwins(){
+        GameOfLife.self.setChildren(GameOfLife.self.getChildren()+2);
+        //Pro Kind 350LP
+        //GameOfLife.self.changeBalance(0,700);
+        return "Du hast Zwillinge bekommen!";
     }
 
     public static String evCareer() {

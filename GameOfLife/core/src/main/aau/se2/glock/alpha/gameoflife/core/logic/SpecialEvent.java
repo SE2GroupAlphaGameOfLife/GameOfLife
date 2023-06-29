@@ -20,6 +20,10 @@ public class SpecialEvent implements Event {
     private static final String SHARES_100T_EUR = "shares100tEUR";
     private static final String EVENT_NOT_IMPLEMENTED = "Event not implemented";
     private static final String CHANGE_CAREER = "changecareer";
+    private static final String DAUGHTER = "daughter";
+    private static final String SON = "son";
+    private static final String TWINS = "twins";
+    private static final String STOPWEDDING = "stopwedding";
 
     private String message;
     private String type;
@@ -76,6 +80,13 @@ public class SpecialEvent implements Event {
                 return EventFunctions.evPromotion(2);
             case CHANGE_CAREER:
                 return EventFunctions.evCareer();
+            case DAUGHTER:
+            case SON:
+                return EventFunctions.evChild();
+            case TWINS:
+                return EventFunctions.evTwins();
+            case STOPWEDDING:
+                return EventFunctions.evWedding();
             default:
                 return EVENT_NOT_IMPLEMENTED;
         }
@@ -113,6 +124,13 @@ public class SpecialEvent implements Event {
                 return EventFunctions.evPromotion(2);
             case CHANGE_CAREER:
                 return "Du behälst deinen derzeitigen Job bei";
+            case DAUGHTER:
+            case SON:
+                return "Oh nein";
+            case TWINS:
+                return "Achtung Unfall";
+            case STOPWEDDING:
+                return "Du bleibst Single";
             default:
                 return EVENT_NOT_IMPLEMENTED;
         }
