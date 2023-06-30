@@ -271,7 +271,6 @@ public class ServerClass implements Listener {
         message.accept(cheatingVisitor);
     }
 
-
     /**
      * @return
      */

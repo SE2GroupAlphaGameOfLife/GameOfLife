@@ -588,7 +588,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(window);
     }
 
-    private void chooseJobWindow() {
+    public void chooseJobWindow() {
         uiSkin = new Skin(Gdx.files.internal(GameOfLife.FILE_UISKIN_JONS));
         jobSelection = JobData.getInstance();
         jobSelection.fillJobList();
@@ -629,7 +629,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         job1Btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
                 initJobBtnListenerContent(jobs, 0, window);
             }
         });

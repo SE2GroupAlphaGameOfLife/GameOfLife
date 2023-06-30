@@ -103,6 +103,7 @@ public class GameOfLife extends Game {
      *
      */
     public static List<ServerInformation> availableServers = new ArrayList<>();
+    public static boolean selectingJob = true;
     /**
      *
      */
