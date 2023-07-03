@@ -90,6 +90,10 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Label lbLifepoints;
     private Label lbPlayersOverview;
     private Label optionTextC;
+    private Label actionLog1;
+    private Label actionLog2;
+    private Label actionLog3;
+    private Label actionLog4;
     private List<Label> lbJoinedPlayers;
     private Label.LabelStyle labelStyle;
     private Dialog eventDialog;
@@ -102,6 +106,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private Window specialWindow;
     private SpecialEvent currentSpecialEvent;
     private boolean jobChosen = false;
+    private int[]startNumbers;
 
     public GameScreen() {
         jobSelection = JobData.getInstance();
@@ -540,6 +545,8 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         btnJob.addListener(btnJobListener);
     }
 
+
+
     /**
      *
      */
@@ -734,6 +741,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
      *
      */
     private void createPlayerHUD() {
+        startNumbers = new int[]{0,3,6,9};
         lbUsernameAge = new Label("Username, Age", labelStyle);
         lbMoney = new Label("Money", labelStyle);
         lbLifepoints = new Label("Lifepoints", labelStyle);
@@ -748,11 +756,26 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         lbLifepoints.setPosition(10, lbMoney.getY() - lbLifepoints.getHeight() - 10);
 
         lbPlayersOverview.setPosition(10, lbLifepoints.getY() - lbPlayersOverview.getHeight() - 200);
+        actionLog1 = new Label("", labelStyle);
+        actionLog2 = new Label("", labelStyle);
+        actionLog3 = new Label("", labelStyle);
+        actionLog4 = new Label("", labelStyle);
+
+        actionLog1.setPosition(Gdx.graphics.getWidth() - (350),Gdx.graphics.getHeight() - 60);
+        actionLog2.setPosition(actionLog1.getX(),actionLog1.getY() - actionLog2.getHeight() - 10);
+        actionLog3.setPosition(actionLog2.getX(),actionLog2.getY() - actionLog3.getHeight() - 10);
+        actionLog4.setPosition(actionLog3.getX(),actionLog3.getY() - actionLog4.getHeight() - 10);
+
 
         stage.addActor(lbUsernameAge);
         stage.addActor(lbMoney);
         stage.addActor(lbLifepoints);
         stage.addActor(lbPlayersOverview);
+        stage.addActor(actionLog1);
+        stage.addActor(actionLog2);
+        stage.addActor(actionLog3);
+        stage.addActor(actionLog4);
+
     }
 
     private void fillJoinedPlayers() {
@@ -774,6 +797,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             } else if (!p.isOnline()) {
                 b.append(" (offline)");
             }
+            System.out.println("Playerpos"+ p.getPosition() + "- " + p.getUsername());
             Label l = new Label(b.toString(), labelStyle);
             l.setPosition(20, lbPlayersOverview.getY() - i * l.getHeight() - 10);
             stage.addActor(l);
@@ -781,6 +805,25 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             b.clear();
         }
     }
+
+    //ActionLog for all Players
+    private void playerLog(){
+        ArrayList<Label> logs = new ArrayList<>();
+        logs.add(actionLog1);
+        logs.add(actionLog2);
+        logs.add(actionLog3);
+        logs.add(actionLog4);
+
+        for (int i = 0; i < GameOfLife.players.size(); i++){
+            Player p = GameOfLife.players.get(i);
+            int oldNumber = startNumbers[i];
+            if(oldNumber != p.getPosition()){
+                logs.get(i).setText(p.getUsername()+" -> "+ oldNumber +" -> "+p.getPosition());
+                startNumbers[i] = p.getPosition();
+            }
+        }
+    }
+
 
     /**
      *
@@ -795,6 +838,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
                     showWinningWindow();
                 }
                 fillJoinedPlayers();
+                playerLog();
                 fillPlayerHUD(GameOfLife.self);
             }
         }, 0, time);
