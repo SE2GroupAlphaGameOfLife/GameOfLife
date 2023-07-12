@@ -7,9 +7,13 @@ import static aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor.YELLOW;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -51,6 +55,7 @@ import aau.se2.glock.alpha.gameoflife.core.utilities.PlayerColor;
 import aau.se2.glock.alpha.gameoflife.core.utilities.ProximityListener;
 import aau.se2.glock.alpha.gameoflife.networking.packages.ServerInformation;
 import aau.se2.glock.alpha.gameoflife.networking.server.ServerClass;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 /**
  *
@@ -101,12 +106,16 @@ public class GameScreen extends BasicScreen implements ProximityListener {
     private float spinSpeed = 360f;
     private float spinDuration = 0f;
     private float spinAngle = 0f;
+    private ShapeRenderer shapeRenderer;
     private Image arrowImage;
     private JobData jobSelection;
     private Window specialWindow;
     private SpecialEvent currentSpecialEvent;
     private boolean jobChosen = false;
     private int[]startNumbers;
+    private ShapeDrawer drawer;
+    private Vector2 oldPosition = new Vector2(0,0);
+    private Vector2 newPosition = new Vector2(0,0);
 
     public GameScreen() {
         jobSelection = JobData.getInstance();
@@ -212,9 +221,17 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             spinTheWheelGroup.clearChildren();
         }
 
+        movementDrawing();
+
         stage.getBatch().end();
         stage.act(Gdx.graphics.getDeltaTime()); // Update the stage
         stage.draw(); // Draw the stage
+    }
+
+    private void movementDrawing(){
+        drawer.setDefaultLineWidth(2f);
+        drawer.setColor(1,0,0,1);
+        drawer.line(oldPosition.x,oldPosition.y,newPosition.x,newPosition.y);
     }
 
     /**
@@ -249,6 +266,7 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         playersGroup = new Group();
         reportWindowGroup = new Group();
         winningWindowGroup = new Group();
+        shapeRenderer = new ShapeRenderer();
         stage.addActor(nextFieldButtonGroup);
         stage.addActor(cheatingButtonGroup);
         stage.addActor(spinTheWheelGroup);
@@ -766,7 +784,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         actionLog3.setPosition(actionLog2.getX(),actionLog2.getY() - actionLog3.getHeight() - 10);
         actionLog4.setPosition(actionLog3.getX(),actionLog3.getY() - actionLog4.getHeight() - 10);
 
-
         stage.addActor(lbUsernameAge);
         stage.addActor(lbMoney);
         stage.addActor(lbLifepoints);
@@ -775,6 +792,13 @@ public class GameScreen extends BasicScreen implements ProximityListener {
         stage.addActor(actionLog2);
         stage.addActor(actionLog3);
         stage.addActor(actionLog4);
+
+        Pixmap pixmap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.drawPixel(0,0);
+        Texture texture = new Texture(pixmap);
+        pixmap.dispose();
+        drawer = new ShapeDrawer(stage.getBatch(),new TextureRegion(texture,0,0,1,1));
 
     }
 
@@ -797,7 +821,6 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             } else if (!p.isOnline()) {
                 b.append(" (offline)");
             }
-            System.out.println("Playerpos"+ p.getPosition() + "- " + p.getUsername());
             Label l = new Label(b.toString(), labelStyle);
             l.setPosition(20, lbPlayersOverview.getY() - i * l.getHeight() - 10);
             stage.addActor(l);
@@ -820,9 +843,16 @@ public class GameScreen extends BasicScreen implements ProximityListener {
             if(oldNumber != p.getPosition()){
                 logs.get(i).setText(p.getUsername()+" -> "+ oldNumber +" -> "+p.getPosition());
                 startNumbers[i] = p.getPosition();
+
+                oldPosition = new Vector2(Board.getInstance().getGameFields().get(oldNumber).getPosition().x,Board.getInstance().getGameFields().get(oldNumber).getPosition().y);
+                newPosition = new Vector2(Board.getInstance().getGameFields().get(p.getPosition()).getPosition().x,Board.getInstance().getGameFields().get(p.getPosition()).getPosition().y);
+
             }
         }
+
+
     }
+
 
 
     /**
